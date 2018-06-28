@@ -9,6 +9,10 @@ checks:
   method-lines:
     config:
       threshold: 250
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
 plugins:
   eslint:
     enabled: true

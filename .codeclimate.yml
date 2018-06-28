@@ -1,0 +1,23 @@
+---
+engines:
+  duplication:
+    enabled: false
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+checks:
+  file-lines:
+    config:
+      threshold: 1000
+  method-complexity:
+    enabled: false
+  method-lines:
+    config:
+      threshold: 250
+ratings:
+  paths:
+  - app/**
+  - "**.js"
+exclude_paths:
+- config/

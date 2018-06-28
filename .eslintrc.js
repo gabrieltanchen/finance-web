@@ -37,6 +37,7 @@ module.exports = {
     'quote-props': ['off'],
     'require-jsdoc': ['off'],
     'space-before-function-paren': ['error', 'never'],
+    'strict': ['off'],
     'valid-jsdoc': ['off']
   },
   overrides: [

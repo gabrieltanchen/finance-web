@@ -18,6 +18,7 @@ plugins:
         - .js
   sass-lint:
     enabled: true
+    channel: "beta"
 ratings:
   paths:
   - app/**

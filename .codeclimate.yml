@@ -18,6 +18,7 @@ plugins:
     enabled: true
     channel: "eslint-4"
     config:
+      config: .eslintrc.js
       extensions:
         - .js
   sass-lint:

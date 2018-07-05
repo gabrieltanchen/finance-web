@@ -17,6 +17,9 @@ module.exports = {
     mocha: true,
     node: true
   },
+  globals: {
+    'Foundation': true,
+  },
   rules: {
     'array-callback-return': ['off'],
     'arrow-body-style': ['error', 'always'],

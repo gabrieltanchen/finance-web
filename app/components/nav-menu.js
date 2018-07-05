@@ -1,18 +1,10 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, set } from '@ember/object';
 import jQuery from 'jquery';
 
 export default Component.extend({
   responsiveMenu: null,
   responsiveToggle: null,
-  didInsertElement() {
-    const responsiveMenu = new Foundation.ResponsiveMenu(jQuery('.top-bar'));
-    const responsiveToggle = new Foundation.ResponsiveToggle(jQuery('.title-bar'), {
-      hideFor: 'large',
-    });
-    this.set('responsiveMenu', responsiveMenu);
-    this.set('responsiveToggle', responsiveToggle);
-  },
 
   menuItems: computed(function() {
     return [{
@@ -21,4 +13,13 @@ export default Component.extend({
       label: 'Login',
     }];
   }),
+
+  didInsertElement() {
+    const responsiveMenu = new Foundation.ResponsiveMenu(jQuery('.top-bar'));
+    const responsiveToggle = new Foundation.ResponsiveToggle(jQuery('.title-bar'), {
+      hideFor: 'large',
+    });
+    set(this, 'responsiveMenu', responsiveMenu);
+    set(this, 'responsiveToggle', responsiveToggle);
+  },
 });

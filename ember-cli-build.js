@@ -9,6 +9,7 @@ module.exports = function(defaults) {
 
   app.import('node_modules/foundation-sites/dist/css/foundation.css');
 
+  app.import('vendor/jquery-3.3.1.min.js');
   app.import('node_modules/foundation-sites/dist/js/foundation.js');
 
   return app.toTree();

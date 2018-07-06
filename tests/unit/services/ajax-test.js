@@ -2,9 +2,10 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { setupTest } from 'ember-mocha';
 
-describe('Unit | Service | session', function() {
-  setupTest('service:session', {
-    needs: ['service:ajax'],
+describe('Unit | Service | ajax', function() {
+  setupTest('service:ajax', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
   });
 
   // Replace this with your real tests.

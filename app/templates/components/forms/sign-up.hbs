@@ -1,0 +1,40 @@
+{{#if errors}}
+  <div class="grid-x">
+    <div class="cell">
+      {{#each errors as |error|}}
+        {{error}}
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
+<div class="grid-x">
+  <div class="cell">
+    <form>
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            {{forms/validated-input type="email" changeset=user propertyName="email" label="Email"}}
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-6">
+            {{forms/validated-input type="text" changeset=user propertyName="firstName" label="First Name"}}
+          </div>
+          <div class="cell medium-6">
+            {{forms/validated-input type="text" changeset=user propertyName="lastName" label="Last Name"}}
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            {{forms/validated-input type="password" changeset=user propertyName="password" label="Password"}}
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            <input type="submit" disabled={{disableSubmit}} class="button" value="Sign Up" {{action "submit"}}>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -16,8 +16,10 @@ export default Component.extend({
     }
     return [{
       label: 'Sign Up',
+      linkTo: 'sign-up',
     }, {
       label: 'Login',
+      linkTo: 'login',
     }];
   }),
 

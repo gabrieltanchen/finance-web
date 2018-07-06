@@ -27,9 +27,9 @@
         <ul class="vertical menu align-right">
           {{#each menuItems as |menuItem|}}
             <li>
-              <a href="#">
+              {{#link-to menuItem.linkTo}}
                 {{menuItem.label}}
-              </a>
+              {{/link-to}}
             </li>
           {{/each}}
         </ul>

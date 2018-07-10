@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { computed } from '@ember/object';
+import ENV from '../config/environment';
 import Service, { inject as service } from '@ember/service';
 
 export default Service.extend({
@@ -9,6 +10,28 @@ export default Service.extend({
   loggedIn: computed('userId', function() {
     return !!this.get('userId');
   }),
+
+  async isLoggedIn() {
+    const token = this.get('cookie').getCookie('token');
+    if (this.get('userId')) {
+      return true;
+    }
+    if (!token) {
+      return false;
+    }
+
+    const res = await this.get('ajax').raw(`${ENV.apiURL}/users/login/token`, {
+      data: {
+        data: {
+          attributes: {
+            token,
+          },
+        },
+      },
+      method: 'POST',
+    });
+    console.log(res);
+  },
 
   logout() {
     this.set('userId', null);

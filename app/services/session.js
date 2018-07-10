@@ -12,7 +12,7 @@ export default Service.extend({
 
   logout() {
     this.set('userId', null);
-    this.get('cookie').removeToken('token');
+    this.get('cookie').removeCookie('token');
     $.ajaxSetup({
       headers: {
         'Authorization': '',

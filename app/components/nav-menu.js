@@ -8,9 +8,17 @@ export default Component.extend({
   responsiveToggle: null,
   session: service(),
 
+  actions: {
+    logout() {
+      this.get('logout')();
+    },
+  },
+
   menuItems: computed('session.loggedIn', function() {
     if (this.get('session.loggedIn')) {
       return [{
+        action: 'logout',
+        isAction: true,
         label: 'Logout',
       }];
     }

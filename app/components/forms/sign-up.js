@@ -1,16 +1,16 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 
 export default Component.extend({
   errors: null,
 
   actions: {
     async submit() {
-      this.set('errors', null);
-      const user = this.get('user');
+      set(this, 'errors', null);
+      const user = get(this, 'user');
       try {
         await user.save();
-        this.get('userCreated')(user.get('id'), user.get('token'));
+        get(this, 'userCreated')(user.get('id'), user.get('token'));
       } catch (err) {
         let errors = ['Sign up failed.'];
         if (err && err.errors) {
@@ -18,7 +18,7 @@ export default Component.extend({
             return error.detail;
           });
         }
-        this.set('errors', errors);
+        set(this, 'errors', errors);
       }
     },
   },
@@ -26,8 +26,8 @@ export default Component.extend({
   disableSubmit: computed(
     'user.{isDirty,isInvalid}',
     function() {
-      return !this.get('user.isDirty')
-        || this.get('user.isInvalid');
+      return !get(this, 'user.isDirty')
+        || get(this, 'user.isInvalid');
     },
   ),
 });

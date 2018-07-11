@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, set } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import $ from 'jquery';
 
@@ -10,12 +10,12 @@ export default Component.extend({
 
   actions: {
     logout() {
-      this.get('logout')();
+      get(this, 'logout')();
     },
   },
 
   menuItems: computed('session.loggedIn', function() {
-    if (this.get('session.loggedIn')) {
+    if (get(this, 'session.loggedIn')) {
       return [{
         action: 'logout',
         isAction: true,

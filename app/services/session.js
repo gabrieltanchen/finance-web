@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { computed } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import ENV from '../config/environment';
 import Service, { inject as service } from '@ember/service';
 
@@ -8,19 +8,19 @@ export default Service.extend({
   userId: null,
 
   loggedIn: computed('userId', function() {
-    return !!this.get('userId');
+    return !!get(this, 'userId');
   }),
 
   async isLoggedIn() {
-    const token = this.get('cookie').getCookie('token');
-    if (this.get('userId')) {
+    const token = get(this, 'cookie').getCookie('token');
+    if (get(this, 'userId')) {
       return true;
     }
     if (!token) {
       return false;
     }
 
-    const res = await this.get('ajax').raw(`${ENV.apiURL}/users/login/token`, {
+    const res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login/token`, {
       data: {
         data: {
           attributes: {
@@ -43,8 +43,8 @@ export default Service.extend({
   },
 
   logout() {
-    this.set('userId', null);
-    this.get('cookie').removeCookie('token');
+    set(this, 'userId', null);
+    get(this, 'cookie').removeCookie('token');
     $.ajaxSetup({
       headers: {
         'Authorization': '',
@@ -53,8 +53,8 @@ export default Service.extend({
   },
 
   setToken(userId, token) {
-    this.set('userId', userId);
-    this.get('cookie').setCookie('token', token);
+    set(this, 'userId', userId);
+    get(this, 'cookie').setCookie('token', token);
     $.ajaxSetup({
       headers: {
         'Authorization': `Bearer ${token}`,

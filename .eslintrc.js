@@ -1,4 +1,7 @@
 module.exports = {
+  globals: {
+    server: true,
+  },
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
@@ -18,7 +21,11 @@ module.exports = {
     node: true
   },
   globals: {
+    server: true,
+    'andThen': true,
+    'currentURL': true,
     'Foundation': true,
+    'visit': true,
   },
   rules: {
     'array-callback-return': ['off'],

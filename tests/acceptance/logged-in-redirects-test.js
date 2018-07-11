@@ -31,9 +31,24 @@ describe('Acceptance | logged in redirects', function() {
     });
   });
 
-  it('can visit /dashboard');
+  it('can visit /dashboard', function() {
+    visit('/dashboard');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/dashboard');
+    });
+  });
 
-  it('should redirect away from /login');
+  it('should redirect away from /login', function() {
+    visit('/login');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/dashboard');
+    });
+  });
 
-  it('should redirect away from /sign-up');
+  it('should redirect away from /sign-up', function() {
+    visit('/sign-up');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/dashboard');
+    });
+  });
 });

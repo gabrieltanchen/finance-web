@@ -4,15 +4,10 @@ import { inject as service } from '@ember/service';
 import $ from 'jquery';
 
 export default Component.extend({
-  responsiveMenu: null,
-  responsiveToggle: null,
   session: service(),
 
-  actions: {
-    logout() {
-      get(this, 'logout')();
-    },
-  },
+  responsiveMenu: null,
+  responsiveToggle: null,
 
   menuItems: computed('session.loggedIn', function() {
     if (get(this, 'session.loggedIn')) {
@@ -38,5 +33,11 @@ export default Component.extend({
     });
     set(this, 'responsiveMenu', responsiveMenu);
     set(this, 'responsiveToggle', responsiveToggle);
+  },
+
+  actions: {
+    logout() {
+      get(this, 'logout')();
+    },
   },
 });

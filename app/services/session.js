@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { computed, get, set } from '@ember/object';
-import ENV from '../config/environment';
 import Service, { inject as service } from '@ember/service';
+import ENV from '../config/environment';
 
 export default Service.extend({
   ajax: service(),

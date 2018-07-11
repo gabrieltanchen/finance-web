@@ -1,25 +1,44 @@
 import Component from '@ember/component';
-import { computed, set } from '@ember/object';
-import jQuery from 'jquery';
+import { computed, get, set } from '@ember/object';
+import { inject as service } from '@ember/service';
+import $ from 'jquery';
 
 export default Component.extend({
+  session: service(),
+
   responsiveMenu: null,
   responsiveToggle: null,
 
-  menuItems: computed(function() {
+  menuItems: computed('session.loggedIn', function() {
+    if (get(this, 'session.loggedIn')) {
+      return [{
+        action: 'logout',
+        isAction: true,
+        label: 'Logout',
+        propertyId: 'menu-logout',
+      }];
+    }
     return [{
       label: 'Sign Up',
+      linkTo: 'sign-up',
     }, {
       label: 'Login',
+      linkTo: 'login',
     }];
   }),
 
   didInsertElement() {
-    const responsiveMenu = new Foundation.ResponsiveMenu(jQuery('.top-bar'));
-    const responsiveToggle = new Foundation.ResponsiveToggle(jQuery('.title-bar'), {
+    const responsiveMenu = new Foundation.ResponsiveMenu($('.top-bar'));
+    const responsiveToggle = new Foundation.ResponsiveToggle($('.title-bar'), {
       hideFor: 'large',
     });
     set(this, 'responsiveMenu', responsiveMenu);
     set(this, 'responsiveToggle', responsiveToggle);
+  },
+
+  actions: {
+    logout() {
+      get(this, 'logout')();
+    },
   },
 });

@@ -6,8 +6,8 @@ export default Route.extend({
   session: service(),
 
   async beforeModel() {
-    if (await get(this, 'session').isLoggedIn()) {
-      this.transitionTo('dashboard');
+    if (!(await get(this, 'session').isLoggedIn())) {
+      this.transitionTo('login');
     }
   },
 });

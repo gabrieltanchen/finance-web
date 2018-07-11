@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { setupTest } from 'ember-mocha';
 
-describe('Unit | Route | index', function() {
-  setupTest('route:index', {
+describe('Unit | Route | login', function() {
+  setupTest('route:login', {
     needs: ['service:session'],
   });
 

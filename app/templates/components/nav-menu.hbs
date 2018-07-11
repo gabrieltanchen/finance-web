@@ -8,9 +8,15 @@
     <ul class="vertical menu">
       {{#each menuItems as |menuItem|}}
         <li>
-          <a href="#">
-            {{menuItem.label}}
-          </a>
+          {{#if menuItem.isAction}}
+            <a id="{{menuItem.propertyId}}" {{action menuItem.action}}>
+              {{menuItem.label}}
+            </a>
+          {{else}}
+            {{#link-to menuItem.linkTo}}
+              {{menuItem.label}}
+            {{/link-to}}
+          {{/if}}
         </li>
       {{/each}}
     </ul>
@@ -27,9 +33,15 @@
         <ul class="vertical menu align-right">
           {{#each menuItems as |menuItem|}}
             <li>
-              <a href="#">
-                {{menuItem.label}}
-              </a>
+              {{#if menuItem.isAction}}
+                <a {{action menuItem.action}}>
+                  {{menuItem.label}}
+                </a>
+              {{else}}
+                {{#link-to menuItem.linkTo}}
+                  {{menuItem.label}}
+                {{/link-to}}
+              {{/if}}
             </li>
           {{/each}}
         </ul>

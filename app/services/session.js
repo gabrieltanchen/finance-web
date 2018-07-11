@@ -12,11 +12,14 @@ export default Service.extend({
   }),
 
   async isLoggedIn() {
+    console.log('meep');
     const token = this.get('cookie').getCookie('token');
     if (this.get('userId')) {
+      console.log('userId');
       return true;
     }
     if (!token) {
+      console.log('no token');
       return false;
     }
 
@@ -30,7 +33,16 @@ export default Service.extend({
       },
       method: 'POST',
     });
-    console.log(res);
+    if (res.jqXHR
+          && res.jqXHR.status === 200
+          && res.jqXHR.responseJSON
+          && res.jqXHR.responseJSON.data
+          && res.jqXHR.responseJSON.data.id) {
+      this.setToken(res.jqXHR.responseJSON.data.id, token);
+      return true;
+    }
+
+    return false;
   },
 
   logout() {

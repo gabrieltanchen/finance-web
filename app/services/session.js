@@ -12,14 +12,11 @@ export default Service.extend({
   }),
 
   async isLoggedIn() {
-    console.log('meep');
     const token = this.get('cookie').getCookie('token');
     if (this.get('userId')) {
-      console.log('userId');
       return true;
     }
     if (!token) {
-      console.log('no token');
       return false;
     }
 

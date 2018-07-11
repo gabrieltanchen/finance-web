@@ -4,8 +4,7 @@ import { setupTest } from 'ember-mocha';
 
 describe('Unit | Route | sign-up', function() {
   setupTest('route:sign-up', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
+    needs: ['service:session'],
   });
 
   it('exists', function() {

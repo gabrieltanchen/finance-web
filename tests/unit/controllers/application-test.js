@@ -4,13 +4,12 @@ import { setupTest } from 'ember-mocha';
 
 describe('Unit | Controller | application', function() {
   setupTest('controller:application', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
+    needs: ['service:session'],
   });
 
   // Replace this with your real tests.
   it('exists', function() {
-    let controller = this.subject();
+    const controller = this.subject();
     expect(controller).to.be.ok;
   });
 });

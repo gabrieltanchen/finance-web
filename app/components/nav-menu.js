@@ -15,6 +15,7 @@ export default Component.extend({
         action: 'logout',
         isAction: true,
         label: 'Logout',
+        propertyId: 'menu-logout',
       }];
     }
     return [{

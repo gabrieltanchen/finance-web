@@ -9,7 +9,7 @@
       {{#each menuItems as |menuItem|}}
         <li>
           {{#if menuItem.isAction}}
-            <a {{action menuItem.action}}>
+            <a id="{{menuItem.propertyId}}" {{action menuItem.action}}>
               {{menuItem.label}}
             </a>
           {{else}}

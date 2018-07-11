@@ -21,10 +21,13 @@ module.exports = {
     node: true
   },
   globals: {
-    server: true,
     'andThen': true,
+    'click': true,
     'currentURL': true,
+    'fillIn': true,
     'Foundation': true,
+    'server': true,
+    'triggerEvent': true,
     'visit': true,
   },
   rules: {

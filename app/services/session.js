@@ -20,16 +20,22 @@ export default Service.extend({
       return false;
     }
 
-    const res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login/token`, {
-      data: {
+    let res;
+    try {
+      res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login/token`, {
         data: {
-          attributes: {
-            token,
+          data: {
+            attributes: {
+              token,
+            },
           },
         },
-      },
-      method: 'POST',
-    });
+        method: 'POST',
+      });
+    } catch (err) {
+      return false;
+    }
+
     if (res.jqXHR
           && res.jqXHR.status === 200
           && res.jqXHR.responseJSON

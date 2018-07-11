@@ -3,7 +3,10 @@ import Mirage from 'ember-cli-mirage';
 export default function() {
   this.post('/users', (db, request) => {
     const params = JSON.parse(request.requestBody);
-    if (params.data.attributes.email === 'hello@error.com') {
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.email
+        && params.data.attributes.email === 'hello@error.com') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
@@ -28,7 +31,20 @@ export default function() {
     });
   });
 
-  this.post('/users/login/token', () => {
+  this.post('/users/login/token', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.token
+        && params.data.attributes.token === 'invalidtoken') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {

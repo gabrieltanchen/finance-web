@@ -7,6 +7,7 @@ import {
 import { expect } from 'chai';
 import startApp from 'finance-web/tests/helpers/start-app';
 import destroyApp from 'finance-web/tests/helpers/destroy-app';
+import { get } from '@ember/object';
 
 describe('Acceptance | logged in redirects', function() {
   let application;
@@ -16,7 +17,7 @@ describe('Acceptance | logged in redirects', function() {
     const container = application.__container__;
     const session = container.lookup('service:session');
     session.logout();
-    session.get('cookie').setCookie('token', 'token');
+    get(session, 'cookie').setCookie('token', 'token');
   });
 
   afterEach(function() {

@@ -48,6 +48,42 @@ export default Service.extend({
     return false;
   },
 
+  async login(email, password) {
+    let userId;
+    let userToken;
+    try {
+      const res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login`, {
+        data: {
+          data: {
+            attributes: {
+              email,
+              password,
+            },
+          },
+        },
+        method: 'POST',
+      });
+
+      if (res.jqXHR
+            && res.jqXHR.status === 200
+            && res.jqXHR.responseJSON
+            && res.jqXHR.responseJSON.data
+            && res.jqXHR.responseJSON.data.attributes) {
+        userId = res.jqXHR.responseJSON.data.id;
+        userToken = res.jqXHR.responseJSON.data.attributes.token;
+      }
+
+      if (!userId
+            || !userToken) {
+        throw new Error('ID or token not returned.');
+      }
+
+      this.setToken(userId, userToken);
+    } catch (err) {
+      throw new Error('Invalid email/password combination.');
+    }
+  },
+
   logout() {
     set(this, 'userId', null);
     get(this, 'cookie').removeCookie('token');

@@ -80,7 +80,17 @@ export default Service.extend({
 
       this.setToken(userId, userToken);
     } catch (err) {
-      throw new Error('Invalid email/password combination.');
+      let error = 'An error occurred. Please try again later.';
+      if (err
+            && err.jqXHR
+            && err.jqXHR.responseJSON
+            && err.jqXHR.responseJSON.errors
+            && err.jqXHR.responseJSON.errors.length
+            && err.jqXHR.responseJSON.errors[0]
+            && err.jqXHR.responseJSON.errors[0].detail) {
+        error = err.jqXHR.responseJSON.errors[0].detail;
+      }
+      throw new Error(error);
     }
   },
 

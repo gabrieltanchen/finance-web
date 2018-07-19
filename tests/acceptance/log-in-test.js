@@ -8,7 +8,7 @@ import { assert, expect } from 'chai';
 import startApp from 'finance-web/tests/helpers/start-app';
 import destroyApp from 'finance-web/tests/helpers/destroy-app';
 
-describe('Acceptance | sign up', function() {
+describe('Acceptance | log in', function() {
   let application;
 
   beforeEach(function() {
@@ -23,83 +23,61 @@ describe('Acceptance | sign up', function() {
   });
 
   it('should show all email errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-email', 'blur');
+    visit('/login');
+    triggerEvent('#log-in-email', 'blur');
     return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
+      expect(currentURL()).to.equal('/login');
       assert.include(find('p.validated-input-error').text(), 'Email must be a valid email address');
       assert.include(find('p.validated-input-error').text(), 'Email can\'t be blank');
     });
   });
 
   it('should show valid email error', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-email', 'hello');
+    visit('/login');
+    fillIn('#log-in-email', 'hello');
     return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
+      expect(currentURL()).to.equal('/login');
       assert.include(find('p.validated-input-error').text(), 'Email must be a valid email address');
       assert.notInclude(find('p.validated-input-error').text(), 'Email can\'t be blank');
     });
   });
 
-  it('should show first name errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-first-name', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'First name can\'t be blank');
-    });
-  });
-
-  it('should show last name errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-last-name', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'Last name can\'t be blank');
-    });
-  });
-
   it('should show all password errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-password', 'blur');
+    visit('/login');
+    triggerEvent('#log-in-password', 'blur');
     return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
+      expect(currentURL()).to.equal('/login');
       assert.include(find('p.validated-input-error').text(), 'Password is too short (minimum is 8 characters)');
       assert.include(find('p.validated-input-error').text(), 'Password can\'t be blank');
     });
   });
 
   it('should show password length error', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-password', 'a');
+    visit('/login');
+    fillIn('#log-in-password', 'a');
     return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
+      expect(currentURL()).to.equal('/login');
       assert.include(find('p.validated-input-error').text(), 'Password is too short (minimum is 8 characters)');
       assert.notInclude(find('p.validated-input-error').text(), 'Password can\'t be blank');
     });
   });
 
   it('should show error from api', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-email', 'hello@error.com');
-    fillIn('#sign-up-first-name', 'John');
-    fillIn('#sign-up-last-name', 'Smith');
-    fillIn('#sign-up-password', 'password');
-    click('#sign-up-button');
+    visit('/login');
+    fillIn('#log-in-email', 'hello@error.com');
+    fillIn('#log-in-password', 'password');
+    click('#log-in-button');
     return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
+      expect(currentURL()).to.equal('/login');
       assert.include(find('.alert').text(), 'Test error.');
     });
   });
 
-  it('should go to dashboard on successful sign up', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-email', 'hello@mail.com');
-    fillIn('#sign-up-first-name', 'John');
-    fillIn('#sign-up-last-name', 'Smith');
-    fillIn('#sign-up-password', 'password');
-    click('#sign-up-button');
+  it('should go to dashboard on successful log in', function() {
+    visit('/login');
+    fillIn('#log-in-email', 'hello@mail.com');
+    fillIn('#log-in-password', 'password');
+    click('#log-in-button');
     return andThen(() => {
       expect(currentURL()).to.equal('/dashboard');
     });

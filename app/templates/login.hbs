@@ -1,1 +1,11 @@
 {{title "Login"}}
+<div class="grid-x">
+  <div class="cell">
+    <h3>Login</h3>
+  </div>
+</div>
+<div class="grid-x">
+  <div class="cell">
+    {{forms/log-in user=(changeset user LoginValidations) loggedIn=(action "loggedIn")}}
+  </div>
+</div>

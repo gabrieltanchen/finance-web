@@ -10,4 +10,8 @@ export default Route.extend({
       this.transitionTo('dashboard');
     }
   },
+
+  model() {
+    return this.store.createRecord('user');
+  },
 });

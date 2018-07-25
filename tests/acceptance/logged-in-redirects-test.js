@@ -31,6 +31,13 @@ describe('Acceptance | logged in redirects', function() {
     });
   });
 
+  it('can visit /categories', function() {
+    visit('/categories');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/categories');
+    });
+  });
+
   it('can visit /dashboard', function() {
     visit('/dashboard');
     return andThen(() => {

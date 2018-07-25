@@ -29,6 +29,13 @@ describe('Acceptance | logged out redirects', function() {
     });
   });
 
+  it('should redirect away from /categories', function() {
+    visit('/categories');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
   it('should redirect away from /dashboard', function() {
     visit('/dashboard');
     return andThen(() => {

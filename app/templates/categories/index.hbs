@@ -1,1 +1,45 @@
-{{outlet}}
+{{title "Categories"}}
+<div class="grid-x">
+  <div class="cell small-8">
+    <h1>Categories</h1>
+  </div>
+  <div class="cell small-4">
+    <div class="button-group float-right">
+      <a class="button">
+        Create
+      </a>
+    </div>
+  </div>
+</div>
+<div class="grid-x">
+  <div class="cell">
+    {{#if categories.length}}
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Created At
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each categories as |category|}}
+            <tr>
+              <td>
+                {{category.name}}
+              </td>
+              <td>
+                {{category.created_at}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      No categories exist here
+    {{/if}}
+  </div>
+</div>

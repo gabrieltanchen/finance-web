@@ -1,5 +1,9 @@
 <div class="title-bar clearfix" data-responsive-toggle="finance-menu">
-  <div class="title-bar-title float-center">Finance</div>
+  <div class="title-bar-title float-center">
+    {{#link-to "index"}}
+      {{fa-icon "balance-scale" size="lg"}}
+    {{/link-to}}
+  </div>
   <button class="menu-icon float-right" type="button" data-toggle></button>
 </div>
 
@@ -26,8 +30,10 @@
 <div class="grid-x grid-margin-x">
   <div class="cell large-2 show-for-large">
     <div class="grid-y medium-grid-frame">
-      <div class="cell">
-        <h4 class="text-right">Finance</h4>
+      <div class="cell text-right">
+        {{#link-to "index"}}
+          {{fa-icon "balance-scale" size="4x"}}
+        {{/link-to}}
       </div>
       <div class="cell">
         <ul class="vertical menu align-right">

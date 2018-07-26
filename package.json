@@ -19,6 +19,8 @@
     "test:travis": "COVERAGE=true ember test"
   },
   "devDependencies": {
+    "@fortawesome/ember-fontawesome": "0.1.1",
+    "@fortawesome/free-solid-svg-icons": "5.2.0",
     "babel-eslint": "8.2.6",
     "broccoli-asset-rev": "2.7.0",
     "coveralls": "3.0.1",

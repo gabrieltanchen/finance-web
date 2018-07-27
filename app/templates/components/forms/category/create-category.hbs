@@ -1,0 +1,29 @@
+{{#if errors}}
+  <div class="grid-x">
+    <div class="cell">
+      <p class="alert">
+        {{#each errors as |error|}}
+          {{error}}
+        {{/each}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+<div class="grid-x">
+  <div class="cell">
+    <form>
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            {{forms/validated-input type="text" changeset=category propertyName="name" label="Category Name" propertyId="create-category-name"}}
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            <input type="submit" id="create-category-button" disabled={{disableSubmit}} class="button" value="Create" {{action "submit"}}>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

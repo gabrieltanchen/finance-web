@@ -47,7 +47,7 @@
   <div class="overlay">
     <div class="grid-x grid-padding-x align-center modal">
       <div class="cell small-12 medium-10 large-8 modal-cell">
-        hello world
+        {{forms/category/create-category category=(changeset newCategory CategoryValidations) categoryCreated=(action "closeCreateForm")}}
       </div>
     </div>
   </div>

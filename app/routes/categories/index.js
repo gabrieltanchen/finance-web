@@ -1,9 +1,13 @@
 import Route from '@ember/routing/route';
 import { get } from '@ember/object';
+import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
   queryParams: {
+    create: {
+      refreshModel: true,
+    },
     limit: {
       refreshModel: true,
     },
@@ -20,6 +24,9 @@ export default Route.extend({
   },
 
   model(params) {
-    return this.store.query('category', params);
+    return RSVP.hash({
+      categories: this.store.query('category', params),
+      newCategory: (params.create === 'true') ? this.store.createRecord('category') : null,
+    });
   },
 });

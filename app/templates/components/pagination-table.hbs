@@ -1,0 +1,24 @@
+<div class="grid-x">
+  <div class="cell">
+    <table>
+      <thead>
+        <tr>
+          {{#each columns as |column|}}
+            <th>{{column.name}}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows as |row|}}
+          <tr>
+            {{#each columns as |column|}}
+              <td>
+                {{get row column.propertyName}}
+              </td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

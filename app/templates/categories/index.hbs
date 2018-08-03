@@ -14,30 +14,7 @@
 <div class="grid-x">
   <div class="cell">
     {{#if categories.length}}
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Name
-            </th>
-            <th>
-              Created At
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each categories as |category|}}
-            <tr>
-              <td>
-                {{category.name}}
-              </td>
-              <td>
-                {{category.created_at}}
-              </td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
+      {{pagination-table rows=categories columns=tableColumns limit=limit page=page meta=meta}}
     {{else}}
       No categories exist here
     {{/if}}

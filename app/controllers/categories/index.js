@@ -6,8 +6,17 @@ import CategoryValidations from '../../validations/category';
 export default Controller.extend({
   categories: alias('model.categories'),
   CategoryValidations,
+  meta: null,
   newCategory: alias('model.newCategory'),
   queryParams: ['create', 'limit', 'page'],
+
+  tableColumns: [{
+    name: 'Name',
+    propertyName: 'name',
+  }, {
+    name: 'Created At',
+    propertyName: 'created_at',
+  }],
 
   actions: {
     closeCreateForm() {

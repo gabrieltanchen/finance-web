@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { get } from '@ember/object';
+import { get, set } from '@ember/object';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
@@ -28,5 +28,12 @@ export default Route.extend({
       categories: this.store.query('category', params),
       newCategory: (params.create === 'true') ? this.store.createRecord('category') : null,
     });
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
+    if (model.meta) {
+      set(controller, 'meta', model.meta);
+    }
   },
 });

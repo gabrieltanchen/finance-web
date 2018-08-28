@@ -19,7 +19,7 @@
     "test:travis": "COVERAGE=true ember test"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "9.0.0",
     "broccoli-asset-rev": "2.7.0",
     "coveralls": "3.0.1",
     "ember-ajax": "3.1.0",

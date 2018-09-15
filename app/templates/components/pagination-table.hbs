@@ -4,7 +4,9 @@
       <thead>
         <tr>
           {{#each columns as |column|}}
-            <th>{{column.name}}</th>
+            <th>
+              {{column.name}}
+            </th>
           {{/each}}
         </tr>
       </thead>
@@ -13,7 +15,13 @@
           <tr>
             {{#each columns as |column|}}
               <td>
-                {{get row column.propertyName}}
+                {{#if column.isLink}}
+                  {{#link-to column.linkTo (get row column.linkParam)}}
+                    {{get row column.propertyName}}
+                  {{/link-to}}
+                {{else}}
+                  {{get row column.propertyName}}
+                {{/if}}
               </td>
             {{/each}}
           </tr>

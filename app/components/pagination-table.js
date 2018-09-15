@@ -22,12 +22,12 @@ export default Component.extend({
     }
     return numPages;
   }),
-  paginationPages: computed('currentPage', 'numPages', function() {
-    const currentPage = this.get('currentPage');
-    const numPages = this.get('numPages');
-    const pages = [];
-    if (currentPage > 1) {
-      // []
-    }
-  }),
+  // paginationPages: computed('currentPage', 'numPages', function() {
+  //   const currentPage = this.get('currentPage');
+  //   const numPages = this.get('numPages');
+  //   const pages = [];
+  //   if (currentPage > 1) {
+  //     // []
+  //   }
+  // }),
 });

@@ -11,6 +11,9 @@ export default Controller.extend({
   queryParams: ['create', 'limit', 'page'],
 
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'categories.show',
     name: 'Name',
     propertyName: 'name',
   }, {

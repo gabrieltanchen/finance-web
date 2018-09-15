@@ -7,7 +7,11 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('categories', function() {});
+  this.route('categories', function() {
+    this.route('show', {
+      path: '/:category_uuid',
+    });
+  });
   this.route('dashboard');
   this.route('login');
   this.route('sign-up');

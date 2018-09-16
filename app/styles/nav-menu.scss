@@ -1,0 +1,16 @@
+.nav-menu {
+  background-color: $background-colour;
+  padding: 10px 0;
+
+  a {
+    color: $nav-menu-link-colour;
+
+    &:hover {
+      color: $nav-menu-link-hover-colour;
+    }
+  }
+
+  .nav-menu-left {
+    float: left;
+  }
+}

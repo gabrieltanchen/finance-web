@@ -1,66 +1,68 @@
 {{title "Categories"}}
-<div class="grid-x">
-  <div class="cell small-8">
-    <h1>Categories</h1>
-  </div>
-  <div class="cell small-4">
-    <div class="button-group float-right">
-      <a class="button" {{action "showCreateForm"}}>
-        Create
-      </a>
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell small-8">
+      <h1 class="categories-title">Categories</h1>
     </div>
-  </div>
-</div>
-<div class="grid-x">
-  <div class="cell">
-    <ul class="pagination">
-      {{#if disablePrevious}}
-        <li class="pagination-previous disabled">
-          Previous
-        </li>
-      {{else}}
-        <li class="pagination-previous">
-          <a {{action "previousPage"}}>Previous</a>
-        </li>
-      {{/if}}
-      {{#each paginationPages as |paginationPage|}}
-        {{#if paginationPage.current}}
-          <li class="current">{{paginationPage.page}}</li>
-        {{else}}
-          <li>
-            <a {{action "setPage" paginationPage.page}}>
-              {{paginationPage.page}}
-            </a>
-          </li>
-        {{/if}}
-      {{/each}}
-      {{#if disableNext}}
-        <li class="pagination-next disabled">
-          Next
-        </li>
-      {{else}}
-        <li class="pagination-next">
-          <a {{action "nextPage"}}>Next</a>
-        </li>
-      {{/if}}
-    </ul>
-  </div>
-</div>
-<div class="grid-x">
-  <div class="cell">
-    {{#if categories.length}}
-      {{pagination-table rows=categories columns=tableColumns limit=limit page=page meta=meta}}
-    {{else}}
-      No categories exist here
-    {{/if}}
-  </div>
-</div>
-{{#if newCategory}}
-  <div class="overlay">
-    <div class="grid-x grid-padding-x align-center modal">
-      <div class="cell small-12 medium-10 large-8 modal-cell">
-        {{forms/category/create-category category=(changeset newCategory CategoryValidations) categoryCreated=(action "closeCreateForm")}}
+    <div class="cell small-4">
+      <div class="button-group float-right">
+        <a class="button" {{action "showCreateForm"}}>
+          Create
+        </a>
       </div>
     </div>
   </div>
-{{/if}}
+  <div class="grid-x">
+    <div class="cell">
+      {{#if categories.length}}
+        {{pagination-table rows=categories columns=tableColumns limit=limit page=page meta=meta}}
+      {{else}}
+        No categories exist here
+      {{/if}}
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell clearfix">
+      <ul class="pagination float-right">
+        {{#if disablePrevious}}
+          <li class="pagination-previous disabled">
+            Previous
+          </li>
+        {{else}}
+          <li class="pagination-previous">
+            <a {{action "previousPage"}}>Previous</a>
+          </li>
+        {{/if}}
+        {{#each paginationPages as |paginationPage|}}
+          {{#if paginationPage.current}}
+            <li class="current">{{paginationPage.page}}</li>
+          {{else}}
+            <li>
+              <a {{action "setPage" paginationPage.page}}>
+                {{paginationPage.page}}
+              </a>
+            </li>
+          {{/if}}
+        {{/each}}
+        {{#if disableNext}}
+          <li class="pagination-next disabled">
+            Next
+          </li>
+        {{else}}
+          <li class="pagination-next">
+            <a {{action "nextPage"}}>Next</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+  {{#if newCategory}}
+    <div class="overlay">
+      <div class="grid-x grid-padding-x align-center modal">
+        <div class="cell small-12 medium-10 large-8 modal-cell">
+          {{forms/category/create-category category=(changeset newCategory CategoryValidations) categoryCreated=(action "closeCreateForm")}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>

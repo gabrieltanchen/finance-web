@@ -12,21 +12,19 @@
 <div class="grid-x">
   <div class="cell">
     <form>
-      <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-          <div class="cell">
-            {{forms/validated-input type="email" changeset=user propertyName="email" label="Email" propertyId="log-in-email"}}
-          </div>
+      <div class="grid-x">
+        <div class="cell">
+          {{forms/validated-input type="email" changeset=user propertyName="email" label="Email" propertyId="log-in-email"}}
         </div>
-        <div class="grid-x grid-padding-x">
-          <div class="cell">
-            {{forms/validated-input type="password" changeset=user propertyName="password" label="Password" propertyId="log-in-password"}}
-          </div>
+      </div>
+      <div class="grid-x">
+        <div class="cell">
+          {{forms/validated-input type="password" changeset=user propertyName="password" label="Password" propertyId="log-in-password"}}
         </div>
-        <div class="grid-x grid-padding-x">
-          <div class="cell">
-            <input type="submit" id="log-in-button" disabled={{disableSubmit}} class="button" value="Login" {{action "submit"}}>
-          </div>
+      </div>
+      <div class="grid-x">
+        <div class="cell">
+          <input type="submit" id="log-in-button" disabled={{disableSubmit}} class="button" value="Login" {{action "submit"}}>
         </div>
       </div>
     </form>

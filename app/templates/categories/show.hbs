@@ -1,6 +1,17 @@
 {{title category.name}}
-<div class="grid-x">
-  <div class="cell small-8">
-    <h1>{{category.name}}</h1>
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h1>{{category.name}}</h1>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <ul class="menu">
+        <li><a>Details</a></li>
+        <li><a>Subcategories</a></li>
+        <li><a>{{fa-icon "credit-card"}}Expenses</a></li>
+      </ul>
+    </div>
   </div>
 </div>

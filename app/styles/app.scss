@@ -1,9 +1,6 @@
 @import 'variables';
+@import 'global';
 @import 'nav-menu';
-
-body {
-  overflow-x: hidden;
-}
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);

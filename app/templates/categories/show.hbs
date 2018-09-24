@@ -8,9 +8,21 @@
   <div class="grid-x">
     <div class="cell">
       <ul class="menu">
-        <li><a>Details</a></li>
-        <li><a>Subcategories</a></li>
-        <li><a>{{fa-icon "credit-card"}}Expenses</a></li>
+        <li class="is-active">
+          {{#link-to "categories.show" category.id}}
+            {{fa-icon "list"}} Details
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to "categories.subcategories" category.id}}
+            {{fa-icon "project-diagram"}} Subcategories
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to "categories.expenses" category.id}}
+            {{fa-icon "credit-card"}} Expenses
+          {{/link-to}}
+        </li>
       </ul>
     </div>
   </div>

@@ -45,6 +45,20 @@ describe('Acceptance | logged in redirects', function() {
     });
   });
 
+  it('can visit /categories/:uuid/expenses', function() {
+    visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    });
+  });
+
+  it('can visit /categories/:uuid/subcategories', function() {
+    visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
+    });
+  });
+
   it('can visit /dashboard', function() {
     visit('/dashboard');
     return andThen(() => {

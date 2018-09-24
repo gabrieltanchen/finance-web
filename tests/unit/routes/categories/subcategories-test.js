@@ -4,12 +4,11 @@ import { setupTest } from 'ember-mocha';
 
 describe('Unit | Route | categories/subcategories', function() {
   setupTest('route:categories/subcategories', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
+    needs: ['service:session'],
   });
 
   it('exists', function() {
-    let route = this.subject();
+    const route = this.subject();
     expect(route).to.be.ok;
   });
 });

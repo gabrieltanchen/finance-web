@@ -11,6 +11,12 @@ Router.map(function() {
     this.route('show', {
       path: '/:category_uuid',
     });
+    this.route('subcategories', {
+      path: '/:category_uuid/subcategories',
+    });
+    this.route('expenses', {
+      path: '/:category_uuid/expenses',
+    });
   });
   this.route('dashboard');
   this.route('login');

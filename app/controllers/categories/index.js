@@ -4,12 +4,9 @@ import { computed, get, set } from '@ember/object';
 import CategoryValidations from '../../validations/category';
 
 export default Controller.extend({
-  categories: alias('model.categories'),
+  queryParams: ['create', 'limit', 'page'],
   CategoryValidations,
   meta: null,
-  newCategory: alias('model.newCategory'),
-  queryParams: ['create', 'limit', 'page'],
-
   tableColumns: [{
     isLink: true,
     linkParam: 'id',
@@ -20,6 +17,8 @@ export default Controller.extend({
     name: 'Created At',
     propertyName: 'created_at',
   }],
+  categories: alias('model.categories'),
+  newCategory: alias('model.newCategory'),
 
   currentPage: computed('page', function() {
     let currentPage = 1;

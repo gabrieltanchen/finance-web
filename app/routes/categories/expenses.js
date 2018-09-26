@@ -14,7 +14,7 @@ export default Route.extend({
 
   model(params) {
     return RSVP.hash({
-      category: this.get('store').findRecord('category', params.category_uuid),
+      category: get(this, 'store').findRecord('category', params.category_uuid),
     });
   },
 });

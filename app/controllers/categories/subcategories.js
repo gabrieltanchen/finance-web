@@ -3,11 +3,8 @@ import Controller from '@ember/controller';
 import { computed, get, set } from '@ember/object';
 
 export default Controller.extend({
-  category: alias('model.category'),
-  meta: null,
-  newCategory: alias('model.newCategory'),
-  subcategories: alias('model.subcategories'),
   queryParams: ['create', 'limit', 'page'],
+  meta: null,
   tableColumns: [{
     isLink: true,
     linkParam: 'id',
@@ -18,6 +15,9 @@ export default Controller.extend({
     name: 'Created At',
     propertyName: 'created_at',
   }],
+  category: alias('model.category'),
+  newCategory: alias('model.newCategory'),
+  subcategories: alias('model.subcategories'),
 
   currentPage: computed('page', function() {
     let currentPage = 1;

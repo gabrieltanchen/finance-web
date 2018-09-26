@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  session: service(),
   queryParams: {
     create: {
       refreshModel: true,
@@ -15,7 +16,6 @@ export default Route.extend({
       refreshModel: true,
     },
   },
-  session: service(),
 
   async beforeModel() {
     if (!(await get(this, 'session').isLoggedIn())) {

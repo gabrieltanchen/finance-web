@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  session: service(),
   queryParams: {
     create: {
       refreshModel: true,
@@ -15,7 +16,6 @@ export default Route.extend({
       refreshModel: true,
     },
   },
-  session: service(),
 
   async beforeModel() {
     if (!(await get(this, 'session').isLoggedIn())) {
@@ -31,9 +31,9 @@ export default Route.extend({
       });
     }
     return RSVP.hash({
-      category: this.get('store').findRecord('category', params.category_uuid),
+      category: get(this, 'store').findRecord('category', params.category_uuid),
       newCategory,
-      subcategories: this.get('store').query('category', {
+      subcategories: get(this, 'store').query('category', {
         limit: params.limit,
         page: params.page,
         parent_uuid: params.category_uuid,

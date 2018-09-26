@@ -3,7 +3,7 @@
 @import 'nav-menu';
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $background-overlay;
   height: 100%;
   left: 0;
   // overflow: auto;

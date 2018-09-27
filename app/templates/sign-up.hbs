@@ -1,11 +1,13 @@
 {{title "Sign Up"}}
-<div class="grid-x">
-  <div class="cell">
-    <h3>Sign Up</h3>
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h3>Sign Up</h3>
+    </div>
   </div>
-</div>
-<div class="grid-x">
-  <div class="cell">
-    {{forms/sign-up user=(changeset user SignUpValidations) userCreated=(action "userCreated")}}
+  <div class="grid-x">
+    <div class="cell">
+      {{forms/sign-up user=(changeset user SignUpValidations) userCreated=(action "userCreated")}}
+    </div>
   </div>
 </div>

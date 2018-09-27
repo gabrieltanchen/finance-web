@@ -1,0 +1,25 @@
+@import 'variables';
+@import 'global';
+@import 'nav-menu';
+
+.overlay {
+  background-color: $background-overlay;
+  height: 100%;
+  left: 0;
+  // overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.modal-cell {
+  background-color: $white;
+}

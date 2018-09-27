@@ -29,6 +29,34 @@ describe('Acceptance | logged out redirects', function() {
     });
   });
 
+  it('should redirect away from /categories', function() {
+    visit('/categories');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
+  it('should redirect away from /categories/:uuid', function() {
+    visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
+  it('should redirect away from /categories/:uuid/expenses', function() {
+    visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
+  it('should redirect away from /categories/:uuid/subcategories', function() {
+    visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
   it('should redirect away from /dashboard', function() {
     visit('/dashboard');
     return andThen(() => {

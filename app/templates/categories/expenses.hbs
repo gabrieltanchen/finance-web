@@ -1,0 +1,29 @@
+{{title category.name}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h1>{{category.name}}</h1>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <ul class="menu">
+        <li>
+          {{#link-to "categories.show" category.id}}
+            {{fa-icon "list"}} Details
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to "categories.subcategories" category.id}}
+            {{fa-icon "project-diagram"}} Subcategories
+          {{/link-to}}
+        </li>
+        <li class="is-active">
+          {{#link-to "categories.expenses" category.id}}
+            {{fa-icon "credit-card"}} Expenses
+          {{/link-to}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

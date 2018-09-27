@@ -1,0 +1,23 @@
+.nav-menu {
+  background-color: $background-colour;
+  padding: 10px 0;
+
+  a {
+    color: $nav-menu-link-colour;
+    font-family: 'open-sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    &:hover {
+      color: $nav-menu-link-hover-colour;
+    }
+
+    &.logo-link {
+      padding-left: 0;
+    }
+  }
+
+  .nav-menu-left {
+    float: left;
+  }
+}

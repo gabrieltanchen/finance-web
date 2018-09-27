@@ -12,6 +12,9 @@ export default Component.extend({
   menuItems: computed('session.loggedIn', function() {
     if (get(this, 'session.loggedIn')) {
       return [{
+        label: 'Categories',
+        linkTo: 'categories.index',
+      }, {
         action: 'logout',
         isAction: true,
         label: 'Logout',

@@ -4,6 +4,9 @@
 
   a {
     color: $nav-menu-link-colour;
+    font-family: 'open-sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
 
     &:hover {
       color: $nav-menu-link-hover-colour;

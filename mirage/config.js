@@ -1,6 +1,27 @@
 import Mirage from 'ember-cli-mirage';
 
 export default function() {
+  this.get('/categories', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
+  this.get('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Hello world',
+        },
+        'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
+        'type': 'categories',
+      },
+    });
+  });
+
   this.post('/users', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

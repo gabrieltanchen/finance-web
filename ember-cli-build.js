@@ -4,7 +4,13 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
-    // Add options here
+    fontawesome: {
+      icons: {
+        'free-brands-svg-icons': 'all',
+        'free-regular-svg-icons': 'all',
+        'free-solid-svg-icons': 'all',
+      },
+    },
   });
 
   app.import('node_modules/foundation-sites/dist/css/foundation.css');

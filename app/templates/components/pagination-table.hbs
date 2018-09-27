@@ -1,0 +1,32 @@
+<div class="grid-x">
+  <div class="cell">
+    <table class="hover unstriped">
+      <thead>
+        <tr>
+          {{#each columns as |column|}}
+            <th>
+              {{column.name}}
+            </th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows as |row|}}
+          <tr>
+            {{#each columns as |column|}}
+              <td>
+                {{#if column.isLink}}
+                  {{#link-to column.linkTo (get row column.linkParam)}}
+                    {{get row column.propertyName}}
+                  {{/link-to}}
+                {{else}}
+                  {{get row column.propertyName}}
+                {{/if}}
+              </td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -21,4 +21,13 @@
       {{/if}}
     </div>
   </div>
+  {{#if newVendor}}
+    <div class="overlay">
+      <div class="grid-x grid-padding-x align-center modal">
+        <div class="cell small-12 medium-10 large-8 modal-cell">
+          {{forms/vendor/create-vendor vendor=(changeset newVendor VendorValidations) vendorCreated=(action "closeCreateForm")}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

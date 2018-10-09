@@ -1,24 +1,24 @@
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { set } from '@ember/object';
-import CategoryValidations from '../../validations/category';
+import VendorValidations from '../../validations/vendor';
 
 export default Controller.extend({
   queryParams: ['create', 'limit', 'page'],
-  CategoryValidations,
   meta: null,
   tableColumns: [{
     isLink: true,
     linkParam: 'id',
-    linkTo: 'categories.show',
+    linkTo: 'vendors.show',
     name: 'Name',
     propertyName: 'name',
   }, {
     name: 'Created At',
     propertyName: 'created_at',
   }],
-  categories: alias('model.categories'),
-  newCategory: alias('model.newCategory'),
+  VendorValidations,
+  newVendor: alias('model.newVendor'),
+  vendors: alias('model.vendors'),
 
   actions: {
     closeCreateForm() {

@@ -7,6 +7,9 @@ export default Controller.extend({
   queryParams: ['create', 'limit', 'page'],
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'vendors.show',
     name: 'Name',
     propertyName: 'name',
   }, {

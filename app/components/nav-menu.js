@@ -15,6 +15,9 @@ export default Component.extend({
         label: 'Categories',
         linkTo: 'categories.index',
       }, {
+        label: 'Vendors',
+        linkTo: 'vendors.index',
+      }, {
         action: 'logout',
         isAction: true,
         label: 'Logout',

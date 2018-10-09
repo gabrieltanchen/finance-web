@@ -1,8 +1,8 @@
-{{title "Categories"}}
+{{title "Vendors"}}
 <div class="grid-container">
   <div class="grid-x">
     <div class="cell small-8">
-      <h1 class="categories-title">Categories</h1>
+      <h1 class="vendors-title">Vendors</h1>
     </div>
     <div class="cell small-4">
       <div class="button-group float-right">
@@ -14,18 +14,18 @@
   </div>
   <div class="grid-x">
     <div class="cell">
-      {{#if categories.length}}
-        {{pagination-table rows=categories columns=tableColumns limit=limit page=page meta=meta}}
+      {{#if vendors.length}}
+        {{pagination-table rows=vendors columns=tableColumns limit=limit page=page meta=meta}}
       {{else}}
-        No categories exist here
+        No vendors exist here
       {{/if}}
     </div>
   </div>
-  {{#if newCategory}}
+  {{#if newVendor}}
     <div class="overlay">
       <div class="grid-x grid-padding-x align-center modal">
         <div class="cell small-12 medium-10 large-8 modal-cell">
-          {{forms/category/create-category category=(changeset newCategory CategoryValidations) categoryCreated=(action "closeCreateForm")}}
+          {{forms/vendor/create-vendor vendor=(changeset newVendor VendorValidations) vendorCreated=(action "closeCreateForm")}}
         </div>
       </div>
     </div>

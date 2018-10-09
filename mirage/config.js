@@ -110,4 +110,12 @@ export default function() {
       },
     });
   });
+
+  this.get('/vendors', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
 }

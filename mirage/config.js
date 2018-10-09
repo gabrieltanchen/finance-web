@@ -118,4 +118,17 @@ export default function() {
       'data': [],
     });
   });
+  this.get('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Hello world',
+        },
+        'id': 'b6f0441e-bdee-4172-a646-4d8c9191db57',
+        'type': 'vendors',
+      },
+    });
+  });
 }

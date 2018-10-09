@@ -1,1 +1,24 @@
-{{outlet}}
+{{title "Vendors"}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell small-8">
+      <h1 class="vendors-title">Vendors</h1>
+    </div>
+    <div class="cell small-4">
+      <div class="button-group float-right">
+        <a class="button" {{action "showCreateForm"}}>
+          Create
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      {{#if vendors.length}}
+        {{pagination-table rows=vendors columns=tableColumns limit=limit page=page meta=meta}}
+      {{else}}
+        No vendors exist here
+      {{/if}}
+    </div>
+  </div>
+</div>

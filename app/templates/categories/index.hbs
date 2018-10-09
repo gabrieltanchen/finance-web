@@ -21,41 +21,6 @@
       {{/if}}
     </div>
   </div>
-  <div class="grid-x">
-    <div class="cell clearfix">
-      <ul class="pagination float-right">
-        {{#if disablePrevious}}
-          <li class="pagination-previous disabled">
-            Previous
-          </li>
-        {{else}}
-          <li class="pagination-previous">
-            <a {{action "previousPage"}}>Previous</a>
-          </li>
-        {{/if}}
-        {{#each paginationPages as |paginationPage|}}
-          {{#if paginationPage.current}}
-            <li class="current">{{paginationPage.page}}</li>
-          {{else}}
-            <li>
-              <a {{action "setPage" paginationPage.page}}>
-                {{paginationPage.page}}
-              </a>
-            </li>
-          {{/if}}
-        {{/each}}
-        {{#if disableNext}}
-          <li class="pagination-next disabled">
-            Next
-          </li>
-        {{else}}
-          <li class="pagination-next">
-            <a {{action "nextPage"}}>Next</a>
-          </li>
-        {{/if}}
-      </ul>
-    </div>
-  </div>
   {{#if newCategory}}
     <div class="overlay">
       <div class="grid-x grid-padding-x align-center modal">

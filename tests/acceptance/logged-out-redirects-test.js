@@ -77,4 +77,25 @@ describe('Acceptance | logged out redirects', function() {
       expect(currentURL()).to.equal('/sign-up');
     });
   });
+
+  it('should redirect away from /vendors', function() {
+    visit('/vendors');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
+  it('should redirect away from /vendors/:uuid', function() {
+    visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
+
+  it('should redirect away from /vendors/:uuid/expenses', function() {
+    visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/expenses');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
 });

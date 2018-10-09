@@ -8,20 +8,27 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('categories', function() {
+    this.route('expenses', {
+      path: '/:category_uuid/expenses',
+    });
     this.route('show', {
       path: '/:category_uuid',
     });
     this.route('subcategories', {
       path: '/:category_uuid/subcategories',
     });
-    this.route('expenses', {
-      path: '/:category_uuid/expenses',
-    });
   });
   this.route('dashboard');
   this.route('login');
   this.route('sign-up');
-  this.route('vendors', function() {});
+  this.route('vendors', function() {
+    this.route('expenses', {
+      path: '/:vendor_uuid/expenses',
+    });
+    this.route('show', {
+      path: '/:vendor_uuid',
+    });
+  });
 });
 
 export default Router;

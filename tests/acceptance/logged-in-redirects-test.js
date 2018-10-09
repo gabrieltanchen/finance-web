@@ -86,4 +86,18 @@ describe('Acceptance | logged in redirects', function() {
       expect(currentURL()).to.equal('/vendors');
     });
   });
+
+  it('can visit /vendors/:uuid', function() {
+    visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
+    });
+  });
+
+  it('can visit /vendors/:uuid/expenses', function() {
+    visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/expenses');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/expenses');
+    });
+  });
 });

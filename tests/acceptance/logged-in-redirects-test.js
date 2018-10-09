@@ -79,4 +79,11 @@ describe('Acceptance | logged in redirects', function() {
       expect(currentURL()).to.equal('/dashboard');
     });
   });
+
+  it('can visit /vendors', function() {
+    visit('/vendors');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/vendors');
+    });
+  });
 });

@@ -77,4 +77,11 @@ describe('Acceptance | logged out redirects', function() {
       expect(currentURL()).to.equal('/sign-up');
     });
   });
+
+  it('should redirect away from /vendors', function() {
+    visit('/vendors');
+    return andThen(() => {
+      expect(currentURL()).to.equal('/login');
+    });
+  });
 });

@@ -21,6 +21,7 @@ Router.map(function() {
   this.route('dashboard');
   this.route('login');
   this.route('sign-up');
+  this.route('vendors', function() {});
 });
 
 export default Router;

@@ -1,1 +1,24 @@
-{{outlet}}
+{{title vendor.name}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h1>{{vendor.name}}</h1>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <ul class="menu">
+        <li>
+          {{#link-to "vendors.show" vendor.id}}
+            {{fa-icon "list"}} Details
+          {{/link-to}}
+        </li>
+        <li class="is-active">
+          {{#link-to "vendors.expenses" vendor.id}}
+            {{fa-icon "credit-card"}} Expenses
+          {{/link-to}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

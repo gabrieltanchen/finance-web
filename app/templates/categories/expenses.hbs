@@ -26,4 +26,20 @@
       </ul>
     </div>
   </div>
+  <div class="grid-x">
+    <div class="cell">
+      <a class="button" {{action "showCreateForm"}}>
+        Create
+      </a>
+    </div>
+  </div>
+  {{#if newExpense}}
+    <div class="overlay">
+      <div class="grid-x grid-padding-x align-center modal">
+        <div class="cell small-12 medium-10 large-8 modal-cell">
+          {{forms/expense/create-expense expense=(changeset newExpense) expenseCreated=(action "closeCreateForm")}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

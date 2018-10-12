@@ -1,0 +1,43 @@
+{{#if errors}}
+  <div class="grid-x">
+    <div class="cell">
+      <p class="alert">
+        {{#each errors as |error|}}
+          {{error}}
+        {{/each}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+<div class="grid-x">
+  <div class="cell">
+    <form>
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-4">
+            {{forms/validated-datepicker changeset=expense propertyName="date" label="Date" propertyId="create-expense-date"}}
+          </div>
+          <div class="cell medium-8">
+
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-4">
+            {{forms/validated-input type="text" changeset=expense propertyName="description" label="Description" propertyId="create-expense-description"}}
+          </div>
+          <div class="cell medium-4">
+            {{forms/validated-input type="number" changeset=expense propertyName="amount" label="Amount" propertyId="create-expense-amount"}}
+          </div>
+          <div class="cell medium-4">
+            {{forms/validated-input type="number" changeset=expense propertyName="reimbursed_amount" label="Reimbursed Amount" propertyId="create-expense-reimbursed-amount"}}
+          </div>
+        </div>
+        <div calss="grid-x grid-padding-x">
+          <div class="cell">
+            <input type="submit" id="create-expense-button" disabled={{disableSubmit}} class="button" value="Create" {{action "submit"}}>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -9,6 +9,9 @@ export default Route.extend({
     create: {
       refreshModel: true,
     },
+    vendor: {
+      refreshModel: true,
+    },
   },
 
   async beforeModel() {
@@ -19,14 +22,19 @@ export default Route.extend({
 
   model(params) {
     let newExpense = null;
+    let vendors = null;
     if (params.create === 'true') {
       newExpense = this.store.createRecord('expense', {
         category: this.store.peekRecord('category', params.category_uuid),
+      });
+      vendors = this.store.query('vendor', {
+        search: params.vendor,
       });
     }
     return RSVP.hash({
       category: get(this, 'store').findRecord('category', params.category_uuid),
       newExpense,
+      vendors,
     });
   },
 });

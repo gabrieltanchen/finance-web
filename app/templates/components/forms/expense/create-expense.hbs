@@ -22,9 +22,13 @@
               <label>Vendor
               </label>
               {{input type="text" id="create-expense-vendor-search" value=vendorSearch}}
-              <div class="search-result">
-
-              </div>
+              <ul class="vertical menu search-result">
+                {{#each vendors as |vendor|}}
+                  <li>
+                    {{vendor.name}}
+                  </li>
+                {{/each}}
+              </ul>
             </div>
           </div>
         </div>

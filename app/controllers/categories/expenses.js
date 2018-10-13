@@ -8,6 +8,7 @@ export default Controller.extend({
   ExpenseValidations,
   category: alias('model.category'),
   newExpense: alias('model.newExpense'),
+  vendors: alias('model.vendors'),
 
   actions: {
     closeCreateForm() {

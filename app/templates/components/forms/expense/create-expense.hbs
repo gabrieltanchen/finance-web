@@ -25,7 +25,9 @@
               <ul class="vertical menu search-result">
                 {{#each vendors as |vendor|}}
                   <li>
-                    {{vendor.name}}
+                    <a class="button" {{action "selectVendor" vendor}}>
+                      {{vendor.name}}
+                    </a>
                   </li>
                 {{/each}}
               </ul>

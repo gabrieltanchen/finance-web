@@ -13,7 +13,15 @@ export default Component.extend({
   ),
 
   actions: {
+    async selectVendor(vendor) {
+      console.log('selectVendor');
+      console.log(vendor);
+      set(this, 'expense.vendor', vendor);
+      set(this, 'vendorSearch', get(vendor, 'name'));
+    },
+
     async submit() {
+      console.log('submit');
       set(this, 'errors', null);
       const expense = get(this, 'expense');
       try {

@@ -2,16 +2,21 @@
   position: relative;
   width: 100%;
 
-  input {
-    position: relative;
-
-    &:focus + .search-result {
+  &:hover {
+    .search-result {
       display: block;
     }
   }
 
+  input {
+    position: relative;
+
+    // &:focus + .search-result {
+    //   display: block;
+    // }
+  }
+
   .search-result {
-    background-color: white;
     display: none;
     height: 100px;
     position: absolute;

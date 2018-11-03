@@ -17,9 +17,7 @@ export default Controller.extend({
       set(this, 'create', true);
     },
     async vendorSelected(vendorId) {
-      // console.log(get(this, 'store').peekRecord);
       const vendor = await get(this, 'store').findRecord('vendor', vendorId);
-      console.log(vendor);
       set(get(this, 'newExpense'), 'vendor', vendor);
     },
   },

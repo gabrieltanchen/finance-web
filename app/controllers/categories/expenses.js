@@ -4,11 +4,10 @@ import { set } from '@ember/object';
 import ExpenseValidations from '../../validations/expense';
 
 export default Controller.extend({
-  queryParams: ['create', 'vendor'],
+  queryParams: ['create'],
   ExpenseValidations,
   category: alias('model.category'),
   newExpense: alias('model.newExpense'),
-  vendors: alias('model.vendors'),
 
   actions: {
     closeCreateForm() {

@@ -1,8 +1,18 @@
 import Component from '@ember/component';
-import { computed, get, set } from '@ember/object';
+import {
+  computed,
+  get,
+  observer,
+  set,
+} from '@ember/object';
+import { inject as service } from '@ember/service';
+import ENV from 'finance-web/config/environment';
 
 export default Component.extend({
+  ajax: service(),
   errors: null,
+  vendorSearch: '',
+  vendors: [],
 
   disableSubmit: computed(
     'expense.{isDirty,isInvalid}',
@@ -12,16 +22,38 @@ export default Component.extend({
     },
   ),
 
+  vendorSearchChanged: observer('vendorSearch', function() {
+    return this.getVendors();
+  }),
+
+  didInsertElement() {
+    return this.getVendors();
+  },
+
+  getVendors() {
+    const vendorSearch = get(this, 'vendorSearch');
+    return get(this, 'ajax').request(`${ENV.apiURL}/vendors?search=${vendorSearch}`, {
+      method: 'GET',
+    }).then((res) => {
+      return res.data.map((vendor) => {
+        return {
+          'created-at': vendor.attributes['created-at'],
+          id: vendor.id,
+          name: vendor.attributes.name,
+        };
+      });
+    }).then((vendors) => {
+      set(this, 'vendors', vendors);
+    });
+  },
+
   actions: {
-    async selectVendor(vendor) {
-      console.log('selectVendor');
-      console.log(vendor);
-      set(this, 'expense.vendor', vendor);
-      set(this, 'vendorSearch', get(vendor, 'name'));
+    async selectVendor(vendorId) {
+      // set(this, 'expense.vendor', vendor);
+      // set(this, 'vendorSearch', get(vendor, 'name'));
     },
 
     async submit() {
-      console.log('submit');
       set(this, 'errors', null);
       const expense = get(this, 'expense');
       try {

@@ -17,11 +17,11 @@ export default Route.extend({
     }
   },
 
-  model(params) {
+  async model(params) {
     let newExpense = null;
     if (params.create === 'true') {
       newExpense = this.store.createRecord('expense', {
-        category: this.store.peekRecord('category', params.category_uuid),
+        category: await this.store.findRecord('category', params.category_uuid),
       });
     }
     return RSVP.hash({

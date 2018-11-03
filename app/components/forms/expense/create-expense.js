@@ -48,8 +48,9 @@ export default Component.extend({
   },
 
   actions: {
-    async selectVendor(vendorId) {
-      get(this, 'vendorSelected')(vendorId);
+    async selectVendor(vendor) {
+      get(this, 'vendorSelected')(vendor.id);
+      set(this, 'vendorSearch', vendor.name);
       // set(this, 'expense.vendor', vendor);
       // set(this, 'vendorSearch', get(vendor, 'name'));
     },

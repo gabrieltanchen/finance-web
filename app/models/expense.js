@@ -6,7 +6,7 @@ export default DS.Model.extend({
   amount_cents: DS.attr('number'),
   category: DS.belongsTo('category'),
   created_at: DS.attr('date'),
-  date: DS.attr('string'),
+  date: DS.attr('date'),
   description: DS.attr('string'),
   reimbursed_amount: DS.attr('number'),
   reimbursed_cents: DS.attr('number'),

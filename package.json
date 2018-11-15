@@ -59,7 +59,7 @@
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
-    "foundation-sites": "6.4.3",
+    "foundation-sites": "6.5.1",
     "loader.js": "4.7.0",
     "sass-lint": "1.12.1"
   },

@@ -1,24 +1,17 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-describe('Integration | Component | forms/vendor/create-vendor', function() {
-  setupComponentTest('forms/vendor/create-vendor', {
-    integration: true,
-  });
+module('Integration | Component | forms/vendor/create-vendor', function(hooks) {
+  setupRenderingTest(hooks);
 
-  it('renders', function() {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#forms/vendor/create-vendor}}
-    //     template content
-    //   {{/forms/vendor/create-vendor}}
-    // `);
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    this.render(hbs`{{forms/vendor/create-vendor}}`);
-    expect(this.$()).to.have.length(1);
+    await render(hbs`{{forms/vendor/create-vendor}}`);
+
+    assert.equal(this.element.querySelector('#create-vendor-button').value.trim(), 'Create');
   });
 });

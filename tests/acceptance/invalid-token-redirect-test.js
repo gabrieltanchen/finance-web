@@ -1,33 +1,24 @@
-// import {
-//   describe,
-//   it,
-//   beforeEach,
-//   afterEach,
-// } from 'mocha';
-// import { expect } from 'chai';
-// import startApp from 'finance-web/tests/helpers/start-app';
-// import destroyApp from 'finance-web/tests/helpers/destroy-app';
-// import { get } from '@ember/object';
-//
-// describe('Acceptance | invalid token redirect', function() {
-//   let application;
-//
-//   beforeEach(function() {
-//     application = startApp();
-//     const container = application.__container__;
-//     const session = container.lookup('service:session');
-//     session.logout();
-//     get(session, 'cookie').setCookie('token', 'invalidtoken');
-//   });
-//
-//   afterEach(function() {
-//     destroyApp(application);
-//   });
-//
-//   it('should redirect with an invalid token', function() {
-//     visit('/dashboard');
-//     return andThen(() => {
-//       expect(currentURL()).to.equal('/login');
-//     });
-//   });
-// });
+import { module, test } from 'qunit';
+import {
+  currentURL,
+  visit,
+} from '@ember/test-helpers';
+import { get } from '@ember/object';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+
+module('Acceptance | invalid token redirect', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
+
+  hooks.beforeEach(function() {
+    const session = this.owner.lookup('service:session');
+    session.logout();
+    get(session, 'cookie').setCookie('token', 'invalidtoken');
+  });
+
+  test('should redirect with an invalid token', async function(assert) {
+    await visit('/dashboard');
+    assert.equal(currentURL(), '/login');
+  });
+});

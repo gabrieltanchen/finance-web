@@ -52,7 +52,7 @@ export default Service.extend({
     let userId;
     let userToken;
     try {
-      const res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login`, {
+      const res = await get(this, 'ajax').request(`${ENV.apiURL}/users/login`, {
         data: {
           data: {
             attributes: {

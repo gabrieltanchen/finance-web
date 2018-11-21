@@ -9,4 +9,20 @@ module('Unit | Controller | vendors/index', function(hooks) {
     const controller = this.owner.lookup('controller:vendors/index');
     assert.ok(controller);
   });
+
+  test('should update create on closeCreateForm action', function(assert) {
+    const controller = this.owner.lookup('controller:vendors/index');
+    controller.set('create', true);
+
+    controller.send('closeCreateForm');
+    assert.equal(controller.get('create'), null);
+  });
+
+  test('should update create on showCreateForm action', function(assert) {
+    const controller = this.owner.lookup('controller:vendors/index');
+    controller.set('create', null);
+
+    controller.send('showCreateForm');
+    assert.equal(controller.get('create'), true);
+  });
 });

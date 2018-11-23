@@ -1,24 +1,17 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-describe('Integration | Component | nav-menu', function() {
-  setupComponentTest('nav-menu', {
-    integration: true,
-  });
+module('Integration | Component | nav-menu', function(hooks) {
+  setupRenderingTest(hooks);
 
-  it('renders', function() {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#nav-menu}}
-    //     template content
-    //   {{/nav-menu}}
-    // `);
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    this.render(hbs`{{nav-menu}}`);
-    expect(this.$()).to.have.length(1);
+    await render(hbs`{{nav-menu}}`);
+
+    assert.equal(this.element.querySelector('.logo-link').textContent.trim(), 'Finance');
   });
 });

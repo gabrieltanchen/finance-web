@@ -17,18 +17,11 @@ module.exports = {
   ],
   env: {
     browser: true,
-    mocha: true,
     node: true
   },
   globals: {
-    'andThen': true,
-    'click': true,
-    'currentURL': true,
-    'fillIn': true,
     'Foundation': true,
     'server': true,
-    'triggerEvent': true,
-    'visit': true,
   },
   rules: {
     'array-callback-return': ['off'],

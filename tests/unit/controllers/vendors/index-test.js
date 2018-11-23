@@ -1,16 +1,29 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+import { get, set } from '@ember/object';
 
-describe('Unit | Controller | vendors/index', function() {
-  setupTest('controller:vendors/index', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
-  });
+module('Unit | Controller | vendors/index', function(hooks) {
+  setupTest(hooks);
 
   // Replace this with your real tests.
-  it('exists', function() {
-    const controller = this.subject();
-    expect(controller).to.be.ok;
+  test('it exists', function(assert) {
+    const controller = this.owner.lookup('controller:vendors/index');
+    assert.ok(controller);
+  });
+
+  test('should update create on closeCreateForm action', function(assert) {
+    const controller = this.owner.lookup('controller:vendors/index');
+    set(controller, 'create', true);
+
+    controller.send('closeCreateForm');
+    assert.equal(get(controller, 'create'), null);
+  });
+
+  test('should update create on showCreateForm action', function(assert) {
+    const controller = this.owner.lookup('controller:vendors/index');
+    set(controller, 'create', null);
+
+    controller.send('showCreateForm');
+    assert.equal(get(controller, 'create'), true);
   });
 });

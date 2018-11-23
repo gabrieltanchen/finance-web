@@ -79,26 +79,6 @@ export default Controller.extend({
     closeCreateForm() {
       set(this, 'create', null);
     },
-    nextPage() {
-      let page = get(this, 'currentPage');
-      const numPages = get(this, 'numPages');
-      page += 1;
-      if (page >= numPages) {
-        page = numPages;
-      }
-      set(this, 'page', page);
-    },
-    previousPage() {
-      let page = get(this, 'currentPage');
-      page -= 1;
-      if (page <= 1) {
-        page = 1;
-      }
-      set(this, 'page', page);
-    },
-    setPage(page) {
-      set(this, 'page', page);
-    },
     showCreateForm() {
       set(this, 'create', true);
     },

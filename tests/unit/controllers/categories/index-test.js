@@ -11,7 +11,7 @@ module('Unit | Controller | categories/index', function(hooks) {
   });
 
   test('should update create on closeCreateForm action', function(assert) {
-    const controller = this.owner.lookup('controller:vendors/index');
+    const controller = this.owner.lookup('controller:categories/index');
     controller.set('create', true);
 
     controller.send('closeCreateForm');
@@ -19,7 +19,7 @@ module('Unit | Controller | categories/index', function(hooks) {
   });
 
   test('should update create on showCreateForm action', function(assert) {
-    const controller = this.owner.lookup('controller:vendors/index');
+    const controller = this.owner.lookup('controller:categories/index');
     controller.set('create', null);
 
     controller.send('showCreateForm');

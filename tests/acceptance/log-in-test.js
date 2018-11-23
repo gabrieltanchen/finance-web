@@ -1,85 +1,72 @@
+import { module, test } from 'qunit';
 import {
-  describe,
-  it,
-  beforeEach,
-  afterEach,
-} from 'mocha';
-import { assert, expect } from 'chai';
-import startApp from 'finance-web/tests/helpers/start-app';
-import destroyApp from 'finance-web/tests/helpers/destroy-app';
+  click,
+  currentURL,
+  fillIn,
+  triggerEvent,
+  visit,
+} from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-describe('Acceptance | log in', function() {
-  let application;
+module('Acceptance | log in', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
 
-  beforeEach(function() {
-    application = startApp();
-    const container = application.__container__;
-    const session = container.lookup('service:session');
-    session.logout();
+  test('should show all email errors', async function(assert) {
+    await visit('/login');
+    await triggerEvent('#log-in-email', 'blur');
+    assert.equal(currentURL(), '/login');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 2);
+    assert.equal(errors[0].textContent.trim(), 'Email must be a valid email address');
+    assert.equal(errors[1].textContent.trim(), 'Email can\'t be blank');
   });
 
-  afterEach(function() {
-    destroyApp(application);
+  test('should show valid email error', async function(assert) {
+    await visit('/login');
+    await fillIn('#log-in-email', 'hello');
+    assert.equal(currentURL(), '/login');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Email must be a valid email address');
   });
 
-  it('should show all email errors', function() {
-    visit('/login');
-    triggerEvent('#log-in-email', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/login');
-      assert.include(find('p.validated-input-error').text(), 'Email must be a valid email address');
-      assert.include(find('p.validated-input-error').text(), 'Email can\'t be blank');
-    });
+  test('should show all password errors', async function(assert) {
+    await visit('/login');
+    await triggerEvent('#log-in-password', 'blur');
+    assert.equal(currentURL(), '/login');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 2);
+    assert.equal(errors[0].textContent.trim(), 'Password is too short (minimum is 8 characters)');
+    assert.equal(errors[1].textContent.trim(), 'Password can\'t be blank');
   });
 
-  it('should show valid email error', function() {
-    visit('/login');
-    fillIn('#log-in-email', 'hello');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/login');
-      assert.include(find('p.validated-input-error').text(), 'Email must be a valid email address');
-      assert.notInclude(find('p.validated-input-error').text(), 'Email can\'t be blank');
-    });
+  test('should show password length error', async function(assert) {
+    await visit('/login');
+    await fillIn('#log-in-password', 'a');
+    assert.equal(currentURL(), '/login');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Password is too short (minimum is 8 characters)');
   });
 
-  it('should show all password errors', function() {
-    visit('/login');
-    triggerEvent('#log-in-password', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/login');
-      assert.include(find('p.validated-input-error').text(), 'Password is too short (minimum is 8 characters)');
-      assert.include(find('p.validated-input-error').text(), 'Password can\'t be blank');
-    });
+  test('should show error from api', async function(assert) {
+    await visit('/login');
+    await fillIn('#log-in-email', 'hello@error.com');
+    await fillIn('#log-in-password', 'password');
+    await click('#log-in-button');
+    assert.equal(currentURL(), '/login');
+    const errors = this.element.querySelectorAll('.alert');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Test error.');
   });
 
-  it('should show password length error', function() {
-    visit('/login');
-    fillIn('#log-in-password', 'a');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/login');
-      assert.include(find('p.validated-input-error').text(), 'Password is too short (minimum is 8 characters)');
-      assert.notInclude(find('p.validated-input-error').text(), 'Password can\'t be blank');
-    });
-  });
-
-  it('should show error from api', function() {
-    visit('/login');
-    fillIn('#log-in-email', 'hello@error.com');
-    fillIn('#log-in-password', 'password');
-    click('#log-in-button');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/login');
-      assert.include(find('.alert').text(), 'Test error.');
-    });
-  });
-
-  it('should go to dashboard on successful log in', function() {
-    visit('/login');
-    fillIn('#log-in-email', 'hello@mail.com');
-    fillIn('#log-in-password', 'password');
-    click('#log-in-button');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/dashboard');
-    });
+  test('should go to dashboard on successful log in', async function(assert) {
+    await visit('/login');
+    await fillIn('#log-in-email', 'hello@mail.com');
+    await fillIn('#log-in-password', 'password');
+    await click('#log-in-button');
+    assert.equal(currentURL(), '/dashboard');
   });
 });

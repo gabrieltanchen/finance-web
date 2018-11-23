@@ -1,34 +1,31 @@
-import { expect } from 'chai';
-import {
-  describe,
-  it,
-  beforeEach,
-  afterEach,
-} from 'mocha';
-import { run } from '@ember/runloop';
 import Application from '@ember/application';
+
 import { initialize } from 'finance-web/initializers/cookie-injector';
-import destroyApp from '../../helpers/destroy-app';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+import { run } from '@ember/runloop';
 
-describe('Unit | Initializer | cookie-injector', function() {
-  let application;
+module('Unit | Initializer | cookie-injector', function(hooks) {
+  setupTest(hooks);
 
-  beforeEach(function() {
-    run(function() {
-      application = Application.create();
-      application.deferReadiness();
+  hooks.beforeEach(function() {
+    this.TestApplication = Application.extend();
+    this.TestApplication.initializer({
+      name: 'initializer under test',
+      initialize,
     });
+
+    this.application = this.TestApplication.create({ autoboot: false });
   });
 
-  afterEach(function() {
-    destroyApp(application);
+  hooks.afterEach(function() {
+    run(this.application, 'destroy');
   });
 
   // Replace this with your real tests.
-  it('works', function() {
-    initialize(application);
+  test('it works', async function(assert) {
+    await this.application.boot();
 
-    // you would normally confirm the results of the initializer here
-    expect(true).to.be.ok;
+    assert.ok(true);
   });
 });

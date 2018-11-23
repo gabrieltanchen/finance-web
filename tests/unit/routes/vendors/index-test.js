@@ -1,14 +1,11 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-describe('Unit | Route | vendors/index', function() {
-  setupTest('route:vendors/index', {
-    needs: ['service:session'],
-  });
+module('Unit | Route | vendors/index', function(hooks) {
+  setupTest(hooks);
 
-  it('exists', function() {
-    const route = this.subject();
-    expect(route).to.be.ok;
+  test('it exists', function(assert) {
+    const route = this.owner.lookup('route:vendors/index');
+    assert.ok(route);
   });
 });

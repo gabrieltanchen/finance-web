@@ -1,33 +1,24 @@
+import { module, test } from 'qunit';
 import {
-  describe,
-  it,
-  beforeEach,
-  afterEach,
-} from 'mocha';
-import { expect } from 'chai';
-import startApp from 'finance-web/tests/helpers/start-app';
-import destroyApp from 'finance-web/tests/helpers/destroy-app';
+  currentURL,
+  visit,
+} from '@ember/test-helpers';
 import { get } from '@ember/object';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-describe('Acceptance | invalid token redirect', function() {
-  let application;
+module('Acceptance | invalid token redirect', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
 
-  beforeEach(function() {
-    application = startApp();
-    const container = application.__container__;
-    const session = container.lookup('service:session');
+  hooks.beforeEach(function() {
+    const session = this.owner.lookup('service:session');
     session.logout();
     get(session, 'cookie').setCookie('token', 'invalidtoken');
   });
 
-  afterEach(function() {
-    destroyApp(application);
-  });
-
-  it('should redirect with an invalid token', function() {
-    visit('/dashboard');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/login');
-    });
+  test('should redirect with an invalid token', async function(assert) {
+    await visit('/dashboard');
+    assert.equal(currentURL(), '/login');
   });
 });

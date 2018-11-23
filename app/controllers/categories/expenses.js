@@ -4,9 +4,27 @@ import { get, set } from '@ember/object';
 import ExpenseValidations from '../../validations/expense';
 
 export default Controller.extend({
-  queryParams: ['create'],
+  queryParams: ['create', 'limit', 'page'],
   ExpenseValidations,
+  meta: null,
+  tableColumns: [{
+    name: 'Date',
+    propertyName: 'date',
+  }, {
+    name: 'Vendor',
+    propertyName: 'vendor.name',
+  }, {
+    name: 'Description',
+    propertyName: 'description',
+  }, {
+    name: 'Amount',
+    propertyName: 'amount',
+  }, {
+    name: 'Reimbursed Amount',
+    propertyName: 'reimbursed_amount',
+  }],
   category: alias('model.category'),
+  expenses: alias('model.expenses'),
   newExpense: alias('model.newExpense'),
 
   actions: {

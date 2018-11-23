@@ -33,6 +33,15 @@
       </a>
     </div>
   </div>
+  <div class="grid-x">
+    <div class="cell">
+      {{#if expenses.length}}
+        {{pagination-table rows=expenses columns=tableColumns limit=limit page=page meta=meta}}
+      {{else}}
+        No expenses exist here
+      {{/if}}
+    </div>
+  </div>
   {{#if newExpense}}
     <div class="overlay">
       <div class="grid-x grid-padding-x align-center modal">

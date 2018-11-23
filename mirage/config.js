@@ -144,6 +144,32 @@ export default function() {
       'data': [],
     });
   });
+  this.post('/vendors', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Vendor') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': 'b6f0441e-bdee-4172-a646-4d8c9191db57',
+        'type': 'vendors',
+      },
+    });
+  });
   this.get('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

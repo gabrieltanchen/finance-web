@@ -60,7 +60,7 @@
     "eslint-plugin-react": "7.11.1",
     "foundation-sites": "6.4.3",
     "loader.js": "4.7.0",
-    "qunit-dom": "0.7.1",
+    "qunit-dom": "0.8.1",
     "sass-lint": "1.12.1"
   },
   "engines": {

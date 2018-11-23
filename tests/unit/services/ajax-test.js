@@ -1,16 +1,12 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-describe('Unit | Service | ajax', function() {
-  setupTest('service:ajax', {
-    // Specify the other units that are required for this test.
-    // needs: ['service:foo']
-  });
+module('Unit | Service | ajax', function(hooks) {
+  setupTest(hooks);
 
   // Replace this with your real tests.
-  it('exists', function() {
-    const service = this.subject();
-    expect(service).to.be.ok;
+  test('it exists', function(assert) {
+    const service = this.owner.lookup('service:ajax');
+    assert.ok(service);
   });
 });

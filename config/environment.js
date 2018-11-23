@@ -44,6 +44,7 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
+    // ENV.apiURL = 'http://localhost:8080';
     ENV.apiURL = '';
     ENV['ember-cli-mirage'] = {
       enabled: true,

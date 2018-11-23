@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import { get, set } from '@ember/object';
 
 module('Unit | Controller | categories/subcategories', function(hooks) {
   setupTest(hooks);
@@ -12,17 +13,17 @@ module('Unit | Controller | categories/subcategories', function(hooks) {
 
   test('should update create on closeCreateForm action', function(assert) {
     const controller = this.owner.lookup('controller:categories/subcategories');
-    controller.set('create', true);
+    set(controller, 'create', true);
 
     controller.send('closeCreateForm');
-    assert.equal(controller.get('create'), null);
+    assert.equal(get(controller, 'create'), null);
   });
 
   test('should update create on showCreateForm action', function(assert) {
     const controller = this.owner.lookup('controller:categories/subcategories');
-    controller.set('create', null);
+    set(controller, 'create', null);
 
     controller.send('showCreateForm');
-    assert.equal(controller.get('create'), true);
+    assert.equal(get(controller, 'create'), true);
   });
 });

@@ -20,7 +20,7 @@ export default Component.extend({
         await category.save();
         get(this, 'categoryCreated')();
       } catch (err) {
-        let errors = 'Unable to create category.';
+        let errors = ['Unable to create category.'];
         if (err && errors) {
           errors = err.errors.map((error) => {
             return error.detail;

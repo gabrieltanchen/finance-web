@@ -1,24 +1,24 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-describe('Integration | Component | forms/validated-input', function() {
-  setupComponentTest('forms/validated-input', {
-    integration: true,
-  });
+module('Integration | Component | forms/validated-input', function(hooks) {
+  setupRenderingTest(hooks);
 
-  it('renders', function() {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#forms/validated-input}}
-    //     template content
-    //   {{/forms/validated-input}}
-    // `);
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    this.render(hbs`{{forms/validated-input}}`);
-    expect(this.$()).to.have.length(1);
+    this.set('propertyId', 'test-property-id');
+    this.set('propertyName', 'first_name');
+    this.set('type', 'text');
+    this.set('user', {
+      'first_name': 'John',
+    });
+
+    await render(hbs`{{forms/validated-input type=type propertyId=propertyId propertyName=propertyName changeset=user}}`);
+
+    assert.equal(this.element.querySelector('#test-property-id').value.trim(), 'John');
   });
 });

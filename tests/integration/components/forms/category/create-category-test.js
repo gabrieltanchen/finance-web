@@ -1,24 +1,17 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-describe('Integration | Component | forms/category/create-category', function() {
-  setupComponentTest('forms/category/create-category', {
-    integration: true,
-  });
+module('Integration | Component | forms/category/create-category', function(hooks) {
+  setupRenderingTest(hooks);
 
-  it('renders', function() {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#forms/category/create-category}}
-    //     template content
-    //   {{/forms/category/create-category}}
-    // `);
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    this.render(hbs`{{forms/category/create-category}}`);
-    expect(this.$()).to.have.length(1);
+    await render(hbs`{{forms/category/create-category}}`);
+
+    assert.equal(this.element.querySelector('#create-category-button').value.trim(), 'Create');
   });
 });

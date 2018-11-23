@@ -1,107 +1,92 @@
+import { module, test } from 'qunit';
 import {
-  describe,
-  it,
-  beforeEach,
-  afterEach,
-} from 'mocha';
-import { assert, expect } from 'chai';
-import startApp from 'finance-web/tests/helpers/start-app';
-import destroyApp from 'finance-web/tests/helpers/destroy-app';
+  click,
+  currentURL,
+  fillIn,
+  triggerEvent,
+  visit,
+} from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-describe('Acceptance | sign up', function() {
-  let application;
+module('Acceptance | sign up', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
 
-  beforeEach(function() {
-    application = startApp();
-    const container = application.__container__;
-    const session = container.lookup('service:session');
+  hooks.beforeEach(function() {
+    const session = this.owner.lookup('service:session');
     session.logout();
   });
 
-  afterEach(function() {
-    destroyApp(application);
+  test('should show all email errors', async function(assert) {
+    await visit('/sign-up');
+    await triggerEvent('#sign-up-email', 'blur');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 2);
+    assert.equal(errors[0].textContent.trim(), 'Email must be a valid email address');
+    assert.equal(errors[1].textContent.trim(), 'Email can\'t be blank');
   });
 
-  it('should show all email errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-email', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'Email must be a valid email address');
-      assert.include(find('p.validated-input-error').text(), 'Email can\'t be blank');
-    });
+  test('should show valid email error', async function(assert) {
+    await visit('/sign-up');
+    await fillIn('#sign-up-email', 'hello');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Email must be a valid email address');
   });
 
-  it('should show valid email error', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-email', 'hello');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'Email must be a valid email address');
-      assert.notInclude(find('p.validated-input-error').text(), 'Email can\'t be blank');
-    });
+  test('should show first name errors', async function(assert) {
+    await visit('/sign-up');
+    await triggerEvent('#sign-up-first-name', 'blur');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'First name can\'t be blank');
   });
 
-  it('should show first name errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-first-name', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'First name can\'t be blank');
-    });
+  test('should show last name errors', async function(assert) {
+    await visit('/sign-up');
+    await triggerEvent('#sign-up-last-name', 'blur');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Last name can\'t be blank');
   });
 
-  it('should show last name errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-last-name', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'Last name can\'t be blank');
-    });
+  test('should show all password errors', async function(assert) {
+    await visit('/sign-up');
+    await triggerEvent('#sign-up-password', 'blur');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 2);
+    assert.equal(errors[0].textContent.trim(), 'Password is too short (minimum is 8 characters)');
+    assert.equal(errors[1].textContent.trim(), 'Password can\'t be blank');
   });
 
-  it('should show all password errors', function() {
-    visit('/sign-up');
-    triggerEvent('#sign-up-password', 'blur');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'Password is too short (minimum is 8 characters)');
-      assert.include(find('p.validated-input-error').text(), 'Password can\'t be blank');
-    });
+  test('should show password length error', async function(assert) {
+    await visit('/sign-up');
+    await fillIn('#sign-up-password', 'a');
+    const errors = this.element.querySelectorAll('p.validated-input-error');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Password is too short (minimum is 8 characters)');
   });
 
-  it('should show password length error', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-password', 'a');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('p.validated-input-error').text(), 'Password is too short (minimum is 8 characters)');
-      assert.notInclude(find('p.validated-input-error').text(), 'Password can\'t be blank');
-    });
+  test('should show error from api', async function(assert) {
+    await visit('/sign-up');
+    await fillIn('#sign-up-email', 'hello@error.com');
+    await fillIn('#sign-up-first-name', 'John');
+    await fillIn('#sign-up-last-name', 'Smith');
+    await fillIn('#sign-up-password', 'password');
+    await click('#sign-up-button');
+    const errors = this.element.querySelectorAll('.alert');
+    assert.equal(errors.length, 1);
+    assert.equal(errors[0].textContent.trim(), 'Test error.');
   });
 
-  it('should show error from api', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-email', 'hello@error.com');
-    fillIn('#sign-up-first-name', 'John');
-    fillIn('#sign-up-last-name', 'Smith');
-    fillIn('#sign-up-password', 'password');
-    click('#sign-up-button');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/sign-up');
-      assert.include(find('.alert').text(), 'Test error.');
-    });
-  });
-
-  it('should go to dashboard on successful sign up', function() {
-    visit('/sign-up');
-    fillIn('#sign-up-email', 'hello@mail.com');
-    fillIn('#sign-up-first-name', 'John');
-    fillIn('#sign-up-last-name', 'Smith');
-    fillIn('#sign-up-password', 'password');
-    click('#sign-up-button');
-    return andThen(() => {
-      expect(currentURL()).to.equal('/dashboard');
-    });
+  test('should go to dashboard on successful sign up', async function(assert) {
+    await visit('/sign-up');
+    await fillIn('#sign-up-email', 'hello@mail.com');
+    await fillIn('#sign-up-first-name', 'John');
+    await fillIn('#sign-up-last-name', 'Smith');
+    await fillIn('#sign-up-password', 'password');
+    await click('#sign-up-button');
+    assert.equal(currentURL(), '/dashboard');
   });
 });

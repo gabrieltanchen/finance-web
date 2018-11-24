@@ -27,6 +27,7 @@ module.exports = {
     'array-callback-return': ['off'],
     'arrow-body-style': ['error', 'always'],
     'ember/avoid-leaking-state-in-ember-objects': ['off'],
+    'ember/no-observers': ['off'],
     'func-names': ['off'],
     'indent': ['error', 2],
     'import/no-extraneous-dependencies': ['off'],

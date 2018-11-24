@@ -26,4 +26,29 @@
       </ul>
     </div>
   </div>
+  <div class="grid-x">
+    <div class="cell">
+      <a id="show-create-expense-form-button" class="button" {{action "showCreateForm"}}>
+        Create
+      </a>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      {{#if expenses.length}}
+        {{pagination-table rows=expenses columns=tableColumns limit=limit page=page meta=meta}}
+      {{else}}
+        No expenses exist here
+      {{/if}}
+    </div>
+  </div>
+  {{#if newExpense}}
+    <div class="overlay">
+      <div class="grid-x grid-padding-x align-center modal">
+        <div class="cell small-12 medium-10 large-8 modal-cell">
+          {{forms/expense/create-expense expense=(changeset newExpense ExpenseValidations) expenseCreated=(action "closeCreateForm") vendorSelected=(action "vendorSelected")}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

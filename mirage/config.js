@@ -22,6 +22,13 @@ export default function() {
         }],
       });
     }
+    let categoryId = '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee';
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'New Subcategory') {
+      categoryId = '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e';
+    }
     return new Mirage.Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
@@ -29,7 +36,7 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
+        'id': categoryId,
         'type': 'categories',
       },
     });

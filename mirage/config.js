@@ -62,6 +62,38 @@ export default function() {
       'data': [],
     });
   });
+  this.post('/expenses', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.description
+        && params.data.attributes.description === 'Error Expense') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'amount-cents': params.data.attributes['amount-cents'],
+          'category': params.data.attributes.category,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+          'reimbursed-amount': params.data.attributes['reimbursed-amount'],
+          'reimbursed-cents': params.data.attributes['reimbursed-cents'],
+        },
+        'id': 'ba03c363-0670-43cf-bef7-07cd6bb6694d',
+        'type': 'expenses',
+      },
+    });
+  });
 
   this.post('/users', (db, request) => {
     const params = JSON.parse(request.requestBody);
@@ -156,7 +188,13 @@ export default function() {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': [],
+      'data': [{
+        'attributes': {
+          'name': 'Vendor 1',
+        },
+        'id': '7fdadf7a-9561-4950-aca6-438d554536db',
+        'type': 'vendors',
+      }],
     });
   });
   this.post('/vendors', (db, request) => {
@@ -181,6 +219,19 @@ export default function() {
           'name': params.data.attributes.name,
         },
         'id': 'b6f0441e-bdee-4172-a646-4d8c9191db57',
+        'type': 'vendors',
+      },
+    });
+  });
+  this.get('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Vendor 1',
+        },
+        'id': '7fdadf7a-9561-4950-aca6-438d554536db',
         'type': 'vendors',
       },
     });

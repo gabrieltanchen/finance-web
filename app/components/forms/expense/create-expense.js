@@ -30,23 +30,6 @@ export default Component.extend({
     return this.getVendors();
   },
 
-  getVendors() {
-    const vendorSearch = get(this, 'vendorSearch');
-    return get(this, 'ajax').request(`${ENV.apiURL}/vendors?search=${vendorSearch}`, {
-      method: 'GET',
-    }).then((res) => {
-      return res.data.map((vendor) => {
-        return {
-          'created-at': vendor.attributes['created-at'],
-          id: vendor.id,
-          name: vendor.attributes.name,
-        };
-      });
-    }).then((vendors) => {
-      set(this, 'vendors', vendors);
-    });
-  },
-
   actions: {
     async selectVendor(vendor) {
       get(this, 'vendorSelected')(vendor.id);
@@ -69,5 +52,22 @@ export default Component.extend({
         set(this, 'errors', errors);
       }
     },
+  },
+
+  getVendors() {
+    const vendorSearch = get(this, 'vendorSearch');
+    return get(this, 'ajax').request(`${ENV.apiURL}/vendors?search=${vendorSearch}`, {
+      method: 'GET',
+    }).then((res) => {
+      return res.data.map((vendor) => {
+        return {
+          'created-at': vendor.attributes['created-at'],
+          id: vendor.id,
+          name: vendor.attributes.name,
+        };
+      });
+    }).then((vendors) => {
+      set(this, 'vendors', vendors);
+    });
   },
 });

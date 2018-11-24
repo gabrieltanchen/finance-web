@@ -48,6 +48,14 @@ export default function() {
     });
   });
 
+  this.get('/expenses', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
+
   this.post('/users', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

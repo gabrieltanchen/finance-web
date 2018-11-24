@@ -1,24 +1,23 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-describe('Integration | Component | forms/validated-datepicker', function() {
-  setupComponentTest('forms/validated-datepicker', {
-    integration: true
-  });
+module('Integration | Component | forms/validated-datepicker', function(hooks) {
+  setupRenderingTest(hooks);
 
-  it('renders', function() {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#forms/validated-datepicker}}
-    //     template content
-    //   {{/forms/validated-datepicker}}
-    // `);
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    this.render(hbs`{{forms/validated-datepicker}}`);
-    expect(this.$()).to.have.length(1);
+    this.set('propertyId', 'test-property-id');
+    this.set('propertyName', 'date');
+    this.set('expense', {
+      'date': '2018-01-01',
+    });
+
+    await render(hbs`{{forms/validated-input propertyId=propertyId propertyName=propertyName changeset=expense}}`);
+
+    assert.equal(this.element.querySelector('#test-property-id').value.trim(), '2018-01-01');
   });
 });

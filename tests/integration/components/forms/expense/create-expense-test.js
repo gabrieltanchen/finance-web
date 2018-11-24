@@ -1,24 +1,30 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import Service from '@ember/service';
 
-describe('Integration | Component | forms/expense/create-expense', function() {
-  setupComponentTest('forms/expense/create-expense', {
-    integration: true,
+const ajaxStub = Service.extend({
+  request() {
+    return Promise.resolve({
+      data: [],
+    });
+  },
+});
+
+module('Integration | Component | forms/expense/create-expense', function(hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
+    this.owner.register('service:ajax', ajaxStub);
   });
 
-  it('renders', function() {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#forms/expense/create-expense}}
-    //     template content
-    //   {{/forms/expense/create-expense}}
-    // `);
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    this.render(hbs`{{forms/expense/create-expense}}`);
-    expect(this.$()).to.have.length(1);
+    await render(hbs`{{forms/expense/create-expense}}`);
+
+    assert.equal(this.element.querySelector('#create-expense-button').value.trim(), 'Create');
   });
 });

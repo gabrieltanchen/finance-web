@@ -1,32 +1,24 @@
 ---
 language: node_js
 node_js:
-  - 8.11.2
-
+  - 10.16.3
 sudo: false
 dist: trusty
-
 addons:
   chrome: stable
-
 cache:
   directories:
     - $HOME/.npm
-
 env:
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
-
 before_install:
   - npm config set spin false
-
 install:
   - npm install
-
 script:
   - npm run lint:js
-  - npm run test:travis
-
-after_success:
-  - npm run coveralls
+  - npm run test
+# after_success:
+#   - npm run coveralls

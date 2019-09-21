@@ -1,8 +1,8 @@
 {
-  "name": "finance-web",
+  "name": "expense-web",
   "version": "1.0.0",
   "private": true,
-  "description": "Small description for finance-web goes here",
+  "description": "Small description for expense-web goes here",
   "license": "MIT",
   "author": "",
   "directories": {

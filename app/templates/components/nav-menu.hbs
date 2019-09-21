@@ -1,4 +1,4 @@
-<div class="title-bar clearfix" data-responsive-toggle="finance-menu">
+<div class="title-bar clearfix" data-responsive-toggle="expense-menu">
   <div class="title-bar-title float-center">
     {{#link-to "index"}}
       {{fa-icon "balance-scale" size="lg"}}
@@ -7,7 +7,7 @@
   <button class="menu-icon float-right" type="button" data-toggle></button>
 </div>
 
-<div class="top-bar hide-for-large" id="finance-menu">
+<div class="top-bar hide-for-large" id="expense-menu">
   <div class="top-bar-left">
     <ul class="vertical menu">
       {{#each menuItems as |menuItem|}}
@@ -33,7 +33,7 @@
       <ul class="menu">
         <li>
           {{#link-to "index" class="logo-link"}}
-            {{fa-icon "balance-scale"}} Finance
+            {{fa-icon "balance-scale"}} Expense
           {{/link-to}}
         </li>
         {{#each menuItems as |menuItem|}}

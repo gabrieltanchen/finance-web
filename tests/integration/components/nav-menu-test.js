@@ -12,6 +12,6 @@ module('Integration | Component | nav-menu', function(hooks) {
 
     await render(hbs`{{nav-menu}}`);
 
-    assert.equal(this.element.querySelector('.logo-link').textContent.trim(), 'Expense');
+    assert.equal(this.element.querySelector('.logo-link').textContent.trim(), 'Finance');
   });
 });

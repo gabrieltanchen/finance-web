@@ -1,6 +1,6 @@
 import Application from '@ember/application';
 
-import { initialize } from 'expense-web/initializers/cookie-injector';
+import { initialize } from 'finance-web/initializers/cookie-injector';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { run } from '@ember/runloop';

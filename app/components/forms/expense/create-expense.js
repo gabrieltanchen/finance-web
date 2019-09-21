@@ -6,7 +6,7 @@ import {
   set,
 } from '@ember/object';
 import { inject as service } from '@ember/service';
-import ENV from 'expense-web/config/environment';
+import ENV from 'finance-web/config/environment';
 
 export default Component.extend({
   ajax: service(),

@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   const ENV = {
-    modulePrefix: 'expense-web',
+    modulePrefix: 'finance-web',
     environment,
     rootURL: '/',
     locationType: 'auto',

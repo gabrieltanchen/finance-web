@@ -25,7 +25,7 @@
     "@fortawesome/free-solid-svg-icons": "5.5.0",
     "babel-eslint": "10.0.1",
     "broccoli-asset-rev": "3.0.0",
-    "coveralls": "3.0.1",
+    "coveralls": "3.0.6",
     "ember-ajax": "4.0.0",
     "ember-changeset-validations": "2.1.0",
     "ember-cli": "3.5.1",

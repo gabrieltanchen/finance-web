@@ -1,0 +1,33 @@
+{{title "Members of Household"}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell small-8">
+      <h1>Members of Household</h1>
+    </div>
+    <div class="cell small-4">
+      <div class="button-group float-right">
+        <a id="show-create-household-member-form-button" class="button" {{action "showCreateForm"}}>
+          Create
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      {{#if householdMembers.length}}
+        {{pagination-table rows=householdMembers columns=tableColumns limit=limit page=page meta=meta}}
+      {{else}}
+        No members exist here
+      {{/if}}
+    </div>
+  </div>
+  {{#if newHouseholdMember}}
+    <div class="overlay">
+      <div class="grid-x grid-padding-x align-center modal">
+        <div class="cell small-12 medium-10 large-8 modal-cell">
+          
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>

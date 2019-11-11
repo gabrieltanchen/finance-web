@@ -1,6 +1,7 @@
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { set } from '@ember/object';
+import HouseholdMemberValidations from '../../validations/household-member';
 
 export default Controller.extend({
   queryParams: ['create', 'limit', 'page'],
@@ -13,6 +14,7 @@ export default Controller.extend({
     propertyName: 'created_at',
   }],
   householdMembers: alias('model.householdMembers'),
+  HouseholdMemberValidations,
   newHouseholdMember: alias('model.newHouseholdMember'),
 
   actions: {

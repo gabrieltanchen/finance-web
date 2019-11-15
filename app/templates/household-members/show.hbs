@@ -1,0 +1,45 @@
+{{title householdMember.name}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h1>{{householdMember.name}}</h1>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <ul class="menu">
+        <li class="is-active">
+          {{#link-to "household-members.show" householdMember.id}}
+            {{fa-icon "list"}} Details
+          {{/link-to}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <table class="unstriped">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UUID</td>
+            <td>{{householdMember.id}}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{householdMember.name}}</td>
+          </tr>
+          <tr>
+            <td>Created At</td>
+            <td>{{householdMember.created_at}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

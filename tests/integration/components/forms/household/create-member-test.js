@@ -12,15 +12,6 @@ module('Integration | Component | forms/household/create-member', function(hooks
 
     await render(hbs`{{forms/household/create-member}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      {{#forms/household/create-member}}
-        template block text
-      {{/forms/household/create-member}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.querySelector('#create-household-member-button').value.trim(), 'Create');
   });
 });

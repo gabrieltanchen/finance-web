@@ -7,6 +7,9 @@ export default Controller.extend({
   queryParams: ['create', 'limit', 'page'],
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'household-members.show',
     name: 'Name',
     propertyName: 'name',
   }, {

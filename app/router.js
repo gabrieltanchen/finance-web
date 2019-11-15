@@ -19,7 +19,11 @@ Router.map(function() {
     });
   });
   this.route('dashboard');
-  this.route('household-members', function() {});
+  this.route('household-members', function() {
+    this.route('show', {
+      path: '/:member_uuid',
+    });
+  });
   this.route('login');
   this.route('sign-up');
   this.route('vendors', function() {

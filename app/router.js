@@ -20,6 +20,9 @@ Router.map(function() {
   });
   this.route('dashboard');
   this.route('household-members', function() {
+    this.route('expenses', {
+      path: '/:member_uuid/expenses',
+    });
     this.route('show', {
       path: '/:member_uuid',
     });

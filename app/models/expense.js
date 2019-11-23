@@ -11,6 +11,7 @@ export default DS.Model.extend({
   reimbursed_cents: DS.attr('number'),
 
   category: DS.belongsTo('category'),
+  household_member: DS.belongsTo('household-member'),
   vendor: DS.belongsTo('vendor'),
 
   amountChanged: observer('amount', function() {

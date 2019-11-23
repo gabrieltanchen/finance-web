@@ -25,11 +25,16 @@ export default Controller.extend({
   }],
   category: alias('model.category'),
   expenses: alias('model.expenses'),
+  householdMembers: alias('model.householdMembers'),
   newExpense: alias('model.newExpense'),
 
   actions: {
     closeCreateForm() {
       set(this, 'create', null);
+    },
+    async householdMemberSelected(householdMemberId) {
+      const householdMember = await get(this, 'store').findRecord('household-member', householdMemberId);
+      set(get(this, 'newExpense'), 'household_member', householdMember);
     },
     showCreateForm() {
       set(this, 'create', true);

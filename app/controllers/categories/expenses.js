@@ -14,6 +14,9 @@ export default Controller.extend({
     name: 'Vendor',
     propertyName: 'vendor.name',
   }, {
+    name: 'Member',
+    propertyName: 'household_member.name',
+  }, {
     name: 'Description',
     propertyName: 'description',
   }, {

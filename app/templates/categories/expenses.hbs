@@ -46,7 +46,7 @@
     <div class="overlay">
       <div class="grid-x grid-padding-x align-center modal">
         <div class="cell small-12 medium-10 large-8 modal-cell">
-          {{forms/expense/create-expense expense=(changeset newExpense ExpenseValidations) expenseCreated=(action "closeCreateForm") vendorSelected=(action "vendorSelected")}}
+          {{forms/expense/create-expense expense=(changeset newExpense ExpenseValidations) householdMembers=householdMembers expenseCreated=(action "closeCreateForm") vendorSelected=(action "vendorSelected") householdMemberSelected=(action "householdMemberSelected")}}
         </div>
       </div>
     </div>

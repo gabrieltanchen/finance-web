@@ -95,6 +95,59 @@ export default function() {
     });
   });
 
+  this.get('/household-members', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [{
+        'attributes': {
+          'name': 'Household Member 1',
+        },
+        'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+        'type': 'household-members',
+      }],
+    });
+  });
+  this.post('household-members', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Member') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '79ae35d8-01d4-4d73-a415-ba1d6265e39f',
+        'type': 'household-members',
+      },
+    });
+  });
+  this.get('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Household Member 1',
+        },
+        'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+        'type': 'household-members',
+      },
+    });
+  });
+
   this.post('/users', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

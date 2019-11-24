@@ -25,10 +25,12 @@ export default Route.extend({
 
   async model(params) {
     let newExpense = null;
+    let householdMembers = null;
     if (params.create === 'true') {
       newExpense = this.store.createRecord('expense', {
         category: await this.store.findRecord('category', params.category_uuid),
       });
+      householdMembers = this.store.findAll('household-member');
     }
     return RSVP.hash({
       category: get(this, 'store').findRecord('category', params.category_uuid),
@@ -37,6 +39,7 @@ export default Route.extend({
         limit: params.limit,
         page: params.page,
       }),
+      householdMembers,
       newExpense,
     });
   },

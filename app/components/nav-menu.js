@@ -18,6 +18,9 @@ export default Component.extend({
         label: 'Vendors',
         linkTo: 'vendors.index',
       }, {
+        label: 'Members',
+        linkTo: 'household-members.index',
+      }, {
         action: 'logout',
         isAction: true,
         label: 'Logout',

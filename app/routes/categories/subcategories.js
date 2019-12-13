@@ -33,10 +33,10 @@ export default Route.extend({
     return RSVP.hash({
       category: get(this, 'store').findRecord('category', params.category_uuid),
       newCategory,
-      subcategories: get(this, 'store').query('category', {
+      subcategories: get(this, 'store').query('subcategory', {
+        category_uuid: params.category_uuid,
         limit: params.limit,
         page: params.page,
-        parent_uuid: params.category_uuid,
       }),
     });
   },

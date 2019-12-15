@@ -2,17 +2,16 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { get, set } from '@ember/object';
 
-module('Unit | Controller | categories/expenses', function(hooks) {
+module('Unit | Controller | subcategories/expenses', function(hooks) {
   setupTest(hooks);
 
-  // Replace this with your real tests.
   test('it exists', function(assert) {
-    const controller = this.owner.lookup('controller:categories/expenses');
+    const controller = this.owner.lookup('controller:subcategories/expenses');
     assert.ok(controller);
   });
 
   test('should update create on closeCreateForm action', function(assert) {
-    const controller = this.owner.lookup('controller:categories/expenses');
+    const controller = this.owner.lookup('controller:subcategories/expenses');
     set(controller, 'create', true);
 
     controller.send('closeCreateForm');
@@ -20,7 +19,7 @@ module('Unit | Controller | categories/expenses', function(hooks) {
   });
 
   test('should update create on showCreateForm action', function(assert) {
-    const controller = this.owner.lookup('controller:categories/expenses');
+    const controller = this.owner.lookup('controller:subcategories/expenses');
     set(controller, 'create', null);
 
     controller.send('showCreateForm');
@@ -28,7 +27,7 @@ module('Unit | Controller | categories/expenses', function(hooks) {
   });
 
   test('should update vendor on vendorSelected action', async function(assert) {
-    const controller = this.owner.lookup('controller:categories/expenses');
+    const controller = this.owner.lookup('controller:subcategories/expenses');
     set(controller, 'vendor', null);
     set(controller, 'model', {
       'newExpense': {

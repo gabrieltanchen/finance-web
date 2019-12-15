@@ -10,7 +10,7 @@ export default Controller.extend({
   tableColumns: [{
     isLink: true,
     linkParam: 'id',
-    linkTo: 'categories.show',
+    linkTo: 'subcategories.show',
     name: 'Name',
     propertyName: 'name',
   }, {
@@ -18,7 +18,7 @@ export default Controller.extend({
     propertyName: 'created_at',
   }],
   category: alias('model.category'),
-  newCategory: alias('model.newCategory'),
+  newSubcategory: alias('model.newSubcategory'),
   subcategories: alias('model.subcategories'),
 
   actions: {

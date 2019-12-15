@@ -32,11 +32,6 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee');
   });
 
-  test('can visit /categories/:uuid/expenses', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
-  });
-
   test('can visit /categories/:uuid/subcategories', async function(assert) {
     await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
     assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
@@ -55,6 +50,16 @@ module('Acceptance | logged in redirects', function(hooks) {
   test('should redirect away from /sign-up', async function(assert) {
     await visit('/sign-up');
     assert.equal(currentURL(), '/dashboard');
+  });
+
+  test('can visit /subcategories/:uuid', async function(assert) {
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
+  });
+
+  test('can visit /subcategories/:uuid/expenses', async function(assert) {
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
   });
 
   test('can visit /vendors', async function(assert) {

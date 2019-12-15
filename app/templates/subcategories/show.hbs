@@ -1,21 +1,21 @@
-{{title category.name}}
+{{title subcategory.name}}
 <div class="grid-container">
   <div class="grid-x">
     <div class="cell">
-      <h1>{{category.name}}</h1>
+      <h1>{{subcategory.name}}</h1>
     </div>
   </div>
   <div class="grid-x">
     <div class="cell">
       <ul class="menu">
         <li class="is-active">
-          {{#link-to "categories.show" category.id}}
+          {{#link-to "subcategories.show" subcategory.id}}
             {{fa-icon "list"}} Details
           {{/link-to}}
         </li>
         <li>
-          {{#link-to "categories.subcategories" category.id}}
-            {{fa-icon "project-diagram"}} Subcategories
+          {{#link-to "subcategories.expenses" subcategory.id}}
+            {{fa-icon "credit-card"}} Expenses
           {{/link-to}}
         </li>
       </ul>
@@ -33,15 +33,15 @@
         <tbody>
           <tr>
             <td>UUID</td>
-            <td>{{category.id}}</td>
+            <td>{{subcategory.id}}</td>
           </tr>
           <tr>
             <td>Name</td>
-            <td>{{category.name}}</td>
+            <td>{{subcategory.name}}</td>
           </tr>
           <tr>
             <td>Created At</td>
-            <td>{{category.created_at}}</td>
+            <td>{{subcategory.created_at}}</td>
           </tr>
         </tbody>
       </table>

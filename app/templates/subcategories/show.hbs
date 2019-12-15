@@ -1,0 +1,55 @@
+{{title subcategory.name}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h1>{{subcategory.name}}</h1>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <ul class="menu">
+        <li class="is-active">
+          {{#link-to "subcategories.show" subcategory.id}}
+            {{fa-icon "list"}} Details
+          {{/link-to}}
+        </li>
+        <!-- <li>
+          {{#link-to "categories.subcategories" category.id}}
+            {{fa-icon "project-diagram"}} Subcategories
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to "categories.expenses" category.id}}
+            {{fa-icon "credit-card"}} Expenses
+          {{/link-to}}
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <table class="unstriped">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UUID</td>
+            <td>{{subcategory.id}}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{subcategory.name}}</td>
+          </tr>
+          <tr>
+            <td>Created At</td>
+            <td>{{subcategory.created_at}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -8,9 +8,9 @@ export default Controller.extend({
   CategoryValidations,
   meta: null,
   tableColumns: [{
-    // isLink: true,
-    // linkParam: 'id',
-    // linkTo: 'categories.show',
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'subcategories.show',
     name: 'Name',
     propertyName: 'name',
   }, {

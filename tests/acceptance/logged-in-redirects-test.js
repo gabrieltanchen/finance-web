@@ -57,6 +57,11 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('can visit /subcategories/:uuid', async function(assert) {
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
+  });
+
   test('can visit /vendors', async function(assert) {
     await visit('/vendors');
     assert.equal(currentURL(), '/vendors');

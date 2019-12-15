@@ -19,7 +19,7 @@
     "test:travis": "COVERAGE=true ember test"
   },
   "devDependencies": {
-    "@fortawesome/ember-fontawesome": "0.1.9",
+    "@fortawesome/ember-fontawesome": "0.2.1",
     "@fortawesome/free-brands-svg-icons": "5.11.2",
     "@fortawesome/free-regular-svg-icons": "5.11.1",
     "@fortawesome/free-solid-svg-icons": "5.5.0",

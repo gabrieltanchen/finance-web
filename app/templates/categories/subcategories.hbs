@@ -42,11 +42,11 @@
       {{/if}}
     </div>
   </div>
-  {{#if newCategory}}
+  {{#if newSubcategory}}
     <div class="overlay">
       <div class="grid-x grid-padding-x align-center modal">
         <div class="cell small-12 medium-10 large-8 modal-cell">
-          {{forms/category/create-category category=(changeset newCategory CategoryValidations) categoryCreated=(action "closeCreateForm")}}
+          {{forms/category/create-subcategory subcategory=(changeset newSubcategory CategoryValidations) subcategoryCreated=(action "closeCreateForm")}}
         </div>
       </div>
     </div>

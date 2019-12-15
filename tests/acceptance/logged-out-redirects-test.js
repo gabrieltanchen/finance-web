@@ -30,11 +30,6 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /categories/:uuid/expenses', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
-    assert.equal(currentURL(), '/login');
-  });
-
   test('should redirect away from /categories/:uuid/subcategories', async function(assert) {
     await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
     assert.equal(currentURL(), '/login');
@@ -57,6 +52,11 @@ module('Acceptance | logged out redirects', function(hooks) {
 
   test('should redirect away from /subcategories/:uuid', async function(assert) {
     await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /subcategories/:uuid/expenses', async function(assert) {
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     assert.equal(currentURL(), '/login');
   });
 

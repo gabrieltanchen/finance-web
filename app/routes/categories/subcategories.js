@@ -23,20 +23,21 @@ export default Route.extend({
     }
   },
 
-  model(params) {
-    let newCategory = null;
+  async model(params) {
+    const category = await get(this, 'store').findRecord('category', params.category_uuid);
+    let newSubcategory = null;
     if (params.create === 'true') {
-      newCategory = this.store.createRecord('category', {
-        parent_uuid: params.category_uuid,
+      newSubcategory = this.store.createRecord('subcategory', {
+        category,
       });
     }
     return RSVP.hash({
-      category: get(this, 'store').findRecord('category', params.category_uuid),
-      newCategory,
-      subcategories: get(this, 'store').query('category', {
+      category,
+      newSubcategory,
+      subcategories: get(this, 'store').query('subcategory', {
+        category_uuid: params.category_uuid,
         limit: params.limit,
         page: params.page,
-        parent_uuid: params.category_uuid,
       }),
     });
   },

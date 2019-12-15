@@ -28,19 +28,19 @@ export default Route.extend({
     let householdMembers = null;
     if (params.create === 'true') {
       newExpense = this.store.createRecord('expense', {
-        category: await this.store.findRecord('category', params.category_uuid),
+        subcategory: await this.store.findRecord('subcategory', params.subcategory_uuid),
       });
       householdMembers = this.store.findAll('household-member');
     }
     return RSVP.hash({
-      category: get(this, 'store').findRecord('category', params.category_uuid),
       expenses: get(this, 'store').query('expense', {
-        category_uuid: params.category_uuid,
         limit: params.limit,
         page: params.page,
+        subcategory_uuid: params.subcategory_uuid,
       }),
       householdMembers,
       newExpense,
+      subcategory: get(this, 'store').findRecord('subcategory', params.subcategory_uuid),
     });
   },
 

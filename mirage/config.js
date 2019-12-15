@@ -22,13 +22,6 @@ export default function() {
         }],
       });
     }
-    let categoryId = '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee';
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.name
-        && params.data.attributes.name === 'New Subcategory') {
-      categoryId = '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e';
-    }
     return new Mirage.Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
@@ -36,7 +29,7 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': categoryId,
+        'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
         'type': 'categories',
       },
     });
@@ -144,6 +137,53 @@ export default function() {
         },
         'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
         'type': 'household-members',
+      },
+    });
+  });
+
+  this.get('/subcategories', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
+  this.post('/subcategories', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Category') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'type': 'subcategories',
+      },
+    });
+  });
+  this.get('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Hello world',
+        },
+        'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'type': 'subcategories',
       },
     });
   });

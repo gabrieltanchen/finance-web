@@ -29,7 +29,7 @@ module('Acceptance | create subcategory', function(hooks) {
   test('should show name errors', async function(assert) {
     await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
     await click('#show-create-subcategory-form-button');
-    await triggerEvent('#create-category-name', 'blur');
+    await triggerEvent('#create-subcategory-name', 'blur');
     const errors = this.element.querySelectorAll('p.validated-input-error');
     assert.equal(errors.length, 1);
     assert.equal(errors[0].textContent.trim(), 'Name can\'t be blank');
@@ -39,8 +39,8 @@ module('Acceptance | create subcategory', function(hooks) {
   test('should show error from api', async function(assert) {
     await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
     await click('#show-create-subcategory-form-button');
-    await fillIn('#create-category-name', 'Error Category');
-    await click('#create-category-button');
+    await fillIn('#create-subcategory-name', 'Error Category');
+    await click('#create-subcategory-button');
     const errors = this.element.querySelectorAll('.alert');
     assert.equal(errors.length, 1);
     assert.equal(errors[0].textContent.trim(), 'Test error.');
@@ -50,8 +50,8 @@ module('Acceptance | create subcategory', function(hooks) {
   test('should close create category form on successful creation', async function(assert) {
     await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
     await click('#show-create-subcategory-form-button');
-    await fillIn('#create-category-name', 'New Subcategory');
-    await click('#create-category-button');
+    await fillIn('#create-subcategory-name', 'New Subcategory');
+    await click('#create-subcategory-button');
     assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
   });
 });

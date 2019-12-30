@@ -31,7 +31,7 @@
     "ember-changeset-validations": "2.2.1",
     "ember-cli": "3.14.0",
     "ember-cli-app-version": "3.2.0",
-    "ember-cli-babel": "7.13.0",
+    "ember-cli-babel": "7.13.2",
     "ember-cli-code-coverage": "0.4.2",
     "ember-cli-cookie": "0.2.0",
     "ember-cli-dependency-checker": "3.2.0",
@@ -39,7 +39,7 @@
     "ember-cli-htmlbars": "4.2.0",
     "ember-cli-htmlbars-inline-precompile": "3.0.1",
     "ember-cli-inject-live-reload": "2.0.2",
-    "ember-cli-mirage": "0.4.10",
+    "ember-cli-mirage": "1.1.6",
     "ember-cli-moment-shim": "3.7.1",
     "ember-cli-qunit": "4.4.0",
     "ember-cli-sass": "7.1.7",
@@ -64,7 +64,7 @@
     "foundation-sites": "6.4.3",
     "loader.js": "4.7.0",
     "qunit-dom": "0.8.2",
-    "sass-lint": "1.12.1"
+    "sass-lint": "1.13.1"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"

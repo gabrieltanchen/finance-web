@@ -43,8 +43,8 @@ export default Route.extend({
 
   setupController(controller, model) {
     this._super(controller, model);
-    // if (model.budgets.meta) {
-    //   set(controller, 'meta', model.budgets.meta);
-    // }
+    if (model.budgets.meta) {
+      set(controller, 'meta', model.budgets.meta);
+    }
   },
 });

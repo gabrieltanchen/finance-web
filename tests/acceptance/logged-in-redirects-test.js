@@ -57,6 +57,11 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
   });
 
+  test('can visit /subcategories/:uuid/budgets', async function(assert) {
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/budgets');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/budgets');
+  });
+
   test('can visit /subcategories/:uuid/expenses', async function(assert) {
     await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');

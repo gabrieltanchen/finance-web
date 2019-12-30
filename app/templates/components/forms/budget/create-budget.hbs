@@ -19,9 +19,9 @@
           </div>
           <div class="cell medium-6">
             <label>Month
-              <select onchange={{action (mut budget.month) value="target.value"}}>
+              <select id="create-budget-month" onchange={{action (mut budget.month) value="target.value"}}>
                 {{#each monthOptions as |monthOption|}}
-                  <option value={{monthOption.optionValue}}>{{monthOption.optionName}}</option>
+                  <option id="select-month-{{monthOption.optionValue}}-option" value={{monthOption.optionValue}}>{{monthOption.optionName}}</option>
                 {{/each}}
               </select>
             </label>

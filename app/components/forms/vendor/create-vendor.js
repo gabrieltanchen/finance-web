@@ -21,7 +21,7 @@ export default Component.extend({
         get(this, 'vendorCreated')();
       } catch (err) {
         let errors = 'Unable to create vendor.';
-        if (err && errors) {
+        if (err && err.errors) {
           errors = err.errors.map((error) => {
             return error.detail;
           });

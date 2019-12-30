@@ -1,6 +1,42 @@
 import Mirage from 'ember-cli-mirage';
 
 export default function() {
+  this.get('/budgets', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
+  this.post('/budgets', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes['budget-cents']
+        && params.data.attributes['budget-cents'] === 400) {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'budget': params.data.attributes.budget,
+          'budget-cents': params.data.attributes['budget-cents'],
+          'month': params.data.attributes.month,
+          'year': params.data.attributes.year,
+        },
+        'id': 'af805297-150c-4c66-adc1-a457d62160a4',
+        'type': 'budgets',
+      },
+    });
+  });
   this.get('/categories', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

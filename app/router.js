@@ -27,6 +27,9 @@ Router.map(function() {
   this.route('login');
   this.route('sign-up');
   this.route('subcategories', function() {
+    this.route('budgets', {
+      path: '/:subcategory_uuid/budgets',
+    });
     this.route('expenses', {
       path: '/:subcategory_uuid/expenses',
     });

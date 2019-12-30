@@ -24,20 +24,27 @@ export default Route.extend({
   },
 
   async model(params) {
+    let newBudget = null;
+    if (params.create === 'true') {
+      newBudget = this.store.createRecord('budget', {
+        subcategory: await this.store.findRecord('subcategory', params.subcategory_uuid),
+      });
+    }
     return RSVP.hash({
       budgets: get(this, 'store').query('budget', {
         limit: params.limit,
         page: params.page,
         subcategory_uuid: params.subcategory_uuid,
       }),
+      newBudget,
       subcategory: get(this, 'store').findRecord('subcategory', params.subcategory_uuid),
     });
   },
 
   setupController(controller, model) {
     this._super(controller, model);
-    if (model.budgets.meta) {
-      set(controller, 'meta', model.budgets.meta);
-    }
+    // if (model.budgets.meta) {
+    //   set(controller, 'meta', model.budgets.meta);
+    // }
   },
 });

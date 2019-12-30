@@ -1,5 +1,10 @@
 import DS from 'ember-data';
-import { get, observer, set } from '@ember/object';
+import {
+  computed,
+  get,
+  observer,
+  set,
+} from '@ember/object';
 
 export default DS.Model.extend({
   budget: DS.attr('number'),
@@ -9,6 +14,24 @@ export default DS.Model.extend({
   year: DS.attr('number'),
 
   subcategory: DS.belongsTo('subcategory'),
+
+  month_name: computed('month', function() {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return months[get(this, 'month')];
+  }),
 
   budgetChanged: observer('budget', function() {
     set(this, 'budget_cents', parseInt(get(this, 'budget') * 100, 10));

@@ -21,7 +21,7 @@ export default Component.extend({
         get(this, 'categoryCreated')();
       } catch (err) {
         let errors = ['Unable to create category.'];
-        if (err && errors) {
+        if (err && err.errors) {
           errors = err.errors.map((error) => {
             return error.detail;
           });

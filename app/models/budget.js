@@ -34,7 +34,7 @@ export default DS.Model.extend({
   }),
 
   budgetChanged: observer('budget', function() {
-    set(this, 'budget_cents', parseInt(get(this, 'budget') * 100, 10));
+    set(this, 'budget_cents', parseInt((get(this, 'budget') * 100).toFixed(0), 10));
   }),
   budgetCentsChanged: observer('budget_cents', function() {
     set(this, 'budget', get(this, 'budget_cents') / 100);

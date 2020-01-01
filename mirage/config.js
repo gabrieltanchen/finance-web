@@ -311,6 +311,32 @@ export default function() {
       },
     });
   });
+  this.patch('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Category') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'type': 'subcategories',
+      },
+    });
+  });
 
   this.post('/users', (db, request) => {
     const params = JSON.parse(request.requestBody);

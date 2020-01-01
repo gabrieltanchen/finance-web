@@ -33,6 +33,9 @@ Router.map(function() {
     this.route('budgets', {
       path: '/:subcategory_uuid/budgets',
     });
+    this.route('edit', {
+      path: '/:subcategory_uuid/edit',
+    });
     this.route('expenses', {
       path: '/:subcategory_uuid/expenses',
     });

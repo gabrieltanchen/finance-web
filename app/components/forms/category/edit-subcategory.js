@@ -4,19 +4,19 @@ import { computed, get, set } from '@ember/object';
 export default Component.extend({
   errors: null,
 
-  disableSubmit: computed('category.isInvalid', function() {
-    return get(this, 'category.isInvalid');
+  disableSubmit: computed('subcategory.isInvalid', function() {
+    return get(this, 'subcategory.isInvalid');
   }),
 
   actions: {
     async submit() {
       set(this, 'errors', null);
-      const category = get(this, 'category');
+      const subcategory = get(this, 'subcategory');
       try {
-        await category.save();
-        get(this, 'categorySaved')();
+        await subcategory.save();
+        get(this, 'subcategorySaved')();
       } catch (err) {
-        let errors = ['Unable to save category.'];
+        let errors = ['Unable to save subcategory.'];
         if (err && err.errors) {
           errors = err.errors.map((error) => {
             return error.detail;

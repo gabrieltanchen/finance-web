@@ -24,15 +24,17 @@ export default Route.extend({
   },
 
   async model(params) {
+    const subcategory = await this.store.findRecord('subcategory', params.subcategory_uuid);
     let newExpense = null;
     let householdMembers = null;
     if (params.create === 'true') {
       newExpense = this.store.createRecord('expense', {
-        subcategory: await this.store.findRecord('subcategory', params.subcategory_uuid),
+        subcategory,
       });
       householdMembers = this.store.findAll('household-member');
     }
     return RSVP.hash({
+      category: await subcategory.category,
       expenses: get(this, 'store').query('expense', {
         limit: params.limit,
         page: params.page,
@@ -40,7 +42,7 @@ export default Route.extend({
       }),
       householdMembers,
       newExpense,
-      subcategory: get(this, 'store').findRecord('subcategory', params.subcategory_uuid),
+      subcategory,
     });
   },
 

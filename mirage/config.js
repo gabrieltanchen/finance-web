@@ -263,6 +263,20 @@ export default function() {
       },
     });
   });
+  this.delete('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.delete('/subcategories/dfa36b20-55cb-466e-ab55-ff3ffd48388f', () => {
+    return new Mirage.Response(403, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      errors: [{
+        detail: 'Test error.',
+      }],
+    });
+  });
   this.get('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
@@ -272,6 +286,27 @@ export default function() {
           'name': 'Hello world',
         },
         'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'relationships': {
+          'category': {
+            'data': {
+              'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
+              'type': 'categories',
+            },
+          },
+        },
+        'type': 'subcategories',
+      },
+    });
+  });
+  this.get('/subcategories/dfa36b20-55cb-466e-ab55-ff3ffd48388f', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Hello world',
+        },
+        'id': 'dfa36b20-55cb-466e-ab55-ff3ffd48388f',
         'type': 'subcategories',
       },
     });

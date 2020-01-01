@@ -216,6 +216,20 @@ export default function() {
       },
     });
   });
+  this.delete('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.delete('/household-members/fa41378d-8c5a-4ff0-b61f-e7726cb13ddb', () => {
+    return new Mirage.Response(403, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      errors: [{
+        detail: 'Test error.',
+      }],
+    });
+  });
   this.get('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
@@ -225,6 +239,19 @@ export default function() {
           'name': 'Household Member 1',
         },
         'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+        'type': 'household-members',
+      },
+    });
+  });
+  this.get('/household-members/fa41378d-8c5a-4ff0-b61f-e7726cb13ddb', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Household Member 2',
+        },
+        'id': 'fa41378d-8c5a-4ff0-b61f-e7726cb13ddb',
         'type': 'household-members',
       },
     });

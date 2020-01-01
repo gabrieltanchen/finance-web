@@ -466,6 +466,20 @@ export default function() {
       },
     });
   });
+  this.delete('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.delete('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57', () => {
+    return new Mirage.Response(403, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      errors: [{
+        detail: 'Test error.',
+      }],
+    });
+  });
   this.get('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

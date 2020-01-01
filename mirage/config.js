@@ -506,4 +506,30 @@ export default function() {
       },
     });
   });
+  this.patch('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Vendor') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '7fdadf7a-9561-4950-aca6-438d554536db',
+        'type': 'vendors',
+      },
+    });
+  });
 }

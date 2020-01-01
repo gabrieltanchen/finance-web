@@ -44,6 +44,9 @@ Router.map(function() {
     });
   });
   this.route('vendors', function() {
+    this.route('edit', {
+      path: '/:vendor_uuid/edit',
+    });
     this.route('expenses', {
       path: '/:vendor_uuid/expenses',
     });

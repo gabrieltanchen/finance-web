@@ -6,6 +6,9 @@
     </div>
     <div class="cell small-4">
       <div class="button-group float-right">
+        {{#link-to "categories.edit" category.id class="primary button"}}
+          Edit
+        {{/link-to}}
         <button id="delete-category-button" class="alert button" {{action "openDeleteModal"}}>
           Delete
         </button>

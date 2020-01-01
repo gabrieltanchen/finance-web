@@ -8,6 +8,9 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('categories', function() {
+    this.route('edit', {
+      path: '/:category_uuid/edit',
+    });
     this.route('show', {
       path: '/:category_uuid',
     });

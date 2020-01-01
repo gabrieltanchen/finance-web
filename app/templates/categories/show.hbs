@@ -75,10 +75,10 @@
       <div class="cell small-12 medium-10 large-8 modal-cell">
         <p>Are you sure you want to delete <em>{{category.name}}</em>?</p>
         <div class="button-group">
-          <button class="alert button" {{action "deleteCategory"}}>
+          <button id="confirm-delete-category-button" class="alert button" {{action "deleteCategory"}}>
             Delete
           </button>
-          <button class="secondary button" {{action "closeDeleteModal"}}>
+          <button id="cancel-delete-category-button" class="secondary button" {{action "closeDeleteModal"}}>
             Cancel
           </button>
         </div>

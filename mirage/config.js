@@ -70,6 +70,33 @@ export default function() {
       },
     });
   });
+  this.delete('/categories/ad16b2f5-1dbc-4716-bb0a-96f78add961c', () => {
+    return new Mirage.Response(403, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      errors: [{
+        detail: 'Test error.',
+      }],
+    });
+  });
+  this.delete('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/categories/ad16b2f5-1dbc-4716-bb0a-96f78add961c', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Hello world',
+        },
+        'id': 'ad16b2f5-1dbc-4716-bb0a-96f78add961c',
+        'type': 'categories',
+      },
+    });
+  });
   this.get('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

@@ -256,6 +256,32 @@ export default function() {
       },
     });
   });
+  this.patch('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Member') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+        'type': 'household-members',
+      },
+    });
+  });
 
   this.get('/subcategories', () => {
     return new Mirage.Response(200, {

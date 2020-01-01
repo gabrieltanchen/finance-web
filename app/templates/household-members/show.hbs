@@ -6,6 +6,9 @@
     </div>
     <div class="cell small-4">
       <div class="button-group float-right">
+        {{#link-to "household-members.edit" householdMember.id class="primary button"}}
+          Edit
+        {{/link-to}}
         <button id="delete-household-member-button" class="alert button" {{action "openDeleteModal"}}>
           Delete
         </button>

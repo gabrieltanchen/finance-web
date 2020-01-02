@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { get } from '@ember/object';
+import { get, set } from '@ember/object';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
@@ -22,5 +22,10 @@ export default Route.extend({
       subcategory,
       vendor: await expense.vendor,
     });
+  },
+
+  resetController(controller) {
+    set(controller, 'errors', null);
+    set(controller, 'showDeleteModal', false);
   },
 });

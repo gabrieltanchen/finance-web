@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
-import { get } from '@ember/object';
-import RSVP from 'rsvp';
+import { get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default Route.extend({
   session: service(),
@@ -16,5 +16,10 @@ export default Route.extend({
     return RSVP.hash({
       category: get(this, 'store').findRecord('category', params.category_uuid),
     });
+  },
+
+  resetController(controller) {
+    set(controller, 'errors', null);
+    set(controller, 'showDeleteModal', false);
   },
 });

@@ -8,6 +8,9 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('categories', function() {
+    this.route('edit', {
+      path: '/:category_uuid/edit',
+    });
     this.route('show', {
       path: '/:category_uuid',
     });
@@ -16,7 +19,18 @@ Router.map(function() {
     });
   });
   this.route('dashboard');
+  this.route('expenses', function() {
+    this.route('edit', {
+      path: '/:expense_uuid/edit',
+    });
+    this.route('show', {
+      path: '/:expense_uuid',
+    });
+  });
   this.route('household-members', function() {
+    this.route('edit', {
+      path: '/:member_uuid/edit',
+    });
     this.route('expenses', {
       path: '/:member_uuid/expenses',
     });
@@ -30,6 +44,9 @@ Router.map(function() {
     this.route('budgets', {
       path: '/:subcategory_uuid/budgets',
     });
+    this.route('edit', {
+      path: '/:subcategory_uuid/edit',
+    });
     this.route('expenses', {
       path: '/:subcategory_uuid/expenses',
     });
@@ -38,6 +55,9 @@ Router.map(function() {
     });
   });
   this.route('vendors', function() {
+    this.route('edit', {
+      path: '/:vendor_uuid/edit',
+    });
     this.route('expenses', {
       path: '/:vendor_uuid/expenses',
     });

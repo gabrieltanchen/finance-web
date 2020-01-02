@@ -18,6 +18,7 @@ export default Controller.extend({
     propertyName: 'budget',
   }],
   budgets: alias('model.budgets'),
+  category: alias('model.category'),
   newBudget: alias('model.newBudget'),
   subcategory: alias('model.subcategory'),
 

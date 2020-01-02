@@ -8,6 +8,9 @@ export default Controller.extend({
   ExpenseValidations,
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'expenses.show',
     name: 'Date',
     propertyName: 'date',
   }, {
@@ -26,6 +29,7 @@ export default Controller.extend({
     name: 'Reimbursed Amount',
     propertyName: 'reimbursed_amount',
   }],
+  category: alias('model.category'),
   expenses: alias('model.expenses'),
   householdMembers: alias('model.householdMembers'),
   newExpense: alias('model.newExpense'),

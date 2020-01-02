@@ -24,10 +24,11 @@ export default Route.extend({
   },
 
   async model(params) {
+    const subcategory = await this.store.findRecord('subcategory', params.subcategory_uuid);
     let newBudget = null;
     if (params.create === 'true') {
       newBudget = this.store.createRecord('budget', {
-        subcategory: await this.store.findRecord('subcategory', params.subcategory_uuid),
+        subcategory,
       });
     }
     return RSVP.hash({
@@ -36,8 +37,9 @@ export default Route.extend({
         page: params.page,
         subcategory_uuid: params.subcategory_uuid,
       }),
+      category: await subcategory.category,
       newBudget,
-      subcategory: get(this, 'store').findRecord('subcategory', params.subcategory_uuid),
+      subcategory,
     });
   },
 

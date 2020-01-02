@@ -1,10 +1,31 @@
 {{title householdMember.name}}
 <div class="grid-container">
   <div class="grid-x">
-    <div class="cell">
+    <div class="cell small-8">
       <h1>{{householdMember.name}}</h1>
     </div>
+    <div class="cell small-4">
+      <div class="button-group float-right">
+        {{#link-to "household-members.edit" householdMember.id class="primary button"}}
+          Edit
+        {{/link-to}}
+        <button id="delete-household-member-button" class="alert button" {{action "openDeleteModal"}}>
+          Delete
+        </button>
+      </div>
+    </div>
   </div>
+  {{#if errors}}
+    <div class="grid-x">
+      <div class="cell">
+        <div class="callout alert">
+          {{#each errors as |error|}}
+            <p>{{error}}</p>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
   <div class="grid-x">
     <div class="cell">
       <ul class="menu">
@@ -48,3 +69,20 @@
     </div>
   </div>
 </div>
+{{#if showDeleteModal}}
+  <div class="overlay">
+    <div class="grid-x grid-padding-x align-center modal">
+      <div class="cell small-12 medium-10 large-8 modal-cell">
+        <p>Are you sure you want to delete <em>{{householdMember.name}}</em>?</p>
+        <div class="button-group">
+          <button id="confirm-delete-household-member-button" class="alert button" {{action "deleteHouseholdMember"}}>
+            Delete
+          </button>
+          <button id="cancel-delete-household-member-button" class="secondary button" {{action "closeDeleteModal"}}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}

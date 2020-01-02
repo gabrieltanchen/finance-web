@@ -20,6 +20,9 @@ Router.map(function() {
   });
   this.route('dashboard');
   this.route('expenses', function() {
+    this.route('edit', {
+      path: '/:expense_uuid/edit',
+    });
     this.route('show', {
       path: '/:expense_uuid',
     });

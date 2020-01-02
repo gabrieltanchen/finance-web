@@ -52,6 +52,11 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d');
   });
 
+  test('can visit /expenses/:uuid/edit', async function(assert) {
+    await visit('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d/edit');
+    assert.equal(currentURL(), '/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d/edit');
+  });
+
   test('can visit /household-members', async function(assert) {
     await visit('/household-members');
     assert.equal(currentURL(), '/household-members');

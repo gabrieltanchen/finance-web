@@ -1,0 +1,72 @@
+{{#if errors}}
+  <div class="grid-x">
+    <div class="cell">
+      <p class="alert">
+        {{#each errors as |error|}}
+          {{error}}
+        {{/each}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+<div class="grid-x">
+  <div class="cell">
+    <form>
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell medium-6">
+            <div class="search-container">
+              <label>Vendor
+              </label>
+              {{input type="text" id="edit-expense-vendor-search" value=vendorSearch}}
+              <ul class="vertical menu search-result">
+                {{#each vendors as |vendor|}}
+                  <li>
+                    <a id="select-vendor-{{vendor.id}}-button" class="button" {{action "selectVendor" vendor}}>
+                      {{vendor.name}}
+                    </a>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="cell medium-6">
+            <div class="search-container">
+              <label>Member
+              </label>
+              {{input type="text" id="edit-expense-household-member" value=householdMemberName}}
+              <ul class="vertical menu search-result">
+                {{#each householdMembers as |householdMember|}}
+                  <li>
+                    <a id="select-household-member-{{householdMember.id}}-button" class="button" {{action "selectHouseholdMember" householdMember}}>
+                      {{householdMember.name}}
+                    </a>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="grid-x">
+          <div class="cell medium-3">
+            {{forms/validated-datepicker changeset=expense propertyName="date" label="Date" propertyId="edit-expense-date"}}
+          </div>
+          <div class="cell medium-3">
+            {{forms/validated-input type="text" changeset=expense propertyName="description" label="Description" propertyId="edit-expense-description"}}
+          </div>
+          <div class="cell medium-3">
+            {{forms/validated-input type="number" changeset=expense propertyName="amount" label="Amount" propertyId="edit-expense-amount"}}
+          </div>
+          <div class="cell medium-3">
+            {{forms/validated-input type="number" changeset=expense propertyName="reimbursed_amount" label="Reimbursed Amount" propertyId="edit-expense-reimbursed-amount"}}
+          </div>
+        </div>
+        <div class="grid-x">
+          <div class="cell">
+            <input type="submit" id="save-expense-button" disabled={{disableSubmit}} class="button" value="Save" {{action "submit"}}>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

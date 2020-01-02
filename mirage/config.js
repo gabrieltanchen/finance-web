@@ -219,6 +219,38 @@ export default function() {
       },
     });
   });
+  this.patch('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.description
+        && params.data.attributes.description === 'Error Expense') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'amount-cents': params.data.attributes['amount-cents'],
+          'category': params.data.attributes.category,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+          'reimbursed-amount': params.data.attributes['reimbursed-amount'],
+          'reimbursed-cents': params.data.attributes['reimbursed-cents'],
+        },
+        'id': 'ba03c363-0670-43cf-bef7-07cd6bb6694d',
+        'type': 'expenses',
+      },
+    });
+  });
   this.delete('/expenses/b60b0cd4-db77-4da9-a5f0-acf78bd90003', () => {
     return new Mirage.Response(403, {
       'Content-Type': 'application/vnd.api+json',

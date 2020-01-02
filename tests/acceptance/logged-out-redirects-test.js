@@ -50,6 +50,11 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /expenses/:uuid/edit', async function(assert) {
+    await visit('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d/edit');
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /household-members', async function(assert) {
     await visit('/household-members');
     assert.equal(currentURL(), '/login');

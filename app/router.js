@@ -19,6 +19,11 @@ Router.map(function() {
     });
   });
   this.route('dashboard');
+  this.route('expenses', function() {
+    this.route('show', {
+      path: '/:expense_uuid',
+    });
+  });
   this.route('household-members', function() {
     this.route('edit', {
       path: '/:member_uuid/edit',

@@ -176,6 +176,44 @@ export default function() {
       },
     });
   });
+  this.get('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': '12.34',
+          'amount-cents': 1234,
+          'date': '2019-01-01',
+          'description': 'Hello world',
+          'reimbursed-amount': '43.21',
+          'reimbursed-cents': 4321,
+        },
+        'id': 'ba03c363-0670-43cf-bef7-07cd6bb6694d',
+        'relationships': {
+          'household-member': {
+            'data': {
+              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+              'type': 'household-members',
+            },
+          },
+          'subcategory': {
+            'data': {
+              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+              'type': 'subcategories',
+            },
+          },
+          'vendor': {
+            'data': {
+              'id': '7fdadf7a-9561-4950-aca6-438d554536db',
+              'type': 'vendors',
+            },
+          },
+        },
+        'type': 'expenses',
+      },
+    });
+  });
 
   this.get('/household-members', () => {
     return new Mirage.Response(200, {

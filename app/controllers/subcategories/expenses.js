@@ -8,6 +8,9 @@ export default Controller.extend({
   ExpenseValidations,
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'expenses.show',
     name: 'Date',
     propertyName: 'date',
   }, {

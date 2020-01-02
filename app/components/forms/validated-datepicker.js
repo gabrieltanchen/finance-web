@@ -5,7 +5,7 @@ export default Component.extend({
   actions: {
     dateSelected(date) {
       const changeset = get(this, 'changeset');
-      set(changeset, get(this, 'propertyName'), date);
+      set(changeset, get(this, 'propertyName'), date.toISOString());
     },
   },
 });

@@ -1,7 +1,7 @@
-import Route from '@ember/routing/route';
 import { get, set } from '@ember/object';
-import RSVP from 'rsvp';
+import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default Route.extend({
   session: service(),

@@ -1,3 +1,31 @@
+{{title "Dashboard"}}
 <div class="grid-container">
-  dashboard
+  <div class="grid-x">
+    <div class="cell">
+      <table class="hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Budget</th>
+            <th>Actual</th>
+            <th>+ / -</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each budgetReports as |budgetReport|}}
+            <tr>
+              <td>
+                {{#link-to "subcategories.show" budgetReport.subcategory.id}}
+                  {{budgetReport.category.name}}: {{budgetReport.subcategory.name}}
+                {{/link-to}}
+              </td>
+              <td>{{budgetReport.budget}}</td>
+              <td>{{budgetReport.actual}}</td>
+              <td class="{{if budgetReport.alertState "alert" "success"}}">{{budgetReport.difference}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

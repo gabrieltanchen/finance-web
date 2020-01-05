@@ -1,6 +1,26 @@
 {{title "Dashboard"}}
 <div class="grid-container">
   <div class="grid-x">
+    <div class="cell small-6">
+      <label>Year
+        <select id="budget-report-year" onchange={{action (mut year) value="target.value"}}>
+          {{#each yearOptions as |yearOption|}}
+            <option id="select-year-{{yearOption.optionValue}}-option" value={{yearOption.optionValue}} selected={{yearOption.selected}}>{{yearOption.optionValue}}</option>
+          {{/each}}
+        </select>
+      </label>
+    </div>
+    <div class="cell small-6">
+      <label>Month
+        <select id="budget-report-month" onchange={{action (mut month) value="target.value"}}>
+          {{#each monthOptions as |monthOption|}}
+            <option id="select-month-{{monthOption.optionValue}}-option" value={{monthOption.optionValue}} selected={{monthOption.selected}}>{{monthOption.optionName}}</option>
+          {{/each}}
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="grid-x">
     <div class="cell">
       <table class="hover">
         <thead>

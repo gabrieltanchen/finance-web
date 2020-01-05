@@ -37,6 +37,68 @@ export default function() {
       },
     });
   });
+  this.delete('/budgets/af805297-150c-4c66-adc1-a457d62160a4', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/budgets/af805297-150c-4c66-adc1-a457d62160a4', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'budget': 5.64,
+          'budget-cents': 564,
+          'month': 3,
+          'year': 2019,
+        },
+        'id': 'af805297-150c-4c66-adc1-a457d62160a4',
+        'relationships': {
+          'subcategory': {
+            'data': {
+              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+              'type': 'subcategories',
+            },
+          },
+        },
+        'type': 'budgets',
+      },
+    });
+  });
+  this.delete('/budgets/acf1d59c-3d7d-4fc1-939b-5566e3d35685', () => {
+    return new Mirage.Response(403, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      errors: [{
+        detail: 'Test error.',
+      }],
+    });
+  });
+  this.get('/budgets/acf1d59c-3d7d-4fc1-939b-5566e3d35685', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'budget': 1,
+          'budget-cents': 100,
+          'month': 3,
+          'year': 2019,
+        },
+        'id': 'acf1d59c-3d7d-4fc1-939b-5566e3d35685',
+        'relationships': {
+          'subcategory': {
+            'data': {
+              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+              'type': 'subcategories',
+            },
+          },
+        },
+        'type': 'budgets',
+      },
+    });
+  });
   this.get('/categories', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

@@ -7,6 +7,11 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('budgets', function() {
+    this.route('show', {
+      path: '/:budget_uuid',
+    });
+  });
   this.route('categories', function() {
     this.route('edit', {
       path: '/:category_uuid/edit',

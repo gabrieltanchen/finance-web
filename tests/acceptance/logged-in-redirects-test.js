@@ -22,6 +22,16 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('can visit /budgets/:uuid', async function(assert) {
+    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4');
+    assert.equal(currentURL(), '/budgets/af805297-150c-4c66-adc1-a457d62160a4');
+  });
+
+  test('can visit /budgets/:uuid/edit', async function(assert) {
+    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4/edit');
+    assert.equal(currentURL(), '/budgets/af805297-150c-4c66-adc1-a457d62160a4/edit');
+  });
+
   test('can visit /categories', async function(assert) {
     await visit('/categories');
     assert.equal(currentURL(), '/categories');

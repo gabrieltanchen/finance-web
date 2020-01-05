@@ -66,6 +66,35 @@ export default function() {
       },
     });
   });
+  this.patch('/budgets/af805297-150c-4c66-adc1-a457d62160a4', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes['budget-cents']
+        && params.data.attributes['budget-cents'] === 400) {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'budget': params.data.attributes.budget,
+          'budget-cents': params.data.attributes['budget-cents'],
+          'month': params.data.attributes.month,
+          'year': params.data.attributes.year,
+        },
+        'id': 'af805297-150c-4c66-adc1-a457d62160a4',
+        'type': 'budgets',
+      },
+    });
+  });
   this.delete('/budgets/acf1d59c-3d7d-4fc1-939b-5566e3d35685', () => {
     return new Mirage.Response(403, {
       'Content-Type': 'application/vnd.api+json',

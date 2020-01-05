@@ -1,6 +1,13 @@
 import Mirage from 'ember-cli-mirage';
 
 export default function() {
+  this.get('/budget-reports', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
   this.get('/budgets', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

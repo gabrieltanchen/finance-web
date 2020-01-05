@@ -8,6 +8,9 @@ export default Controller.extend({
   BudgetValidations,
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'budgets.show',
     name: 'Year',
     propertyName: 'year',
   }, {

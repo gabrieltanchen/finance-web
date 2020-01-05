@@ -20,6 +20,16 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/');
   });
 
+  test('should redirect away from /budgets/:uuid', async function(assert) {
+    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4');
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /budgets/:uuid/edit', async function(assert) {
+    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4/edit');
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /categories', async function(assert) {
     await visit('/categories');
     assert.equal(currentURL(), '/login');

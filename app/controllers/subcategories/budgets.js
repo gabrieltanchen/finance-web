@@ -18,7 +18,7 @@ export default Controller.extend({
     propertyName: 'month_name',
   }, {
     name: 'Budget',
-    propertyName: 'budget',
+    propertyName: 'budget_str',
   }],
   budgets: alias('model.budgets'),
   category: alias('model.category'),

@@ -24,10 +24,10 @@ export default Controller.extend({
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amount_str',
   }, {
     name: 'Reimbursed Amount',
-    propertyName: 'reimbursed_amount',
+    propertyName: 'reimbursed_amount_str',
   }],
   category: alias('model.category'),
   expenses: alias('model.expenses'),

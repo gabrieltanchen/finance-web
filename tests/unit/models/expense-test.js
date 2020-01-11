@@ -11,7 +11,7 @@ module('Unit | Model | expense', function(hooks) {
     assert.ok(model);
   });
 
-  test('should have correct amount_str when the amount=0', function(assert) {
+  test('should have correct amount_str when amount=0', function(assert) {
     const store = this.owner.lookup('service:store');
     const model = store.createRecord('expense', {});
     set(model, 'amount', 0);

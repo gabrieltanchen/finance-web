@@ -15,6 +15,12 @@ export default DS.Model.extend({
 
   subcategory: DS.belongsTo('subcategory'),
 
+  budget_str: computed('budget', function() {
+    if (get(this, 'budget') === 0) {
+      return '-';
+    }
+    return `$${get(this, 'budget').toFixed(2)}`;
+  }),
   month_name: computed('month', function() {
     const months = [
       'January',

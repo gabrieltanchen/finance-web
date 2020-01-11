@@ -39,9 +39,9 @@
                   {{budgetReport.category.name}}: {{budgetReport.subcategory.name}}
                 {{/link-to}}
               </td>
-              <td>{{budgetReport.budget}}</td>
-              <td>{{budgetReport.actual}}</td>
-              <td class="{{if budgetReport.alertState "alert" "success"}}">{{budgetReport.difference}}</td>
+              <td>{{budgetReport.budget_str}}</td>
+              <td>{{budgetReport.actual_str}}</td>
+              <td class="{{if budgetReport.alertState "alert" "success"}}">{{budgetReport.difference_str}}</td>
             </tr>
           {{/each}}
         </tbody>

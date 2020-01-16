@@ -49,6 +49,9 @@ Router.map(function() {
   this.route('login');
   this.route('sign-up');
   this.route('subcategories', function() {
+    this.route('annual-report', {
+      path: '/:subcategory_uuid/annual-report',
+    });
     this.route('budgets', {
       path: '/:subcategory_uuid/budgets',
     });

@@ -5,7 +5,7 @@ module('Unit | Route | subcategories/annual-report', function(hooks) {
   setupTest(hooks);
 
   test('it exists', function(assert) {
-    let route = this.owner.lookup('route:subcategories/annual-report');
+    const route = this.owner.lookup('route:subcategories/annual-report');
     assert.ok(route);
   });
 });

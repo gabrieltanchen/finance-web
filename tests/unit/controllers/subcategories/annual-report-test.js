@@ -6,7 +6,7 @@ module('Unit | Controller | subcategories/annual-report', function(hooks) {
 
   // Replace this with your real tests.
   test('it exists', function(assert) {
-    let controller = this.owner.lookup('controller:subcategories/annual-report');
+    const controller = this.owner.lookup('controller:subcategories/annual-report');
     assert.ok(controller);
   });
 });

@@ -1,0 +1,13 @@
+.report-table {
+  overflow-x: auto;
+
+  table {
+    tr {
+      td,
+      th {
+        font-size: 12px;
+        padding: 12px 6px;
+      }
+    }
+  }
+}

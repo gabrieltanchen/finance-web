@@ -1,0 +1,20 @@
+{{title "Income"}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell small-8">
+      <h1>Income</h1>
+    </div>
+    <div class="cell small-4">
+
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      {{#if incomes.length}}
+        {{pagination-table rows=incomes columns=tableColumns limit=limit page=page meta=meta}}
+      {{else}}
+        No income exists here.
+      {{/if}}
+    </div>
+  </div>
+</div>

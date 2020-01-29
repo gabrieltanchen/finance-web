@@ -503,6 +503,14 @@ export default function() {
     });
   });
 
+  this.get('/incomes', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
+
   this.get('/subcategories', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

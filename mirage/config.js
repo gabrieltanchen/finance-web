@@ -510,6 +510,35 @@ export default function() {
       'data': [],
     });
   });
+  this.post('/incomes', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.description
+        && params.data.attributes.description === 'Error Income') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'amount-cents': params.data.attributes['amount-cents'],
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+        },
+        'id': 'f347b74e-5980-4324-b629-98490f74ed53',
+        'type': 'incomes',
+      },
+    });
+  });
 
   this.get('/subcategories', () => {
     return new Mirage.Response(200, {

@@ -25,8 +25,9 @@ export default Route.extend({
 
   model(params) {
     return RSVP.hash({
+      householdMembers: (params.create === 'true') ? this.store.findAll('household-member') : null,
       incomes: this.store.query('income', params),
-      newIncome: (params.create === 'true') ? this.store.createRecord('income') : false,
+      newIncome: (params.create === 'true') ? this.store.createRecord('income') : null,
     });
   },
 

@@ -5,7 +5,11 @@
       <h1>Income</h1>
     </div>
     <div class="cell small-4">
-
+      <div class="button-group float-right">
+        <button id="show-create-income-form-button" class="button" {{action "showCreateForm"}}>
+          Create
+        </button>
+      </div>
     </div>
   </div>
   <div class="grid-x">
@@ -17,4 +21,13 @@
       {{/if}}
     </div>
   </div>
+  {{#if newIncome}}
+    <div class="overlay">
+      <div class="grid-x grid-padding-x align-center modal">
+        <div class="cell small-12 medium-10 large-8 modal-cell">
+          {{forms/income/create-income income=(changeset newIncome IncomeValidations) householdMembers=householdMembers incomeCreated=(action "closeCreateForm") householdMemberSelected=(action "householdMemberSelected")}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

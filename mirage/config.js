@@ -539,6 +539,97 @@ export default function() {
       },
     });
   });
+  this.delete('/incomes/f347b74e-5980-4324-b629-98490f74ed53', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/incomes/f347b74e-5980-4324-b629-98490f74ed53', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': '12.34',
+          'amount-cents': 1234,
+          'date': '2020-01-01',
+          'description': 'Hello world',
+        },
+        'id': 'f347b74e-5980-4324-b629-98490f74ed53',
+        'relationships': {
+          'household-member': {
+            'data': {
+              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+              'type': 'household-members',
+            },
+          },
+        },
+        'type': 'incomes',
+      },
+    });
+  });
+  this.patch('/incomes/f347b74e-5980-4324-b629-98490f74ed53', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.description
+        && params.data.attributes.description === 'Error Income') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'amount-cents': params.data.attributes['amount-cents'],
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+        },
+        'id': 'f347b74e-5980-4324-b629-98490f74ed53',
+        'type': 'incomes',
+      },
+    });
+  });
+  this.delete('/incomes/b1c89087-1da8-40d5-a43d-e391f8e6b68a', () => {
+    return new Mirage.Response(403, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      errors: [{
+        detail: 'Test error.',
+      }],
+    });
+  });
+  this.get('/incomes/b1c89087-1da8-40d5-a43d-e391f8e6b68a', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': '12.34',
+          'amount-cents': 1234,
+          'date': '2020-01-01',
+          'description': 'Hello world',
+        },
+        'id': 'b1c89087-1da8-40d5-a43d-e391f8e6b68a',
+        'relationships': {
+          'household-member': {
+            'data': {
+              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+              'type': 'household-members',
+            },
+          },
+        },
+        'type': 'incomes',
+      },
+    });
+  });
 
   this.get('/subcategories', () => {
     return new Mirage.Response(200, {

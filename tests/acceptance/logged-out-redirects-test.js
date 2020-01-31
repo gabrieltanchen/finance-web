@@ -90,6 +90,11 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /income/:uuid', async function(assert) {
+    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53');
+    assert.equal(currentURL(), '/login');
+  });
+
   test('can visit /login', async function(assert) {
     await visit('/login');
     assert.equal(currentURL(), '/login');

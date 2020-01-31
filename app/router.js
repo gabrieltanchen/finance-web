@@ -46,7 +46,11 @@ Router.map(function() {
       path: '/:member_uuid',
     });
   });
-  this.route('income', function() {});
+  this.route('income', function() {
+    this.route('show', {
+      path: '/:income_uuid',
+    });
+  });
   this.route('login');
   this.route('sign-up');
   this.route('subcategories', function() {

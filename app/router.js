@@ -47,6 +47,9 @@ Router.map(function() {
     });
   });
   this.route('income', function() {
+    this.route('edit', {
+      path: '/:income_uuid/edit',
+    });
     this.route('show', {
       path: '/:income_uuid',
     });

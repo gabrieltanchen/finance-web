@@ -97,6 +97,11 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/income/f347b74e-5980-4324-b629-98490f74ed53');
   });
 
+  test('can visit /income/:uuid/edit', async function(assert) {
+    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
+    assert.equal(currentURL(), '/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
     assert.equal(currentURL(), '/dashboard');

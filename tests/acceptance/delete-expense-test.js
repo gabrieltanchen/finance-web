@@ -42,7 +42,7 @@ module('Acceptance | delete expense', function(hooks) {
     assert.equal(currentURL(), '/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d');
   });
 
-  test('should show error fro api', async function(assert) {
+  test('should show error from api', async function(assert) {
     await visit('/expenses/b60b0cd4-db77-4da9-a5f0-acf78bd90003');
     await click('#delete-expense-button');
     await click('#confirm-delete-expense-button');

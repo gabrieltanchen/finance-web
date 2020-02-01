@@ -87,6 +87,21 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/expenses');
   });
 
+  test('can visit /income', async function(assert) {
+    await visit('/income');
+    assert.equal(currentURL(), '/income');
+  });
+
+  test('can visit /income/:uuid', async function(assert) {
+    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53');
+    assert.equal(currentURL(), '/income/f347b74e-5980-4324-b629-98490f74ed53');
+  });
+
+  test('can visit /income/:uuid/edit', async function(assert) {
+    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
+    assert.equal(currentURL(), '/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
     assert.equal(currentURL(), '/dashboard');

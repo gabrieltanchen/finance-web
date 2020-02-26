@@ -22,6 +22,46 @@
   </div>
   <div class="grid-x">
     <div class="cell">
+      <table>
+        <thead>
+          <tr>
+            <th>Budget</th>
+            <th>Actual</th>
+            <th>+ / -</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{monthlyReport.budget_str}}</td>
+            <td>{{monthlyReport.actual_str}}</td>
+            <td class="{{if monthlyReport.budget_actual_diff_alert "alert" "success"}}">{{monthlyReport.budget_actual_diff_str}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <table>
+        <thead>
+          <tr>
+            <th>Income</th>
+            <th>Budget + / -</th>
+            <th>Actual + / -</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{monthlyReport.income_str}}</td>
+            <td class="{{if monthlyReport.income_budget_diff_alert "alert" "success"}}">{{monthlyReport.income_budget_diff_str}}</td>
+            <td class="{{if monthlyReport.income_actual_diff_alert "alert" "success"}}">{{monthlyReport.income_actual_diff_str}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
       <table class="hover">
         <thead>
           <tr>

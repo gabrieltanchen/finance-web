@@ -23,6 +23,7 @@ export default Route.extend({
   model(params) {
     return RSVP.hash({
       budgetReports: this.store.query('budget-report', params),
+      monthlyReport: get(this, 'store').findRecord('monthly-report', `${params.year}-${params.month}`),
     });
   },
 });

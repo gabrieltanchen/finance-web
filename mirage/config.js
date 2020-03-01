@@ -631,6 +631,22 @@ export default function() {
     });
   });
 
+  this.get('/monthly-reports/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'actual-cents': 0,
+          'budget-cents': 0,
+          'income-cents': 0,
+        },
+        'id': request.params.id,
+        'type': 'monthly-reports',
+      },
+    });
+  });
+
   this.get('/subcategories', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

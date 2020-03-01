@@ -6,6 +6,7 @@ import moment from 'moment';
 export default Controller.extend({
   queryParams: ['month', 'year'],
   budgetReports: alias('model.budgetReports'),
+  monthlyReport: alias('model.monthlyReport'),
   month: moment().month(),
   year: moment().year(),
 

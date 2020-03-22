@@ -1,26 +1,31 @@
-{{title category.name}}
+{{title subcategory.name}}
 <div class="grid-container">
   <div class="grid-x">
     <div class="cell">
-      <h1>{{category.name}}</h1>
+      <h1>{{category.name}} - {{subcategory.name}}</h1>
     </div>
   </div>
   <div class="grid-x">
     <div class="cell">
       <ul class="menu">
         <li>
-          {{#link-to "categories.show" category.id}}
+          {{#link-to "subcategories.show" subcategory.id}}
             {{fa-icon "list"}} Details
           {{/link-to}}
         </li>
-        <li>
-          {{#link-to "categories.subcategories" category.id}}
-            {{fa-icon "project-diagram"}} Subcategories
+        <li class="is-active">
+          {{#link-to "subcategories.expenses" subcategory.id}}
+            {{fa-icon "credit-card"}} Expenses
           {{/link-to}}
         </li>
-        <li class="is-active">
-          {{#link-to "categories.expenses" category.id}}
-            {{fa-icon "credit-card"}} Expenses
+        <li>
+          {{#link-to "subcategories.budgets" subcategory.id}}
+            {{fa-icon "money-check-alt"}} Budgets
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to "subcategories.annual-report" subcategory.id}}
+            {{fa-icon "chart-bar"}} Annual Report
           {{/link-to}}
         </li>
       </ul>
@@ -46,7 +51,7 @@
     <div class="overlay">
       <div class="grid-x grid-padding-x align-center modal">
         <div class="cell small-12 medium-10 large-8 modal-cell">
-          {{forms/expense/create-expense expense=(changeset newExpense ExpenseValidations) expenseCreated=(action "closeCreateForm") vendorSelected=(action "vendorSelected")}}
+          {{forms/expense/create-expense expense=(changeset newExpense ExpenseValidations) householdMembers=householdMembers expenseCreated=(action "closeCreateForm") vendorSelected=(action "vendorSelected") householdMemberSelected=(action "householdMemberSelected")}}
         </div>
       </div>
     </div>

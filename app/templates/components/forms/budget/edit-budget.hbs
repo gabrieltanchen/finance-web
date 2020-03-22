@@ -1,0 +1,43 @@
+{{#if errors}}
+  <div class="grid-x">
+    <div class="cell">
+      <p class="alert">
+        {{#each errors as |error|}}
+          {{error}}
+        {{/each}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+<div class="grid-x">
+  <div class="cell">
+    <form>
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-6">
+            {{forms/validated-input type="number" changeset=budget propertyName="year" label="Year" propertyId="edit-budget-year"}}
+          </div>
+          <div class="cell medium-6">
+            <label>Month
+              <select id="edit-budget-month" onchange={{action (mut budget.month) value="target.value"}}>
+                {{#each monthOptions as |monthOption|}}
+                  <option id="select-month-{{monthOption.optionValue}}-option" value={{monthOption.optionValue}} selected={{monthOption.selected}}>{{monthOption.optionName}}</option>
+                {{/each}}
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            {{forms/validated-input type="number" changeset=budget propertyName="budget" label="Budget" propertyId="edit-budget-budget"}}
+          </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+          <div class="cell">
+            <input type="submit" id="save-budget-button" disabled={{disableSubmit}} class="button" value="Save" {{action "submit"}}>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

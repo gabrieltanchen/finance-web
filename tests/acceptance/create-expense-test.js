@@ -21,55 +21,55 @@ module('Acceptance | create expense', function(hooks) {
   });
 
   test('should update create query param', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses?create=true');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses?create=true');
   });
 
   test('should show all amount errors', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
     await triggerEvent('#create-expense-amount', 'blur');
     const errors = this.element.querySelectorAll('p.validated-input-error');
     assert.equal(errors.length, 2);
     assert.equal(errors[0].textContent.trim(), 'Amount must be a number');
     assert.equal(errors[1].textContent.trim(), 'Amount can\'t be blank');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses?create=true');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses?create=true');
   });
 
   test('should show amount greater than 0 error', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
     await fillIn('#create-expense-amount', '-1');
     const errors = this.element.querySelectorAll('p.validated-input-error');
     assert.equal(errors.length, 1);
     assert.equal(errors[0].textContent.trim(), 'Amount must be greater than or equal to 0');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses?create=true');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses?create=true');
   });
 
   test('should show all reimbursed amount errors', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
     await triggerEvent('#create-expense-reimbursed-amount', 'blur');
     const errors = this.element.querySelectorAll('p.validated-input-error');
     assert.equal(errors.length, 2);
     assert.equal(errors[0].textContent.trim(), 'Reimbursed amount must be a number');
     assert.equal(errors[1].textContent.trim(), 'Reimbursed amount can\'t be blank');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses?create=true');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses?create=true');
   });
 
   test('should show reimbursed amount greater than 0 error', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
     await fillIn('#create-expense-reimbursed-amount', '-1');
     const errors = this.element.querySelectorAll('p.validated-input-error');
     assert.equal(errors.length, 1);
     assert.equal(errors[0].textContent.trim(), 'Reimbursed amount must be greater than or equal to 0');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses?create=true');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses?create=true');
   });
 
   test('should show error from api', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
     await fillIn('#create-expense-date', '2018-01-01');
     await fillIn('#create-expense-description', 'Error Expense');
@@ -81,11 +81,11 @@ module('Acceptance | create expense', function(hooks) {
     const errors = this.element.querySelectorAll('.alert');
     assert.equal(errors.length, 1);
     assert.equal(errors[0].textContent.trim(), 'Test error.');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses?create=true');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses?create=true');
   });
 
   test('should close create expense form on successful creation', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
     await click('#show-create-expense-form-button');
     await fillIn('#create-expense-date', '2018-01-01');
     await fillIn('#create-expense-description', 'New Expense');
@@ -94,6 +94,6 @@ module('Acceptance | create expense', function(hooks) {
     await fillIn('#create-expense-amount', '2');
     await fillIn('#create-expense-reimbursed-amount', '1');
     await click('#create-expense-button');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/expenses');
+    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
   });
 });

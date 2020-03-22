@@ -11,6 +11,7 @@ import ENV from 'finance-web/config/environment';
 export default Component.extend({
   ajax: service(),
   errors: null,
+  householdMemberName: '',
   vendorSearch: '',
   vendors: [],
 
@@ -31,6 +32,11 @@ export default Component.extend({
   },
 
   actions: {
+    async selectHouseholdMember(householdMember) {
+      get(this, 'householdMemberSelected')(householdMember.id);
+      set(this, 'householdMemberName', householdMember.name);
+    },
+
     async selectVendor(vendor) {
       get(this, 'vendorSelected')(vendor.id);
       set(this, 'vendorSearch', vendor.name);
@@ -44,7 +50,7 @@ export default Component.extend({
         get(this, 'expenseCreated')();
       } catch (err) {
         let errors = 'Unable to create expense.';
-        if (err && errors) {
+        if (err && err.errors) {
           errors = err.errors.map((error) => {
             return error.detail;
           });

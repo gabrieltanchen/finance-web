@@ -8,28 +8,40 @@ export default Controller.extend({
   ExpenseValidations,
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'expenses.show',
     name: 'Date',
     propertyName: 'date',
   }, {
     name: 'Vendor',
     propertyName: 'vendor.name',
   }, {
+    name: 'Member',
+    propertyName: 'household_member.name',
+  }, {
     name: 'Description',
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amount_str',
   }, {
     name: 'Reimbursed Amount',
-    propertyName: 'reimbursed_amount',
+    propertyName: 'reimbursed_amount_str',
   }],
   category: alias('model.category'),
   expenses: alias('model.expenses'),
+  householdMembers: alias('model.householdMembers'),
   newExpense: alias('model.newExpense'),
+  subcategory: alias('model.subcategory'),
 
   actions: {
     closeCreateForm() {
       set(this, 'create', null);
+    },
+    async householdMemberSelected(householdMemberId) {
+      const householdMember = await get(this, 'store').findRecord('household-member', householdMemberId);
+      set(get(this, 'newExpense'), 'household_member', householdMember);
     },
     showCreateForm() {
       set(this, 'create', true);

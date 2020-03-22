@@ -52,7 +52,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.apiURL = '';
+    ENV.apiURL = '/api';
     ENV['ember-cli-mirage'] = {
       enabled: false,
     };

@@ -1,0 +1,24 @@
+{{title householdMember.name}}
+<div class="grid-container">
+  <div class="grid-x">
+    <div class="cell">
+      <h1>{{householdMember.name}}</h1>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <ul class="menu">
+        <li>
+          {{#link-to "household-members.show" householdMember.id}}
+            {{fa-icon "list"}} Details
+          {{/link-to}}
+        </li>
+        <li class="is-active">
+          {{#link-to "household-members.expenses" householdMember.id}}
+            {{fa-icon "credit-card"}} Expenses
+          {{/link-to}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -15,8 +15,14 @@ export default Component.extend({
         label: 'Categories',
         linkTo: 'categories.index',
       }, {
+        label: 'Income',
+        linkTo: 'income.index',
+      }, {
         label: 'Vendors',
         linkTo: 'vendors.index',
+      }, {
+        label: 'Members',
+        linkTo: 'household-members.index',
       }, {
         action: 'logout',
         isAction: true,

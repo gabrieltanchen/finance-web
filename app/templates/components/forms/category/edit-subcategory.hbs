@@ -1,0 +1,25 @@
+{{#if errors}}
+  <div class="grid-x">
+    <div class="cell">
+      <p class="alert">
+        {{#each errors as |error|}}
+          {{error}}
+        {{/each}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+<div class="grid-x">
+  <div class="cell">
+    <form>
+      <div class="grid-x">
+        <div class="cell">
+          {{forms/validated-input type="text" changeset=subcategory propertyName="name" label="Category Name" propertyId="edit-subcategory-name"}}
+        </div>
+      </div>
+      <div class="grid-x">
+        <input type="submit" id="save-subcategory-button" disabled={{disableSubmit}} class="button" value="Save" {{action "submit"}}>
+      </div>
+    </form>
+  </div>
+</div>

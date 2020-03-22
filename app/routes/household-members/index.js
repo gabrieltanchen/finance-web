@@ -23,28 +23,17 @@ export default Route.extend({
     }
   },
 
-  async model(params) {
-    let newExpense = null;
-    if (params.create === 'true') {
-      newExpense = this.store.createRecord('expense', {
-        category: await this.store.findRecord('category', params.category_uuid),
-      });
-    }
+  model(params) {
     return RSVP.hash({
-      category: get(this, 'store').findRecord('category', params.category_uuid),
-      expenses: get(this, 'store').query('expense', {
-        category_uuid: params.category_uuid,
-        limit: params.limit,
-        page: params.page,
-      }),
-      newExpense,
+      newHouseholdMember: (params.create === 'true') ? this.store.createRecord('household-member') : null,
+      householdMembers: this.store.query('household-member', params),
     });
   },
 
   setupController(controller, model) {
     this._super(controller, model);
-    if (model.expenses.meta) {
-      set(controller, 'meta', model.expenses.meta);
+    if (model.householdMembers.meta) {
+      set(controller, 'meta', model.householdMembers.meta);
     }
   },
 });

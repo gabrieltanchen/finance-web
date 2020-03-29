@@ -8,6 +8,9 @@ export default Controller.extend({
   BudgetValidations,
   meta: null,
   tableColumns: [{
+    isLink: true,
+    linkParam: 'id',
+    linkTo: 'budgets.show',
     name: 'Year',
     propertyName: 'year',
   }, {
@@ -15,9 +18,10 @@ export default Controller.extend({
     propertyName: 'month_name',
   }, {
     name: 'Budget',
-    propertyName: 'budget',
+    propertyName: 'budget_str',
   }],
   budgets: alias('model.budgets'),
+  category: alias('model.category'),
   newBudget: alias('model.newBudget'),
   subcategory: alias('model.subcategory'),
 

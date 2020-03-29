@@ -38,3 +38,15 @@ label {
   font-style: normal;
   font-weight: 300;
 }
+
+table {
+  .alert {
+    background-color: $alert-colour;
+    color: $black;
+  }
+
+  .success {
+    background-color: $success-colour;
+    color: $black;
+  }
+}

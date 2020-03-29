@@ -2,7 +2,7 @@
 <div class="grid-container">
   <div class="grid-x">
     <div class="cell">
-      <h1>{{subcategory.name}}</h1>
+      <h1>{{category.name}} - {{subcategory.name}}</h1>
     </div>
   </div>
   <div class="grid-x">
@@ -21,6 +21,11 @@
         <li class="is-active">
           {{#link-to "subcategories.budgets" subcategory.id}}
             {{fa-icon "money-check-alt"}} Budgets
+          {{/link-to}}
+        </li>
+        <li>
+          {{#link-to "subcategories.annual-report" subcategory.id}}
+            {{fa-icon "chart-bar"}} Annual Report
           {{/link-to}}
         </li>
       </ul>

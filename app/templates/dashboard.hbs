@@ -1,3 +1,91 @@
+{{title "Dashboard"}}
 <div class="grid-container">
-  dashboard
+  <div class="grid-x">
+    <div class="cell small-6">
+      <label>Year
+        <select id="budget-report-year" onchange={{action (mut year) value="target.value"}}>
+          {{#each yearOptions as |yearOption|}}
+            <option id="select-year-{{yearOption.optionValue}}-option" value={{yearOption.optionValue}} selected={{yearOption.selected}}>{{yearOption.optionValue}}</option>
+          {{/each}}
+        </select>
+      </label>
+    </div>
+    <div class="cell small-6">
+      <label>Month
+        <select id="budget-report-month" onchange={{action (mut month) value="target.value"}}>
+          {{#each monthOptions as |monthOption|}}
+            <option id="select-month-{{monthOption.optionValue}}-option" value={{monthOption.optionValue}} selected={{monthOption.selected}}>{{monthOption.optionName}}</option>
+          {{/each}}
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <table>
+        <thead>
+          <tr>
+            <th>Budget</th>
+            <th>Actual</th>
+            <th>+ / -</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{monthlyReport.budget_str}}</td>
+            <td>{{monthlyReport.actual_str}}</td>
+            <td class="{{if monthlyReport.budget_actual_diff_alert "alert" "success"}}">{{monthlyReport.budget_actual_diff_str}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <table>
+        <thead>
+          <tr>
+            <th>Income</th>
+            <th>Budget + / -</th>
+            <th>Actual + / -</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{monthlyReport.income_str}}</td>
+            <td class="{{if monthlyReport.income_budget_diff_alert "alert" "success"}}">{{monthlyReport.income_budget_diff_str}}</td>
+            <td class="{{if monthlyReport.income_actual_diff_alert "alert" "success"}}">{{monthlyReport.income_actual_diff_str}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell">
+      <table class="hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Budget</th>
+            <th>Actual</th>
+            <th>+ / -</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each budgetReports as |budgetReport|}}
+            <tr>
+              <td>
+                {{#link-to "subcategories.show" budgetReport.subcategory.id}}
+                  {{budgetReport.category.name}}: {{budgetReport.subcategory.name}}
+                {{/link-to}}
+              </td>
+              <td>{{budgetReport.budget_str}}</td>
+              <td>{{budgetReport.actual_str}}</td>
+              <td class="{{if budgetReport.alertState "alert" "success"}}">{{budgetReport.difference_str}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

@@ -67,5 +67,10 @@ module.exports = {
         node: true
       }
     }
-  ]
+  ],
+  settings: {
+    'import/extensions': [
+      '.js'
+    ]
+  }
 };

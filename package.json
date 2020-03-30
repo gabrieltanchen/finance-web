@@ -36,7 +36,7 @@
     "ember-cli-cookie": "0.2.0",
     "ember-cli-dependency-checker": "3.2.0",
     "ember-cli-eslint": "5.1.0",
-    "ember-cli-htmlbars": "4.2.2",
+    "ember-cli-htmlbars": "4.2.3",
     "ember-cli-htmlbars-inline-precompile": "3.0.1",
     "ember-cli-inject-live-reload": "2.0.2",
     "ember-cli-mirage": "1.1.6",
@@ -60,11 +60,11 @@
     "eslint-plugin-ember": "7.7.2",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.18.3",
+    "eslint-plugin-react": "7.19.0",
     "foundation-sites": "6.4.3",
     "loader.js": "4.7.0",
-    "qunit-dom": "1.0.0",
-    "sass": "1.25.0",
+    "qunit-dom": "1.1.0",
+    "sass": "1.26.3",
     "sass-lint": "1.13.1"
   },
   "engines": {

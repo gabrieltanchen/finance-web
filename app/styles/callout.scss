@@ -1,0 +1,18 @@
+.callout {
+  border: 1px solid $black-alpha-25;
+  font-size: 1rem;
+  margin-bottom: 1em;
+  padding: 1em;
+
+  &.alert {
+    background-color: $alert-colour;
+  }
+
+  &.success {
+    background-color: $success-colour;
+  }
+
+  &.warning {
+    background-color: $warning-colour;
+  }
+}

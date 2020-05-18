@@ -1,0 +1,16 @@
+{{#if this.errors }}
+  <div class="callout alert">
+    {{#each errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form {{on "submit" this.login}}>
+  <label for="login-email">Email</label>
+  <Input @value={{this.email}} @type="email" id="login-email" aria-required="true" />
+
+  <label for="login-password">Password</label>
+  <Input @value={{this.password}} @type="password" id="login-password" aria-required="true" />
+
+  <input type="submit" value="Login" id="login-submit" />
+</form>

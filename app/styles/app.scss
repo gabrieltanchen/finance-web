@@ -1,9 +1,15 @@
 @import 'variables';
 @import 'nav-bar';
+@import 'forms';
+@import 'callout';
 
 body {
   font-family: 'open-sans', sans-serif;
   margin: 0;
+}
+
+h1 {
+  font-size: 1.5em;
 }
 
 [class*='container-'] {

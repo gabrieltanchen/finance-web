@@ -5,6 +5,10 @@ export default class SessionService extends Service {
   @service store;
   @tracked authToken;
 
+  get isLoggedIn() {
+    return !!this.authToken;
+  }
+
   async login(email, password) {
     let loginUser;
     const result = {

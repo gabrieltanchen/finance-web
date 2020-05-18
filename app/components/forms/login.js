@@ -14,7 +14,9 @@ export default class LoginFormComponent extends Component {
     e.preventDefault();
     try {
       const loginResult = await this.session.login(this.email, this.password);
-      if (!loginResult.success) {
+      if (loginResult.success) {
+        this.args.loginSuccessful();
+      } else {
         this.errors = loginResult.errors;
       }
     } catch (err) {

@@ -41,6 +41,7 @@ module.exports = {
     'no-restricted-syntax': ['off'],
     'no-underscore-dangle': ['off'],
     'no-unused-expressions': ['off'],
+    'no-useless-escape': ['off'],
     'prefer-arrow-callback': ['off'],
     'prefer-destructuring': ['off'],
     'prefer-promise-reject-errors': ['off'],

@@ -25,6 +25,9 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     ENV.apiURL = 'http://localhost:8080';
+    ENV['ember-cli-mirage'] = {
+      enabled: false,
+    };
   }
 
   if (environment === 'test') {
@@ -39,10 +42,16 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
 
     ENV.apiURL = '';
+    ENV['ember-cli-mirage'] = {
+      enabled: true,
+    };
   }
 
   if (environment === 'production') {
     ENV.apiURL = '/api';
+    ENV['ember-cli-mirage'] = {
+      enabled: false,
+    };
   }
 
   return ENV;

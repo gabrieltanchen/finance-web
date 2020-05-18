@@ -1,0 +1,26 @@
+@import 'variables';
+@import 'nav-bar';
+
+body {
+  font-family: 'open-sans', sans-serif;
+  margin: 0;
+}
+
+[class*='container-'] {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+.container-lg {
+  max-width: 67.5rem;
+}
+
+.container-md {
+  max-width: 55rem;
+}
+
+.container-sm {
+  max-width: 40rem;
+}

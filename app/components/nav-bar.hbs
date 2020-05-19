@@ -3,10 +3,16 @@
     <LinkTo @route="index">
       <h1>Finance</h1>
     </LinkTo>
-    <div class="links">
-      <LinkTo @route="login">
-        Login
-      </LinkTo>
+    <div class="nav-links">
+      {{#if this.session.authToken}}
+        <button {{on "click" this.logout}} id="logout-button">
+          Logout
+        </button>
+      {{else}}
+        <LinkTo @route="login" id="login-link">
+          Login
+        </LinkTo>
+      {{/if}}
     </div>
   </div>
 </nav>

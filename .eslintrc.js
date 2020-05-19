@@ -28,6 +28,7 @@ module.exports = {
     'ember/avoid-leaking-state-in-ember-objects': ['off'],
     'ember/no-jquery': 'error',
     'ember/no-observers': ['off'],
+    'ember/no-test-module-for': ['off'],
     'func-names': ['off'],
     'indent': ['error', 2],
     'import/extensions': ['off'],

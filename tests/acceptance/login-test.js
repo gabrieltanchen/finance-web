@@ -12,6 +12,11 @@ module('Acceptance | login', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
+  hooks.beforeEach(function() {
+    const session = this.owner.lookup('service:session');
+    session.logout();
+  });
+
   test('visiting /login', async function(assert) {
     await visit('/login');
 

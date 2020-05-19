@@ -51,4 +51,9 @@ export default class SessionService extends Service {
 
     return result;
   }
+
+  logout() {
+    this.authToken = null;
+    document.cookie = `authToken=; expires=${new Date((new Date()).getTime() - 1000).toUTCString()}`;
+  }
 }

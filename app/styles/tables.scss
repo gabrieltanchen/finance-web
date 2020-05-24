@@ -23,7 +23,7 @@ nav {
         button {
           color: $black;
           cursor: pointer;
-          transition: color 0.25s linear;
+          transition: color 0.1s linear;
 
           &:hover {
             color: $primary-colour;
@@ -60,6 +60,15 @@ table {
         border-bottom: 1px solid $border-light-grey;
         font-weight: 300;
         padding: 1em;
+
+        a {
+          color: $black;
+          transition: color 0.1s linear;
+
+          &:hover {
+            color: $primary-colour;
+          }
+        }
       }
     }
   }

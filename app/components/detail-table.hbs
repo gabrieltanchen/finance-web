@@ -1,0 +1,14 @@
+<table>
+  <tbody>
+    {{#each @properties as |property|}}
+      <tr>
+        <td>
+          {{property.name}}
+        </td>
+        <td>
+          {{get @model property.propertyName}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

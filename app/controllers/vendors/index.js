@@ -10,6 +10,7 @@ export default class VendorsIndexController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
+    linkTo: 'vendors.show',
     name: 'Name',
     propertyName: 'name',
   }, {

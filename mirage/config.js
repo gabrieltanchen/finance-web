@@ -65,4 +65,17 @@ export default function() {
       },
     });
   });
+  this.get('/vendors/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Vendor',
+        },
+        'id': request.params.id,
+        'type': 'vendors',
+      },
+    });
+  });
 }

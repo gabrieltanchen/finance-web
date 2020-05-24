@@ -36,4 +36,10 @@ module('Acceptance | logged in redirects', function(hooks) {
 
     assert.equal(currentURL(), '/vendors');
   });
+
+  test('can visit /vendors/:id', async function(assert) {
+    await visit('/vendors/045be361-1f46-4875-9c57-d51be631f27f');
+
+    assert.equal(currentURL(), '/vendors/045be361-1f46-4875-9c57-d51be631f27f');
+  });
 });

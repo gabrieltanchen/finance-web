@@ -46,7 +46,13 @@
       <tr>
         {{#each @columns as |column|}}
           <td>
-            {{get row column.propertyName}}
+            {{#if column.linkTo}}
+              <LinkTo @route={{column.linkTo}} @model={{row.id}}>
+                {{get row column.propertyName}}
+              </LinkTo>
+            {{else}}
+              {{get row column.propertyName}}
+            {{/if}}
           </td>
         {{/each}}
       </tr>

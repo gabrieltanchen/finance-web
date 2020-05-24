@@ -1,10 +1,13 @@
 <nav class="nav-bar">
   <div class="container-lg nav-bar-container">
-    <LinkTo @route="index">
-      <h1>Finance</h1>
+    <LinkTo @route="index" class="nav-title">
+      Finance
     </LinkTo>
     <div class="nav-links">
       {{#if this.session.authToken}}
+        <LinkTo @route="vendors.index" id="nav-vendors">
+          Vendors
+        </LinkTo>
         <button {{on "click" this.logout}} id="logout-button">
           Logout
         </button>

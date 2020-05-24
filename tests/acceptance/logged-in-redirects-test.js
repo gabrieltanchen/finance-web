@@ -1,9 +1,11 @@
 import { module, test } from 'qunit';
 import { currentURL, visit } from '@ember/test-helpers';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 
 module('Acceptance | logged in redirects', function(hooks) {
   setupApplicationTest(hooks);
+  setupMirage(hooks);
 
   hooks.beforeEach(function() {
     const session = this.owner.lookup('service:session');
@@ -27,5 +29,11 @@ module('Acceptance | logged in redirects', function(hooks) {
     await visit('/login');
 
     assert.equal(currentURL(), '/dashboard');
+  });
+
+  test('can visit /vendors', async function(assert) {
+    await visit('/vendors');
+
+    assert.equal(currentURL(), '/vendors');
   });
 });

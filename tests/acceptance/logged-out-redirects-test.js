@@ -29,4 +29,10 @@ module('Acceptance | logged out redirects', function(hooks) {
 
     assert.equal(currentURL(), '/login');
   });
+
+  test('should redirect away from /vendors', async function(assert) {
+    await visit('/vendors');
+
+    assert.equal(currentURL(), '/login');
+  });
 });

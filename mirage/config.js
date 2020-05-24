@@ -1,4 +1,5 @@
 import Mirage from 'ember-cli-mirage';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function() {
   this.post('/users/login', (db, request) => {
@@ -29,6 +30,38 @@ export default function() {
         },
         'id': '07ae7b13-338c-4ac0-a122-615075066527',
         'type': 'login-users',
+      },
+    });
+  });
+
+  this.get('/vendors', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Vendor 26',
+        },
+        'id': uuidv4(),
+        'type': 'vendors',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Vendor ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'vendors',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
       },
     });
   });

@@ -10,7 +10,8 @@ Router.map(function() {
   this.route('dashboard');
   this.route('login');
   this.route('vendors', function() {
-    this.route('show', { path: '/:vendor_id' });
     this.route('expenses', { path: '/:vendor_id/expenses' });
+    this.route('settings', { path: '/:vendor_id/settings' });
+    this.route('show', { path: '/:vendor_id' });
   });
 });

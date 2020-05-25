@@ -33,10 +33,10 @@
           Settings
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="vendors.settings" @model={{@vendorId}}>
           <FaIcon @icon="cog" @size="sm" />
           Settings
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
   </ul>

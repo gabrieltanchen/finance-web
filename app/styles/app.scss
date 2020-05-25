@@ -1,8 +1,10 @@
 @import 'variables';
 @import 'nav';
+@import 'buttons';
 @import 'forms';
 @import 'callout';
 @import 'tables';
+@import 'modal';
 
 body {
   font-family: 'proxima-nova', sans-serif;
@@ -19,6 +21,7 @@ h1 {
 }
 
 button {
+  font-family: 'proxima-nova', sans-serif;
   outline: none;
 }
 

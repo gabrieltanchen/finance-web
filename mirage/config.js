@@ -103,6 +103,20 @@ export default function() {
       },
     });
   });
+  this.delete('/vendors/:id', (db, request) => {
+    if (request.params.id === 'b6f0441e-bdee-4172-a646-4d8c9191db57') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test error.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
   this.get('/vendors/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

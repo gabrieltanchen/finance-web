@@ -130,4 +130,29 @@ export default function() {
       },
     });
   });
+  this.patch('/vendors/:id', (db, request) => {
+    if (request.params.id === 'b6f0441e-bdee-4172-a646-4d8c9191db57') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test vendor patch error 1.',
+        }, {
+          detail: 'Test vendor patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': request.params.id,
+        'type': 'vendors',
+      },
+    });
+  });
 }

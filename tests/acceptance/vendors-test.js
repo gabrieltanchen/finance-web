@@ -1,7 +1,13 @@
 import { module, test } from 'qunit';
-import { click, currentURL, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  fillIn,
+  visit,
+} from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | vendors', function(hooks) {
   setupApplicationTest(hooks);
@@ -36,9 +42,10 @@ module('Acceptance | vendors', function(hooks) {
   });
 
   test('visiting /vendors/:id', async function(assert) {
-    await visit('/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c');
+    const id = uuidv4();
+    await visit(`/vendors/${id}`);
 
-    assert.equal(currentURL(), '/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c');
+    assert.equal(currentURL(), `/vendors/${id}`);
     assert.dom('.container-lg').exists();
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Vendor - Test Vendor');
@@ -54,10 +61,59 @@ module('Acceptance | vendors', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Total');
   });
 
-  test('visiting /vendors/:id/expenses', async function(assert) {
-    await visit('/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/expenses');
+  test('visiting /vendors/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}/edit`);
 
-    assert.equal(currentURL(), '/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/expenses');
+    assert.equal(currentURL(), `/vendors/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Vendor - Test Vendor');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#vendor-name-input').exists();
+    assert.dom('#vendor-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing vendor', async function(assert) {
+    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/edit');
+
+    assert.equal(currentURL(), '/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/edit');
+
+    await fillIn('#vendor-name-input', 'Updated Vendor');
+    await click('#vendor-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test vendor patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test vendor patch error 2.');
+
+    // Test that the vendor name gets reset after navigating away from edit
+    // page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
+    assert.dom('h1').containsText('Vendor - Test Vendor');
+  });
+
+  test('should transition to vendor details after editing vendor', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}/edit`);
+
+    assert.equal(currentURL(), `/vendors/${id}/edit`);
+
+    await fillIn('#vendor-name-input', 'Updated Vendor');
+    await click('#vendor-submit');
+
+    assert.equal(currentURL(), `/vendors/${id}`);
+  });
+
+  test('visiting /vendors/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}/expenses`);
+
+    assert.equal(currentURL(), `/vendors/${id}/expenses`);
     assert.dom('.container-lg').exists();
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Vendor - Test Vendor');
@@ -67,19 +123,20 @@ module('Acceptance | vendors', function(hooks) {
 
     await click('.pagination-next button');
 
-    assert.equal(currentURL(), '/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/expenses?page=2');
+    assert.equal(currentURL(), `/vendors/${id}/expenses?page=2`);
     assert.dom('table tbody tr').exists({ count: 1 });
 
     await click('.pagination-previous button');
 
-    assert.equal(currentURL(), '/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/expenses?page=1');
+    assert.equal(currentURL(), `/vendors/${id}/expenses?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
   });
 
   test('visiting /vendors/:id/settings', async function(assert) {
-    await visit('/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/settings');
+    const id = uuidv4();
+    await visit(`/vendors/${id}/settings`);
 
-    assert.equal(currentURL(), '/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/settings');
+    assert.equal(currentURL(), `/vendors/${id}/settings`);
     assert.dom('.container-lg').exists();
     assert.dom('.container-lg h1').exists();
     assert.dom('.container-lg h1').containsText('Vendor - Test Vendor');
@@ -109,6 +166,10 @@ module('Acceptance | vendors', function(hooks) {
     await click('.overlay .modal button.button.cancel');
 
     assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/vendors/${id}/edit`);
   });
 
   test('renders callout when deleting vendor returns errors', async function(assert) {
@@ -141,9 +202,10 @@ module('Acceptance | vendors', function(hooks) {
   });
 
   test('transitions to vendors.index on successful vendor deletion', async function(assert) {
-    await visit('/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/settings');
+    const id = uuidv4();
+    await visit(`/vendors/${id}/settings`);
 
-    assert.equal(currentURL(), '/vendors/42b96703-cd77-422e-b40c-3b99e7d7f12c/settings');
+    assert.equal(currentURL(), `/vendors/${id}/settings`);
     assert.dom('.container-sm button.button.alert').exists();
 
     await click('.container-sm button.button.alert');

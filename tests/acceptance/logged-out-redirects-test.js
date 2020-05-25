@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | logged out redirects', function(hooks) {
   setupApplicationTest(hooks);
@@ -37,19 +38,25 @@ module('Acceptance | logged out redirects', function(hooks) {
   });
 
   test('should redirect away from /vendors/:id', async function(assert) {
-    await visit('/vendors/045be361-1f46-4875-9c57-d51be631f27f');
+    await visit(`/vendors/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /vendors/:id/edit', async function(assert) {
+    await visit(`/vendors/${uuidv4()}/edit`);
 
     assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /vendors/:id/expenses', async function(assert) {
-    await visit('/vendors/045be361-1f46-4875-9c57-d51be631f27f/expenses');
+    await visit(`/vendors/${uuidv4()}/expenses`);
 
     assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /vendors/:id/settings', async function(assert) {
-    await visit('/vendors/045be361-1f46-4875-9c57-d51be631f27f/settings');
+    await visit(`/vendors/${uuidv4()}/settings`);
 
     assert.equal(currentURL(), '/login');
   });

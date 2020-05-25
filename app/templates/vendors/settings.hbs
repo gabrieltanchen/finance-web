@@ -3,9 +3,9 @@
   <VendorItemMenu @vendorId={{vendor.id}} />
 </div>
 <div class="container-sm">
-  <a href="#" class="button">
+  <LinkTo @route="vendors.edit" @model={{vendor.id}} class="button">
     Edit
-  </a>
+  </LinkTo>
   <button class="button alert" {{on "click" this.openDeleteModal}}>
     Delete
   </button>

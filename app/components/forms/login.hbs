@@ -1,4 +1,4 @@
-{{#if this.errors }}
+{{#if errors }}
   <div class="callout alert">
     {{#each errors as |error|}}
       <p>{{error}}</p>
@@ -12,5 +12,5 @@
   <label for="login-password">Password</label>
   <Input @value={{this.password}} @type="password" id="login-password" aria-required="true" />
 
-  <input type="submit" value="Login" id="login-submit" />
+  <Input @value="Login" @type="submit" id="login-submit" />
 </form>

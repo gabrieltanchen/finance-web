@@ -1,0 +1,13 @@
+{{#if errors}}
+  <div class="callout alert">
+    {{#each errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form  {{on "submit" this.save}}>
+  <label for="vendor-name">Name</label>
+  <Input @value={{@vendor.name}} @type="text" id="vendor-name-input" aria-required="true" />
+
+  <Input @value="Save" @type="submit" id="vendor-submit" />
+</form>

@@ -43,7 +43,7 @@ module('Integration | Component | forms/login', function(hooks) {
     assert.dom('form input:nth-of-type(2)').hasAttribute('id', 'login-password');
     assert.dom('form input:nth-of-type(2)').hasAria('required', 'true');
 
-    assert.dom('form input:nth-of-type(3)').hasAttribute('value', 'Login');
+    assert.dom('form input:nth-of-type(3)').hasValue('Login');
     assert.dom('form input:nth-of-type(3)').hasAttribute('type', 'submit');
     assert.dom('form input:nth-of-type(3)').hasAttribute('id', 'login-submit');
 

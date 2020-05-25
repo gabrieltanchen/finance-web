@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });
     this.route('expenses', { path: '/:vendor_id/expenses' });
+    this.route('new');
     this.route('settings', { path: '/:vendor_id/settings' });
     this.route('show', { path: '/:vendor_id' });
   });

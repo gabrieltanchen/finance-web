@@ -38,6 +38,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/vendors');
   });
 
+  test('can visit /vendors/new', async function(assert) {
+    await visit('/vendors/new');
+
+    assert.equal(currentURL(), '/vendors/new');
+  });
+
   test('can visit /vendors/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/vendors/${id}`);

@@ -24,8 +24,12 @@ module('Acceptance | vendors', function(hooks) {
 
     assert.equal(currentURL(), '/vendors');
     assert.dom('.container-lg').exists();
-    assert.dom('h1').exists();
-    assert.dom('h1').containsText('Vendors');
+    assert.dom('.title-with-buttons').exists();
+    assert.dom('.title-with-buttons h1').exists();
+    assert.dom('.title-with-buttons h1').containsText('Vendors');
+    assert.dom('.title-with-buttons .buttons').exists();
+    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
+    assert.dom('.title-with-buttons .buttons a').containsText('New');
     assert.dom('nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
@@ -39,6 +43,33 @@ module('Acceptance | vendors', function(hooks) {
 
     assert.equal(currentURL(), '/vendors?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /vendors/new', async function(assert) {
+    await visit('/vendors/new');
+
+    assert.equal(currentURL(), '/vendors/new');
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Vendor');
+    assert.dom('form').exists();
+    assert.dom('#vendor-name-input').exists();
+    assert.dom('#vendor-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating vendor', async function(assert) {
+    await visit('/vendors/new');
+
+    assert.equal(currentURL(), '/vendors/new');
+
+    await fillIn('#vendor-name-input', 'Error Vendor');
+    await click('#vendor-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test vendor post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test vendor post error 2.');
   });
 
   test('visiting /vendors/:id', async function(assert) {

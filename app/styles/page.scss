@@ -1,0 +1,18 @@
+.title-with-buttons {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .buttons {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+
+    .button {
+      display: inline;
+      margin: 0 0 0 1.5em;
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }
+}

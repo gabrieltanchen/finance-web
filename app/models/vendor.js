@@ -1,4 +1,4 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class VendorModel extends Model {
   @attr('date') createdAt;
@@ -6,6 +6,8 @@ export default class VendorModel extends Model {
   @attr('string') name;
   @attr('number') sumAmountCents;
   @attr('number') sumReimbursedCents;
+
+  @hasMany('expense') expenses;
 
   get sumAmount() {
     if (this.sumAmountCents === 0) {

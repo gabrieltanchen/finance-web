@@ -2,6 +2,44 @@ import Mirage from 'ember-cli-mirage';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function() {
+  this.get('/expenses', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'amount-cents': 1,
+          'date': '2020-01-01',
+          'description': 'Expense 26',
+          'reimbursed-cents': 0,
+        },
+        'id': uuidv4(),
+        'type': 'expenses',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'amount-cents': 1,
+            'date': '2020-01-01',
+            'description': `Expense ${ind}`,
+            'reimbursed-cents': 0,
+          },
+          'id': uuidv4(),
+          'type': 'expenses',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data
@@ -71,7 +109,7 @@ export default function() {
     }, {
       'data': {
         'attributes': {
-          'name': 'Vendor',
+          'name': 'Test Vendor',
         },
         'id': request.params.id,
         'type': 'vendors',

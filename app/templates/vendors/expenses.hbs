@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Vendor - {{vendor.name}}</h1>
+  <VendorItemMenu @vendorId={{vendor.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.expenses}}
+    @page={{this.page}}
+    @numPages={{this.expenses.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>

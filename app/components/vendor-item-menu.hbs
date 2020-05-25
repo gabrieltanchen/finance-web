@@ -7,10 +7,10 @@
           Details
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="vendors.show" @model={{@vendorId}}>
           <FaIcon @icon="list" @size="sm" />
           Details
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
     <li>
@@ -20,10 +20,10 @@
           Expenses
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="vendors.expenses" @model={{@vendorId}}>
           <FaIcon @icon="credit-card" @size="sm" />
           Expenses
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
     <li>

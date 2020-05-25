@@ -41,4 +41,10 @@ module('Acceptance | logged out redirects', function(hooks) {
 
     assert.equal(currentURL(), '/login');
   });
+
+  test('should redirect away from /vendors/:id/expenses', async function(assert) {
+    await visit('/vendors/045be361-1f46-4875-9c57-d51be631f27f/expenses');
+
+    assert.equal(currentURL(), '/login');
+  });
 });

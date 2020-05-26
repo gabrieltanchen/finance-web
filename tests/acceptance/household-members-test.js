@@ -45,6 +45,44 @@ module('Acceptance | household members', function(hooks) {
     assert.dom('table tbody tr').exists({ count: 25 });
   });
 
+  test('visiting /household-members/new', async function(assert) {
+    await visit('/household-members/new');
+
+    assert.equal(currentURL(), '/household-members/new');
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Household Member');
+    assert.dom('form').exists();
+    assert.dom('#household-member-name-input').exists();
+    assert.dom('#household-member-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating household member', async function(assert) {
+    await visit('/household-members/new');
+
+    assert.equal(currentURL(), '/household-members/new');
+
+    await fillIn('#household-member-name-input', 'Error Household Member');
+    await click('#household-member-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test household member post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test household member post error 2.');
+  });
+
+  test('should transition to household member details after creating household member', async function(assert) {
+    await visit('/household-members/new');
+
+    assert.equal(currentURL(), '/household-members/new');
+
+    await fillIn('#household-member-name-input', 'New Household Member');
+    await click('#household-member-submit');
+
+    assert.equal(currentURL(), '/household-members/3e1b0321-d588-405e-a227-8ce545ffd837');
+  });
+
   test('visiting /household-members/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/household-members/${id}`);

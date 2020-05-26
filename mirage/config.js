@@ -71,6 +71,34 @@ export default function() {
       },
     });
   });
+  this.post('/household-members', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Household Member') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test household member post error 1.',
+        }, {
+          detail: 'Test household member post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '3e1b0321-d588-405e-a227-8ce545ffd837',
+        'type': 'household-members',
+      },
+    });
+  });
   this.delete('/household-members/:id', (db, request) => {
     if (request.params.id === 'e05557f8-1010-4978-86fb-0cdbe71ef811') {
       return new Mirage.Response(403, {

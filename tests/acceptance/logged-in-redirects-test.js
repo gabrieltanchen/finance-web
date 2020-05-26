@@ -32,6 +32,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/household-members');
   });
 
+  test('can visit /household-members/new', async function(assert) {
+    await visit('/household-members/new');
+
+    assert.equal(currentURL(), '/household-members/new');
+  });
+
   test('can visit /household-members/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/household-members/${id}`);

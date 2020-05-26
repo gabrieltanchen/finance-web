@@ -5,6 +5,9 @@
     </LinkTo>
     <div class="nav-links">
       {{#if this.session.authToken}}
+        <LinkTo @route="income.index" id="nav-income">
+          Income
+        </LinkTo>
         <LinkTo @route="vendors.index" id="nav-vendors">
           Vendors
         </LinkTo>

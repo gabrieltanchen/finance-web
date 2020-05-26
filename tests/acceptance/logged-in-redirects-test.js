@@ -73,6 +73,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/household-members/${id}/settings`);
   });
 
+  test('can visit /income', async function(assert) {
+    await visit('/income');
+
+    assert.equal(currentURL(), '/income');
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
 

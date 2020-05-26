@@ -3,20 +3,22 @@ import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
-export default class VendorsIndexController extends Controller {
+export default class IncomeIndexController extends Controller {
   queryParams = ['page'];
 
-  @alias('model') vendors;
+  @alias('model') incomes;
   @tracked page = null;
 
   tableColumns = [{
-    linkTo: 'vendors.show',
-    name: 'Name',
-    propertyName: 'name',
+    name: 'Date',
+    propertyName: 'date',
   }, {
-    name: 'Created At',
-    propertyName: 'createdAt',
-  }]
+    name: 'Description',
+    propertyName: 'description',
+  }, {
+    name: 'Amount',
+    propertyName: 'amount',
+  }];
 
   @action
   setPage(page) {

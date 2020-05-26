@@ -1,0 +1,17 @@
+<div class="container-lg">
+  <div class="title-with-buttons">
+    <h1>Income</h1>
+    <div class="buttons">
+      <a href="#" class="button">
+        New
+      </a>
+    </div>
+  </div>
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.incomes}}
+    @page={{this.page}}
+    @numPages={{this.incomes.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>

@@ -1,0 +1,7 @@
+<div class="container-lg">
+  <h1>Edit Household Member - {{this.householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{this.householdMember.id}} />
+</div>
+<div class="container-sm">
+  <Forms::HouseholdMember @householdMember={{this.householdMember}} @saveSuccessful={{fn this.transitionToHouseholdMemberDetails}} />
+</div>

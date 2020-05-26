@@ -1,5 +1,10 @@
 import { module, test } from 'qunit';
-import { click, currentURL, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  fillIn,
+  visit,
+} from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -60,6 +65,54 @@ module('Acceptance | household members', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Total');
   });
 
+  test('visiting /household-members/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/edit`);
+
+    assert.equal(currentURL(), `/household-members/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Household Member - Test Household Member');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#household-member-name-input').exists();
+    assert.dom('#household-member-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing household member', async function(assert) {
+    await visit('/household-members/e05557f8-1010-4978-86fb-0cdbe71ef811/edit');
+
+    assert.equal(currentURL(), '/household-members/e05557f8-1010-4978-86fb-0cdbe71ef811/edit');
+
+    await fillIn('#household-member-name-input', 'Updated Household Member');
+    await click('#household-member-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test household member patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test household member patch error 2.');
+
+    // Test that the household member name gets reset after navigating away from
+    // edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/household-members/e05557f8-1010-4978-86fb-0cdbe71ef811');
+    assert.dom('h1').containsText('Household Member - Test Household Member');
+  });
+
+  test('should transition to household member details after editing household member', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/edit`);
+
+    assert.equal(currentURL(), `/household-members/${id}/edit`);
+
+    await fillIn('#household-member-name-input', 'Updated Household Member');
+    await click('#household-member-submit');
+
+    assert.equal(currentURL(), `/household-members/${id}`);
+  });
+
   test('visiting /household-members/:id/expenses', async function(assert) {
     const id = uuidv4();
     await visit(`/household-members/${id}/expenses`);
@@ -118,9 +171,9 @@ module('Acceptance | household members', function(hooks) {
 
     assert.dom('.overlay').doesNotExist();
 
-    // await click('.container-sm a');
+    await click('.container-sm a');
 
-    // assert.equal(currentURL(), `/vendors/${id}/edit`);
+    assert.equal(currentURL(), `/household-members/${id}/edit`);
   });
 
   test('renders callout when deleting household member returns errors', async function(assert) {

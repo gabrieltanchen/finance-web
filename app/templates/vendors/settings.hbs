@@ -1,9 +1,9 @@
 <div class="container-lg">
-  <h1>Vendor - {{vendor.name}}</h1>
-  <Menus::VendorItem @vendorId={{vendor.id}} />
+  <h1>Vendor - {{this.vendor.name}}</h1>
+  <Menus::VendorItem @vendorId={{this.vendor.id}} />
 </div>
 <div class="container-sm">
-  <LinkTo @route="vendors.edit" @model={{vendor.id}} class="button">
+  <LinkTo @route="vendors.edit" @model={{this.vendor.id}} class="button">
     Edit
   </LinkTo>
   <button class="button alert" {{on "click" this.openDeleteModal}}>
@@ -20,7 +20,7 @@
           {{/each}}
         </div>
       {{/if}}
-      <p>Are you sure you want to delete vendor <span>{{vendor.name}}</span>?</p>
+      <p>Are you sure you want to delete vendor <span>{{this.vendor.name}}</span>?</p>
       <button class="button alert" {{on "click" this.deleteVendor}}>
         Delete
       </button>

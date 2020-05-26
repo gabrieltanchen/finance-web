@@ -1,6 +1,6 @@
 <div class="container-lg">
-  <h1>Edit Vendor - {{vendor.name}}</h1>
-  <Menus::VendorItem @vendorId={{vendor.id}} />
+  <h1>Edit Vendor - {{this.vendor.name}}</h1>
+  <Menus::VendorItem @vendorId={{this.vendor.id}} />
 </div>
 <div class="container-sm">
   <Forms::Vendor @vendor={{vendor}} @saveSuccessful={{fn this.transitionToVendorDetails}} />

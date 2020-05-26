@@ -72,6 +72,17 @@ module('Acceptance | vendors', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test vendor post error 2.');
   });
 
+  test('should transition to vendor details after creating vendor', async function(assert) {
+    await visit('/vendors/new');
+
+    assert.equal(currentURL(), '/vendors/new');
+
+    await fillIn('#vendor-name-input', 'New Vendor');
+    await click('#vendor-submit');
+
+    assert.equal(currentURL(), '/vendors/7933a7b5-5c56-43ab-ae16-5bfdf21b03b5');
+  });
+
   test('visiting /vendors/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/vendors/${id}`);

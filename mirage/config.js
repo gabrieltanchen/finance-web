@@ -100,6 +100,31 @@ export default function() {
       },
     });
   });
+  this.patch('/household-members/:id', (db, request) => {
+    if (request.params.id === 'e05557f8-1010-4978-86fb-0cdbe71ef811') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test household member patch error 1.',
+        }, {
+          detail: 'Test household member patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': request.params.id,
+        'type': 'household-members',
+      },
+    });
+  });
 
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);
@@ -187,7 +212,7 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': uuidv4(),
+        'id': '7933a7b5-5c56-43ab-ae16-5bfdf21b03b5',
         'type': 'vendors',
       },
     });

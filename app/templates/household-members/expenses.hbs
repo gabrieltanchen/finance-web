@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Household Member - {{householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{householdMember.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.expenses}}
+    @page={{this.page}}
+    @numPages={{this.expenses.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>

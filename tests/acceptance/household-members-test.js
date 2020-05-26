@@ -59,4 +59,27 @@ module('Acceptance | household members', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Reimbursed');
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Total');
   });
+
+  test('visiting /household-members/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/expenses`);
+
+    assert.equal(currentURL(), `/household-members/${id}/expenses`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Household Member - Test Household Member');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/household-members/${id}/expenses?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/household-members/${id}/expenses?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
+  });
 });

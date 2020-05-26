@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('dashboard');
   this.route('household-members', function() {
     this.route('show', { path: '/:member_id' });
+    this.route('expenses', { path: '/:member_id/expenses' });
   });
   this.route('login');
   this.route('vendors', function() {

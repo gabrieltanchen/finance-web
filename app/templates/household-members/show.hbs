@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>Household Member - {{householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{householdMember.id}} />
+  <DetailTable @model={{householdMember}} @properties={{this.properties}} />
+</div>

@@ -71,6 +71,19 @@ export default function() {
       },
     });
   });
+  this.get('/household-members/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Household Member',
+        },
+        'id': request.params.id,
+        'type': 'household-members',
+      },
+    });
+  });
 
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);

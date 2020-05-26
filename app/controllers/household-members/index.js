@@ -10,6 +10,7 @@ export default class HouseholdMembersIndexController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
+    linkTo: 'household-members.show',
     name: 'Name',
     propertyName: 'name',
   }, {

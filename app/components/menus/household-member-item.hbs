@@ -1,0 +1,43 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{#if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="household-members.show" @model={{@memberId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isExpensesRoute}}
+        <span>
+          <FaIcon @icon="credit-card" @size="sm" />
+          Expenses
+        </span>
+      {{else}}
+        <a href="#">
+          <FaIcon @icon="credit-card" @size="sm" />
+          Expenses
+        </a>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <a href="#">
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </a>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

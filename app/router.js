@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('household-members', function() {
     this.route('edit', { path: '/:member_id/edit' });
     this.route('expenses', { path: '/:member_id/expenses' });
+    this.route('income', { path: '/:member_id/income' });
     this.route('new');
     this.route('settings', { path: '/:member_id/settings' });
     this.route('show', { path: '/:member_id' });

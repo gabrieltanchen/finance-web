@@ -14,6 +14,19 @@
       {{/if}}
     </li>
     <li>
+      {{#if this.isIncomeRoute}}
+        <span>
+          <FaIcon @icon="coins" @size="sm" />
+          Income
+        </span>
+      {{else}}
+        <LinkTo @route="household-members.income" @model={{@memberId}}>
+          <FaIcon @icon="coins" @size="sm" />
+          Income
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
       {{#if this.isExpensesRoute}}
         <span>
           <FaIcon @icon="credit-card" @size="sm" />

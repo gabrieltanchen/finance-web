@@ -154,6 +154,42 @@ export default function() {
     });
   });
 
+  this.get('/incomes', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'amount-cents': 1,
+          'date': '2020-01-01',
+          'description': 'Income 26',
+        },
+        'id': uuidv4(),
+        'type': 'incomes',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'amount-cents': 1,
+            'date': '2020-01-01',
+            'description': `Income ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'incomes',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

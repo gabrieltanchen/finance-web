@@ -50,13 +50,19 @@ module('Acceptance | logged out redirects', function(hooks) {
   });
 
   test('should redirect away from /household-members/:id/expenses', async function(assert) {
-    await visit(`/household-members/${uuidv4()}`);
+    await visit(`/household-members/${uuidv4()}/expenses`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /household-members/:id/income', async function(assert) {
+    await visit(`/household-members/${uuidv4()}/income`);
 
     assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /household-members/:id/settings', async function(assert) {
-    await visit(`/household-members/${uuidv4()}`);
+    await visit(`/household-members/${uuidv4()}/settings`);
 
     assert.equal(currentURL(), '/login');
   });

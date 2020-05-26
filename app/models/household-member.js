@@ -9,6 +9,7 @@ export default class HouseholdMemberModel extends Model {
   @attr('number') sumReimbursedCents;
 
   @hasMany('expense') expenses;
+  @hasMany('income') incomes;
 
   get sumAmount() {
     if (this.sumAmountCents === 0) {

@@ -12,6 +12,10 @@ export default class MenusHouseholdMemberItemComponent extends Component {
     return this.router.currentRouteName === 'household-members.expenses';
   }
 
+  get isIncomeRoute() {
+    return this.router.currentRouteName === 'household-members.income';
+  }
+
   get isSettingsRoute() {
     return this.router.currentRouteName === 'household-members.settings';
   }

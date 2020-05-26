@@ -175,6 +175,29 @@ module('Acceptance | household members', function(hooks) {
     assert.dom('table tbody tr').exists({ count: 25 });
   });
 
+  test('visiting /household-members/:id/income', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/income`);
+
+    assert.equal(currentURL(), `/household-members/${id}/income`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Household Member - Test Household Member');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/household-members/${id}/income?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/household-members/${id}/income?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
   test('visiting /household-members/:id/settings', async function(assert) {
     const id = uuidv4();
     await visit(`/household-members/${id}/settings`);

@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 
-export default class HouseholdMembersExpensesRoute extends Route {
+export default class HouseholdMembersIncomeRoute extends Route {
   @service session;
 
   queryParams = {
@@ -19,7 +19,7 @@ export default class HouseholdMembersExpensesRoute extends Route {
 
   model(params) {
     return RSVP.hash({
-      expenses: this.store.query('expense', {
+      incomes: this.store.query('income', {
         household_member_id: params.member_id,
         page: params.page,
       }),

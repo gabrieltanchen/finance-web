@@ -25,6 +25,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /household-members', async function(assert) {
+    await visit('/household-members');
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('can visit /login', async function(assert) {
     await visit('/login');
 

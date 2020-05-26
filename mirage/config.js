@@ -40,6 +40,38 @@ export default function() {
     });
   });
 
+  this.get('/household-members', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Member 26',
+        },
+        'id': uuidv4(),
+        'type': 'household-members',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Member ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'household-members',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

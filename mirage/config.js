@@ -189,6 +189,21 @@ export default function() {
       },
     });
   });
+  this.get('/incomes/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount-cents': 1,
+          'date': '2020-01-01',
+          'description': 'Test Income',
+        },
+        'id': request.params.id,
+        'type': 'incomes',
+      },
+    });
+  });
 
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);

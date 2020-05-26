@@ -6,7 +6,13 @@
           {{property.name}}
         </td>
         <td>
-          {{get @model property.propertyName}}
+          {{#if property.linkTo}}
+            <LinkTo @route={{property.linkTo}} @model={{get @model property.linkParam}}>
+              {{get @model property.propertyName}}
+            </LinkTo>
+          {{else}}
+            {{get @model property.propertyName}}
+          {{/if}}
         </td>
       </tr>
     {{/each}}

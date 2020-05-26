@@ -10,8 +10,12 @@ export default class IncomeIndexController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
+    linkTo: 'income.show',
     name: 'Date',
     propertyName: 'date',
+  }, {
+    name: 'Member',
+    propertyName: 'householdMember.name',
   }, {
     name: 'Description',
     propertyName: 'description',

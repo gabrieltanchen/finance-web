@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { click, currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | income', function(hooks) {
   setupApplicationTest(hooks);
@@ -37,5 +38,23 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /income/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}`);
+
+    assert.equal(currentURL(), `/income/${id}`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('View Income');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 5 });
+    assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
+    assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Date');
+    assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Amount');
+    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Member');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Description');
   });
 });

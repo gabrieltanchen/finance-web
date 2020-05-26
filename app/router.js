@@ -16,7 +16,9 @@ Router.map(function() {
     this.route('settings', { path: '/:member_id/settings' });
     this.route('show', { path: '/:member_id' });
   });
-  this.route('income', function() {});
+  this.route('income', function() {
+    this.route('show', { path: '/:income_id' });
+  });
   this.route('login');
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });

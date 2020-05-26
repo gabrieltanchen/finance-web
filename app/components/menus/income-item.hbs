@@ -1,0 +1,30 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{#if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="income.show" @model={{@incomeId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <a href="#">
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </a>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

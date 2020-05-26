@@ -79,6 +79,13 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/income');
   });
 
+  test('can visit /income/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}`);
+
+    assert.equal(currentURL(), `/income/${id}`);
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
 

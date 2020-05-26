@@ -98,9 +98,9 @@ module('Acceptance | vendors', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Number of expenses');
-    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Cumulative Amount');
-    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Reimbursed');
-    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Total');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Cumulative Expense Amount');
+    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Expense Reimbursed');
+    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Expense Total');
   });
 
   test('visiting /vendors/:id/edit', async function(assert) {

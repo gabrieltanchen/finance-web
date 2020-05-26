@@ -17,13 +17,13 @@ export default class VendorsShowController extends Controller {
     name: 'Number of expenses',
     propertyName: 'expenseCount',
   }, {
-    name: 'Cumulative Amount',
+    name: 'Cumulative Expense Amount',
     propertyName: 'sumAmount',
   }, {
-    name: 'Cumulative Reimbursed',
+    name: 'Cumulative Expense Reimbursed',
     propertyName: 'sumReimbursed',
   }, {
-    name: 'Cumulative Total',
+    name: 'Cumulative Expense Total',
     propertyName: 'sumTotal',
   }]
 }

@@ -35,6 +35,31 @@ module('Unit | Model | household member', function(hooks) {
     assert.equal(householdMember.sumAmount, '$-6,543.21');
   });
 
+  test('it has the correct sumIncome', function(assert) {
+    const store = this.owner.lookup('service:store');
+    const householdMember = store.createRecord('household-member', {
+      sumIncomeCents: 0,
+    });
+
+    assert.equal(householdMember.sumIncome, '-');
+
+    householdMember.sumIncomeCents = 500;
+
+    assert.equal(householdMember.sumIncome, '$5.00');
+
+    householdMember.sumIncomeCents = 123456;
+
+    assert.equal(householdMember.sumIncome, '$1,234.56');
+
+    householdMember.sumIncomeCents = -500;
+
+    assert.equal(householdMember.sumIncome, '$-5.00');
+
+    householdMember.sumIncomeCents = -654321;
+
+    assert.equal(householdMember.sumIncome, '$-6,543.21');
+  });
+
   test('it has the correct sumReimbursed', function(assert) {
     const store = this.owner.lookup('service:store');
     const householdMember = store.createRecord('household-member', {

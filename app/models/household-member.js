@@ -5,6 +5,7 @@ export default class HouseholdMemberModel extends Model {
   @attr('number') expenseCount;
   @attr('string') name;
   @attr('number') sumAmountCents;
+  @attr('number') sumIncomeCents;
   @attr('number') sumReimbursedCents;
 
   @hasMany('expense') expenses;
@@ -18,6 +19,17 @@ export default class HouseholdMemberModel extends Model {
       minimumFractionDigits: 2,
     });
     return `$${sumAmount}`;
+  }
+
+  get sumIncome() {
+    if (this.sumIncomeCents === 0) {
+      return '-';
+    }
+    const sumIncome = (this.sumIncomeCents / 100).toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${sumIncome}`;
   }
 
   get sumReimbursed() {

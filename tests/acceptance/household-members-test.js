@@ -93,14 +93,15 @@ module('Acceptance | household members', function(hooks) {
     assert.dom('h1').containsText('Household Member - Test Household Member');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 7 });
+    assert.dom('table tbody tr').exists({ count: 8 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
-    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Number of expenses');
-    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Cumulative Amount');
-    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Reimbursed');
-    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Total');
+    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Cumulative Income Amount');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Number of expenses');
+    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Expense Amount');
+    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Expense Reimbursed');
+    assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Cumulative Expense Total');
   });
 
   test('visiting /household-members/:id/edit', async function(assert) {

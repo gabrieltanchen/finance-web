@@ -43,6 +43,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /household-members/:id/settings', async function(assert) {
+    await visit(`/household-members/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('can visit /login', async function(assert) {
     await visit('/login');
 

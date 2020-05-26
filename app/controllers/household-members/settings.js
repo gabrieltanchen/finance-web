@@ -3,8 +3,8 @@ import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
-export default class VendorsSettingsController extends Controller {
-  @alias('model') vendor;
+export default class HouseholdMembersSettingsController extends Controller {
+  @alias('model') householdMember;
   @tracked showDeleteModal = false;
   @tracked deleteErrors = [];
 
@@ -14,14 +14,14 @@ export default class VendorsSettingsController extends Controller {
   }
 
   @action
-  async deleteVendor(e) {
+  async deleteHouseholdMember(e) {
     e.preventDefault();
     try {
-      await this.vendor.destroyRecord();
+      await this.householdMember.destroyRecord();
       this.showDeleteModal = false;
-      this.transitionToRoute('vendors.index');
+      this.transitionToRoute('household-members.index');
     } catch (err) {
-      this.vendor.rollbackAttributes();
+      this.householdMember.rollbackAttributes();
       let errors = ['An error occurred. Please try again later.'];
       if (err && err.errors) {
         errors = err.errors.map((error) => {

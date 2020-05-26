@@ -218,8 +218,9 @@ module('Acceptance | vendors', function(hooks) {
     assert.equal(currentURL(), '/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/settings');
     assert.dom('.overlay .modal .callout').exists();
     assert.dom('.overlay .modal .callout').hasClass('alert');
-    assert.dom('.overlay .modal .callout p').exists({ count: 1 });
-    assert.dom('.overlay .modal .callout p').containsText('Test error.');
+    assert.dom('.overlay .modal .callout p').exists({ count: 2 });
+    assert.dom('.overlay .modal .callout p:nth-of-type(1)').containsText('Test vendor delete error 1.');
+    assert.dom('.overlay .modal .callout p:nth-of-type(2)').containsText('Test vendor delete error 2.');
 
     await click('.overlay .modal button.button.cancel');
 
@@ -232,7 +233,7 @@ module('Acceptance | vendors', function(hooks) {
     assert.dom('.overlay .modal .callout').doesNotExist();
   });
 
-  test('transitions to vendors.index on successful vendor deletion', async function(assert) {
+  test('transitions to /vendors on successful vendor deletion', async function(assert) {
     const id = uuidv4();
     await visit(`/vendors/${id}/settings`);
 

@@ -16,7 +16,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
   });
 
   test('it renders a navigation menu', async function(assert) {
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav').exists();
     assert.dom('nav').hasClass('secondary');
@@ -39,7 +39,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     const router = this.owner.lookup('service:router');
     router.currentRouteName = '';
 
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav ul li:nth-of-type(1) a').exists();
     assert.dom('nav ul li:nth-of-type(1) span').doesNotExist();
@@ -49,7 +49,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     const router = this.owner.lookup('service:router');
     router.currentRouteName = 'vendors.show';
 
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav ul li:nth-of-type(1) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(1) span').exists();
@@ -59,7 +59,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     const router = this.owner.lookup('service:router');
     router.currentRouteName = '';
 
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav ul li:nth-of-type(2) a').exists();
     assert.dom('nav ul li:nth-of-type(2) span').doesNotExist();
@@ -69,7 +69,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     const router = this.owner.lookup('service:router');
     router.currentRouteName = 'vendors.expenses';
 
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav ul li:nth-of-type(2) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(2) span').exists();
@@ -79,7 +79,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     const router = this.owner.lookup('service:router');
     router.currentRouteName = '';
 
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav ul li:nth-of-type(3) a').exists();
     assert.dom('nav ul li:nth-of-type(3) span').doesNotExist();
@@ -89,7 +89,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     const router = this.owner.lookup('service:router');
     router.currentRouteName = 'vendors.settings';
 
-    await render(hbs`<VendorItemMenu />`);
+    await render(hbs`<Menus::VendorItem />`);
 
     assert.dom('nav ul li:nth-of-type(3) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(3) span').exists();

@@ -1,6 +1,6 @@
 <div class="container-lg">
   <h1>Vendor - {{vendor.name}}</h1>
-  <VendorItemMenu @vendorId={{vendor.id}} />
+  <Menus::VendorItem @vendorId={{vendor.id}} />
 </div>
 <div class="container-sm">
   <LinkTo @route="vendors.edit" @model={{vendor.id}} class="button">

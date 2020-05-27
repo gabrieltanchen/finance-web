@@ -20,10 +20,10 @@
           Settings
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="income.settings" @model={{@incomeId}}>
           <FaIcon @icon="cog" @size="sm" />
           Settings
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
   </ul>

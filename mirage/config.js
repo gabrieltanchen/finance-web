@@ -189,6 +189,22 @@ export default function() {
       },
     });
   });
+  this.delete('/incomes/:id', (db, request) => {
+    if (request.params.id === 'b2a60746-3bb4-47b6-978a-4af4cdb68d2e') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test income delete error 1.',
+        }, {
+          detail: 'Test income delete error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
   this.get('/incomes/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

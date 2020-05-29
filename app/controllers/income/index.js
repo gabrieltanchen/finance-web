@@ -21,7 +21,7 @@ export default class IncomeIndexController extends Controller {
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amountStr',
   }];
 
   @action

@@ -10,28 +10,28 @@ module('Unit | Model | income', function(hooks) {
     assert.ok(model);
   });
 
-  test('it has the correct amount', function(assert) {
+  test('it has the correct amountStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const income = store.createRecord('income', {
-      amountCents: 0,
+      amount: '0',
     });
 
-    assert.equal(income.amount, '-');
+    assert.equal(income.amountStr, '-');
 
-    income.amountCents = 500;
+    income.amount = '5.00';
 
-    assert.equal(income.amount, '$5.00');
+    assert.equal(income.amountStr, '$5.00');
 
-    income.amountCents = 123456;
+    income.amount = '1234.56';
 
-    assert.equal(income.amount, '$1,234.56');
+    assert.equal(income.amountStr, '$1,234.56');
 
-    income.amountCents = -500;
+    income.amount = '-5.00';
 
-    assert.equal(income.amount, '$-5.00');
+    assert.equal(income.amountStr, '$-5.00');
 
-    income.amountCents = -654321;
+    income.amount = '-6543.21';
 
-    assert.equal(income.amount, '$-6,543.21');
+    assert.equal(income.amountStr, '$-6,543.21');
   });
 });

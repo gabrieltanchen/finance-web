@@ -12,7 +12,7 @@ export default class IncomeShowController extends Controller {
     propertyName: 'date',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amountStr',
   }, {
     linkParam: 'householdMember.id',
     linkTo: 'household-members.show',

@@ -1,5 +1,10 @@
 import { module, test } from 'qunit';
-import { click, currentURL, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  fillIn,
+  visit,
+} from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -58,6 +63,58 @@ module('Acceptance | income', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Description');
   });
 
+  test('visiting /income/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}/edit`);
+
+    assert.equal(currentURL(), `/income/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Income');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#income-date-input').exists();
+    assert.dom('#income-description-input').exists();
+    assert.dom('#income-amount-input').exists();
+    assert.dom('#income-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing income', async function(assert) {
+    await visit('/income/09571b16-7f41-404a-8387-a18b97cbad8e/edit');
+
+    assert.equal(currentURL(), '/income/09571b16-7f41-404a-8387-a18b97cbad8e/edit');
+
+    await fillIn('#income-description-input', 'Updated Income');
+    await fillIn('#income-amount-input', '45.67');
+    await click('#income-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test income patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test income patch error 2.');
+
+    // Test that the income gets reset after navigating away from edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/income/09571b16-7f41-404a-8387-a18b97cbad8e');
+    assert.dom('table tr:nth-of-type(3) td:nth-of-type(2)').containsText('$10.00');
+    assert.dom('table tr:nth-of-type(5) td:nth-of-type(2)').containsText('Test Income');
+  });
+
+  test('should transition to income details after editing income', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}/edit`);
+
+    assert.equal(currentURL(), `/income/${id}/edit`);
+
+    await fillIn('#income-description-input', 'Updated Income');
+    await fillIn('#income-amount-input', '45.67');
+    await click('#income-submit');
+
+    assert.equal(currentURL(), `/income/${id}`);
+  });
+
   test('visiting /income/:id/settings', async function(assert) {
     const id = uuidv4();
     await visit(`/income/${id}/settings`);
@@ -93,9 +150,9 @@ module('Acceptance | income', function(hooks) {
 
     assert.dom('.overlay').doesNotExist();
 
-    // await click('.container-sm a');
-    //
-    // assert.equal(currentURL(), `/income/${id}/edit`);
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/income/${id}/edit`);
   });
 
   test('renders callout when deleting income returns errors', async function(assert) {

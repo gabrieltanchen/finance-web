@@ -2,6 +2,11 @@ form {
   font-size: 1rem;
   margin-top: 2em;
 
+  &.income-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
   label {
     font-size: 0.8em;
   }

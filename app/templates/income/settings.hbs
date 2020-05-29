@@ -3,9 +3,9 @@
   <Menus::IncomeItem @incomeId={{this.income.id}} />
 </div>
 <div class="container-sm">
-  <a href="#" class="button">
+  <LinkTo @route="income.edit" @model={{this.income.id}} class="button">
     Edit
-  </a>
+  </LinkTo>
   <button class="button alert" {{on "click" this.openDeleteModal}}>
     Delete
   </button>

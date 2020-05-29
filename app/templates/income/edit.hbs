@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Edit Income</h1>
+  <Menus::IncomeItem @incomeId={{this.income.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Income
+    @income={{this.income}}
+    @householdMembers={{this.householdMembers}}
+    @saveSuccessful={{fn this.transitionToIncomeDetails}}
+  />
+</div>

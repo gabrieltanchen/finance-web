@@ -159,7 +159,7 @@ export default function() {
     if (request.queryParams.page === '2') {
       data = [{
         'attributes': {
-          'amount-cents': 1,
+          'amount': 1000,
           'date': '2020-01-01',
           'description': 'Income 26',
         },
@@ -170,7 +170,7 @@ export default function() {
       data = [...Array(25).keys()].map((ind) => {
         return {
           'attributes': {
-            'amount-cents': 1,
+            'amount': 1000,
             'date': '2020-01-01',
             'description': `Income ${ind}`,
           },
@@ -211,9 +211,36 @@ export default function() {
     }, {
       'data': {
         'attributes': {
-          'amount-cents': 1,
+          'amount': 1000,
           'date': '2020-01-01',
           'description': 'Test Income',
+        },
+        'id': request.params.id,
+        'type': 'incomes',
+      },
+    });
+  });
+  this.patch('/incomes/:id', (db, request) => {
+    if (request.params.id === '09571b16-7f41-404a-8387-a18b97cbad8e') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test income patch error 1.',
+        }, {
+          detail: 'Test income patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
         },
         'id': request.params.id,
         'type': 'incomes',

@@ -1,0 +1,44 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form class="income-form" {{on "submit" this.save}}>
+  <div>
+    <label for="income-date-input">Date</label>
+    <PikadayInput
+      @value={{@income.date}} id="income-date-input"
+      @onSelection={{action "dateSelected"}}
+      @format={{"YYYY-MM-DD"}}
+      @useUTC={{true}}
+    />
+  </div>
+  <div>
+    <label for="income-household-member-select">Member</label>
+    <PowerSelect
+      @search={{action this.updateHouseholdMemberSearch}}
+      @searchEnabled={{true}}
+      @options={{@householdMembers}}
+      @searchField="name"
+      @selected={{@income.householdMember}}
+      @onChange={{action this.selectHouseholdMember}}
+      @triggerId="income-household-member-select"
+      as |householdMember|
+    >
+      {{householdMember.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="income-description-input">Description</label>
+    <Input @value={{@income.description}} @type="text" id="income-description-input" />
+  </div>
+  <div>
+    <label for="income-amount-input">Amount</label>
+    <Input @value={{@income.amount}} @type="text" id="income-amount-input" />
+  </div>
+  <div>
+    <Input @value="Save" @type="submit" id="income-submit" />
+  </div>
+</form>

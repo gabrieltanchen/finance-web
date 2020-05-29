@@ -18,7 +18,7 @@ export default class HouseholdMembersIncomeController extends Controller {
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amountStr',
   }]
 
   @action

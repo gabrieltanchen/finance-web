@@ -3,8 +3,25 @@ form {
   margin-top: 2em;
 
   &.income-form {
+    column-gap: 1em;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    .income-save {
+      grid-column: span 2;
+    }
+
+    #income-household-member-select {
+      border: 1px solid $black-alpha-25;
+      border-radius: 0;
+      line-height: 1;
+      min-height: auot;
+      padding: 0.8em;
+
+      .ember-power-select-selected-item {
+        margin-left: 0;
+      }
+    }
   }
 
   label {

@@ -10,82 +10,82 @@ module('Unit | Model | vendor', function(hooks) {
     assert.ok(model);
   });
 
-  test('it has the correct sumAmount', function(assert) {
+  test('it has the correct sumAmountStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const vendor = store.createRecord('vendor', {
-      sumAmountCents: 0,
+      sumAmount: 0,
     });
 
-    assert.equal(vendor.sumAmount, '-');
+    assert.equal(vendor.sumAmountStr, '-');
 
-    vendor.sumAmountCents = 500;
+    vendor.sumAmount = '5.00';
 
-    assert.equal(vendor.sumAmount, '$5.00');
+    assert.equal(vendor.sumAmountStr, '$5.00');
 
-    vendor.sumAmountCents = 123456;
+    vendor.sumAmount = '1234.56';
 
-    assert.equal(vendor.sumAmount, '$1,234.56');
+    assert.equal(vendor.sumAmountStr, '$1,234.56');
 
-    vendor.sumAmountCents = -500;
+    vendor.sumAmount = '-5.00';
 
-    assert.equal(vendor.sumAmount, '$-5.00');
+    assert.equal(vendor.sumAmountStr, '$-5.00');
 
-    vendor.sumAmountCents = -654321;
+    vendor.sumAmount = '-6543.21';
 
-    assert.equal(vendor.sumAmount, '$-6,543.21');
+    assert.equal(vendor.sumAmountStr, '$-6,543.21');
   });
 
-  test('it has the correct sumReimbursed', function(assert) {
+  test('it has the correct sumReimbursedStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const vendor = store.createRecord('vendor', {
-      sumReimbursedCents: 0,
+      sumReimbursed: 0,
     });
 
-    assert.equal(vendor.sumReimbursed, '-');
+    assert.equal(vendor.sumReimbursedStr, '-');
 
-    vendor.sumReimbursedCents = 500;
+    vendor.sumReimbursed = '5.00';
 
-    assert.equal(vendor.sumReimbursed, '$5.00');
+    assert.equal(vendor.sumReimbursedStr, '$5.00');
 
-    vendor.sumReimbursedCents = 123456;
+    vendor.sumReimbursed = '1234.56';
 
-    assert.equal(vendor.sumReimbursed, '$1,234.56');
+    assert.equal(vendor.sumReimbursedStr, '$1,234.56');
 
-    vendor.sumReimbursedCents = -500;
+    vendor.sumReimbursed = '-5.00';
 
-    assert.equal(vendor.sumReimbursed, '$-5.00');
+    assert.equal(vendor.sumReimbursedStr, '$-5.00');
 
-    vendor.sumReimbursedCents = -654321;
+    vendor.sumReimbursed = '-6543.21';
 
-    assert.equal(vendor.sumReimbursed, '$-6,543.21');
+    assert.equal(vendor.sumReimbursedStr, '$-6,543.21');
   });
 
-  test('it has the correct sumTotal', function(assert) {
+  test('it has the correct sumTotalStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const vendor = store.createRecord('vendor', {
-      sumAmountCents: 0,
-      sumReimbursedCents: 0,
+      sumAmount: 0,
+      sumReimbursed: 0,
     });
 
-    assert.equal(vendor.sumTotal, '-');
+    assert.equal(vendor.sumTotalStr, '-');
 
-    vendor.sumAmountCents = 1000;
-    vendor.sumReimbursedCents = 500;
+    vendor.sumAmount = '10.00';
+    vendor.sumReimbursed = '5.00';
 
-    assert.equal(vendor.sumTotal, '$5.00');
+    assert.equal(vendor.sumTotalStr, '$5.00');
 
-    vendor.sumAmountCents = 500;
-    vendor.sumReimbursedCents = 1000;
+    vendor.sumAmount = '5.00';
+    vendor.sumReimbursed = '10.00';
 
-    assert.equal(vendor.sumTotal, '$-5.00');
+    assert.equal(vendor.sumTotalStr, '$-5.00');
 
-    vendor.sumReimbursedCents = 500;
+    vendor.sumReimbursed = '5.00';
 
-    assert.equal(vendor.sumTotal, '-');
+    assert.equal(vendor.sumTotalStr, '-');
 
-    vendor.sumAmountCents = 1234567;
-    vendor.sumReimbursedCents = 500;
+    vendor.sumAmount = '12345.67';
+    vendor.sumReimbursed = '5.00';
 
-    assert.equal(vendor.sumTotal, '$12,340.67');
+    assert.equal(vendor.sumTotalStr, '$12,340.67');
   });
 });

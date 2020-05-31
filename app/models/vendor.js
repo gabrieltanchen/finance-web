@@ -4,42 +4,42 @@ export default class VendorModel extends Model {
   @attr('date') createdAt;
   @attr('number') expenseCount;
   @attr('string') name;
-  @attr('number') sumAmountCents;
-  @attr('number') sumReimbursedCents;
+  @attr('dollars') sumAmount;
+  @attr('dollars') sumReimbursed;
 
   @hasMany('expense') expenses;
 
-  get sumAmount() {
-    if (this.sumAmountCents === 0) {
+  get sumAmountStr() {
+    if (parseFloat(this.sumAmount) === 0) {
       return '-';
     }
-    const sumAmount = (this.sumAmountCents / 100).toLocaleString('en-CA', {
+    const sumAmountStr = parseFloat(this.sumAmount).toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
-    return `$${sumAmount}`;
+    return `$${sumAmountStr}`;
   }
 
-  get sumReimbursed() {
-    if (this.sumReimbursedCents === 0) {
+  get sumReimbursedStr() {
+    if (parseFloat(this.sumReimbursed) === 0) {
       return '-';
     }
-    const sumReimbursed = (this.sumReimbursedCents / 100).toLocaleString('en-CA', {
+    const sumReimbursedStr = parseFloat(this.sumReimbursed).toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
-    return `$${sumReimbursed}`;
+    return `$${sumReimbursedStr}`;
   }
 
-  get sumTotal() {
-    const totalCents = this.sumAmountCents - this.sumReimbursedCents;
-    if (totalCents === 0) {
+  get sumTotalStr() {
+    const sumTotal = this.sumAmount - this.sumReimbursed;
+    if (parseFloat(sumTotal) === 0) {
       return '-';
     }
-    const sumTotal = (totalCents / 100).toLocaleString('en-CA', {
+    const sumTotalStr = parseFloat(sumTotal).toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
-    return `$${sumTotal}`;
+    return `$${sumTotalStr}`;
   }
 }

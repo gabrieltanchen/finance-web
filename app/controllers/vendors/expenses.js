@@ -21,10 +21,10 @@ export default class VendorsExpensesController extends Controller {
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amountStr',
   }, {
     name: 'Reimbursed Amount',
-    propertyName: 'reimbursedAmount',
+    propertyName: 'reimbursedAmountStr',
   }]
 
   @action

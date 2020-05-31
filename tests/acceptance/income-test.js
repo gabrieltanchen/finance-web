@@ -6,6 +6,8 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import { Interactor as Pikaday } from 'ember-pikaday/test-support';
+import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -43,6 +45,54 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /income/new', async function(assert) {
+    await visit('/income/new');
+
+    assert.equal(currentURL(), '/income/new');
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Income');
+    assert.dom('form').exists();
+    assert.dom('#income-date-input').exists();
+    assert.dom('#income-description-input').exists();
+    assert.dom('#income-amount-input').exists();
+    assert.dom('#income-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating income', async function(assert) {
+    await visit('/income/new');
+
+    assert.equal(currentURL(), '/income/new');
+
+    await click('#income-date-input');
+    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await selectChoose('#income-household-member-select', '.ember-power-select-option', 2);
+    await fillIn('#income-description-input', 'Error Income');
+    await fillIn('#income-amount-input', '23.45');
+    await click('#income-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test income post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test income post error 2.');
+  });
+
+  test('should transition to income details after creating income', async function(assert) {
+    await visit('/income/new');
+
+    assert.equal(currentURL(), '/income/new');
+
+    await click('#income-date-input');
+    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await selectChoose('#income-household-member-select', '.ember-power-select-option', 2);
+    await fillIn('#income-description-input', 'New Income');
+    await fillIn('#income-amount-input', '23.45');
+    await click('#income-submit');
+
+    assert.equal(currentURL(), '/income/1bb74fb6-30c1-480d-a0ed-4d7b36d93168');
   });
 
   test('visiting /income/:id', async function(assert) {

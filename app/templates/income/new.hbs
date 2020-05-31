@@ -1,0 +1,8 @@
+<div class="container-sm">
+  <h1>New Income</h1>
+  <Forms::Income
+    @income={{this.income}}
+    @householdMembers={{this.householdMembers}}
+    @saveSuccessful={{fn this.transitionToIncomeDetails}}
+  />
+</div>

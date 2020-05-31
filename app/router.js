@@ -18,6 +18,7 @@ Router.map(function() {
   });
   this.route('income', function() {
     this.route('edit', { path: '/:income_id/edit' });
+    this.route('new');
     this.route('settings', { path: '/:income_id/settings' });
     this.route('show', { path: '/:income_id' });
   });

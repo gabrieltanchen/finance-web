@@ -189,6 +189,36 @@ export default function() {
       },
     });
   });
+  this.post('/incomes', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.description
+        && params.data.attributes.description === 'Error Income') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test income post error 1.',
+        }, {
+          detail: 'Test income post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+        },
+        'id': '1bb74fb6-30c1-480d-a0ed-4d7b36d93168',
+        'type': 'incomes',
+      },
+    });
+  });
   this.delete('/incomes/:id', (db, request) => {
     if (request.params.id === 'b2a60746-3bb4-47b6-978a-4af4cdb68d2e') {
       return new Mirage.Response(403, {

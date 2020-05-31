@@ -15,18 +15,18 @@ export default class HouseholdMembersShowController extends Controller {
     propertyName: 'createdAt',
   }, {
     name: 'Cumulative Income Amount',
-    propertyName: 'sumIncome',
+    propertyName: 'sumIncomeStr',
   }, {
     name: 'Number of expenses',
     propertyName: 'expenseCount',
   }, {
     name: 'Cumulative Expense Amount',
-    propertyName: 'sumAmount',
+    propertyName: 'sumAmountStr',
   }, {
     name: 'Cumulative Expense Reimbursed',
-    propertyName: 'sumReimbursed',
+    propertyName: 'sumReimbursedStr',
   }, {
     name: 'Cumulative Expense Total',
-    propertyName: 'sumTotal',
+    propertyName: 'sumTotalStr',
   }]
 }

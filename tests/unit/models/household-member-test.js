@@ -10,106 +10,107 @@ module('Unit | Model | household member', function(hooks) {
     assert.ok(model);
   });
 
-  test('it has the correct sumAmount', function(assert) {
+  test('it has the correct sumAmountStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const householdMember = store.createRecord('household-member', {
-      sumAmountCents: 0,
+      sumAmount: 0,
     });
 
-    assert.equal(householdMember.sumAmount, '-');
+    assert.equal(householdMember.sumAmountStr, '-');
 
-    householdMember.sumAmountCents = 500;
+    householdMember.sumAmount = '5.00';
 
-    assert.equal(householdMember.sumAmount, '$5.00');
+    assert.equal(householdMember.sumAmountStr, '$5.00');
 
-    householdMember.sumAmountCents = 123456;
+    householdMember.sumAmount = '1234.56';
 
-    assert.equal(householdMember.sumAmount, '$1,234.56');
+    assert.equal(householdMember.sumAmountStr, '$1,234.56');
 
-    householdMember.sumAmountCents = -500;
+    householdMember.sumAmount = '-5.00';
 
-    assert.equal(householdMember.sumAmount, '$-5.00');
+    assert.equal(householdMember.sumAmountStr, '$-5.00');
 
-    householdMember.sumAmountCents = -654321;
+    householdMember.sumAmount = '-6543.21';
 
-    assert.equal(householdMember.sumAmount, '$-6,543.21');
+    assert.equal(householdMember.sumAmountStr, '$-6,543.21');
   });
 
-  test('it has the correct sumIncome', function(assert) {
+  test('it has the correct sumIncomeStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const householdMember = store.createRecord('household-member', {
-      sumIncomeCents: 0,
+      sumIncome: 0,
     });
 
-    assert.equal(householdMember.sumIncome, '-');
+    assert.equal(householdMember.sumIncomeStr, '-');
 
-    householdMember.sumIncomeCents = 500;
+    householdMember.sumIncome = '5.00';
 
-    assert.equal(householdMember.sumIncome, '$5.00');
+    assert.equal(householdMember.sumIncomeStr, '$5.00');
 
-    householdMember.sumIncomeCents = 123456;
+    householdMember.sumIncome = '1234.56';
 
-    assert.equal(householdMember.sumIncome, '$1,234.56');
+    assert.equal(householdMember.sumIncomeStr, '$1,234.56');
 
-    householdMember.sumIncomeCents = -500;
+    householdMember.sumIncome = '-5.00';
 
-    assert.equal(householdMember.sumIncome, '$-5.00');
+    assert.equal(householdMember.sumIncomeStr, '$-5.00');
 
-    householdMember.sumIncomeCents = -654321;
+    householdMember.sumIncome = '-6543.21';
 
-    assert.equal(householdMember.sumIncome, '$-6,543.21');
+    assert.equal(householdMember.sumIncomeStr, '$-6,543.21');
   });
 
-  test('it has the correct sumReimbursed', function(assert) {
+  test('it has the correct sumReimbursedStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const householdMember = store.createRecord('household-member', {
-      sumReimbursedCents: 0,
+      sumReimbursed: 0,
     });
 
-    assert.equal(householdMember.sumReimbursed, '-');
+    assert.equal(householdMember.sumReimbursedStr, '-');
 
-    householdMember.sumReimbursedCents = 500;
+    householdMember.sumReimbursed = '5.00';
 
-    assert.equal(householdMember.sumReimbursed, '$5.00');
+    assert.equal(householdMember.sumReimbursedStr, '$5.00');
 
-    householdMember.sumReimbursedCents = 123456;
+    householdMember.sumReimbursed = '1234.56';
 
-    assert.equal(householdMember.sumReimbursed, '$1,234.56');
+    assert.equal(householdMember.sumReimbursedStr, '$1,234.56');
 
-    householdMember.sumReimbursedCents = -500;
+    householdMember.sumReimbursed = '-5.00';
 
-    assert.equal(householdMember.sumReimbursed, '$-5.00');
+    assert.equal(householdMember.sumReimbursedStr, '$-5.00');
 
-    householdMember.sumReimbursedCents = -654321;
+    householdMember.sumReimbursed = '-6543.21';
 
-    assert.equal(householdMember.sumReimbursed, '$-6,543.21');
+    assert.equal(householdMember.sumReimbursedStr, '$-6,543.21');
   });
 
-  test('it has the correct sumTotal', function(assert) {
+  test('it has the correct sumTotalStr', function(assert) {
     const store = this.owner.lookup('service:store');
     const householdMember = store.createRecord('household-member', {
-      sumAmountCents: 0,
-      sumReimbursedCents: 0,
+      sumAmount: 0,
+      sumReimbursed: 0,
     });
 
-    assert.equal(householdMember.sumTotal, '-');
+    assert.equal(householdMember.sumTotalStr, '-');
 
-    householdMember.sumAmountCents = 1000;
-    householdMember.sumReimbursedCents = 500;
+    householdMember.sumAmount = '10.00';
+    householdMember.sumReimbursed = '5.00';
 
-    assert.equal(householdMember.sumTotal, '$5.00');
+    assert.equal(householdMember.sumTotalStr, '$5.00');
 
-    householdMember.sumAmountCents = 500;
-    householdMember.sumReimbursedCents = 1000;
+    householdMember.sumAmount = '5.00';
+    householdMember.sumReimbursed = '10.00';
 
-    assert.equal(householdMember.sumTotal, '$-5.00');
+    assert.equal(householdMember.sumTotalStr, '$-5.00');
 
-    householdMember.sumReimbursedCents = 500;
+    householdMember.sumReimbursed = '5.00';
 
-    assert.equal(householdMember.sumTotal, '-');
+    assert.equal(householdMember.sumTotalStr, '-');
 
-    householdMember.sumAmountCents = 1234567;
-    householdMember.sumReimbursedCents = 500;
-    assert.equal(householdMember.sumTotal, '$12,340.67');
+    householdMember.sumAmount = '12345.67';
+    householdMember.sumReimbursed = '5.00';
+
+    assert.equal(householdMember.sumTotalStr, '$12,340.67');
   });
 });

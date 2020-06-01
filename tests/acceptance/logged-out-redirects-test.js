@@ -19,6 +19,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/');
   });
 
+  test('should redirect away from /categories', async function(assert) {
+    await visit('/categories');
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /dashboard', async function(assert) {
     await visit('/dashboard');
 

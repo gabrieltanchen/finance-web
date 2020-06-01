@@ -3,14 +3,13 @@ import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
-export default class HouseholdMembersIndexController extends Controller {
+export default class CategoriesIndexController extends Controller {
   queryParams = ['page'];
 
-  @alias('model') householdMembers;
+  @alias('model') categories;
   @tracked page = null;
 
   tableColumns = [{
-    linkTo: 'household-members.show',
     name: 'Name',
     propertyName: 'name',
   }, {

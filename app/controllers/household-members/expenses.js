@@ -25,7 +25,7 @@ export default class HouseholdMembersExpensesController extends Controller {
   }, {
     name: 'Reimbursed Amount',
     propertyName: 'reimbursedAmountStr',
-  }]
+  }];
 
   @action
   setPage(page) {

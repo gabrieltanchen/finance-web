@@ -20,6 +20,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('can visit /categories', async function(assert) {
+    await visit('/categories');
+
+    assert.equal(currentURL(), '/categories');
+  });
+
   test('can visit /dashboard', async function(assert) {
     await visit('/dashboard');
 

@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
-export default class HouseholdMembersIndexRoute extends Route {
+export default class CategoriesIndexRoute extends Route {
   @service session;
 
   queryParams = {
@@ -17,6 +17,6 @@ export default class HouseholdMembersIndexRoute extends Route {
   }
 
   model(params) {
-    return this.store.query('household-member', params);
+    return this.store.query('category', params);
   }
 }

@@ -2,6 +2,38 @@ import Mirage from 'ember-cli-mirage';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function() {
+  this.get('/categories', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Category 26',
+        },
+        'id': uuidv4(),
+        'type': 'categories',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Category ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'categories',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.get('/expenses', (db, request) => {
     let data;
     if (request.queryParams.page === '2') {

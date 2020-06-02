@@ -1,6 +1,6 @@
 <div class="container-lg">
-  <h1>Vendor - {{vendor.name}}</h1>
-  <Menus::VendorItem @vendorId={{vendor.id}} />
+  <h1>Vendor - {{this.vendor.name}}</h1>
+  <Menus::VendorItem @vendorId={{this.vendor.id}} />
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.expenses}}

@@ -323,6 +323,38 @@ export default function() {
     });
   });
 
+  this.get('/subcategories', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Subcategory 26',
+        },
+        'id': uuidv4(),
+        'type': 'subcategories',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Subcategory ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'subcategories',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

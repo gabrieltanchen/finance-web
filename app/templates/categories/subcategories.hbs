@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Category - {{this.category.name}}</h1>
+  <Menus::CategoryItem @categoryId={{this.category.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.subcategories}}
+    @page={{this.page}}
+    @numPages={{this.subcategories.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>

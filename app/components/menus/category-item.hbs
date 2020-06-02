@@ -20,10 +20,10 @@
           Subcategories
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="categories.subcategories" @model={{@categoryId}}>
           <FaIcon @icon="project-diagram" @size="sm" />
           Subcategories
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
     <li>

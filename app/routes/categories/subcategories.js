@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 
-export default class VendorsExpensesRoute extends Route {
+export default class CategoriesSubcategoriesRoute extends Route {
   @service session;
 
   queryParams = {
@@ -19,11 +19,11 @@ export default class VendorsExpensesRoute extends Route {
 
   model(params) {
     return RSVP.hash({
-      expenses: this.store.query('expense', {
+      category: this.store.findRecord('category', params.category_id),
+      subcategories: this.store.query('subcategory', {
+        category_id: params.category_id,
         page: params.page,
-        vendor_id: params.vendor_id,
       }),
-      vendor: this.store.findRecord('vendor', params.vendor_id),
     });
   }
 }

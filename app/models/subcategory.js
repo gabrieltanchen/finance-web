@@ -1,10 +1,9 @@
 import Model, { attr } from '@ember-data/model';
 
-export default class CategoryModel extends Model {
+export default class SubcategoryModel extends Model {
   @attr('date') createdAt;
   @attr('number') expenseCount;
   @attr('string') name;
-  @attr('number') subcategoryCount;
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;
 

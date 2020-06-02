@@ -50,13 +50,37 @@ module('Acceptance | categories', function(hooks) {
     assert.dom('h1').containsText('Category - Test Category');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 7 });
+    assert.dom('table tbody tr').exists({ count: 8 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
-    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Number of expenses');
-    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Cumulative Expense Amount');
-    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Expense Reimbursed');
-    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Expense Total');
+    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Number of subcategories');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Number of expenses');
+    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Expense Amount');
+    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Expense Reimbursed');
+    assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Cumulative Expense Total');
+  });
+
+  test('visiting /categories/:id/subcategories', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/subcategories`);
+
+    assert.equal(currentURL(), `/categories/${id}/subcategories`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Category - Test Category');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/categories/${id}/subcategories?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/categories/${id}/subcategories?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
   });
 });

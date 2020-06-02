@@ -14,6 +14,9 @@ export default class CategoriesShowController extends Controller {
     name: 'Created At',
     propertyName: 'createdAt',
   }, {
+    name: 'Number of subcategories',
+    propertyName: 'subcategoryCount',
+  }, {
     name: 'Number of expenses',
     propertyName: 'expenseCount',
   }, {

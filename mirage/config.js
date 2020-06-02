@@ -33,6 +33,19 @@ export default function() {
       },
     });
   });
+  this.get('/categories/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Category',
+        },
+        'id': request.params.id,
+        'type': 'categories',
+      },
+    });
+  });
 
   this.get('/expenses', (db, request) => {
     let data;

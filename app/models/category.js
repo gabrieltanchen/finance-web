@@ -2,6 +2,7 @@ import Model, { attr } from '@ember-data/model';
 
 export default class CategoryModel extends Model {
   @attr('date') createdAt;
+  @attr('number') expenseCount;
   @attr('string') name;
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;

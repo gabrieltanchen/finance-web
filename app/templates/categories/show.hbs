@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>Category - {{this.category.name}}</h1>
+  <Menus::CategoryItem @categoryId={{this.category.id}} />
+  <DetailTable @model={{this.category}} @properties={{this.properties}} />
+</div>

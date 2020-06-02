@@ -10,6 +10,7 @@ export default class CategoriesIndexController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
+    linkTo: 'categories.show',
     name: 'Name',
     propertyName: 'name',
   }, {

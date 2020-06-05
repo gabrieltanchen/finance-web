@@ -33,6 +33,34 @@ export default function() {
       },
     });
   });
+  this.post('/categories', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Category') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test category post error 1.',
+        }, {
+          detail: 'Test category post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': 'ba4fa7e8-ebb2-4b56-9639-15411e05356d',
+        'type': 'categories',
+      },
+    });
+  });
   this.delete('/categories/:id', (db, request) => {
     if (request.params.id === 'fa418da1-c598-41f5-a5e7-192d023e74ed') {
       return new Mirage.Response(403, {

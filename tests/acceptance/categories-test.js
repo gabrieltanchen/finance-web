@@ -45,6 +45,44 @@ module('Acceptance | categories', function(hooks) {
     assert.dom('table tbody tr').exists({ count: 25 });
   });
 
+  test('visiting /categories/new', async function(assert) {
+    await visit('/categories/new');
+
+    assert.equal(currentURL(), '/categories/new');
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Category');
+    assert.dom('form').exists();
+    assert.dom('#category-name-input').exists();
+    assert.dom('#category-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating category', async function(assert) {
+    await visit('/categories/new');
+
+    assert.equal(currentURL(), '/categories/new');
+
+    await fillIn('#category-name-input', 'Error Category');
+    await click('#category-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test category post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test category post error 2.');
+  });
+
+  test('should transition to category details after creating category', async function(assert) {
+    await visit('/categories/new');
+
+    assert.equal(currentURL(), '/categories/new');
+
+    await fillIn('#category-name-input', 'New Category');
+    await click('#category-submit');
+
+    assert.equal(currentURL(), '/categories/ba4fa7e8-ebb2-4b56-9639-15411e05356d');
+  });
+
   test('visiting /categories/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/categories/${id}`);

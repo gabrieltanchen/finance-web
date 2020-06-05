@@ -2,14 +2,14 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-export default class FormsVendorComponent extends Component {
+export default class FormsCategoryComponent extends Component {
   @tracked errors = [];
 
   @action
   async save(e) {
     e.preventDefault();
     try {
-      await this.args.vendor.save();
+      await this.args.category.save();
       this.args.saveSuccessful();
     } catch (err) {
       let errors = ['An error occurred. Please try again later.'];

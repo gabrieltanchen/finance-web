@@ -1,0 +1,7 @@
+<div class="container-lg">
+  <h1>Edit Category - {{this.category.name}}</h1>
+  <Menus::CategoryItem @categoryId={{this.category.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Category @category={{this.category}} @saveSuccessful={{fn this.transitionToCategoryDetails}} />
+</div>

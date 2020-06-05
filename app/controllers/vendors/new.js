@@ -6,7 +6,7 @@ export default class VendorsNewController extends Controller {
   @alias('model') vendor;
 
   @action
-  transitionToVendorDetails(vendorId) {
-    this.transitionToRoute('vendors.show', vendorId);
+  transitionToVendorDetails() {
+    this.transitionToRoute('vendors.show', this.vendor.id);
   }
 }

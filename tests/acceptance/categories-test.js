@@ -1,5 +1,10 @@
 import { module, test } from 'qunit';
-import { click, currentURL, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  fillIn,
+  visit,
+} from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -59,6 +64,54 @@ module('Acceptance | categories', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Expense Amount');
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Expense Reimbursed');
     assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Cumulative Expense Total');
+  });
+
+  test('visiting /categories/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/edit`);
+
+    assert.equal(currentURL(), `/categories/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Category - Test Category');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#category-name-input').exists();
+    assert.dom('#category-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing vendor', async function(assert) {
+    await visit('/categories/e99f2eba-b6f5-4563-99b9-8e30224b4d5a/edit');
+
+    assert.equal(currentURL(), '/categories/e99f2eba-b6f5-4563-99b9-8e30224b4d5a/edit');
+
+    await fillIn('#category-name-input', 'Updated Category');
+    await click('#category-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test category patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test category patch error 2.');
+
+    // Test that the category name gets reset after navigating away from edit
+    // page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/categories/e99f2eba-b6f5-4563-99b9-8e30224b4d5a');
+    assert.dom('h1').containsText('Category - Test Category');
+  });
+
+  test('should transition to category details after editing category', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/edit`);
+
+    assert.equal(currentURL(), `/categories/${id}/edit`);
+
+    await fillIn('#category-name-input', 'Updated Category');
+    await click('#category-submit');
+
+    assert.equal(currentURL(), `/categories/${id}`);
   });
 
   test('visiting /categories/:id/settings', async function(assert) {

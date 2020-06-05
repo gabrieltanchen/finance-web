@@ -3,5 +3,5 @@
   <Menus::VendorItem @vendorId={{this.vendor.id}} />
 </div>
 <div class="container-sm">
-  <Forms::Vendor @vendor={{vendor}} @saveSuccessful={{fn this.transitionToVendorDetails}} />
+  <Forms::Vendor @vendor={{this.vendor}} @saveSuccessful={{fn this.transitionToVendorDetails}} />
 </div>

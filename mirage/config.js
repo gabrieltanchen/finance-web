@@ -62,6 +62,31 @@ export default function() {
       },
     });
   });
+  this.patch('/categories/:id', (db, request) => {
+    if (request.params.id === 'e99f2eba-b6f5-4563-99b9-8e30224b4d5a') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test category patch error 1.',
+        }, {
+          detail: 'Test category patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': request.params.id,
+        'type': 'categories',
+      },
+    });
+  });
 
   this.get('/expenses', (db, request) => {
     let data;

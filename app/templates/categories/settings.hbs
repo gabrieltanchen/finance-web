@@ -3,9 +3,9 @@
   <Menus::CategoryItem @categoryId={{this.category.id}} />
 </div>
 <div class="container-sm">
-  <a href="#" class="button">
+  <LinkTo @route="categories.edit" @model={{this.category.id}} class="button">
     Edit
-  </a>
+  </LinkTo>
   <button class="button alert" {{on "click" this.openDeleteModal}}>
     Delete
   </button>

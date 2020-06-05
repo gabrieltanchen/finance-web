@@ -33,6 +33,13 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/categories/${id}`);
   });
 
+  test('can visit /categories/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/settings`);
+
+    assert.equal(currentURL(), `/categories/${id}/settings`);
+  });
+
   test('can visit /categories/:id/subcategories', async function(assert) {
     const id = uuidv4();
     await visit(`/categories/${id}/subcategories`);

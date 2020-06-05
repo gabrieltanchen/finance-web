@@ -8,6 +8,7 @@ export default class Router extends EmberRouter {
 
 Router.map(function() {
   this.route('categories', function() {
+    this.route('settings', { path: '/:category_id/settings' });
     this.route('show', { path: '/:category_id' });
     this.route('subcategories', { path: '/:category_id/subcategories' });
   });

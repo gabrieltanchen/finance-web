@@ -423,6 +423,19 @@ export default function() {
       },
     });
   });
+  this.get('/subcategories/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Subcategory',
+        },
+        'id': request.params.id,
+        'type': 'subcategories',
+      },
+    });
+  });
 
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);

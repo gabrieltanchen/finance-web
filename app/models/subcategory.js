@@ -1,4 +1,4 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class SubcategoryModel extends Model {
   @attr('date') createdAt;
@@ -6,6 +6,8 @@ export default class SubcategoryModel extends Model {
   @attr('string') name;
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;
+
+  @belongsTo('category') category;
 
   get sumAmountStr() {
     if (parseFloat(this.sumAmount) === 0) {

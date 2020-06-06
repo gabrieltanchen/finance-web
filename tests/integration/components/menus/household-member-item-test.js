@@ -45,8 +45,9 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     await render(hbs`<Menus::HouseholdMemberItem />`);
 
-    assert.dom('nav ul li:nth-of-type(1) a').exists();
     assert.dom('nav ul li:nth-of-type(1) span').doesNotExist();
+    assert.dom('nav ul li:nth-of-type(1) a').exists();
+    assert.dom('nav ul li:nth-of-type(1) a').containsText('Details');
   });
 
   test('it should not render household member details button', async function(assert) {
@@ -57,6 +58,7 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     assert.dom('nav ul li:nth-of-type(1) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(1) span').exists();
+    assert.dom('nav ul li:nth-of-type(1) span').containsText('Details');
   });
 
   test('it renders household member income button', async function(assert) {
@@ -65,8 +67,9 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     await render(hbs`<Menus::HouseholdMemberItem />`);
 
-    assert.dom('nav ul li:nth-of-type(2) a').exists();
     assert.dom('nav ul li:nth-of-type(2) span').doesNotExist();
+    assert.dom('nav ul li:nth-of-type(2) a').exists();
+    assert.dom('nav ul li:nth-of-type(2) a').containsText('Income');
   });
 
   test('it should not render household member income button', async function(assert) {
@@ -77,6 +80,7 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     assert.dom('nav ul li:nth-of-type(2) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(2) span').exists();
+    assert.dom('nav ul li:nth-of-type(2) span').containsText('Income');
   });
 
   test('it renders household member expenses button', async function(assert) {
@@ -85,8 +89,9 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     await render(hbs`<Menus::HouseholdMemberItem />`);
 
-    assert.dom('nav ul li:nth-of-type(3) a').exists();
     assert.dom('nav ul li:nth-of-type(3) span').doesNotExist();
+    assert.dom('nav ul li:nth-of-type(3) a').exists();
+    assert.dom('nav ul li:nth-of-type(3) a').containsText('Expenses');
   });
 
   test('it should not render household member expenses button', async function(assert) {
@@ -97,6 +102,7 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     assert.dom('nav ul li:nth-of-type(3) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(3) span').exists();
+    assert.dom('nav ul li:nth-of-type(3) span').containsText('Expenses');
   });
 
   test('it renders household member settings button', async function(assert) {
@@ -105,8 +111,9 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     await render(hbs`<Menus::HouseholdMemberItem />`);
 
-    assert.dom('nav ul li:nth-of-type(4) a').exists();
     assert.dom('nav ul li:nth-of-type(4) span').doesNotExist();
+    assert.dom('nav ul li:nth-of-type(4) a').exists();
+    assert.dom('nav ul li:nth-of-type(4) a').containsText('Settings');
   });
 
   test('it should not render household member settings button', async function(assert) {
@@ -117,5 +124,6 @@ module('Integration | Component | menus/household-member-item', function(hooks) 
 
     assert.dom('nav ul li:nth-of-type(4) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(4) span').exists();
+    assert.dom('nav ul li:nth-of-type(4) span').containsText('Settings');
   });
 });

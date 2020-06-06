@@ -11,6 +11,7 @@ export default class CategoriesSubcategoriesController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
+    linkTo: 'subcategories.show',
     name: 'Name',
     propertyName: 'name',
   }, {

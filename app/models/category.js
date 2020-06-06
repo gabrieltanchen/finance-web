@@ -1,4 +1,4 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class CategoryModel extends Model {
   @attr('date') createdAt;
@@ -7,6 +7,8 @@ export default class CategoryModel extends Model {
   @attr('number') subcategoryCount;
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;
+
+  @hasMany('subcategory') subcategories;
 
   get sumAmountStr() {
     if (parseFloat(this.sumAmount) === 0) {

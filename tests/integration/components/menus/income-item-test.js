@@ -37,8 +37,9 @@ module('Integration | Component | menus/income-item', function(hooks) {
 
     await render(hbs`<Menus::IncomeItem />`);
 
-    assert.dom('nav ul li:nth-of-type(1) a').exists();
     assert.dom('nav ul li:nth-of-type(1) span').doesNotExist();
+    assert.dom('nav ul li:nth-of-type(1) a').exists();
+    assert.dom('nav ul li:nth-of-type(1) a').containsText('Details');
   });
 
   test('it should not render income details button', async function(assert) {
@@ -49,6 +50,7 @@ module('Integration | Component | menus/income-item', function(hooks) {
 
     assert.dom('nav ul li:nth-of-type(1) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(1) span').exists();
+    assert.dom('nav ul li:nth-of-type(1) span').containsText('Details');
   });
 
   test('it renders income settings button', async function(assert) {
@@ -57,8 +59,9 @@ module('Integration | Component | menus/income-item', function(hooks) {
 
     await render(hbs`<Menus::IncomeItem />`);
 
-    assert.dom('nav ul li:nth-of-type(2) a').exists();
     assert.dom('nav ul li:nth-of-type(2) span').doesNotExist();
+    assert.dom('nav ul li:nth-of-type(2) a').exists();
+    assert.dom('nav ul li:nth-of-type(2) a').containsText('Settings');
   });
 
   test('it should not render income settings button', async function(assert) {
@@ -69,5 +72,6 @@ module('Integration | Component | menus/income-item', function(hooks) {
 
     assert.dom('nav ul li:nth-of-type(2) a').doesNotExist();
     assert.dom('nav ul li:nth-of-type(2) span').exists();
+    assert.dom('nav ul li:nth-of-type(2) span').containsText('Settings');
   });
 });

@@ -1,3 +1,5 @@
 <div class="container-lg">
-
+  <h1>Subcategory - {{this.subcategory.name}}</h1>
+  <Menus::SubcategoryItem @subcategoryId={{this.subcategory.id}} />
+  <DetailTable @model={{this.subcategory}} @properties={{this.properties}} />
 </div>

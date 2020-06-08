@@ -20,10 +20,10 @@
           Expenses
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="subcategories.expenses" @model={{@subcategoryId}}>
           <FaIcon @icon="credit-card" @size="sm" />
           Expenses
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
     <li>

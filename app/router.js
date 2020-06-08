@@ -30,15 +30,15 @@ Router.map(function() {
     this.route('show', { path: '/:income_id' });
   });
   this.route('login');
+  this.route('subcategories', function() {
+    this.route('expenses', { path: '/:subcategory_id/expenses' });
+    this.route('show', { path: '/:subcategory_id' });
+  });
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });
     this.route('expenses', { path: '/:vendor_id/expenses' });
     this.route('new');
     this.route('settings', { path: '/:vendor_id/settings' });
     this.route('show', { path: '/:vendor_id' });
-  });
-
-  this.route('subcategories', function() {
-    this.route('show', { path: '/:subcategory_id' });
   });
 });

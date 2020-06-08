@@ -159,6 +159,13 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/subcategories/${id}`);
   });
 
+  test('can visit /subcategories/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/expenses`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/expenses`);
+  });
+
   test('can visit /vendors', async function(assert) {
     await visit('/vendors');
 

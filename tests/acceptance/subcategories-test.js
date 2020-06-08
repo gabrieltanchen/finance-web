@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, currentURL } from '@ember/test-helpers';
+import { click, currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -33,5 +33,28 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Cumulative Expense Amount');
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Cumulative Expense Reimbursed');
     assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Cumulative Expense Total');
+  });
+
+  test('visiting /subcategories/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/expenses`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/expenses`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Subcategory - Test Subcategory');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/subcategories/${id}/expenses?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/subcategories/${id}/expenses?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
   });
 });

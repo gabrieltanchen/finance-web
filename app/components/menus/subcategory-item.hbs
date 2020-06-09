@@ -33,10 +33,10 @@
           Budgets
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="subcategories.budgets" @model={{@subcategoryId}}>
           <FaIcon @icon="search-dollar" @size="sm" />
           Budgets
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
     <li>

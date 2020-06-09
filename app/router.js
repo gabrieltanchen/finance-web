@@ -31,6 +31,7 @@ Router.map(function() {
   });
   this.route('login');
   this.route('subcategories', function() {
+    this.route('budgets', { path: '/:subcategory_id/budgets' });
     this.route('expenses', { path: '/:subcategory_id/expenses' });
     this.route('show', { path: '/:subcategory_id' });
   });

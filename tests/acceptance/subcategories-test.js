@@ -35,6 +35,29 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Cumulative Expense Total');
   });
 
+  test('visiting /subcategories/:id/budgets', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/budgets`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/budgets`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Subcategory - Test Subcategory');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/subcategories/${id}/budgets?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/subcategories/${id}/budgets?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
   test('visiting /subcategories/:id/expenses', async function(assert) {
     const id = uuidv4();
     await visit(`/subcategories/${id}/expenses`);

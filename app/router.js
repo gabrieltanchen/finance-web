@@ -34,6 +34,7 @@ Router.map(function() {
     this.route('budgets', { path: '/:subcategory_id/budgets' });
     this.route('expenses', { path: '/:subcategory_id/expenses' });
     this.route('show', { path: '/:subcategory_id' });
+    this.route('annual-report');
   });
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });

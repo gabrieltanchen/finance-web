@@ -28,21 +28,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   @attr('number') year;
 
   get aprActualStr() {
-    if (parseFloat(this.aprActual) === 0) {
+    const aprActual = parseFloat(this.aprActual) || 0;
+    if (aprActual === 0) {
       return '-';
     }
-    const aprActualStr = parseFloat(this.aprActual).toLocaleString('en-CA', {
+    const aprActualStr = aprActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${aprActualStr}`;
   }
 
-  get aprBudgetStr() {
-    if (parseFloat(this.aprBudget) === 0) {
+  get aprAlert() {
+    const aprActual = parseFloat(this.aprActual) || 0;
+    const aprBudget = parseFloat(this.aprBudget) || 0;
+    return aprActual > aprBudget;
+  }
+
+  get aprBalanceStr() {
+    const aprActual = parseFloat(this.aprActual) || 0;
+    const aprBudget = parseFloat(this.aprBudget) || 0;
+    const aprBalance = aprBudget - aprActual;
+    if (aprBalance === 0) {
       return '-';
     }
-    const aprBudgetStr = parseFloat(this.aprBudget).toLocaleString('en-CA', {
+    const aprBalanceStr = aprBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${aprBalanceStr}`;
+  }
+
+  get aprBudgetStr() {
+    const aprBudget = parseFloat(this.aprBudget) || 0;
+    if (aprBudget === 0) {
+      return '-';
+    }
+    const aprBudgetStr = aprBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -50,21 +72,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get augActualStr() {
-    if (parseFloat(this.augActual) === 0) {
+    const augActual = parseFloat(this.augActual) || 0;
+    if (augActual === 0) {
       return '-';
     }
-    const augActualStr = parseFloat(this.augActual).toLocaleString('en-CA', {
+    const augActualStr = augActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${augActualStr}`;
   }
 
-  get augBudgetStr() {
-    if (parseFloat(this.augBudget) === 0) {
+  get augAlert() {
+    const augActual = parseFloat(this.augActual) || 0;
+    const augBudget = parseFloat(this.augBudget) || 0;
+    return augActual > augBudget;
+  }
+
+  get augBalanceStr() {
+    const augActual = parseFloat(this.augActual) || 0;
+    const augBudget = parseFloat(this.augBudget) || 0;
+    const augBalance = augBudget - augActual;
+    if (augBalance === 0) {
       return '-';
     }
-    const augBudgetStr = parseFloat(this.augBudget).toLocaleString('en-CA', {
+    const augBalanceStr = augBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${augBalanceStr}`;
+  }
+
+  get augBudgetStr() {
+    const augBudget = parseFloat(this.augBudget) || 0;
+    if (augBudget === 0) {
+      return '-';
+    }
+    const augBudgetStr = augBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -72,21 +116,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get decActualStr() {
-    if (parseFloat(this.decActual) === 0) {
+    const decActual = parseFloat(this.decActual) || 0;
+    if (decActual === 0) {
       return '-';
     }
-    const decActualStr = parseFloat(this.decActual).toLocaleString('en-CA', {
+    const decActualStr = decActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${decActualStr}`;
   }
 
-  get decBudgetStr() {
-    if (parseFloat(this.decBudget) === 0) {
+  get decAlert() {
+    const decActual = parseFloat(this.decActual) || 0;
+    const decBudget = parseFloat(this.decBudget) || 0;
+    return decActual > decBudget;
+  }
+
+  get decBalanceStr() {
+    const decActual = parseFloat(this.decActual) || 0;
+    const decBudget = parseFloat(this.decBudget) || 0;
+    const decBalance = decBudget - decActual;
+    if (decBalance === 0) {
       return '-';
     }
-    const decBudgetStr = parseFloat(this.decBudget).toLocaleString('en-CA', {
+    const decBalanceStr = decBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${decBalanceStr}`;
+  }
+
+  get decBudgetStr() {
+    const decBudget = parseFloat(this.decBudget) || 0;
+    if (decBudget === 0) {
+      return '-';
+    }
+    const decBudgetStr = decBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -94,21 +160,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get febActualStr() {
-    if (parseFloat(this.febActual) === 0) {
+    const febActual = parseFloat(this.febActual) || 0;
+    if (febActual === 0) {
       return '-';
     }
-    const febActualStr = parseFloat(this.febActual).toLocaleString('en-CA', {
+    const febActualStr = febActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${febActualStr}`;
   }
 
-  get febBudgetStr() {
-    if (parseFloat(this.febBudget) === 0) {
+  get febAlert() {
+    const febActual = parseFloat(this.febActual) || 0;
+    const febBudget = parseFloat(this.febBudget) || 0;
+    return febActual > febBudget;
+  }
+
+  get febBalanceStr() {
+    const febActual = parseFloat(this.febActual) || 0;
+    const febBudget = parseFloat(this.febBudget) || 0;
+    const febBalance = febBudget - febActual;
+    if (febBalance === 0) {
       return '-';
     }
-    const febBudgetStr = parseFloat(this.febBudget).toLocaleString('en-CA', {
+    const febBalanceStr = febBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${febBalanceStr}`;
+  }
+
+  get febBudgetStr() {
+    const febBudget = parseFloat(this.febBudget) || 0;
+    if (febBudget === 0) {
+      return '-';
+    }
+    const febBudgetStr = febBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -116,21 +204,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get marActualStr() {
-    if (parseFloat(this.marActual) === 0) {
+    const marActual = parseFloat(this.marActual) || 0;
+    if (marActual === 0) {
       return '-';
     }
-    const marActualStr = parseFloat(this.marActual).toLocaleString('en-CA', {
+    const marActualStr = marActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${marActualStr}`;
   }
 
-  get marBudgetStr() {
-    if (parseFloat(this.marBudget) === 0) {
+  get marAlert() {
+    const marActual = parseFloat(this.marActual) || 0;
+    const marBudget = parseFloat(this.marBudget) || 0;
+    return marActual > marBudget;
+  }
+
+  get marBalanceStr() {
+    const marActual = parseFloat(this.marActual) || 0;
+    const marBudget = parseFloat(this.marBudget) || 0;
+    const marBalance = marBudget - marActual;
+    if (marBalance === 0) {
       return '-';
     }
-    const marBudgetStr = parseFloat(this.marBudget).toLocaleString('en-CA', {
+    const marBalanceStr = marBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${marBalanceStr}`;
+  }
+
+  get marBudgetStr() {
+    const marBudget = parseFloat(this.marBudget) || 0;
+    if (marBudget === 0) {
+      return '-';
+    }
+    const marBudgetStr = marBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -138,21 +248,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get mayActualStr() {
-    if (parseFloat(this.mayActual) === 0) {
+    const mayActual = parseFloat(this.mayActual) || 0;
+    if (mayActual === 0) {
       return '-';
     }
-    const mayActualStr = parseFloat(this.mayActual).toLocaleString('en-CA', {
+    const mayActualStr = mayActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${mayActualStr}`;
   }
 
-  get mayBudgetStr() {
-    if (parseFloat(this.mayBudget) === 0) {
+  get mayAlert() {
+    const mayActual = parseFloat(this.mayActual) || 0;
+    const mayBudget = parseFloat(this.mayBudget) || 0;
+    return mayActual > mayBudget;
+  }
+
+  get mayBalanceStr() {
+    const mayActual = parseFloat(this.mayActual) || 0;
+    const mayBudget = parseFloat(this.mayBudget) || 0;
+    const mayBalance = mayBudget - mayActual;
+    if (mayBalance === 0) {
       return '-';
     }
-    const mayBudgetStr = parseFloat(this.mayBudget).toLocaleString('en-CA', {
+    const mayBalanceStr = mayBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${mayBalanceStr}`;
+  }
+
+  get mayBudgetStr() {
+    const mayBudget = parseFloat(this.mayBudget) || 0;
+    if (mayBudget === 0) {
+      return '-';
+    }
+    const mayBudgetStr = mayBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -160,21 +292,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get janActualStr() {
-    if (parseFloat(this.janActual) === 0) {
+    const janActual = parseFloat(this.janActual) || 0;
+    if (janActual === 0) {
       return '-';
     }
-    const janActualStr = parseFloat(this.janActual).toLocaleString('en-CA', {
+    const janActualStr = janActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${janActualStr}`;
   }
 
-  get janBudgetStr() {
-    if (parseFloat(this.janBudget) === 0) {
+  get janAlert() {
+    const janActual = parseFloat(this.janActual) || 0;
+    const janBudget = parseFloat(this.janBudget) || 0;
+    return janActual > janBudget;
+  }
+
+  get janBalanceStr() {
+    const janActual = parseFloat(this.janActual) || 0;
+    const janBudget = parseFloat(this.janBudget) || 0;
+    const janBalance = janBudget - janActual;
+    if (janBalance === 0) {
       return '-';
     }
-    const janBudgetStr = parseFloat(this.janBudget).toLocaleString('en-CA', {
+    const janBalanceStr = janBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${janBalanceStr}`;
+  }
+
+  get janBudgetStr() {
+    const janBudget = parseFloat(this.janBudget) || 0;
+    if (janBudget === 0) {
+      return '-';
+    }
+    const janBudgetStr = janBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -182,21 +336,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get julActualStr() {
-    if (parseFloat(this.julActual) === 0) {
+    const julActual = parseFloat(this.julActual) || 0;
+    if (julActual === 0) {
       return '-';
     }
-    const julActualStr = parseFloat(this.julActual).toLocaleString('en-CA', {
+    const julActualStr = julActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${julActualStr}`;
   }
 
-  get julBudgetStr() {
-    if (parseFloat(this.julBudget) === 0) {
+  get julAlert() {
+    const julActual = parseFloat(this.julActual) || 0;
+    const julBudget = parseFloat(this.julBudget) || 0;
+    return julActual > julBudget;
+  }
+
+  get julBalanceStr() {
+    const julActual = parseFloat(this.julActual) || 0;
+    const julBudget = parseFloat(this.julBudget) || 0;
+    const julBalance = julBudget - julActual;
+    if (julBalance === 0) {
       return '-';
     }
-    const julBudgetStr = parseFloat(this.julBudget).toLocaleString('en-CA', {
+    const julBalanceStr = julBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${julBalanceStr}`;
+  }
+
+  get julBudgetStr() {
+    const julBudget = parseFloat(this.julBudget) || 0;
+    if (julBudget === 0) {
+      return '-';
+    }
+    const julBudgetStr = julBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -204,21 +380,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get junActualStr() {
-    if (parseFloat(this.junActual) === 0) {
+    const junActual = parseFloat(this.junActual) || 0;
+    if (junActual === 0) {
       return '-';
     }
-    const junActualStr = parseFloat(this.junActual).toLocaleString('en-CA', {
+    const junActualStr = junActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${junActualStr}`;
   }
 
-  get junBudgetStr() {
-    if (parseFloat(this.junBudget) === 0) {
+  get junAlert() {
+    const junActual = parseFloat(this.junActual) || 0;
+    const junBudget = parseFloat(this.junBudget) || 0;
+    return junActual > junBudget;
+  }
+
+  get junBalanceStr() {
+    const junActual = parseFloat(this.junActual) || 0;
+    const junBudget = parseFloat(this.junBudget) || 0;
+    const junBalance = junBudget - junActual;
+    if (junBalance === 0) {
       return '-';
     }
-    const junBudgetStr = parseFloat(this.junBudget).toLocaleString('en-CA', {
+    const junBalanceStr = junBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${junBalanceStr}`;
+  }
+
+  get junBudgetStr() {
+    const junBudget = parseFloat(this.junBudget) || 0;
+    if (junBudget === 0) {
+      return '-';
+    }
+    const junBudgetStr = junBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -226,21 +424,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get novActualStr() {
-    if (parseFloat(this.novActual) === 0) {
+    const novActual = parseFloat(this.novActual) || 0;
+    if (novActual === 0) {
       return '-';
     }
-    const novActualStr = parseFloat(this.novActual).toLocaleString('en-CA', {
+    const novActualStr = novActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${novActualStr}`;
   }
 
-  get novBudgetStr() {
-    if (parseFloat(this.novBudget) === 0) {
+  get novAlert() {
+    const novActual = parseFloat(this.novActual) || 0;
+    const novBudget = parseFloat(this.novBudget) || 0;
+    return novActual > novBudget;
+  }
+
+  get novBalanceStr() {
+    const novActual = parseFloat(this.novActual) || 0;
+    const novBudget = parseFloat(this.novBudget) || 0;
+    const novBalance = novBudget - novActual;
+    if (novBalance === 0) {
       return '-';
     }
-    const novBudgetStr = parseFloat(this.novBudget).toLocaleString('en-CA', {
+    const novBalanceStr = novBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${novBalanceStr}`;
+  }
+
+  get novBudgetStr() {
+    const novBudget = parseFloat(this.novBudget) || 0;
+    if (novBudget === 0) {
+      return '-';
+    }
+    const novBudgetStr = novBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -248,21 +468,43 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get octActualStr() {
-    if (parseFloat(this.octActual) === 0) {
+    const octActual = parseFloat(this.octActual) || 0;
+    if (octActual === 0) {
       return '-';
     }
-    const octActualStr = parseFloat(this.octActual).toLocaleString('en-CA', {
+    const octActualStr = octActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${octActualStr}`;
   }
 
-  get octBudgetStr() {
-    if (parseFloat(this.octBudget) === 0) {
+  get octAlert() {
+    const octActual = parseFloat(this.octActual) || 0;
+    const octBudget = parseFloat(this.octBudget) || 0;
+    return octActual > octBudget;
+  }
+
+  get octBalanceStr() {
+    const octActual = parseFloat(this.octActual) || 0;
+    const octBudget = parseFloat(this.octBudget) || 0;
+    const octBalance = octBudget - octActual;
+    if (octBalance === 0) {
       return '-';
     }
-    const octBudgetStr = parseFloat(this.octBudget).toLocaleString('en-CA', {
+    const octBalanceStr = octBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${octBalanceStr}`;
+  }
+
+  get octBudgetStr() {
+    const octBudget = parseFloat(this.octBudget) || 0;
+    if (octBudget === 0) {
+      return '-';
+    }
+    const octBudgetStr = octBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -270,24 +512,138 @@ export default class SubcategoryAnnualReportModel extends Model {
   }
 
   get sepActualStr() {
-    if (parseFloat(this.sepActual) === 0) {
+    const sepActual = parseFloat(this.sepActual) || 0;
+    if (sepActual === 0) {
       return '-';
     }
-    const sepActualStr = parseFloat(this.sepActual).toLocaleString('en-CA', {
+    const sepActualStr = sepActual.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${sepActualStr}`;
   }
 
-  get sepBudgetStr() {
-    if (parseFloat(this.sepBudget) === 0) {
+  get sepAlert() {
+    const sepActual = parseFloat(this.sepActual) || 0;
+    const sepBudget = parseFloat(this.sepBudget) || 0;
+    return sepActual > sepBudget;
+  }
+
+  get sepBalanceStr() {
+    const sepActual = parseFloat(this.sepActual) || 0;
+    const sepBudget = parseFloat(this.sepBudget) || 0;
+    const sepBalance = sepBudget - sepActual;
+    if (sepBalance === 0) {
       return '-';
     }
-    const sepBudgetStr = parseFloat(this.sepBudget).toLocaleString('en-CA', {
+    const sepBalanceStr = sepBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${sepBalanceStr}`;
+  }
+
+  get sepBudgetStr() {
+    const sepBudget = parseFloat(this.sepBudget) || 0;
+    if (sepBudget === 0) {
+      return '-';
+    }
+    const sepBudgetStr = sepBudget.toLocaleString('en-CA', {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
     return `$${sepBudgetStr}`;
+  }
+
+  get totActual() {
+    const janActual = parseFloat(this.janActual) || 0;
+    const febActual = parseFloat(this.febActual) || 0;
+    const marActual = parseFloat(this.marActual) || 0;
+    const aprActual = parseFloat(this.aprActual) || 0;
+    const mayActual = parseFloat(this.mayActual) || 0;
+    const junActual = parseFloat(this.junActual) || 0;
+    const julActual = parseFloat(this.julActual) || 0;
+    const augActual = parseFloat(this.augActual) || 0;
+    const sepActual = parseFloat(this.sepActual) || 0;
+    const octActual = parseFloat(this.octActual) || 0;
+    const novActual = parseFloat(this.novActual) || 0;
+    const decActual = parseFloat(this.decActual) || 0;
+    return janActual
+      + febActual
+      + marActual
+      + aprActual
+      + mayActual
+      + junActual
+      + julActual
+      + augActual
+      + sepActual
+      + octActual
+      + novActual
+      + decActual;
+  }
+
+  get totActualStr() {
+    if (this.totActual === 0) {
+      return '-';
+    }
+    const totActualStr = this.totActual.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${totActualStr}`;
+  }
+
+  get totAlert() {
+    return this.totActual > this.totBudget;
+  }
+
+  get totBalanceStr() {
+    const totBalance = this.totBudget - this.totActual;
+    if (totBalance === 0) {
+      return '-';
+    }
+    const totBalanceStr = totBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${totBalanceStr}`;
+  }
+
+  get totBudget() {
+    const janBudget = parseFloat(this.janBudget) || 0;
+    const febBudget = parseFloat(this.febBudget) || 0;
+    const marBudget = parseFloat(this.marBudget) || 0;
+    const aprBudget = parseFloat(this.aprBudget) || 0;
+    const mayBudget = parseFloat(this.mayBudget) || 0;
+    const junBudget = parseFloat(this.junBudget) || 0;
+    const julBudget = parseFloat(this.julBudget) || 0;
+    const augBudget = parseFloat(this.augBudget) || 0;
+    const sepBudget = parseFloat(this.sepBudget) || 0;
+    const octBudget = parseFloat(this.octBudget) || 0;
+    const novBudget = parseFloat(this.novBudget) || 0;
+    const decBudget = parseFloat(this.decBudget) || 0;
+    return janBudget
+      + febBudget
+      + marBudget
+      + aprBudget
+      + mayBudget
+      + junBudget
+      + julBudget
+      + augBudget
+      + sepBudget
+      + octBudget
+      + novBudget
+      + decBudget;
+  }
+
+  get totBudgetStr() {
+    if (this.totBudget === 0) {
+      return '-';
+    }
+    const totBudgetStr = this.totBudget.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${totBudgetStr}`;
   }
 }

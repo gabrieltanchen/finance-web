@@ -46,10 +46,10 @@
           Annual Report
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="subcategories.annual-report" @model={{@subcategoryId}}>
           <FaIcon @icon="chart-bar" @size="sm" />
           Annual Report
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
     <li>

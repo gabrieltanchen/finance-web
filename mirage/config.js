@@ -473,6 +473,26 @@ export default function() {
     });
   });
 
+  this.get('/subcategory-annual-reports', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [...Array(5).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'year': 2015 + ind,
+          },
+          'id': uuidv4(),
+          'type': 'subcategory-annual-reports',
+        };
+      }),
+      'meta': {
+        'pages': 2,
+        'total': 6,
+      },
+    });
+  });
+
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data

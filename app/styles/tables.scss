@@ -56,6 +56,18 @@ table {
 
   tbody {
     tr {
+      &.bold-row {
+        td {
+          font-weight: 400;
+        }
+      }
+
+      &.border-row {
+        td {
+          border-bottom: 2px solid $border-dark-grey;
+        }
+      }
+
       td {
         border-bottom: 1px solid $border-light-grey;
         font-weight: 300;
@@ -68,6 +80,14 @@ table {
           &:hover {
             color: $primary-colour;
           }
+        }
+
+        &.alert {
+          color: $alert-text-colour;
+        }
+
+        &.success {
+          color: $success-text-colour;
         }
       }
     }

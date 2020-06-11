@@ -1,1 +1,250 @@
-{{outlet}}
+<div class="container-lg">
+  <h1>Subcategory - {{this.subcategory.name}}</h1>
+  <Menus::SubcategoryItem @subcategoryId={{this.subcategory.id}} />
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        {{#each this.annualReports as |annualReport|}}
+          <th>{{annualReport.year}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>January Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.janBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>January Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.janActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>January Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.janAlert "alert" "success"}}">{{annualReport.janBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>February Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.febBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>February Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.febActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>February Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.febAlert "alert" "success"}}">{{annualReport.febBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>March Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.marBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>March Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.marActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>March Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.marAlert "alert" "success"}}">{{annualReport.marBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>April Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.aprBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>April Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.aprActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>April Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.aprAlert "alert" "success"}}">{{annualReport.aprBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>May Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.mayBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>May Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.mayActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>May Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.mayAlert "alert" "success"}}">{{annualReport.mayBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>June Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.junBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>June Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.junActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>June Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.junAlert "alert" "success"}}">{{annualReport.junBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>July Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.julBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>July Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.julActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>July Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.julAlert "alert" "success"}}">{{annualReport.julBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>August Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.augBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>August Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.augActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>August Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.augAlert "alert" "success"}}">{{annualReport.augBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>September Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.sepBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>September Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.sepActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>September Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.sepAlert "alert" "success"}}">{{annualReport.sepBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>October Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.octBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>October Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.octActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>October Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.octAlert "alert" "success"}}">{{annualReport.octBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>November Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.novBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>November Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.novActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>November Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.novAlert "alert" "success"}}">{{annualReport.novBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>December Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.decBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>December Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.decActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row">
+        <td>December Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.decAlert "alert" "success"}}">{{annualReport.decBalanceStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="bold-row">
+        <td>Total Annual Budget</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.totBudgetStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="bold-row">
+        <td>Total Annual Actual</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td>{{annualReport.totActualStr}}</td>
+        {{/each}}
+      </tr>
+      <tr class="border-row bold-row">
+        <td>Total Annual Balance</td>
+        {{#each this.annualReports as |annualReport|}}
+          <td class="{{if annualReport.totAlert "alert" "success"}}">{{annualReport.totBalanceStr}}</td>
+        {{/each}}
+      </tr>
+    </tbody>
+  </table>
+</div>

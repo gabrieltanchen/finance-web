@@ -59,10 +59,10 @@
           Settings
         </span>
       {{else}}
-        <a href="#">
+        <LinkTo @route="subcategories.settings" @model={{@subcategoryId}}>
           <FaIcon @icon="cog" @size="sm" />
           Settings
-        </a>
+        </LinkTo>
       {{/if}}
     </li>
   </ul>

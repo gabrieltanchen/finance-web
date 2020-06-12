@@ -187,9 +187,9 @@ module('Acceptance | categories', function(hooks) {
 
     assert.dom('.overlay').doesNotExist();
 
-    // await click('.container-sm a');
-    //
-    // assert.equal(currentURL(), `/vendors/${id}/edit`);
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/categories/${id}/edit`);
   });
 
   test('renders callout when deleting category returns errors', async function(assert) {

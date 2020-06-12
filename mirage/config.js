@@ -459,6 +459,22 @@ export default function() {
       },
     });
   });
+  this.delete('/subcategories/:id', (db, request) => {
+    if (request.params.id === '1187060b-8321-4cfb-b3bf-f2d7a8b501b3') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test subcategory delete error 1.',
+        }, {
+          detail: 'Test subcategory delete error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
   this.get('/subcategories/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
@@ -468,6 +484,14 @@ export default function() {
           'name': 'Test Subcategory',
         },
         'id': request.params.id,
+        'relationships': {
+          'category': {
+            'data': {
+              'id': 'd44a4e6e-90d7-4574-b5c8-eb5c0772e1a1',
+              'type': 'categories',
+            },
+          },
+        },
         'type': 'subcategories',
       },
     });

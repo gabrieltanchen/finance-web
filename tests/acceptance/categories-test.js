@@ -119,7 +119,7 @@ module('Acceptance | categories', function(hooks) {
     assert.dom('.callout.alert').doesNotExist();
   });
 
-  test('should render errors from api when editing vendor', async function(assert) {
+  test('should render errors from api when editing category', async function(assert) {
     await visit('/categories/e99f2eba-b6f5-4563-99b9-8e30224b4d5a/edit');
 
     assert.equal(currentURL(), '/categories/e99f2eba-b6f5-4563-99b9-8e30224b4d5a/edit');

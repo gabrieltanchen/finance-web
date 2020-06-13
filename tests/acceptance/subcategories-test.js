@@ -1,5 +1,10 @@
 import { module, test } from 'qunit';
-import { click, currentURL, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  fillIn,
+  visit,
+} from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,7 +27,7 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('.container-lg').exists();
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Subcategory - Test Subcategory');
-    assert.dom('nav.secondary').exists();
+    // assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 8 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
@@ -149,6 +154,54 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('table tbody tr').exists({ count: 25 });
   });
 
+  test('visiting /subcategories/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/edit`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Subcategory - Test Subcategory');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#subcategory-name-input').exists();
+    assert.dom('#subcategory-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing subcategory', async function(assert) {
+    await visit('/subcategories/1e89e24d-82bc-4f8b-a4e9-d0d2550bd0dd/edit');
+
+    assert.equal(currentURL(), '/subcategories/1e89e24d-82bc-4f8b-a4e9-d0d2550bd0dd/edit');
+
+    await fillIn('#subcategory-name-input', 'Updated Subcategory');
+    await click('#subcategory-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test subcategory patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test subcategory patch error 2.');
+
+    // Test that the subcategory name gets reset after navigating away from edit
+    // page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/subcategories/1e89e24d-82bc-4f8b-a4e9-d0d2550bd0dd');
+    assert.dom('h1').containsText('Subcategory - Test Subcategory');
+  });
+
+  test('should transition to subcategory details after editing subcategory', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/edit`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/edit`);
+
+    await fillIn('#subcategory-name-input', 'Updated Subcategory');
+    await click('#subcategory-submit');
+
+    assert.equal(currentURL(), `/subcategories/${id}`);
+  });
+
   test('visiting /subcategories/:id/expenses', async function(assert) {
     const id = uuidv4();
     await visit(`/subcategories/${id}/expenses`);
@@ -207,9 +260,9 @@ module('Acceptance | subcategories', function(hooks) {
 
     assert.dom('.overlay').doesNotExist();
 
-    // await click('.container-sm a');
-    //
-    // assert.equal(currentURL(), `/subcategories/${id}/edit`);
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/subcategories/${id}/edit`);
   });
 
   test('renders callout when deleting subcategory returns errors', async function(assert) {

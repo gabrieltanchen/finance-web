@@ -1,0 +1,7 @@
+<div class="container-lg">
+  <h1>Edit Subcategory - {{this.subcategory.name}}</h1>
+  <Menus::SubcategoryItem @subcategoryId={{this.subcategory.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Subcategory @subcategory={{this.subcategory}} @saveSuccessful={{fn this.transitionToSubcategoryDetails}} />
+</div>

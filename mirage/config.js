@@ -496,6 +496,31 @@ export default function() {
       },
     });
   });
+  this.patch('/subcategories/:id', (db, request) => {
+    if (request.params.id === '1e89e24d-82bc-4f8b-a4e9-d0d2550bd0dd') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test subcategory patch error 1.',
+        }, {
+          detail: 'Test subcategory patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': request.params.id,
+        'type': 'subcategories',
+      },
+    });
+  });
 
   this.get('/subcategory-annual-reports', () => {
     return new Mirage.Response(200, {

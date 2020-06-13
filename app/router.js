@@ -33,6 +33,7 @@ Router.map(function() {
   this.route('subcategories', function() {
     this.route('annual-report', { path: '/:subcategory_id/annual-report' });
     this.route('budgets', { path: '/:subcategory_id/budgets' });
+    this.route('edit', { path: '/:subcategory_id/edit' });
     this.route('expenses', { path: '/:subcategory_id/expenses' });
     this.route('settings', { path: '/:subcategory_id/settings' });
     this.route('show', { path: '/:subcategory_id' });

@@ -157,6 +157,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /subcategories/:id/edit', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /subcategories/:id/expenses', async function(assert) {
     await visit(`/subcategories/${uuidv4()}/expenses`);
 

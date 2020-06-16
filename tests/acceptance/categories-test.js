@@ -250,6 +250,10 @@ module('Acceptance | categories', function(hooks) {
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
+    assert.dom('.add-button').exists();
+    assert.dom('.add-button a').exists();
+    assert.dom('.add-button a svg').exists();
+    assert.dom('.add-button a svg').hasClass('fa-plus');
 
     await click('.pagination-next button');
 
@@ -260,5 +264,9 @@ module('Acceptance | categories', function(hooks) {
 
     assert.equal(currentURL(), `/categories/${id}/subcategories?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.add-button a');
+
+    assert.equal(currentURL(), `/subcategories/new?categoryId=${id}`);
   });
 });

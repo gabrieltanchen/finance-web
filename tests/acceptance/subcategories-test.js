@@ -19,6 +19,47 @@ module('Acceptance | subcategories', function(hooks) {
     session.authToken = 'token';
   });
 
+  test('visiting /subcategories/new', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/new?categoryId=${id}`);
+
+    assert.equal(currentURL(), `/subcategories/new?categoryId=${id}`);
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Subcategory');
+    assert.dom('form').exists();
+    assert.dom('#subcategory-name-input').exists();
+    assert.dom('#subcategory-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating subcategory', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/new?categoryId=${id}`);
+
+    assert.equal(currentURL(), `/subcategories/new?categoryId=${id}`);
+
+    await fillIn('#subcategory-name-input', 'Error Subcategory');
+    await click('#subcategory-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test subcategory post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test subcategory post error 2.');
+  });
+
+  test('should transition to subcategory details after creating subcategory', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/new?categoryId=${id}`);
+
+    assert.equal(currentURL(), `/subcategories/new?categoryId=${id}`);
+
+    await fillIn('#subcategory-name-input', 'New Subcategory');
+    await click('#subcategory-submit');
+
+    assert.equal(currentURL(), '/subcategories/e79685f1-9419-4f88-b2d6-6b5c1f75758b');
+  });
+
   test('visiting /subcategories/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/subcategories/${id}`);
@@ -27,7 +68,7 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('.container-lg').exists();
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Subcategory - Test Subcategory');
-    // assert.dom('nav.secondary').exists();
+    assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 8 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');

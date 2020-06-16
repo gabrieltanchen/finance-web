@@ -16,3 +16,21 @@
     }
   }
 }
+
+.add-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+
+  a {
+    background-color: $white;
+    border: 1px solid $border-dark-grey;
+    border-radius: 50%;
+    color: $black;
+    padding: 0.5em;
+
+    &:hover {
+      background-color: $primary-colour;
+    }
+  }
+}

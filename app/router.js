@@ -16,6 +16,7 @@ Router.map(function() {
   });
   this.route('dashboard');
   this.route('expenses', function() {
+    this.route('settings', { path: '/:expense_id/settings' });
     this.route('show', { path: '/:expense_id' });
   });
   this.route('household-members', function() {

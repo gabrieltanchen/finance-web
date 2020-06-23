@@ -1,5 +1,9 @@
 import { module, test } from 'qunit';
-import { currentURL, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  visit,
+} from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,5 +38,93 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Household Member');
     assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Vendor');
     assert.dom('table tbody tr:nth-of-type(9) td:nth-of-type(1)').containsText('Created At');
+  });
+
+  test('visiting /expenses/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/settings`);
+
+    assert.equal(currentURL(), `/expenses/${id}/settings`);
+    assert.dom('.container-lg').exists();
+    assert.dom('.container-lg h1').exists();
+    assert.dom('.container-lg h1').containsText('View Expense');
+    assert.dom('.container-lg nav.secondary').exists();
+    assert.dom('.container-sm').exists();
+    assert.dom('.container-sm a').exists();
+    assert.dom('.container-sm a').hasClass('button');
+    assert.dom('.container-sm a').containsText('Edit');
+    assert.dom('.container-sm button').exists();
+    assert.dom('.container-sm button').hasClass('button');
+    assert.dom('.container-sm button').hasClass('alert');
+    assert.dom('.container-sm button').containsText('Delete');
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+    assert.dom('.overlay .modal > p').exists();
+    assert.dom('.overlay .modal > p').containsText('Are you sure you want to delete this expense?');
+    assert.dom('.overlay .modal button.button.alert').exists();
+    assert.dom('.overlay .modal button.button.alert').containsText('Delete');
+    assert.dom('.overlay .modal button.button.cancel').exists();
+    assert.dom('.overlay .modal button.button.cancel').containsText('Cancel');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    // await click('.container-sm a');
+    //
+    // assert.equal(currentURL(), `/subcategories/${id}/edit`);
+  });
+
+  test('renders callout when deleting expense returns errors', async function(assert) {
+    await visit('/expenses/0033fbc2-3211-4e93-805d-b85b363bee39/settings');
+
+    assert.equal(currentURL(), '/expenses/0033fbc2-3211-4e93-805d-b85b363bee39/settings');
+
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/expenses/0033fbc2-3211-4e93-805d-b85b363bee39/settings');
+
+    assert.dom('.overlay .modal .callout').exists();
+    assert.dom('.overlay .modal .callout').hasClass('alert');
+    assert.dom('.overlay .modal .callout p').exists({ count: 2 });
+    assert.dom('.overlay .modal .callout p:nth-of-type(1)').containsText('Test expense delete error 1.');
+    assert.dom('.overlay .modal .callout p:nth-of-type(2)').containsText('Test expense delete error 2.');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    // Verify the error callout is cleared when opening the modal again.
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+  });
+
+  test('transitions to subcategory expenses page on successful expense deletion', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/settings`);
+
+    assert.equal(currentURL(), `/expenses/${id}/settings`);
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/subcategories/8e052327-006b-494d-a33b-0e2d951433f9/expenses');
   });
 });

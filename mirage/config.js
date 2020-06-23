@@ -189,6 +189,22 @@ export default function() {
       },
     });
   });
+  this.delete('/expenses/:id', (db, request) => {
+    if (request.params.id === '0033fbc2-3211-4e93-805d-b85b363bee39') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test expense delete error 1.',
+        }, {
+          detail: 'Test expense delete error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
   this.get('/expenses/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',

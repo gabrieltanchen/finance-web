@@ -80,6 +80,21 @@ table {
           &:hover {
             color: $primary-colour;
           }
+
+          &.row-button {
+            background-color: $white;
+            border: 1px solid $black-alpha-25;
+            border-radius: 2px;
+            color: $black;
+            font-size: 0.8em;
+            padding: 0.2em 0.5em;
+            text-decoration: none;
+            transition: color 0.1s linear;
+
+            &:hover {
+              background-color: $primary-colour;
+            }
+          }
         }
 
         &.alert {

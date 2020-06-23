@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>View Expense</h1>
+  <Menus::ExpenseItem @expenseId={{this.expense.id}} />
+  <DetailTable @model={{this.expense}} @properties={{this.properties}} />
+</div>

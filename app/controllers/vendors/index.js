@@ -10,13 +10,20 @@ export default class VendorsIndexController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
-    linkTo: 'vendors.show',
     name: 'Name',
     propertyName: 'name',
   }, {
     name: 'Created At',
     propertyName: 'createdAt',
-  }]
+  }, {
+    linkText: 'View',
+    linkTo: 'vendors.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'vendors.edit',
+    name: '',
+  }];
 
   @action
   setPage(page) {

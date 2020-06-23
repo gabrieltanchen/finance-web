@@ -15,6 +15,9 @@ Router.map(function() {
     this.route('subcategories', { path: '/:category_id/subcategories' });
   });
   this.route('dashboard');
+  this.route('expenses', function() {
+    this.route('show', { path: '/:expense_id' });
+  });
   this.route('household-members', function() {
     this.route('edit', { path: '/:member_id/edit' });
     this.route('expenses', { path: '/:member_id/expenses' });

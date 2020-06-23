@@ -4,7 +4,7 @@ import { alias } from '@ember/object/computed';
 export default class SubcategoriesShowController extends Controller {
   @alias('model') subcategory;
 
-  properties=[{
+  properties = [{
     name: 'ID',
     propertyName: 'id',
   }, {

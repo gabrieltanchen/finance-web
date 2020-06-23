@@ -19,6 +19,14 @@ export default class HouseholdMembersIncomeController extends Controller {
   }, {
     name: 'Amount',
     propertyName: 'amountStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'income.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'income.edit',
+    name: '',
   }]
 
   @action

@@ -10,7 +10,6 @@ export default class IncomeIndexController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
-    linkTo: 'income.show',
     name: 'Date',
     propertyName: 'date',
   }, {
@@ -22,6 +21,14 @@ export default class IncomeIndexController extends Controller {
   }, {
     name: 'Amount',
     propertyName: 'amountStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'income.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'income.edit',
+    name: '',
   }];
 
   @action

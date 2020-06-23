@@ -11,12 +11,19 @@ export default class CategoriesSubcategoriesController extends Controller {
   @tracked page = null;
 
   tableColumns = [{
-    linkTo: 'subcategories.show',
     name: 'Name',
     propertyName: 'name',
   }, {
     name: 'Created At',
     propertyName: 'createdAt',
+  }, {
+    linkText: 'View',
+    linkTo: 'subcategories.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'subcategories.edit',
+    name: '',
   }];
 
   @action

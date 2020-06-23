@@ -157,10 +157,10 @@ export default function() {
     if (request.queryParams.page === '2') {
       data = [{
         'attributes': {
-          'amount-cents': 1,
+          'amount': 1,
           'date': '2020-01-01',
           'description': 'Expense 26',
-          'reimbursed-cents': 0,
+          'reimbursed-amount': 0,
         },
         'id': uuidv4(),
         'type': 'expenses',
@@ -169,10 +169,10 @@ export default function() {
       data = [...Array(25).keys()].map((ind) => {
         return {
           'attributes': {
-            'amount-cents': 1,
+            'amount': 1,
             'date': '2020-01-01',
             'description': `Expense ${ind}`,
-            'reimbursed-cents': 0,
+            'reimbursed-amount': 0,
           },
           'id': uuidv4(),
           'type': 'expenses',
@@ -186,6 +186,42 @@ export default function() {
       'meta': {
         'pages': 2,
         'total': 26,
+      },
+    });
+  });
+  this.get('/expenses/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': 1,
+          'date': '2020-01-01',
+          'description': 'Test Expense',
+          'reimbursed-amount': 0,
+        },
+        'id': request.params.id,
+        'relationships': {
+          'household-member': {
+            'data': {
+              'id': '39eea981-1054-4614-959c-21a1f450c857',
+              'type': 'household-members',
+            },
+          },
+          'subcategory': {
+            'data': {
+              'id': '8e052327-006b-494d-a33b-0e2d951433f9',
+              'type': 'subcategories',
+            },
+          },
+          'vendor': {
+            'data': {
+              'id': '06808f93-f422-4145-bb0b-73dfb2619e6f',
+              'type': 'vendors',
+            },
+          },
+        },
+        'type': 'expenses',
       },
     });
   });

@@ -25,6 +25,10 @@ export default class SubcategoriesExpensesController extends Controller {
   }, {
     name: 'Reimbursed Amount',
     propertyName: 'reimbursedAmountStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'expenses.show',
+    name: '',
   }];
 
   @action

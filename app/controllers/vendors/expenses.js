@@ -14,6 +14,9 @@ export default class VendorsExpensesController extends Controller {
     name: 'Date',
     propertyName: 'date',
   }, {
+    name: 'Subcategory',
+    propertyName: 'subcategory.name',
+  }, {
     name: 'Vendor',
     propertyName: 'vendor.name',
   }, {
@@ -25,6 +28,14 @@ export default class VendorsExpensesController extends Controller {
   }, {
     name: 'Reimbursed Amount',
     propertyName: 'reimbursedAmountStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'expenses.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'expenses.edit',
+    name: '',
   }];
 
   @action

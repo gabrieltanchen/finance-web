@@ -17,6 +17,9 @@ export default class SubcategoriesExpensesController extends Controller {
     name: 'Vendor',
     propertyName: 'vendor.name',
   }, {
+    name: 'Member',
+    propertyName: 'householdMember.name',
+  }, {
     name: 'Description',
     propertyName: 'description',
   }, {
@@ -28,6 +31,10 @@ export default class SubcategoriesExpensesController extends Controller {
   }, {
     linkText: 'View',
     linkTo: 'expenses.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'expenses.edit',
     name: '',
   }];
 

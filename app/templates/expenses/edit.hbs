@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Edit Expense</h1>
+  <Menus::ExpenseItem @expenseId={{this.expense.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Expense
+    @expense={{this.expense}}
+    @householdMembers={{this.householdMembers}}
+    @saveSuccessful={{fn this.transitionToExpenseDetails}}
+  />
+</div>

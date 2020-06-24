@@ -211,10 +211,10 @@ export default function() {
     }, {
       'data': {
         'attributes': {
-          'amount': 1,
+          'amount': 1000,
           'date': '2020-01-01',
           'description': 'Test Expense',
-          'reimbursed-amount': 0,
+          'reimbursed-amount': 500,
         },
         'id': request.params.id,
         'relationships': {
@@ -237,6 +237,34 @@ export default function() {
             },
           },
         },
+        'type': 'expenses',
+      },
+    });
+  });
+  this.patch('/expenses/:id', (db, request) => {
+    if (request.params.id === '20808e7b-c243-47f8-b936-ed7d7577d4d1') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test expense patch error 1.',
+        }, {
+          detail: 'Test expense patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+          'reimbursed-amount': params.data.attributes['reimbursed-amount'],
+        },
+        'id': request.params.id,
         'type': 'expenses',
       },
     });

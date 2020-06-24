@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import {
   click,
   currentURL,
+  fillIn,
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -40,6 +41,62 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(9) td:nth-of-type(1)').containsText('Created At');
   });
 
+  test('visiting /expenses/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/edit`);
+
+    assert.equal(currentURL(), `/expenses/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Expense');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#expense-date-input').exists();
+    assert.dom('#expense-description-input').exists();
+    assert.dom('#expense-amount-input').exists();
+    assert.dom('#expense-reimbursed-input').exists();
+    assert.dom('#expense-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing expense', async function(assert) {
+    await visit('/expenses/20808e7b-c243-47f8-b936-ed7d7577d4d1/edit');
+
+    assert.equal(currentURL(), '/expenses/20808e7b-c243-47f8-b936-ed7d7577d4d1/edit');
+
+    await fillIn('#expense-description-input', 'Updated Expense');
+    await fillIn('#expense-amount-input', '45.67');
+    await fillIn('#expense-reimbursed-input', '12.34');
+    await click('#expense-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test expense patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test expense patch error 2.');
+
+    // Test that the expense gets reset after navigating away from edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/expenses/20808e7b-c243-47f8-b936-ed7d7577d4d1');
+    assert.dom('table tr:nth-of-type(3) td:nth-of-type(2)').containsText('Test Expense');
+    assert.dom('table tr:nth-of-type(4) td:nth-of-type(2)').containsText('$10.00');
+    assert.dom('table tr:nth-of-type(5) td:nth-of-type(2)').containsText('$5.00');
+  });
+
+  test('should transition to expense details after editing expense', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/edit`);
+
+    assert.equal(currentURL(), `/expenses/${id}/edit`);
+
+    await fillIn('#expense-description-input', 'Updated Expense');
+    await fillIn('#expense-amount-input', '45.67');
+    await fillIn('#expense-reimbursed-input', '12.34');
+    await click('#expense-submit');
+
+    assert.equal(currentURL(), `/expenses/${id}`);
+  });
+
   test('visiting /expenses/:id/settings', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/${id}/settings`);
@@ -75,9 +132,9 @@ module('Acceptance | expenses', function(hooks) {
 
     assert.dom('.overlay').doesNotExist();
 
-    // await click('.container-sm a');
-    //
-    // assert.equal(currentURL(), `/subcategories/${id}/edit`);
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/expenses/${id}/edit`);
   });
 
   test('renders callout when deleting expense returns errors', async function(assert) {

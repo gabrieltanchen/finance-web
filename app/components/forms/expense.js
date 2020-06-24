@@ -13,6 +13,11 @@ export default class FormsExpenseComponent extends Component {
   }
 
   @action
+  selectSubcategory(subcategory) {
+    set(this, 'args.expense.subcategory', subcategory);
+  }
+
+  @action
   selectVendor(vendor) {
     set(this, 'args.expense.vendor', vendor);
   }
@@ -20,6 +25,13 @@ export default class FormsExpenseComponent extends Component {
   @action
   updateHouseholdMemberSearch(searchTerm) {
     return this.store.query('household-member', {
+      search: searchTerm,
+    });
+  }
+
+  @action
+  updateSubcategorySearch(searchTerm) {
+    return this.store.query('subcategory', {
       search: searchTerm,
     });
   }

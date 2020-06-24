@@ -9,6 +9,7 @@ form {
     grid-column-gap: 1em;
     grid-template-columns: 1fr 1fr;
 
+    .expense-subcategory,
     .expense-submit,
     .income-submit {
       grid-column: span 2;

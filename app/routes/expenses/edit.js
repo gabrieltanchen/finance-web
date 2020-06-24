@@ -15,6 +15,7 @@ export default class ExpensesEditRoute extends Route {
     return RSVP.hash({
       expense: this.store.findRecord('expense', params.expense_id),
       householdMembers: this.store.findAll('household-member'),
+      subcategories: this.store.findAll('subcategory'),
       vendors: this.store.findAll('vendor'),
     });
   }

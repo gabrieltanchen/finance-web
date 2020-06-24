@@ -189,6 +189,37 @@ export default function() {
       },
     });
   });
+  this.post('/expenses', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.description
+        && params.data.attributes.description === 'Error Expense') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test expense post error 1.',
+        }, {
+          detail: 'Test expense post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+          'reimbursed-amount': params.data.attributes['reimbursed-amount'],
+        },
+        'id': '40a4f2d5-fd93-46a3-bdcb-6828168dae28',
+        'type': 'expenses',
+      },
+    });
+  });
   this.delete('/expenses/:id', (db, request) => {
     if (request.params.id === '0033fbc2-3211-4e93-805d-b85b363bee39') {
       return new Mirage.Response(403, {

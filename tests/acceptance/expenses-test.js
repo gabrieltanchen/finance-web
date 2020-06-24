@@ -6,6 +6,8 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import { Interactor as Pikaday } from 'ember-pikaday/test-support';
+import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,6 +19,62 @@ module('Acceptance | expenses', function(hooks) {
     const session = this.owner.lookup('service:session');
     session.logout();
     session.authToken = 'token';
+  });
+
+  test('visiting /expenses/new', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/new?subcategoryId=${id}`);
+
+    assert.equal(currentURL(), `/expenses/new?subcategoryId=${id}`);
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Expense');
+    assert.dom('form').exists();
+    assert.dom('#expense-date-input').exists();
+    assert.dom('#expense-description-input').exists();
+    assert.dom('#expense-amount-input').exists();
+    assert.dom('#expense-reimbursed-input').exists();
+    assert.dom('#expense-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating expense', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/new?subcategoryId=${id}`);
+
+    assert.equal(currentURL(), `/expenses/new?subcategoryId=${id}`);
+
+    await selectChoose('#expense-vendor-select', '.ember-power-select-option', 2);
+    await selectChoose('#expense-household-member-select', '.ember-power-select-option', 2);
+    await click('#expense-date-input');
+    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#expense-description-input', 'Error Expense');
+    await fillIn('#expense-amount-input', '23.45');
+    await fillIn('#expense-reimbursed-input', '12.34');
+    await click('#expense-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test expense post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test expense post error 2.');
+  });
+
+  test('should transition to expense details after creating expense', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/new?subcategoryId=${id}`);
+
+    assert.equal(currentURL(), `/expenses/new?subcategoryId=${id}`);
+
+    await selectChoose('#expense-vendor-select', '.ember-power-select-option', 2);
+    await selectChoose('#expense-household-member-select', '.ember-power-select-option', 2);
+    await click('#expense-date-input');
+    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#expense-description-input', 'New Expense');
+    await fillIn('#expense-amount-input', '23.45');
+    await fillIn('#expense-reimbursed-input', '12.34');
+    await click('#expense-submit');
+
+    assert.equal(currentURL(), '/expenses/40a4f2d5-fd93-46a3-bdcb-6828168dae28');
   });
 
   test('visiting /expenses/:id', async function(assert) {

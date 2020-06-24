@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('dashboard');
   this.route('expenses', function() {
     this.route('edit', { path: '/:expense_id/edit' });
+    this.route('new');
     this.route('settings', { path: '/:expense_id/settings' });
     this.route('show', { path: '/:expense_id' });
   });

@@ -1,6 +1,6 @@
 <div class="container-lg">
-  <h1>Household Member - {{householdMember.name}}</h1>
-  <Menus::HouseholdMemberItem @memberId={{householdMember.id}} />
+  <h1>Household Member - {{this.householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{this.householdMember.id}} />
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.expenses}}
@@ -8,4 +8,9 @@
     @numPages={{this.expenses.meta.pages}}
     @setPage={{this.setPage}}
   />
+</div>
+<div class="add-button">
+  <LinkTo @route="expenses.new" @query={{hash householdMemberId=this.householdMember.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
 </div>

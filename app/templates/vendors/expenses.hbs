@@ -9,3 +9,8 @@
     @setPage={{this.setPage}}
   />
 </div>
+<div class="add-button">
+  <LinkTo @route="expenses.new" @query={{hash vendorId=this.vendor.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
+</div>

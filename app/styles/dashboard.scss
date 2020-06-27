@@ -1,0 +1,9 @@
+.dashboard-month-selector {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 0 2em;
+
+  & > div {
+    width: 45%;
+  }
+}

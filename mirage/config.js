@@ -2,6 +2,14 @@ import Mirage from 'ember-cli-mirage';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function() {
+  this.get('/budget-reports', () => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': [],
+    });
+  });
+
   this.get('/budgets', (db, request) => {
     let data;
     if (request.queryParams.page === '2') {
@@ -535,6 +543,22 @@ export default function() {
         },
         'id': request.params.id,
         'type': 'incomes',
+      },
+    });
+  });
+
+  this.get('/monthly-reports/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'actual': 0,
+          'budget': 0,
+          'income': 0,
+        },
+        'id': request.params.id,
+        'type': 'monthly-reports',
       },
     });
   });

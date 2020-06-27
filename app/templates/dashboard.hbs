@@ -1,1 +1,94 @@
-Dashboard
+<div class="container-md">
+  <div class="dashboard-month-selector">
+    <div>
+      <label for="budget-report-year">
+        Year
+      </label>
+      <PowerSelect
+        @options={{this.yearOptions}}
+        @selected={{this.year}}
+        @onChange={{action this.setYear}}
+        @triggerId="budget-report-year"
+        as |yearOption|
+      >
+        {{yearOption}}
+      </PowerSelect>
+    </div>
+    <div>
+      <label for="budget-report-month">
+        Month
+      </label>
+      <PowerSelect
+        @options={{this.monthOptions}}
+        @selected={{this.month}}
+        @onChange={{action this.setMonth}}
+        @triggerId="budget-report-month"
+        as |monthOption|
+      >
+        {{monthOption}}
+      </PowerSelect>
+    </div>
+  </div>
+  <div class="budget-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Budget</th>
+          <th>Actual</th>
+          <th>+ / -</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{monthlyReport.budgetStr}}</td>
+          <td>{{monthlyReport.actualStr}}</td>
+          <td class="{{if monthlyReport.budgetActualBalanceAlert "alert" "success"}}">{{monthlyReport.budgetActualBalanceStr}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="income-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Income</th>
+          <th>Budget + / -</th>
+          <th>Actual + / -</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{monthlyReport.incomeStr}}</td>
+          <td class="{{if monthlyReport.incomeBudgetBalanceAlert "alert" "success"}}">{{monthlyReport.incomeBudgetBalanceStr}}</td>
+          <td class="{{if monthlyReport.incomeActualBalanceAlert "alert" "success"}}">{{monthlyReport.incomeActualBalanceStr}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="budget-report-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Budget</th>
+          <th>Actual</th>
+          <th>+ / -</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each budgetReports as |budgetReport|}}
+          <tr>
+            <td>
+              <LinkTo @route="subcategories.show" @model={{budgetReport.subcategory.id}}>
+                {{budgetReport.category.name}}: {{budgetReport.subcategory.name}}
+              </LinkTo>
+            </td>
+            <td>{{budgetReport.budgetStr}}</td>
+            <td>{{budgetReport.actualStr}}</td>
+            <td class="{{if budgetReport.alert "alert" "success"}}">{{budgetReport.balanceStr}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

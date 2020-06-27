@@ -6,7 +6,6 @@ import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { v4 as uuidv4 } from 'uuid';
 
-
 module('Integration | Component | forms/income', function(hooks) {
   setupRenderingTest(hooks);
 

@@ -1,22 +1,22 @@
-import { get } from '@ember/object';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import RSVP from 'rsvp';
 
-export default Route.extend({
-  session: service(),
+export default class SubcategoriesEditRoute extends Route {
+  @service session;
 
   async beforeModel() {
-    if (!(await get(this, 'session').isLoggedIn())) {
+    if (!(await this.session.isLoggedIn())) {
       this.transitionTo('login');
     }
-  },
+  }
 
-  async model(params) {
-    const subcategory = await get(this, 'store').findRecord('subcategory', params.subcategory_uuid);
-    return RSVP.hash({
-      category: await subcategory.category,
-      subcategory,
-    });
-  },
-});
+  model(params) {
+    return this.store.findRecord('subcategory', params.subcategory_id);
+  }
+
+  resetController(controller) {
+    if (controller.subcategory && controller.subcategory.hasDirtyAttributes) {
+      controller.subcategory.rollbackAttributes();
+    }
+  }
+}

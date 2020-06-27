@@ -1,10 +1,8 @@
 import { module, test } from 'qunit';
-import {
-  currentURL,
-  visit,
-} from '@ember/test-helpers';
+import { currentURL, visit } from '@ember/test-helpers';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | logged out redirects', function(hooks) {
   setupApplicationTest(hooks);
@@ -17,136 +15,229 @@ module('Acceptance | logged out redirects', function(hooks) {
 
   test('can visit /', async function(assert) {
     await visit('/');
+
     assert.equal(currentURL(), '/');
-  });
-
-  test('should redirect away from /budgets/:uuid', async function(assert) {
-    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4');
-    assert.equal(currentURL(), '/login');
-  });
-
-  test('should redirect away from /budgets/:uuid/edit', async function(assert) {
-    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4/edit');
-    assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /categories', async function(assert) {
     await visit('/categories');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /categories/:uuid', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee');
+  test('should redirect away from /categories/new', async function(assert) {
+    await visit('/categories/new');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /categories/:uuid/edit', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/edit');
+  test('should redirect away from /categories/:id', async function(assert) {
+    await visit(`/categories/${uuidv4()}`);
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /categories/:uuid/subcategories', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
+  test('should redirect away from /categories/:id/edit', async function(assert) {
+    await visit(`/categories/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /categories/:id/settings', async function(assert) {
+    await visit(`/categories/${uuidv4}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /categories/:id/subcategories', async function(assert) {
+    await visit(`/categories/${uuidv4()}/subcategories`);
+
     assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /dashboard', async function(assert) {
     await visit('/dashboard');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /expenses/:uuid', async function(assert) {
-    await visit('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d');
+  test('should redirect away from /expenses/new', async function(assert) {
+    await visit('/expenses/new');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /expenses/:uuid/edit', async function(assert) {
-    await visit('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d/edit');
+  test('should redirect away from /expenses/:id', async function(assert) {
+    await visit(`/expenses/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /expenses/:id/edit', async function(assert) {
+    await visit(`/expenses/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /expenses/:id/settings', async function(assert) {
+    await visit(`/expenses/${uuidv4()}/settings`);
+
     assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /household-members', async function(assert) {
     await visit('/household-members');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /household-members/:uuid', async function(assert) {
-    await visit('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7');
+  test('should redirect away from /household-members/new', async function(assert) {
+    await visit('/household-members/new');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /household-members/:uuid/edit', async function(assert) {
-    await visit('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/edit');
+  test('should redirect away from /household-members/:id', async function(assert) {
+    await visit(`/household-members/${uuidv4()}`);
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /household-members/:uuid/expenses', async function(assert) {
-    await visit('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/expenses');
+  test('should redirect away from /household-members/:id/edit', async function(assert) {
+    await visit(`/household-members/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /household-members/:id/expenses', async function(assert) {
+    await visit(`/household-members/${uuidv4()}/expenses`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /household-members/:id/income', async function(assert) {
+    await visit(`/household-members/${uuidv4()}/income`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /household-members/:id/settings', async function(assert) {
+    await visit(`/household-members/${uuidv4()}/settings`);
+
     assert.equal(currentURL(), '/login');
   });
 
   test('should redirect away from /income', async function(assert) {
     await visit('/income');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /income/:uuid', async function(assert) {
-    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53');
+  test('should redirect away from /income/new', async function(assert) {
+    await visit('/income/new');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /income/:uuid/edit', async function(assert) {
-    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
+  test('should redirect away from /income/:id', async function(assert) {
+    await visit(`/income/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /income/:id/edit', async function(assert) {
+    await visit(`/income/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('/should redirect away from /income/:id/settings', async function(assert) {
+    await visit(`/income/${uuidv4()}`);
+
     assert.equal(currentURL(), '/login');
   });
 
   test('can visit /login', async function(assert) {
     await visit('/login');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('can visit /sign-up', async function(assert) {
-    await visit('/sign-up');
-    assert.equal(currentURL(), '/sign-up');
-  });
+  test('should redirect away from /subcategories/new', async function(assert) {
+    await visit(`/subcategories/new?categoryId=${uuidv4()}`);
 
-  test('should redirect away from /subcategories/:uuid', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /subcategories/:uuid/budgets', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/budgets');
+  test('should redirect away from /subcategories/:id', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}`);
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /subcategories/:uuid/edit', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/edit');
+  test('should redirect away from /subcategories/:id/annual-report', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}/annual-report`);
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /subcategories/:uuid/expenses', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
+  test('should redirect away from /subcategories/:id/budgets', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}`);
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should reirect away from /vendors', async function(assert) {
+  test('should redirect away from /subcategories/:id/edit', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /subcategories/:id/expenses', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}/expenses`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /subcategories/:id/settings', async function(assert) {
+    await visit(`/subcategories/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /vendors', async function(assert) {
     await visit('/vendors');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /vendors/:uuid', async function(assert) {
-    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
+  test('should redirect away from /vendors/new', async function(assert) {
+    await visit('/vendors/new');
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /vendors/:uuid/edit', async function(assert) {
-    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/edit');
+  test('should redirect away from /vendors/:id', async function(assert) {
+    await visit(`/vendors/${uuidv4()}`);
+
     assert.equal(currentURL(), '/login');
   });
 
-  test('should redirect away from /vendors/:uuid/expenses', async function(assert) {
-    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/expenses');
+  test('should redirect away from /vendors/:id/edit', async function(assert) {
+    await visit(`/vendors/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /vendors/:id/expenses', async function(assert) {
+    await visit(`/vendors/${uuidv4()}/expenses`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /vendors/:id/settings', async function(assert) {
+    await visit(`/vendors/${uuidv4()}/settings`);
+
     assert.equal(currentURL(), '/login');
   });
 });

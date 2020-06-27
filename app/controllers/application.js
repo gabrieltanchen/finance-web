@@ -1,14 +1,9 @@
 import Controller from '@ember/controller';
-import { get } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Controller.extend({
-  session: service(),
-
-  actions: {
-    logout() {
-      get(this, 'session').logout();
-      this.transitionToRoute('index');
-    },
-  },
-});
+export default class ApplicationController extends Controller {
+  @action
+  transitionToIndex() {
+    this.transitionToRoute('index');
+  }
+}

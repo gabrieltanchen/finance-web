@@ -1,116 +1,59 @@
-import $ from 'jquery';
-import { computed, get, set } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
-import ENV from '../config/environment';
+import { tracked } from '@glimmer/tracking';
 
-export default Service.extend({
-  ajax: service(),
-  userId: null,
-
-  loggedIn: computed('userId', function() {
-    return !!get(this, 'userId');
-  }),
+export default class SessionService extends Service {
+  @service store;
+  @tracked authToken;
 
   async isLoggedIn() {
-    const token = get(this, 'cookie').getCookie('token');
-    if (get(this, 'userId')) {
+    if (this.authToken) {
       return true;
     }
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)authToken\s*\=\s*([^;]*).*$)|^.*$/, '$1');
     if (!token) {
       return false;
     }
-
-    let res;
     try {
-      res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login/token`, {
-        data: {
-          data: {
-            attributes: {
-              token,
-            },
-          },
-        },
-        method: 'POST',
+      const loginToken = this.store.createRecord('login-token', {
+        token,
       });
-    } catch (err) {
+      await loginToken.save();
+      this.authToken = loginToken.token;
+      return true;
+    } catch {
       return false;
     }
-
-    if (res.jqXHR
-          && res.jqXHR.status === 200
-          && res.jqXHR.responseJSON
-          && res.jqXHR.responseJSON.data
-          && res.jqXHR.responseJSON.data.id) {
-      this.setToken(res.jqXHR.responseJSON.data.id, token);
-      return true;
-    }
-
-    return false;
-  },
+  }
 
   async login(email, password) {
-    let userId;
-    let userToken;
+    const result = {
+      errors: [],
+      success: false,
+    };
     try {
-      const res = await get(this, 'ajax').raw(`${ENV.apiURL}/users/login`, {
-        data: {
-          data: {
-            attributes: {
-              email,
-              password,
-            },
-          },
-        },
-        method: 'POST',
+      const loginUser = this.store.createRecord('login-user', {
+        email,
+        password,
       });
-
-      if (res.jqXHR
-            && res.jqXHR.status === 200
-            && res.jqXHR.responseJSON
-            && res.jqXHR.responseJSON.data
-            && res.jqXHR.responseJSON.data.attributes) {
-        userId = res.jqXHR.responseJSON.data.id;
-        userToken = res.jqXHR.responseJSON.data.attributes.token;
-      }
-
-      if (!userId
-            || !userToken) {
-        throw new Error('ID or token not returned.');
-      }
-
-      this.setToken(userId, userToken);
+      await loginUser.save();
+      this.authToken = loginUser.token;
+      document.cookie = `authToken=${loginUser.token}; expires=${new Date((new Date()).getTime() + 60 * 60 * 1000).toUTCString()}`;
+      result.success = true;
     } catch (err) {
-      let error = 'An error occurred. Please try again later.';
-      if (err
-            && err.jqXHR
-            && err.jqXHR.responseJSON
-            && err.jqXHR.responseJSON.errors
-            && err.jqXHR.responseJSON.errors.length
-            && err.jqXHR.responseJSON.errors[0]
-            && err.jqXHR.responseJSON.errors[0].detail) {
-        error = err.jqXHR.responseJSON.errors[0].detail;
+      if (err && err.errors) {
+        for (const error of err.errors) {
+          result.errors.push(error.detail);
+        }
+      } else {
+        throw err;
       }
-      throw new Error(error);
     }
-  },
+
+    return result;
+  }
 
   logout() {
-    set(this, 'userId', null);
-    get(this, 'cookie').removeCookie('token');
-    $.ajaxSetup({
-      headers: {
-        'Authorization': '',
-      },
-    });
-  },
-
-  setToken(userId, token) {
-    set(this, 'userId', userId);
-    get(this, 'cookie').setCookie('token', token);
-    $.ajaxSetup({
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-  },
-});
+    this.authToken = null;
+    document.cookie = `authToken=; expires=${new Date((new Date()).getTime() - 1000).toUTCString()}`;
+  }
+}

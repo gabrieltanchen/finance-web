@@ -1,6 +1,5 @@
-import { setupTest } from 'ember-qunit';
-import { get, set } from '@ember/object';
 import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Model | monthly report', function(hooks) {
   setupTest(hooks);
@@ -11,264 +10,222 @@ module('Unit | Model | monthly report', function(hooks) {
     assert.ok(model);
   });
 
-  test('should have correct actual_str when actual_cents=0', function(assert) {
+  test('it has the correct actualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 0);
+    const model = store.createRecord('monthly-report', {
+      actual: 0,
+    });
 
-    assert.equal(get(model, 'actual_str'), '-');
+    assert.equal(model.actualStr, '-');
+
+    model.actual = '5.00';
+
+    assert.equal(model.actualStr, '$5.00');
+
+    model.actual = '1234.56';
+
+    assert.equal(model.actualStr, '$1,234.56');
+
+    model.actual = '-5.00';
+
+    assert.equal(model.actualStr, '$-5.00');
+
+    model.actual = '-6543.21';
+
+    assert.equal(model.actualStr, '$-6,543.21');
   });
 
-  test('should have correct actual_str when actual_cents=500', function(assert) {
+  test('it has the correct budgetActualBalanceAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 500);
+    const model = store.createRecord('monthly-report', {
+      actual: 1,
+      budget: 1,
+    });
 
-    assert.equal(get(model, 'actual_str'), '$5.00');
+    assert.notOk(model.budgetActualBalanceAlert);
+
+    model.actual = 2;
+
+    assert.ok(model.budgetActualBalanceAlert);
+
+    model.budget = 3;
+
+    assert.notOk(model.budgetActualBalanceAlert);
   });
 
-  test('should have correct actual_str when actual_cents=12345', function(assert) {
+  test('it has the correct budgetActualBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 12345);
+    const model = store.createRecord('monthly-report', {
+      actual: 1,
+      budget: 1,
+    });
 
-    assert.equal(get(model, 'actual_str'), '$123.45');
+    assert.equal(model.budgetActualBalanceStr, '-');
+
+    model.actual = '5.00';
+    model.budget = '10.00';
+
+    assert.equal(model.budgetActualBalanceStr, '$5.00');
+
+    model.actual = '4941.79';
+    model.budget = '9192.49';
+
+    assert.equal(model.budgetActualBalanceStr, '$4,250.70');
+
+    model.actual = '10.00';
+    model.budget = '5.00';
+
+    assert.equal(model.budgetActualBalanceStr, '$-5.00');
+
+    model.actual = '4826.18';
+    model.budget = '2449.83';
+
+    assert.equal(model.budgetActualBalanceStr, '$-2,376.35');
   });
 
-  test('should have budget_actual_diff_alert=false when actual_cents < budget_cents', function(assert) {
+  test('it has the correct budgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 1);
-    set(model, 'budget_cents', 2);
+    const model = store.createRecord('monthly-report', {
+      budget: 0,
+    });
 
-    assert.equal(get(model, 'budget_actual_diff_alert'), false);
+    assert.equal(model.budgetStr, '-');
+
+    model.budget = '5.00';
+
+    assert.equal(model.budgetStr, '$5.00');
+
+    model.budget = '1234.56';
+
+    assert.equal(model.budgetStr, '$1,234.56');
+
+    model.budget = '-5.00';
+
+    assert.equal(model.budgetStr, '$-5.00');
+
+    model.budget = '-6543.21';
+
+    assert.equal(model.budgetStr, '$-6,543.21');
   });
 
-  test('should have budget_actual_diff_alert=false when actual_cents = budget_cents', function(assert) {
+  test('it has the correct incomeActualBalanceAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 1);
-    set(model, 'budget_cents', 1);
+    const model = store.createRecord('monthly-report', {
+      budget: 1,
+      income: 1,
+    });
 
-    assert.equal(get(model, 'budget_actual_diff_alert'), false);
+    assert.notOk(model.incomeActualBalanceAlert);
+
+    model.actual = 2;
+
+    assert.ok(model.incomeActualBalanceAlert);
+
+    model.income = 3;
+
+    assert.notOk(model.incomeActualBalanceAlert);
   });
 
-  test('should have budget_actual_diff_alert=true when actual_cents > budget_cents', function(assert) {
+  test('it has the correct incomeActualBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 2);
-    set(model, 'budget_cents', 1);
+    const model = store.createRecord('monthly-report', {
+      actual: 1,
+      income: 1,
+    });
 
-    assert.equal(get(model, 'budget_actual_diff_alert'), true);
+    assert.equal(model.incomeActualBalanceStr, '-');
+
+    model.actual = '5.00';
+    model.income = '10.00';
+
+    assert.equal(model.incomeActualBalanceStr, '$5.00');
+
+    model.actual = '4941.79';
+    model.income = '9192.49';
+
+    assert.equal(model.incomeActualBalanceStr, '$4,250.70');
+
+    model.actual = '10.00';
+    model.income = '5.00';
+
+    assert.equal(model.incomeActualBalanceStr, '$-5.00');
+
+    model.actual = '4826.18';
+    model.income = '2449.83';
+
+    assert.equal(model.incomeActualBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct budget_actual_diff_str when actual_cents=0 and budget_cents=0', function(assert) {
+  test('it has the correct incomeBudgetBalanceAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 0);
-    set(model, 'budget_cents', 0);
+    const model = store.createRecord('monthly-report', {
+      budget: 1,
+      income: 1,
+    });
 
-    assert.equal(get(model, 'budget_actual_diff_str'), '-');
+    assert.notOk(model.incomeBudgetBalanceAlert);
+
+    model.budget = 2;
+
+    assert.ok(model.incomeBudgetBalanceAlert);
+
+    model.income = 3;
+
+    assert.notOk(model.incomeBudgetBalanceAlert);
   });
 
-  test('should have correct budget_actual_diff_str when actual_cents = 500 and budget_cents=1000', function(assert) {
+  test('it has the correct incomeBudgetBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 500);
-    set(model, 'budget_cents', 1000);
+    const model = store.createRecord('monthly-report', {
+      budget: 1,
+      income: 1,
+    });
 
-    assert.equal(get(model, 'budget_actual_diff_str'), '$5.00');
+    assert.equal(model.incomeBudgetBalanceStr, '-');
+
+    model.budget = '5.00';
+    model.income = '10.00';
+
+    assert.equal(model.incomeBudgetBalanceStr, '$5.00');
+
+    model.budget = '4941.79';
+    model.income = '9192.49';
+
+    assert.equal(model.incomeBudgetBalanceStr, '$4,250.70');
+
+    model.budget = '10.00';
+    model.income = '5.00';
+
+    assert.equal(model.incomeBudgetBalanceStr, '$-5.00');
+
+    model.budget = '4826.18';
+    model.income = '2449.83';
+
+    assert.equal(model.incomeBudgetBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct budget_actual_diff_str when actual_cents=1000 and budget_cents=500', function(assert) {
+  test('it has the correct incomeStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 1000);
-    set(model, 'budget_cents', 500);
+    const model = store.createRecord('monthly-report', {
+      income: 0,
+    });
 
-    assert.equal(get(model, 'budget_actual_diff_str'), '$-5.00');
-  });
+    assert.equal(model.incomeStr, '-');
 
-  test('should have correct budget_actual_diff_str when actual_cents=11560 and budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 11560);
-    set(model, 'budget_cents', 33534);
+    model.income = '5.00';
 
-    assert.equal(get(model, 'budget_actual_diff_str'), '$219.74');
-  });
+    assert.equal(model.incomeStr, '$5.00');
 
-  test('should have correct budget_str when budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 0);
+    model.income = '1234.56';
 
-    assert.equal(get(model, 'budget_str'), '-');
-  });
+    assert.equal(model.incomeStr, '$1,234.56');
 
-  test('should have correct budget_str when budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 500);
+    model.income = '-5.00';
 
-    assert.equal(get(model, 'budget_str'), '$5.00');
-  });
+    assert.equal(model.incomeStr, '$-5.00');
 
-  test('should have correct budget_str when budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 12345);
+    model.income = '-6543.21';
 
-    assert.equal(get(model, 'budget_str'), '$123.45');
-  });
-
-  test('should have income_actual_diff_alert=false when actual_cents < income_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 1);
-    set(model, 'income_cents', 2);
-
-    assert.equal(get(model, 'income_actual_diff_alert'), false);
-  });
-
-  test('should have income_actual_diff_alert=false when actual_cents = income_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 1);
-    set(model, 'income_cents', 1);
-
-    assert.equal(get(model, 'income_actual_diff_alert'), false);
-  });
-
-  test('should have income_actual_diff_alert=true when actual_cents > income_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 2);
-    set(model, 'income_cents', 1);
-
-    assert.equal(get(model, 'income_actual_diff_alert'), true);
-  });
-
-  test('should have correct income_actual_diff_str when actual_cents=0 and income_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 0);
-    set(model, 'income_cents', 0);
-
-    assert.equal(get(model, 'income_actual_diff_str'), '-');
-  });
-
-  test('should have correct income_actual_diff_str when actual_cents=500 and income_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 500);
-    set(model, 'income_cents', 1000);
-
-    assert.equal(get(model, 'income_actual_diff_str'), '$5.00');
-  });
-
-  test('should have correct income_actual_diff_str when actual_cents=1000 and income_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 1000);
-    set(model, 'income_cents', 500);
-
-    assert.equal(get(model, 'income_actual_diff_str'), '$-5.00');
-  });
-
-  test('should have correct income_actual_diff_str when actual_cents=11560 and income_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'actual_cents', 11560);
-    set(model, 'income_cents', 33534);
-
-    assert.equal(get(model, 'income_actual_diff_str'), '$219.74');
-  });
-
-  test('should have income_budget_diff_alert=false when budget_cents < income_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 1);
-    set(model, 'income_cents', 2);
-
-    assert.equal(get(model, 'income_budget_diff_alert'), false);
-  });
-
-  test('should have income_budget_diff_alert=false when budget_cents = income_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 1);
-    set(model, 'income_cents', 1);
-
-    assert.equal(get(model, 'income_budget_diff_alert'), false);
-  });
-
-  test('should have income_budget_diff_alert=true when budget_cents > income_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 2);
-    set(model, 'income_cents', 1);
-
-    assert.equal(get(model, 'income_budget_diff_alert'), true);
-  });
-
-  test('should have correct income_budget_diff_str when budget_cents=0 and income_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 0);
-    set(model, 'income_cents', 0);
-
-    assert.equal(get(model, 'income_budget_diff_str'), '-');
-  });
-
-  test('should have correct income_budget_diff_str when budget_cents=500 and income_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 500);
-    set(model, 'income_cents', 1000);
-
-    assert.equal(get(model, 'income_budget_diff_str'), '$5.00');
-  });
-
-  test('should have correct income_budget_diff_str when budget_cents=1000 and income_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 1000);
-    set(model, 'income_cents', 500);
-
-    assert.equal(get(model, 'income_budget_diff_str'), '$-5.00');
-  });
-
-  test('should have correct income_budget_diff_str when budget_cents=11560 and income_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'budget_cents', 11560);
-    set(model, 'income_cents', 33534);
-
-    assert.equal(get(model, 'income_budget_diff_str'), '$219.74');
-  });
-
-  test('should have correct income_str when income_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'income_cents', 0);
-
-    assert.equal(get(model, 'income_str'), '-');
-  });
-
-  test('should have correct income_str when income_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'income_cents', 500);
-
-    assert.equal(get(model, 'income_str'), '$5.00');
-  });
-
-  test('should have correct income_str when income_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('monthly-report', {});
-    set(model, 'income_cents', 12345);
-
-    assert.equal(get(model, 'income_str'), '$123.45');
+    assert.equal(model.incomeStr, '$-6,543.21');
   });
 });

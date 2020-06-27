@@ -1,0 +1,10 @@
+<div class="container-sm">
+  <h1>New Expense</h1>
+  <Forms::Expense
+    @expense={{this.expense}}
+    @householdMembers={{this.householdMembers}}
+    @subcategories={{this.subcategories}}
+    @vendors={{this.vendors}}
+    @saveSuccessful={{fn this.transitionToExpenseDetails}}
+  />
+</div>

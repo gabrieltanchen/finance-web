@@ -1,31 +1,32 @@
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { set } from '@ember/object';
-import VendorValidations from '../../validations/vendor';
+import { action } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  queryParams: ['create', 'limit', 'page'],
-  meta: null,
-  tableColumns: [{
-    isLink: true,
-    linkParam: 'id',
-    linkTo: 'vendors.show',
+export default class VendorsIndexController extends Controller {
+  queryParams = ['page'];
+
+  @alias('model') vendors;
+  @tracked page = null;
+
+  tableColumns = [{
     name: 'Name',
     propertyName: 'name',
   }, {
     name: 'Created At',
-    propertyName: 'created_at',
-  }],
-  VendorValidations,
-  newVendor: alias('model.newVendor'),
-  vendors: alias('model.vendors'),
+    propertyName: 'createdAt',
+  }, {
+    linkText: 'View',
+    linkTo: 'vendors.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'vendors.edit',
+    name: '',
+  }];
 
-  actions: {
-    closeCreateForm() {
-      set(this, 'create', null);
-    },
-    showCreateForm() {
-      set(this, 'create', true);
-    },
-  },
-});
+  @action
+  setPage(page) {
+    this.page = page;
+  }
+}

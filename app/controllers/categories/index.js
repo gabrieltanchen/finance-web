@@ -1,32 +1,32 @@
 import Controller from '@ember/controller';
-import { set } from '@ember/object';
+import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-import CategoryValidations from '../../validations/category';
+export default class CategoriesIndexController extends Controller {
+  queryParams = ['page'];
 
-export default Controller.extend({
-  queryParams: ['create', 'limit', 'page'],
-  CategoryValidations,
-  meta: null,
-  tableColumns: [{
-    isLink: true,
-    linkParam: 'id',
-    linkTo: 'categories.show',
+  @alias('model') categories;
+  @tracked page = null;
+
+  tableColumns = [{
     name: 'Name',
     propertyName: 'name',
   }, {
     name: 'Created At',
-    propertyName: 'created_at',
-  }],
-  categories: alias('model.categories'),
-  newCategory: alias('model.newCategory'),
+    propertyName: 'createdAt',
+  }, {
+    linkText: 'View',
+    linkTo: 'categories.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'categories.edit',
+    name: '',
+  }];
 
-  actions: {
-    closeCreateForm() {
-      set(this, 'create', null);
-    },
-    showCreateForm() {
-      set(this, 'create', true);
-    },
-  },
-});
+  @action
+  setPage(page) {
+    this.page = page;
+  }
+}

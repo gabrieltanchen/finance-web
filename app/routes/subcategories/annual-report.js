@@ -1,25 +1,22 @@
 import Route from '@ember/routing/route';
-import { get } from '@ember/object';
-import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
-export default Route.extend({
-  session: service(),
+export default class SubcategoriesAnnualReportRoute extends Route {
+  @service session;
 
   async beforeModel() {
-    if (!(await get(this, 'session').isLoggedIn())) {
+    if (!(await this.session.isLoggedIn())) {
       this.transitionTo('login');
     }
-  },
+  }
 
-  async model(params) {
-    const subcategory = await this.store.findRecord('subcategory', params.subcategory_uuid);
+  model(params) {
     return RSVP.hash({
-      annualReports: get(this, 'store').query('subcategory-annual-report', {
-        subcategory_uuid: params.subcategory_uuid,
+      annualReports: this.store.query('subcategory-annual-report', {
+        subcategory_id: params.subcategory_id,
       }),
-      category: await subcategory.category,
-      subcategory,
+      subcategory: this.store.findRecord('subcategory', params.subcategory_id),
     });
-  },
-});
+  }
+}

@@ -1,12 +1,19 @@
 $black: #000;
 $white: #fff;
+$grey: #808080;
 
-$alert-colour: #cc4b37;
-$background-colour: #1d2d44;
-$background-overlay: rgba(0, 0, 0, .5);
-$link-colour: #3e5c76;
-$link-hover-colour: #1d2d44;
-$success-colour: #3adb76;
+$primary-colour: #00ced1;
+$success-colour: #e1faea;
+$success-text-colour: #1eae53;
+$warning-colour: #fff3d9;
+$alert-colour: #f7e4e1;
+$alert-text-colour: #c94936;
+$link-colour: #00ced1;
+$alert-button-colour: #cc4b37;
+$cancel-button-colour: #dcdcdc;
 
-$nav-menu-link-colour: #f0ebd8;
-$nav-menu-link-hover-colour: #748cab;
+$black-alpha-25: rgba(0, 0, 0, 0.25);
+$black-alpha-50: rgba(0, 0, 0, 0.5);
+
+$border-light-grey: #dcdcdc;
+$border-dark-grey: #696969;

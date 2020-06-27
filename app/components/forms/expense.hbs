@@ -1,0 +1,78 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form class="expense-form" {{on "submit" this.save}}>
+  <div class="expense-subcategory">
+    <label for="expense-subcategory-select">Subcategory</label>
+    <PowerSelect
+      @search={{action this.updateSubcategorySearch}}
+      @searchEnabled={{true}}
+      @options={{@subcategories}}
+      @searchField="name"
+      @selected={{@expense.subcategory}}
+      @onChange={{action this.selectSubcategory}}
+      @triggerId="expense-subcategory-select"
+      as |subcategory|
+    >
+      {{subcategory.category.name}} - {{subcategory.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="expense-vendor-select">Vendor</label>
+    <PowerSelect
+      @search={{action this.updateVendorSearch}}
+      @searchEnabled={{true}}
+      @options={{@vendors}}
+      @searchField="name"
+      @selected={{@expense.vendor}}
+      @onChange={{action this.selectVendor}}
+      @triggerId="expense-vendor-select"
+      as |vendor|
+    >
+      {{vendor.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="expense-household-member-select">Member</label>
+    <PowerSelect
+      @search={{action this.updateHouseholdMemberSearch}}
+      @searchEnabled={{true}}
+      @options={{@householdMembers}}
+      @searchField="name"
+      @selected={{@expense.householdMember}}
+      @onChange={{action this.selectHouseholdMember}}
+      @triggerId="expense-household-member-select"
+      as |householdMember|
+    >
+      {{householdMember.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="expense-date-input">Date</label>
+    <PikadayInput
+      @value={{@expense.date}} id="expense-date-input"
+      @onSelection={{action "dateSelected"}}
+      @format={{"YYYY-MM-DD"}}
+      @useUTC={{true}}
+    />
+  </div>
+  <div>
+    <label for="expense-description-input">Description</label>
+    <Input @value={{@expense.description}} @type="text" id="expense-description-input" />
+  </div>
+  <div>
+    <label for="expense-amount-input">Amount</label>
+    <Input @value={{@expense.amount}} @type="text" id="expense-amount-input" />
+  </div>
+  <div>
+    <label for="expense-reimbursed-input">Reimbursed Amount</label>
+    <Input @value={{@expense.reimbursedAmount}} @type="text" id="expense-reimbursed-input" />
+  </div>
+  <div class="expense-submit">
+    <Input @value="Save" @type="submit" id="expense-submit" />
+  </div>
+</form>

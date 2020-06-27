@@ -1,0 +1,32 @@
+<div class="container-lg">
+  <h1>Subcategory - {{this.subcategory.name}}</h1>
+  <Menus::SubcategoryItem @subcategoryId={{this.subcategory.id}} />
+</div>
+<div class="container-sm">
+  <LinkTo @route="subcategories.edit" @model={{this.subcategory.id}} class="button">
+    Edit
+  </LinkTo>
+  <button class="button alert" {{on "click" this.openDeleteModal}}>
+    Delete
+  </button>
+</div>
+{{#if showDeleteModal}}
+  <div class="overlay">
+    <div class="container-sm modal">
+      {{#if this.deleteErrors}}
+        <div class="callout alert">
+          {{#each this.deleteErrors as |error|}}
+            <p>{{error}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
+      <p>Are you sure you want to delete subcategory <span>{{this.subcategory.name}}</span>?</p>
+      <button class="button alert" {{on "click" this.deleteSubcategory}}>
+        Delete
+      </button>
+      <button class="button cancel" {{on "click" this.closeDeleteModal}}>
+        Cancel
+      </button>
+    </div>
+  </div>
+{{/if}}

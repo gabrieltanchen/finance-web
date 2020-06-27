@@ -1,52 +1,29 @@
 import Route from '@ember/routing/route';
-import { get, set } from '@ember/object';
-import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
-export default Route.extend({
-  session: service(),
-  queryParams: {
-    create: {
-      refreshModel: true,
-    },
-    limit: {
-      refreshModel: true,
-    },
+export default class SubcategoriesBudgetsRoute extends Route {
+  @service session;
+
+  queryParams = {
     page: {
       refreshModel: true,
     },
-  },
+  }
 
   async beforeModel() {
-    if (!(await get(this, 'session').isLoggedIn())) {
+    if (!(await this.session.isLoggedIn())) {
       this.transitionTo('login');
     }
-  },
+  }
 
-  async model(params) {
-    const subcategory = await this.store.findRecord('subcategory', params.subcategory_uuid);
-    let newBudget = null;
-    if (params.create === 'true') {
-      newBudget = this.store.createRecord('budget', {
-        subcategory,
-      });
-    }
+  model(params) {
     return RSVP.hash({
-      budgets: get(this, 'store').query('budget', {
-        limit: params.limit,
+      budgets: this.store.query('budget', {
         page: params.page,
-        subcategory_uuid: params.subcategory_uuid,
+        subcategory_id: params.subcategory_id,
       }),
-      category: await subcategory.category,
-      newBudget,
-      subcategory,
+      subcategory: this.store.findRecord('subcategory', params.subcategory_id),
     });
-  },
-
-  setupController(controller, model) {
-    this._super(controller, model);
-    if (model.budgets.meta) {
-      set(controller, 'meta', model.budgets.meta);
-    }
-  },
-});
+  }
+}

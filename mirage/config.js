@@ -1,4 +1,5 @@
 import Mirage from 'ember-cli-mirage';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function() {
   this.get('/budget-reports', () => {
@@ -8,138 +9,72 @@ export default function() {
       'data': [],
     });
   });
-  this.get('/budgets', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': [],
-    });
-  });
-  this.post('/budgets', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes['budget-cents']
-        && params.data.attributes['budget-cents'] === 400) {
-      return new Mirage.Response(403, {
-        'Content-Type': 'application/vnd.api+json',
-      }, {
-        errors: [{
-          detail: 'Test error.',
-        }],
+
+  this.get('/budgets', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'amount': 1,
+          'month': 1,
+          'year': 2020,
+        },
+        'id': uuidv4(),
+        'type': 'budgets',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'amount': 1,
+            'month': ind % 12,
+            'year': 2018 + parseInt(ind / 12, 10),
+          },
+          'id': uuidv4(),
+          'type': 'budgets',
+        };
       });
     }
-    return new Mirage.Response(201, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'budget': params.data.attributes.budget,
-          'budget-cents': params.data.attributes['budget-cents'],
-          'month': params.data.attributes.month,
-          'year': params.data.attributes.year,
-        },
-        'id': 'af805297-150c-4c66-adc1-a457d62160a4',
-        'type': 'budgets',
-      },
-    });
-  });
-  this.delete('/budgets/af805297-150c-4c66-adc1-a457d62160a4', () => {
-    return new Mirage.Response(204, {
-      'Content-Type': 'application/vnd.api+json',
-    });
-  });
-  this.get('/budgets/af805297-150c-4c66-adc1-a457d62160a4', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': {
-        'attributes': {
-          'budget': 5.64,
-          'budget-cents': 564,
-          'month': 3,
-          'year': 2019,
-        },
-        'id': 'af805297-150c-4c66-adc1-a457d62160a4',
-        'relationships': {
-          'subcategory': {
-            'data': {
-              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
-              'type': 'subcategories',
-            },
-          },
-        },
-        'type': 'budgets',
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
       },
     });
   });
-  this.patch('/budgets/af805297-150c-4c66-adc1-a457d62160a4', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes['budget-cents']
-        && params.data.attributes['budget-cents'] === 400) {
-      return new Mirage.Response(403, {
-        'Content-Type': 'application/vnd.api+json',
-      }, {
-        errors: [{
-          detail: 'Test error.',
-        }],
+
+  this.get('/categories', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Category 26',
+        },
+        'id': uuidv4(),
+        'type': 'categories',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Category ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'categories',
+        };
       });
     }
-    return new Mirage.Response(201, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'budget': params.data.attributes.budget,
-          'budget-cents': params.data.attributes['budget-cents'],
-          'month': params.data.attributes.month,
-          'year': params.data.attributes.year,
-        },
-        'id': 'af805297-150c-4c66-adc1-a457d62160a4',
-        'type': 'budgets',
-      },
-    });
-  });
-  this.delete('/budgets/acf1d59c-3d7d-4fc1-939b-5566e3d35685', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.get('/budgets/acf1d59c-3d7d-4fc1-939b-5566e3d35685', () => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': {
-        'attributes': {
-          'budget': 1,
-          'budget-cents': 100,
-          'month': 3,
-          'year': 2019,
-        },
-        'id': 'acf1d59c-3d7d-4fc1-939b-5566e3d35685',
-        'relationships': {
-          'subcategory': {
-            'data': {
-              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
-              'type': 'subcategories',
-            },
-          },
-        },
-        'type': 'budgets',
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
       },
-    });
-  });
-  this.get('/categories', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': [],
     });
   });
   this.post('/categories', (db, request) => {
@@ -152,7 +87,9 @@ export default function() {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test category post error 1.',
+        }, {
+          detail: 'Test category post error 2.',
         }],
       });
     }
@@ -163,65 +100,53 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
+        'id': 'ba4fa7e8-ebb2-4b56-9639-15411e05356d',
         'type': 'categories',
       },
     });
   });
-  this.delete('/categories/ad16b2f5-1dbc-4716-bb0a-96f78add961c', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.delete('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee', () => {
-    return new Mirage.Response(204, {
-      'Content-Type': 'application/vnd.api+json',
-    });
-  });
-  this.get('/categories/ad16b2f5-1dbc-4716-bb0a-96f78add961c', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Hello world',
-        },
-        'id': 'ad16b2f5-1dbc-4716-bb0a-96f78add961c',
-        'type': 'categories',
-      },
-    });
-  });
-  this.get('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Hello world',
-        },
-        'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
-        'type': 'categories',
-      },
-    });
-  });
-  this.patch('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.name
-        && params.data.attributes.name === 'Error Category') {
+  this.delete('/categories/:id', (db, request) => {
+    if (request.params.id === 'fa418da1-c598-41f5-a5e7-192d023e74ed') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test category delete error 1.',
+        }, {
+          detail: 'Test category delete error 2.',
         }],
       });
     }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/categories/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Category',
+        },
+        'id': request.params.id,
+        'type': 'categories',
+      },
+    });
+  });
+  this.patch('/categories/:id', (db, request) => {
+    if (request.params.id === 'e99f2eba-b6f5-4563-99b9-8e30224b4d5a') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test category patch error 1.',
+        }, {
+          detail: 'Test category patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
@@ -229,17 +154,47 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
+        'id': request.params.id,
         'type': 'categories',
       },
     });
   });
 
-  this.get('/expenses', () => {
+  this.get('/expenses', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'amount': 1,
+          'date': '2020-01-01',
+          'description': 'Expense 26',
+          'reimbursed-amount': 0,
+        },
+        'id': uuidv4(),
+        'type': 'expenses',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'amount': 1,
+            'date': '2020-01-01',
+            'description': `Expense ${ind}`,
+            'reimbursed-amount': 0,
+          },
+          'id': uuidv4(),
+          'type': 'expenses',
+        };
+      });
+    }
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': [],
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
     });
   });
   this.post('/expenses', (db, request) => {
@@ -252,7 +207,9 @@ export default function() {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test expense post error 1.',
+        }, {
+          detail: 'Test expense post error 2.',
         }],
       });
     }
@@ -262,165 +219,140 @@ export default function() {
       'data': {
         'attributes': {
           'amount': params.data.attributes.amount,
-          'amount-cents': params.data.attributes['amount-cents'],
-          'category': params.data.attributes.category,
           'date': params.data.attributes.date,
           'description': params.data.attributes.description,
           'reimbursed-amount': params.data.attributes['reimbursed-amount'],
-          'reimbursed-cents': params.data.attributes['reimbursed-cents'],
         },
-        'id': 'ba03c363-0670-43cf-bef7-07cd6bb6694d',
+        'id': '40a4f2d5-fd93-46a3-bdcb-6828168dae28',
         'type': 'expenses',
       },
     });
   });
-  this.delete('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d', () => {
-    return new Mirage.Response(204, {
-      'Content-Type': 'application/vnd.api+json',
-    });
-  });
-  this.get('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'amount': '12.34',
-          'amount-cents': 1234,
-          'date': '2019-01-01',
-          'description': 'Hello world',
-          'reimbursed-amount': '43.21',
-          'reimbursed-cents': 4321,
-        },
-        'id': 'ba03c363-0670-43cf-bef7-07cd6bb6694d',
-        'relationships': {
-          'household-member': {
-            'data': {
-              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
-              'type': 'household-members',
-            },
-          },
-          'subcategory': {
-            'data': {
-              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
-              'type': 'subcategories',
-            },
-          },
-          'vendor': {
-            'data': {
-              'id': '7fdadf7a-9561-4950-aca6-438d554536db',
-              'type': 'vendors',
-            },
-          },
-        },
-        'type': 'expenses',
-      },
-    });
-  });
-  this.patch('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.description
-        && params.data.attributes.description === 'Error Expense') {
+  this.delete('/expenses/:id', (db, request) => {
+    if (request.params.id === '0033fbc2-3211-4e93-805d-b85b363bee39') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test expense delete error 1.',
+        }, {
+          detail: 'Test expense delete error 2.',
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Mirage.Response(204, {
       'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'amount': params.data.attributes.amount,
-          'amount-cents': params.data.attributes['amount-cents'],
-          'category': params.data.attributes.category,
-          'date': params.data.attributes.date,
-          'description': params.data.attributes.description,
-          'reimbursed-amount': params.data.attributes['reimbursed-amount'],
-          'reimbursed-cents': params.data.attributes['reimbursed-cents'],
-        },
-        'id': 'ba03c363-0670-43cf-bef7-07cd6bb6694d',
-        'type': 'expenses',
-      },
     });
   });
-  this.delete('/expenses/b60b0cd4-db77-4da9-a5f0-acf78bd90003', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.get('/expenses/b60b0cd4-db77-4da9-a5f0-acf78bd90003', () => {
+  this.get('/expenses/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
         'attributes': {
-          'amount': '12.34',
-          'amount-cents': 1234,
-          'date': '2019-01-01',
-          'description': 'Hello world',
-          'reimbursed-amount': '43.21',
-          'reimbursed-cents': 4321,
+          'amount': 1000,
+          'date': '2020-01-01',
+          'description': 'Test Expense',
+          'reimbursed-amount': 500,
         },
-        'id': 'b60b0cd4-db77-4da9-a5f0-acf78bd90003',
+        'id': request.params.id,
         'relationships': {
           'household-member': {
             'data': {
-              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+              'id': '39eea981-1054-4614-959c-21a1f450c857',
               'type': 'household-members',
             },
           },
           'subcategory': {
             'data': {
-              'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+              'id': '8e052327-006b-494d-a33b-0e2d951433f9',
               'type': 'subcategories',
             },
           },
           'vendor': {
             'data': {
-              'id': '7fdadf7a-9561-4950-aca6-438d554536db',
+              'id': '06808f93-f422-4145-bb0b-73dfb2619e6f',
               'type': 'vendors',
             },
           },
         },
+        'type': 'expenses',
+      },
+    });
+  });
+  this.patch('/expenses/:id', (db, request) => {
+    if (request.params.id === '20808e7b-c243-47f8-b936-ed7d7577d4d1') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test expense patch error 1.',
+        }, {
+          detail: 'Test expense patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
+          'reimbursed-amount': params.data.attributes['reimbursed-amount'],
+        },
+        'id': request.params.id,
         'type': 'expenses',
       },
     });
   });
 
-  this.get('/household-members', () => {
+  this.get('/household-members', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Member 26',
+        },
+        'id': uuidv4(),
+        'type': 'household-members',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Member ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'household-members',
+        };
+      });
+    }
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': [{
-        'attributes': {
-          'name': 'Household Member 1',
-        },
-        'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
-        'type': 'household-members',
-      }],
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
     });
   });
-  this.post('household-members', (db, request) => {
+  this.post('/household-members', (db, request) => {
     const params = JSON.parse(request.requestBody);
     if (params.data
         && params.data.attributes
         && params.data.attributes.name
-        && params.data.attributes.name === 'Error Member') {
+        && params.data.attributes.name === 'Error Household Member') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test household member post error 1.',
+        }, {
+          detail: 'Test household member post error 2.',
         }],
       });
     }
@@ -431,65 +363,53 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '79ae35d8-01d4-4d73-a415-ba1d6265e39f',
+        'id': '3e1b0321-d588-405e-a227-8ce545ffd837',
         'type': 'household-members',
       },
     });
   });
-  this.delete('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', () => {
-    return new Mirage.Response(204, {
-      'Content-Type': 'application/vnd.api+json',
-    });
-  });
-  this.delete('/household-members/fa41378d-8c5a-4ff0-b61f-e7726cb13ddb', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.get('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Household Member 1',
-        },
-        'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
-        'type': 'household-members',
-      },
-    });
-  });
-  this.get('/household-members/fa41378d-8c5a-4ff0-b61f-e7726cb13ddb', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Household Member 2',
-        },
-        'id': 'fa41378d-8c5a-4ff0-b61f-e7726cb13ddb',
-        'type': 'household-members',
-      },
-    });
-  });
-  this.patch('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.name
-        && params.data.attributes.name === 'Error Member') {
+  this.delete('/household-members/:id', (db, request) => {
+    if (request.params.id === 'e05557f8-1010-4978-86fb-0cdbe71ef811') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test household member delete error 1.',
+        }, {
+          detail: 'Test household member delete error 2.',
         }],
       });
     }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/household-members/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Household Member',
+        },
+        'id': request.params.id,
+        'type': 'household-members',
+      },
+    });
+  });
+  this.patch('/household-members/:id', (db, request) => {
+    if (request.params.id === 'e05557f8-1010-4978-86fb-0cdbe71ef811') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test household member patch error 1.',
+        }, {
+          detail: 'Test household member patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
@@ -497,17 +417,45 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
+        'id': request.params.id,
         'type': 'household-members',
       },
     });
   });
 
-  this.get('/incomes', () => {
+  this.get('/incomes', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'amount': 1000,
+          'date': '2020-01-01',
+          'description': 'Income 26',
+        },
+        'id': uuidv4(),
+        'type': 'incomes',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'amount': 1000,
+            'date': '2020-01-01',
+            'description': `Income ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'incomes',
+        };
+      });
+    }
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': [],
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
     });
   });
   this.post('/incomes', (db, request) => {
@@ -520,7 +468,9 @@ export default function() {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test income post error 1.',
+        }, {
+          detail: 'Test income post error 2.',
         }],
       });
     }
@@ -530,102 +480,68 @@ export default function() {
       'data': {
         'attributes': {
           'amount': params.data.attributes.amount,
-          'amount-cents': params.data.attributes['amount-cents'],
           'date': params.data.attributes.date,
           'description': params.data.attributes.description,
         },
-        'id': 'f347b74e-5980-4324-b629-98490f74ed53',
+        'id': '1bb74fb6-30c1-480d-a0ed-4d7b36d93168',
         'type': 'incomes',
       },
     });
   });
-  this.delete('/incomes/f347b74e-5980-4324-b629-98490f74ed53', () => {
-    return new Mirage.Response(204, {
-      'Content-Type': 'application/vnd.api+json',
-    });
-  });
-  this.get('/incomes/f347b74e-5980-4324-b629-98490f74ed53', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'amount': '12.34',
-          'amount-cents': 1234,
-          'date': '2020-01-01',
-          'description': 'Hello world',
-        },
-        'id': 'f347b74e-5980-4324-b629-98490f74ed53',
-        'relationships': {
-          'household-member': {
-            'data': {
-              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
-              'type': 'household-members',
-            },
-          },
-        },
-        'type': 'incomes',
-      },
-    });
-  });
-  this.patch('/incomes/f347b74e-5980-4324-b629-98490f74ed53', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.description
-        && params.data.attributes.description === 'Error Income') {
+  this.delete('/incomes/:id', (db, request) => {
+    if (request.params.id === 'b2a60746-3bb4-47b6-978a-4af4cdb68d2e') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test income delete error 1.',
+        }, {
+          detail: 'Test income delete error 2.',
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Mirage.Response(204, {
       'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'amount': params.data.attributes.amount,
-          'amount-cents': params.data.attributes['amount-cents'],
-          'date': params.data.attributes.date,
-          'description': params.data.attributes.description,
-        },
-        'id': 'f347b74e-5980-4324-b629-98490f74ed53',
-        'type': 'incomes',
-      },
     });
   });
-  this.delete('/incomes/b1c89087-1da8-40d5-a43d-e391f8e6b68a', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.get('/incomes/b1c89087-1da8-40d5-a43d-e391f8e6b68a', () => {
+  this.get('/incomes/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
         'attributes': {
-          'amount': '12.34',
-          'amount-cents': 1234,
+          'amount': 1000,
           'date': '2020-01-01',
-          'description': 'Hello world',
+          'description': 'Test Income',
         },
-        'id': 'b1c89087-1da8-40d5-a43d-e391f8e6b68a',
-        'relationships': {
-          'household-member': {
-            'data': {
-              'id': '6c8e8279-1d98-47ad-aa9a-bf41d57e1db7',
-              'type': 'household-members',
-            },
-          },
+        'id': request.params.id,
+        'type': 'incomes',
+      },
+    });
+  });
+  this.patch('/incomes/:id', (db, request) => {
+    if (request.params.id === '09571b16-7f41-404a-8387-a18b97cbad8e') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test income patch error 1.',
+        }, {
+          detail: 'Test income patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+          'description': params.data.attributes.description,
         },
+        'id': request.params.id,
         'type': 'incomes',
       },
     });
@@ -637,9 +553,9 @@ export default function() {
     }, {
       'data': {
         'attributes': {
-          'actual-cents': 0,
-          'budget-cents': 0,
-          'income-cents': 0,
+          'actual': 0,
+          'budget': 0,
+          'income': 0,
         },
         'id': request.params.id,
         'type': 'monthly-reports',
@@ -647,11 +563,35 @@ export default function() {
     });
   });
 
-  this.get('/subcategories', () => {
+  this.get('/subcategories', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Subcategory 26',
+        },
+        'id': uuidv4(),
+        'type': 'subcategories',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Subcategory ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'subcategories',
+        };
+      });
+    }
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': [],
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
     });
   });
   this.post('/subcategories', (db, request) => {
@@ -659,12 +599,14 @@ export default function() {
     if (params.data
         && params.data.attributes
         && params.data.attributes.name
-        && params.data.attributes.name === 'Error Category') {
+        && params.data.attributes.name === 'Error Subcategory') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test subcategory post error 1.',
+        }, {
+          detail: 'Test subcategory post error 2.',
         }],
       });
     }
@@ -675,38 +617,40 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'id': 'e79685f1-9419-4f88-b2d6-6b5c1f75758b',
         'type': 'subcategories',
       },
     });
   });
-  this.delete('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', () => {
+  this.delete('/subcategories/:id', (db, request) => {
+    if (request.params.id === '1187060b-8321-4cfb-b3bf-f2d7a8b501b3') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test subcategory delete error 1.',
+        }, {
+          detail: 'Test subcategory delete error 2.',
+        }],
+      });
+    }
     return new Mirage.Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
-  this.delete('/subcategories/dfa36b20-55cb-466e-ab55-ff3ffd48388f', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.get('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', () => {
+  this.get('/subcategories/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
         'attributes': {
-          'name': 'Hello world',
+          'name': 'Test Subcategory',
         },
-        'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'id': request.params.id,
         'relationships': {
           'category': {
             'data': {
-              'id': '14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee',
+              'id': 'd44a4e6e-90d7-4574-b5c8-eb5c0772e1a1',
               'type': 'categories',
             },
           },
@@ -715,72 +659,48 @@ export default function() {
       },
     });
   });
-  this.get('/subcategories/dfa36b20-55cb-466e-ab55-ff3ffd48388f', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Hello world',
-        },
-        'id': 'dfa36b20-55cb-466e-ab55-ff3ffd48388f',
-        'type': 'subcategories',
-      },
-    });
-  });
-  this.patch('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.name
-        && params.data.attributes.name === 'Error Category') {
+  this.patch('/subcategories/:id', (db, request) => {
+    if (request.params.id === '1e89e24d-82bc-4f8b-a4e9-d0d2550bd0dd') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test subcategory patch error 1.',
+        }, {
+          detail: 'Test subcategory patch error 2.',
         }],
       });
     }
-    return new Mirage.Response(201, {
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '6948ad4c-f78b-4ce5-b7d5-0b552234fc4e',
+        'id': request.params.id,
         'type': 'subcategories',
       },
     });
   });
 
-  this.post('/users', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.email
-        && params.data.attributes.email === 'hello@error.com') {
-      return new Mirage.Response(403, {
-        'Content-Type': 'application/vnd.api+json',
-      }, {
-        errors: [{
-          detail: 'Test error.',
-        }],
-      });
-    }
-    return new Mirage.Response(201, {
+  this.get('/subcategory-annual-reports', () => {
+    return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': {
-        'attributes': {
-          'email': params.data.attributes.email,
-          'first-name': params.data.attributes['first-name'],
-          'last-name': params.data.attributes['last-name'],
-          'token': 'token',
-        },
-        'id': '07ae7b13-338c-4ac0-a122-615075066527',
-        'type': 'users',
+      'data': [...Array(5).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'year': 2015 + ind,
+          },
+          'id': uuidv4(),
+          'type': 'subcategory-annual-reports',
+        };
+      }),
+      'meta': {
+        'pages': 2,
+        'total': 6,
       },
     });
   });
@@ -795,7 +715,9 @@ export default function() {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test login error 1',
+        }, {
+          detail: 'Test login error 2',
         }],
       });
     }
@@ -810,51 +732,40 @@ export default function() {
           'token': 'token',
         },
         'id': '07ae7b13-338c-4ac0-a122-615075066527',
-        'type': 'suers',
+        'type': 'login-users',
       },
     });
   });
 
-  this.post('/users/login/token', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.token
-        && params.data.attributes.token === 'invalidtoken') {
-      return new Mirage.Response(403, {
-        'Content-Type': 'application/vnd.api+json',
-      }, {
-        errors: [{
-          detail: 'Test error.',
-        }],
+  this.get('/vendors', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Vendor 26',
+        },
+        'id': uuidv4(),
+        'type': 'vendors',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Vendor ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'vendors',
+        };
       });
     }
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
-      'data': {
-        'attributes': {
-          'email': 'hello@mail.com',
-          'first-name': 'John',
-          'last-name': 'Smith',
-        },
-        'id': '07ae7b13-338c-4ac0-a122-615075066527',
-        'type': 'suers',
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
       },
-    });
-  });
-
-  this.get('/vendors', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': [{
-        'attributes': {
-          'name': 'Vendor 1',
-        },
-        'id': '7fdadf7a-9561-4950-aca6-438d554536db',
-        'type': 'vendors',
-      }],
     });
   });
   this.post('/vendors', (db, request) => {
@@ -867,7 +778,9 @@ export default function() {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test vendor post error 1.',
+        }, {
+          detail: 'Test vendor post error 2.',
         }],
       });
     }
@@ -878,65 +791,53 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': 'b6f0441e-bdee-4172-a646-4d8c9191db57',
+        'id': '7933a7b5-5c56-43ab-ae16-5bfdf21b03b5',
         'type': 'vendors',
       },
     });
   });
-  this.delete('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', () => {
-    return new Mirage.Response(204, {
-      'Content-Type': 'application/vnd.api+json',
-    });
-  });
-  this.delete('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57', () => {
-    return new Mirage.Response(403, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      errors: [{
-        detail: 'Test error.',
-      }],
-    });
-  });
-  this.get('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Vendor 1',
-        },
-        'id': '7fdadf7a-9561-4950-aca6-438d554536db',
-        'type': 'vendors',
-      },
-    });
-  });
-  this.get('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57', () => {
-    return new Mirage.Response(200, {
-      'Content-Type': 'application/vnd.api+json',
-    }, {
-      'data': {
-        'attributes': {
-          'name': 'Hello world',
-        },
-        'id': 'b6f0441e-bdee-4172-a646-4d8c9191db57',
-        'type': 'vendors',
-      },
-    });
-  });
-  this.patch('/vendors/7fdadf7a-9561-4950-aca6-438d554536db', (db, request) => {
-    const params = JSON.parse(request.requestBody);
-    if (params.data
-        && params.data.attributes
-        && params.data.attributes.name
-        && params.data.attributes.name === 'Error Vendor') {
+  this.delete('/vendors/:id', (db, request) => {
+    if (request.params.id === 'b6f0441e-bdee-4172-a646-4d8c9191db57') {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test error.',
+          detail: 'Test vendor delete error 1.',
+        }, {
+          detail: 'Test vendor delete error 2.',
         }],
       });
     }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/vendors/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Vendor',
+        },
+        'id': request.params.id,
+        'type': 'vendors',
+      },
+    });
+  });
+  this.patch('/vendors/:id', (db, request) => {
+    if (request.params.id === 'b6f0441e-bdee-4172-a646-4d8c9191db57') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test vendor patch error 1.',
+        }, {
+          detail: 'Test vendor patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
@@ -944,7 +845,7 @@ export default function() {
         'attributes': {
           'name': params.data.attributes.name,
         },
-        'id': '7fdadf7a-9561-4950-aca6-438d554536db',
+        'id': request.params.id,
         'type': 'vendors',
       },
     });

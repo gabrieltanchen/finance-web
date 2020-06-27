@@ -1,27 +1,25 @@
-import DS from 'ember-data';
-import {
-  computed,
-  get,
-  observer,
-  set,
-} from '@ember/object';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  budget: DS.attr('number'),
-  budget_cents: DS.attr('number'),
-  created_at: DS.attr('date'),
-  month: DS.attr('number'),
-  year: DS.attr('number'),
+export default class BudgetModel extends Model {
+  @attr('dollars') amount;
+  @attr('date') createdAt;
+  @attr('number') month;
+  @attr('number') year;
 
-  subcategory: DS.belongsTo('subcategory'),
+  @belongsTo('subcategory') subcategory;
 
-  budget_str: computed('budget', function() {
-    if (get(this, 'budget') === 0) {
+  get amountStr() {
+    if (parseFloat(this.amount) === 0) {
       return '-';
     }
-    return `$${get(this, 'budget').toFixed(2)}`;
-  }),
-  month_name: computed('month', function() {
+    const amountStr = parseFloat(this.amount).toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${amountStr}`;
+  }
+
+  get monthStr() {
     const months = [
       'January',
       'February',
@@ -36,13 +34,6 @@ export default DS.Model.extend({
       'November',
       'December',
     ];
-    return months[get(this, 'month')];
-  }),
-
-  budgetChanged: observer('budget', function() {
-    set(this, 'budget_cents', parseInt((get(this, 'budget') * 100).toFixed(0), 10));
-  }),
-  budgetCentsChanged: observer('budget_cents', function() {
-    set(this, 'budget', get(this, 'budget_cents') / 100);
-  }),
-});
+    return months[this.month];
+  }
+}

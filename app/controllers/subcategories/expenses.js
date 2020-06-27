@@ -1,16 +1,16 @@
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { get, set } from '@ember/object';
-import ExpenseValidations from '../../validations/expense';
+import { action } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  queryParams: ['create', 'limit', 'page'],
-  ExpenseValidations,
-  meta: null,
-  tableColumns: [{
-    isLink: true,
-    linkParam: 'id',
-    linkTo: 'expenses.show',
+export default class SubcategoriesExpensesController extends Controller {
+  queryParams = ['page'];
+
+  @alias('model.expenses') expenses;
+  @alias('model.subcategory') subcategory;
+  @tracked page = null;
+
+  tableColumns = [{
     name: 'Date',
     propertyName: 'date',
   }, {
@@ -18,37 +18,28 @@ export default Controller.extend({
     propertyName: 'vendor.name',
   }, {
     name: 'Member',
-    propertyName: 'household_member.name',
+    propertyName: 'householdMember.name',
   }, {
     name: 'Description',
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount_str',
+    propertyName: 'amountStr',
   }, {
     name: 'Reimbursed Amount',
-    propertyName: 'reimbursed_amount_str',
-  }],
-  category: alias('model.category'),
-  expenses: alias('model.expenses'),
-  householdMembers: alias('model.householdMembers'),
-  newExpense: alias('model.newExpense'),
-  subcategory: alias('model.subcategory'),
+    propertyName: 'reimbursedAmountStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'expenses.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'expenses.edit',
+    name: '',
+  }];
 
-  actions: {
-    closeCreateForm() {
-      set(this, 'create', null);
-    },
-    async householdMemberSelected(householdMemberId) {
-      const householdMember = await get(this, 'store').findRecord('household-member', householdMemberId);
-      set(get(this, 'newExpense'), 'household_member', householdMember);
-    },
-    showCreateForm() {
-      set(this, 'create', true);
-    },
-    async vendorSelected(vendorId) {
-      const vendor = await get(this, 'store').findRecord('vendor', vendorId);
-      set(get(this, 'newExpense'), 'vendor', vendor);
-    },
-  },
-});
+  @action
+  setPage(page) {
+    this.page = page;
+  }
+}

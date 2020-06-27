@@ -1,0 +1,69 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{#if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="subcategories.show" @model={{@subcategoryId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isExpensesRoute}}
+        <span>
+          <FaIcon @icon="credit-card" @size="sm" />
+          Expenses
+        </span>
+      {{else}}
+        <LinkTo @route="subcategories.expenses" @model={{@subcategoryId}}>
+          <FaIcon @icon="credit-card" @size="sm" />
+          Expenses
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isBudgetsRoute}}
+        <span>
+          <FaIcon @icon="search-dollar" @size="sm" />
+          Budgets
+        </span>
+      {{else}}
+        <LinkTo @route="subcategories.budgets" @model={{@subcategoryId}}>
+          <FaIcon @icon="search-dollar" @size="sm" />
+          Budgets
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isAnnualReportRoute}}
+        <span>
+          <FaIcon @icon="chart-bar" @size="sm" />
+          Annual Report
+        </span>
+      {{else}}
+        <LinkTo @route="subcategories.annual-report" @model={{@subcategoryId}}>
+          <FaIcon @icon="chart-bar" @size="sm" />
+          Annual Report
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="subcategories.settings" @model={{@subcategoryId}}>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

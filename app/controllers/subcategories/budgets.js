@@ -1,36 +1,28 @@
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { set } from '@ember/object';
-import BudgetValidations from '../../validations/budget';
+import { action } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  queryParams: ['create', 'limit', 'page'],
-  BudgetValidations,
-  meta: null,
-  tableColumns: [{
-    isLink: true,
-    linkParam: 'id',
-    linkTo: 'budgets.show',
+export default class SubcategoriesBudgetsController extends Controller {
+  queryParams = ['page'];
+
+  @alias('model.budgets') budgets;
+  @alias('model.subcategory') subcategory;
+  @tracked page = null;
+
+  tableColumns = [{
     name: 'Year',
     propertyName: 'year',
   }, {
     name: 'Month',
-    propertyName: 'month_name',
+    propertyName: 'monthStr',
   }, {
-    name: 'Budget',
-    propertyName: 'budget_str',
-  }],
-  budgets: alias('model.budgets'),
-  category: alias('model.category'),
-  newBudget: alias('model.newBudget'),
-  subcategory: alias('model.subcategory'),
+    name: 'Amount',
+    propertyName: 'amountStr',
+  }];
 
-  actions: {
-    closeCreateForm() {
-      set(this, 'create', null);
-    },
-    showCreateForm() {
-      set(this, 'create', true);
-    },
-  },
-});
+  @action
+  setPage(page) {
+    this.page = page;
+  }
+}

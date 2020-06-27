@@ -1,42 +1,38 @@
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { get, set } from '@ember/object';
-import IncomeValidations from '../../validations/income';
+import { action } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  queryParams: ['create', 'limit', 'page'],
-  meta: null,
-  tableColumns: [{
-    isLink: true,
-    linkParam: 'id',
-    linkTo: 'income.show',
+export default class IncomeIndexController extends Controller {
+  queryParams = ['page'];
+
+  @alias('model') incomes;
+  @tracked page = null;
+
+  tableColumns = [{
     name: 'Date',
     propertyName: 'date',
   }, {
     name: 'Member',
-    propertyName: 'household_member.name',
+    propertyName: 'householdMember.name',
   }, {
     name: 'Description',
     propertyName: 'description',
   }, {
     name: 'Amount',
-    propertyName: 'amount_str',
-  }],
-  householdMembers: alias('model.householdMembers'),
-  incomes: alias('model.incomes'),
-  newIncome: alias('model.newIncome'),
-  IncomeValidations,
+    propertyName: 'amountStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'income.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'income.edit',
+    name: '',
+  }];
 
-  actions: {
-    closeCreateForm() {
-      set(this, 'create', null);
-    },
-    async householdMemberSelected(householdMemberId) {
-      const householdMember = await get(this, 'store').findRecord('household-member', householdMemberId);
-      set(get(this, 'newIncome'), 'household_member', householdMember);
-    },
-    showCreateForm() {
-      set(this, 'create', true);
-    },
-  },
-});
+  @action
+  setPage(page) {
+    this.page = page;
+  }
+}

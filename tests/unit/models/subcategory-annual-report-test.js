@@ -1,6 +1,5 @@
-import { setupTest } from 'ember-qunit';
-import { get, set } from '@ember/object';
 import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Model | subcategory annual report', function(hooks) {
   setupTest(hooks);
@@ -11,1875 +10,1345 @@ module('Unit | Model | subcategory annual report', function(hooks) {
     assert.ok(model);
   });
 
-  test('should have correct apr_actual_str when apr_actual_cents=0', function(assert) {
+  test('it has the correct aprActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    assert.equal(get(model, 'apr_actual_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 0,
+    });
 
-  test('should have correct apr_actual_str when apr_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 500);
-    assert.equal(get(model, 'apr_actual_str'), '$5.00');
-  });
+    assert.equal(model.aprActualStr, '-');
 
-  test('should have correct apr_actual_str when apr_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 12345);
-    assert.equal(get(model, 'apr_actual_str'), '$123.45');
-  });
+    model.aprActual = '5.00';
 
-  test('should have apr_alert=false when apr_actual_cents < apr_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 1);
-    set(model, 'apr_budget_cents', 2);
-    assert.equal(get(model, 'apr_alert'), false);
-  });
+    assert.equal(model.aprActualStr, '$5.00');
 
-  test('should have apr_alert=false when apr_actual_cents == apr_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 1);
-    set(model, 'apr_budget_cents', 1);
-    assert.equal(get(model, 'apr_alert'), false);
-  });
+    model.aprActual = '1234.56';
 
-  test('should have apr_alert=true when apr_actual_cents > apr_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 2);
-    set(model, 'apr_budget_cents', 1);
-    assert.equal(get(model, 'apr_alert'), true);
-  });
+    assert.equal(model.aprActualStr, '$1,234.56');
 
-  test('should have correct apr_budget_str when apr_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    assert.equal(get(model, 'apr_budget_str'), '-');
-  });
+    model.aprActual = '-5.00';
 
-  test('should have correct apr_budget_str when apr_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 500);
-    assert.equal(get(model, 'apr_budget_str'), '$5.00');
-  });
+    assert.equal(model.aprActualStr, '$-5.00');
 
-  test('should have correct apr_budget_str when apr_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 12345);
-    assert.equal(get(model, 'apr_budget_str'), '$123.45');
-  });
+    model.aprActual = '-6543.21';
 
-  test('should have correct apr_diff_str when apr_actual_cents=0 and apr_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'apr_budget_cents', 0);
-    assert.equal(get(model, 'apr_diff_str'), '-');
+    assert.equal(model.aprActualStr, '$-6,543.21');
   });
 
-  test('should have correct apr_diff_str when apr_actual_cents=500 and apr_budget_cents=1000', function(assert) {
+  test('it has the correct aprAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 500);
-    set(model, 'apr_budget_cents', 1000);
-    assert.equal(get(model, 'apr_diff_str'), '$5.00');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 1,
+      aprBudget: 1,
+    });
 
-  test('should have correct apr_diff_str when apr_actual_cents=1000 and apr_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 1000);
-    set(model, 'apr_budget_cents', 500);
-    assert.equal(get(model, 'apr_diff_str'), '$-5.00');
-  });
+    assert.notOk(model.aprAlert);
 
-  test('should have correct apr_diff_str when apr_actual_cents=11560 and apr_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 11560);
-    set(model, 'apr_budget_cents', 33534);
-    assert.equal(get(model, 'apr_diff_str'), '$219.74');
-  });
+    model.aprActual = 2;
 
-  test('should have correct aug_actual_str when aug_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 0);
-    assert.equal(get(model, 'aug_actual_str'), '-');
+    assert.ok(model.aprAlert);
+
+    model.aprBudget = 3;
+
+    assert.notOk(model.aprAlert);
   });
 
-  test('should have correct aug_actual_str when aug_actual_cents=500', function(assert) {
+  test('it has the correct aprBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 500);
-    assert.equal(get(model, 'aug_actual_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 1,
+      aprBudget: 1,
+    });
+
+    assert.equal(model.aprBalanceStr, '-');
+
+    model.aprActual = '5.00';
+    model.aprBudget = '10.00';
+
+    assert.equal(model.aprBalanceStr, '$5.00');
+
+    model.aprActual = '4941.79';
+    model.aprBudget = '9192.49';
+
+    assert.equal(model.aprBalanceStr, '$4,250.70');
+
+    model.aprActual = '10.00';
+    model.aprBudget = '5.00';
+
+    assert.equal(model.aprBalanceStr, '$-5.00');
+
+    model.aprActual = '4826.18';
+    model.aprBudget = '2449.83';
+
+    assert.equal(model.aprBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct aug_actual_str when aug_actual_cents=12345', function(assert) {
+  test('it has the correct aprBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 12345);
-    assert.equal(get(model, 'aug_actual_str'), '$123.45');
+    const model = store.createRecord('subcategory-annual-report', {
+      aprBudget: 0,
+    });
+
+    assert.equal(model.aprBudgetStr, '-');
+
+    model.aprBudget = '5.00';
+
+    assert.equal(model.aprBudgetStr, '$5.00');
+
+    model.aprBudget = '1234.56';
+
+    assert.equal(model.aprBudgetStr, '$1,234.56');
+
+    model.aprBudget = '-5.00';
+
+    assert.equal(model.aprBudgetStr, '$-5.00');
+
+    model.aprBudget = '-6543.21';
+
+    assert.equal(model.aprBudgetStr, '$-6,543.21');
   });
 
-  test('should have aug_alert=false when aug_actual_cents < aug_budget_cents', function(assert) {
+  test('it has the correct augActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 1);
-    set(model, 'aug_budget_cents', 2);
-    assert.equal(get(model, 'aug_alert'), false);
+    const model = store.createRecord('subcategory-annual-report', {
+      augActual: 0,
+    });
+
+    assert.equal(model.augActualStr, '-');
+
+    model.augActual = '5.00';
+
+    assert.equal(model.augActualStr, '$5.00');
+
+    model.augActual = '1234.56';
+
+    assert.equal(model.augActualStr, '$1,234.56');
+
+    model.augActual = '-5.00';
+
+    assert.equal(model.augActualStr, '$-5.00');
+
+    model.augActual = '-6543.21';
+
+    assert.equal(model.augActualStr, '$-6,543.21');
   });
 
-  test('should have aug_alert=false when aug_actual_cents == aug_budget_cents', function(assert) {
+  test('it has the correct augAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 1);
-    set(model, 'aug_budget_cents', 1);
-    assert.equal(get(model, 'aug_alert'), false);
+    const model = store.createRecord('subcategory-annual-report', {
+      augActual: 1,
+      augBudget: 1,
+    });
+
+    assert.notOk(model.augAlert);
+
+    model.augActual = 2;
+
+    assert.ok(model.augAlert);
+
+    model.augBudget = 3;
+
+    assert.notOk(model.augAlert);
   });
 
-  test('should have aug_alert=true when aug_actual_cents > aug_budget_cents', function(assert) {
+  test('it has the correct augBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 2);
-    set(model, 'aug_budget_cents', 1);
-    assert.equal(get(model, 'aug_alert'), true);
+    const model = store.createRecord('subcategory-annual-report', {
+      augActual: 1,
+      augBudget: 1,
+    });
+
+    assert.equal(model.augBalanceStr, '-');
+
+    model.augActual = '5.00';
+    model.augBudget = '10.00';
+
+    assert.equal(model.augBalanceStr, '$5.00');
+
+    model.augActual = '4941.79';
+    model.augBudget = '9192.49';
+
+    assert.equal(model.augBalanceStr, '$4,250.70');
+
+    model.augActual = '10.00';
+    model.augBudget = '5.00';
+
+    assert.equal(model.augBalanceStr, '$-5.00');
+
+    model.augActual = '4826.18';
+    model.augBudget = '2449.83';
+
+    assert.equal(model.augBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct aug_budget_str when aug_budget_cents=0', function(assert) {
+  test('it has the correct augBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_budget_cents', 0);
-    assert.equal(get(model, 'aug_budget_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      augBudget: 0,
+    });
+
+    assert.equal(model.augBudgetStr, '-');
+
+    model.augBudget = '5.00';
+
+    assert.equal(model.augBudgetStr, '$5.00');
+
+    model.augBudget = '1234.56';
+
+    assert.equal(model.augBudgetStr, '$1,234.56');
+
+    model.augBudget = '-5.00';
+
+    assert.equal(model.augBudgetStr, '$-5.00');
+
+    model.augBudget = '-6543.21';
+
+    assert.equal(model.augBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct aug_budget_str when aug_budget_cents=500', function(assert) {
+  test('it has the correct decActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_budget_cents', 500);
-    assert.equal(get(model, 'aug_budget_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      decActual: 0,
+    });
+
+    assert.equal(model.decActualStr, '-');
+
+    model.decActual = '5.00';
+
+    assert.equal(model.decActualStr, '$5.00');
+
+    model.decActual = '1234.56';
+
+    assert.equal(model.decActualStr, '$1,234.56');
+
+    model.decActual = '-5.00';
+
+    assert.equal(model.decActualStr, '$-5.00');
+
+    model.decActual = '-6543.21';
+
+    assert.equal(model.decActualStr, '$-6,543.21');
   });
 
-  test('should have correct aug_budget_str when aug_budget_cents=12345', function(assert) {
+  test('it has the correct decAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_budget_cents', 12345);
-    assert.equal(get(model, 'aug_budget_str'), '$123.45');
+    const model = store.createRecord('subcategory-annual-report', {
+      decActual: 1,
+      decBudget: 1,
+    });
+
+    assert.notOk(model.decAlert);
+
+    model.decActual = 2;
+
+    assert.ok(model.decAlert);
+
+    model.decBudget = 3;
+
+    assert.notOk(model.decAlert);
   });
 
-  test('should have correct aug_diff_str when aug_actual_cents=0 and aug_budget_cents=0', function(assert) {
+  test('it has the correct decBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    assert.equal(get(model, 'aug_diff_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      decActual: 1,
+      decBudget: 1,
+    });
+
+    assert.equal(model.decBalanceStr, '-');
+
+    model.decActual = '5.00';
+    model.decBudget = '10.00';
+
+    assert.equal(model.decBalanceStr, '$5.00');
+
+    model.decActual = '4941.79';
+    model.decBudget = '9192.49';
+
+    assert.equal(model.decBalanceStr, '$4,250.70');
+
+    model.decActual = '10.00';
+    model.decBudget = '5.00';
+
+    assert.equal(model.decBalanceStr, '$-5.00');
+
+    model.decActual = '4826.18';
+    model.decBudget = '2449.83';
+
+    assert.equal(model.decBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct aug_diff_str when aug_actual_cents=500 and aug_budget_cents=1000', function(assert) {
+  test('it has the correct decBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 500);
-    set(model, 'aug_budget_cents', 1000);
-    assert.equal(get(model, 'aug_diff_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      decBudget: 0,
+    });
+
+    assert.equal(model.decBudgetStr, '-');
+
+    model.decBudget = '5.00';
+
+    assert.equal(model.decBudgetStr, '$5.00');
+
+    model.decBudget = '1234.56';
+
+    assert.equal(model.decBudgetStr, '$1,234.56');
+
+    model.decBudget = '-5.00';
+
+    assert.equal(model.decBudgetStr, '$-5.00');
+
+    model.decBudget = '-6543.21';
+
+    assert.equal(model.decBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct aug_diff_str when aug_actual_cents=1000 and aug_budget_cents=500', function(assert) {
+  test('it has the correct febActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 1000);
-    set(model, 'aug_budget_cents', 500);
-    assert.equal(get(model, 'aug_diff_str'), '$-5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      febActual: 0,
+    });
+
+    assert.equal(model.febActualStr, '-');
+
+    model.febActual = '5.00';
+
+    assert.equal(model.febActualStr, '$5.00');
+
+    model.febActual = '1234.56';
+
+    assert.equal(model.febActualStr, '$1,234.56');
+
+    model.febActual = '-5.00';
+
+    assert.equal(model.febActualStr, '$-5.00');
+
+    model.febActual = '-6543.21';
+
+    assert.equal(model.febActualStr, '$-6,543.21');
   });
 
-  test('should have correct aug_diff_str when aug_actual_cents=11560 and aug_budget_cents=33534', function(assert) {
+  test('it has the correct febAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'aug_actual_cents', 11560);
-    set(model, 'aug_budget_cents', 33534);
-    assert.equal(get(model, 'aug_diff_str'), '$219.74');
+    const model = store.createRecord('subcategory-annual-report', {
+      febActual: 1,
+      febBudget: 1,
+    });
+
+    assert.notOk(model.febAlert);
+
+    model.febActual = 2;
+
+    assert.ok(model.febAlert);
+
+    model.febBudget = 3;
+
+    assert.notOk(model.febAlert);
   });
 
-  test('should have correct dec_actual_str when dec_actual_cents=0', function(assert) {
+  test('it has the correct febBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 0);
-    assert.equal(get(model, 'dec_actual_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      febActual: 1,
+      febBudget: 1,
+    });
+
+    assert.equal(model.febBalanceStr, '-');
+
+    model.febActual = '5.00';
+    model.febBudget = '10.00';
+
+    assert.equal(model.febBalanceStr, '$5.00');
+
+    model.febActual = '4941.79';
+    model.febBudget = '9192.49';
+
+    assert.equal(model.febBalanceStr, '$4,250.70');
+
+    model.febActual = '10.00';
+    model.febBudget = '5.00';
+
+    assert.equal(model.febBalanceStr, '$-5.00');
+
+    model.febActual = '4826.18';
+    model.febBudget = '2449.83';
+
+    assert.equal(model.febBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct dec_actual_str when dec_actual_cents=500', function(assert) {
+  test('it has the correct febBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 500);
-    assert.equal(get(model, 'dec_actual_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      febBudget: 0,
+    });
+
+    assert.equal(model.febBudgetStr, '-');
+
+    model.febBudget = '5.00';
+
+    assert.equal(model.febBudgetStr, '$5.00');
+
+    model.febBudget = '1234.56';
+
+    assert.equal(model.febBudgetStr, '$1,234.56');
+
+    model.febBudget = '-5.00';
+
+    assert.equal(model.febBudgetStr, '$-5.00');
+
+    model.febBudget = '-6543.21';
+
+    assert.equal(model.febBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct dec_actual_str when dec_actual_cents=12345', function(assert) {
+  test('it has the correct marActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 12345);
-    assert.equal(get(model, 'dec_actual_str'), '$123.45');
+    const model = store.createRecord('subcategory-annual-report', {
+      marActual: 0,
+    });
+
+    assert.equal(model.marActualStr, '-');
+
+    model.marActual = '5.00';
+
+    assert.equal(model.marActualStr, '$5.00');
+
+    model.marActual = '1234.56';
+
+    assert.equal(model.marActualStr, '$1,234.56');
+
+    model.marActual = '-5.00';
+
+    assert.equal(model.marActualStr, '$-5.00');
+
+    model.marActual = '-6543.21';
+
+    assert.equal(model.marActualStr, '$-6,543.21');
   });
 
-  test('should have dec_alert=false when dec_actual_cents < dec_budget_cents', function(assert) {
+  test('it has the correct marAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 1);
-    set(model, 'dec_budget_cents', 2);
-    assert.equal(get(model, 'dec_alert'), false);
+    const model = store.createRecord('subcategory-annual-report', {
+      marActual: 1,
+      marBudget: 1,
+    });
+
+    assert.notOk(model.marAlert);
+
+    model.marActual = 2;
+
+    assert.ok(model.marAlert);
+
+    model.marBudget = 3;
+
+    assert.notOk(model.marAlert);
   });
 
-  test('should have dec_alert=false when dec_actual_cents == dec_budget_cents', function(assert) {
+  test('it has the correct marBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 1);
-    set(model, 'dec_budget_cents', 1);
-    assert.equal(get(model, 'dec_alert'), false);
+    const model = store.createRecord('subcategory-annual-report', {
+      marActual: 1,
+      marBudget: 1,
+    });
+
+    assert.equal(model.marBalanceStr, '-');
+
+    model.marActual = '5.00';
+    model.marBudget = '10.00';
+
+    assert.equal(model.marBalanceStr, '$5.00');
+
+    model.marActual = '4941.79';
+    model.marBudget = '9192.49';
+
+    assert.equal(model.marBalanceStr, '$4,250.70');
+
+    model.marActual = '10.00';
+    model.marBudget = '5.00';
+
+    assert.equal(model.marBalanceStr, '$-5.00');
+
+    model.marActual = '4826.18';
+    model.marBudget = '2449.83';
+
+    assert.equal(model.marBalanceStr, '$-2,376.35');
   });
 
-  test('should have dec_alert=true when dec_actual_cents > dec_budget_cents', function(assert) {
+  test('it has the correct marBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 2);
-    set(model, 'dec_budget_cents', 1);
-    assert.equal(get(model, 'dec_alert'), true);
+    const model = store.createRecord('subcategory-annual-report', {
+      marBudget: 0,
+    });
+
+    assert.equal(model.marBudgetStr, '-');
+
+    model.marBudget = '5.00';
+
+    assert.equal(model.marBudgetStr, '$5.00');
+
+    model.marBudget = '1234.56';
+
+    assert.equal(model.marBudgetStr, '$1,234.56');
+
+    model.marBudget = '-5.00';
+
+    assert.equal(model.marBudgetStr, '$-5.00');
+
+    model.marBudget = '-6543.21';
+
+    assert.equal(model.marBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct dec_budget_str when dec_budget_cents=0', function(assert) {
+  test('it has the correct mayActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_budget_cents', 0);
-    assert.equal(get(model, 'dec_budget_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      mayActual: 0,
+    });
+
+    assert.equal(model.mayActualStr, '-');
+
+    model.mayActual = '5.00';
+
+    assert.equal(model.mayActualStr, '$5.00');
+
+    model.mayActual = '1234.56';
+
+    assert.equal(model.mayActualStr, '$1,234.56');
+
+    model.mayActual = '-5.00';
+
+    assert.equal(model.mayActualStr, '$-5.00');
+
+    model.mayActual = '-6543.21';
+
+    assert.equal(model.mayActualStr, '$-6,543.21');
   });
 
-  test('should have correct dec_budget_str when dec_budget_cents=500', function(assert) {
+  test('it has the correct mayAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_budget_cents', 500);
-    assert.equal(get(model, 'dec_budget_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      mayActual: 1,
+      mayBudget: 1,
+    });
+
+    assert.notOk(model.mayAlert);
+
+    model.mayActual = 2;
+
+    assert.ok(model.mayAlert);
+
+    model.mayBudget = 3;
+
+    assert.notOk(model.mayAlert);
   });
 
-  test('should have correct dec_budget_str when dec_budget_cents=12345', function(assert) {
+  test('it has the correct mayBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_budget_cents', 12345);
-    assert.equal(get(model, 'dec_budget_str'), '$123.45');
+    const model = store.createRecord('subcategory-annual-report', {
+      mayActual: 1,
+      mayBudget: 1,
+    });
+
+    assert.equal(model.mayBalanceStr, '-');
+
+    model.mayActual = '5.00';
+    model.mayBudget = '10.00';
+
+    assert.equal(model.mayBalanceStr, '$5.00');
+
+    model.mayActual = '4941.79';
+    model.mayBudget = '9192.49';
+
+    assert.equal(model.mayBalanceStr, '$4,250.70');
+
+    model.mayActual = '10.00';
+    model.mayBudget = '5.00';
+
+    assert.equal(model.mayBalanceStr, '$-5.00');
+
+    model.mayActual = '4826.18';
+    model.mayBudget = '2449.83';
+
+    assert.equal(model.mayBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct dec_diff_str when dec_actual_cents=0 and dec_budget_cents=0', function(assert) {
+  test('it has the correct mayBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    assert.equal(get(model, 'dec_diff_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      mayBudget: 0,
+    });
+
+    assert.equal(model.mayBudgetStr, '-');
+
+    model.mayBudget = '5.00';
+
+    assert.equal(model.mayBudgetStr, '$5.00');
+
+    model.mayBudget = '1234.56';
+
+    assert.equal(model.mayBudgetStr, '$1,234.56');
+
+    model.mayBudget = '-5.00';
+
+    assert.equal(model.mayBudgetStr, '$-5.00');
+
+    model.mayBudget = '-6543.21';
+
+    assert.equal(model.mayBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct dec_diff_str when dec_actual_cents=500 and dec_budget_cents=1000', function(assert) {
+  test('it has the correct janActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 500);
-    set(model, 'dec_budget_cents', 1000);
-    assert.equal(get(model, 'dec_diff_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      janActual: 0,
+    });
+
+    assert.equal(model.janActualStr, '-');
+
+    model.janActual = '5.00';
+
+    assert.equal(model.janActualStr, '$5.00');
+
+    model.janActual = '1234.56';
+
+    assert.equal(model.janActualStr, '$1,234.56');
+
+    model.janActual = '-5.00';
+
+    assert.equal(model.janActualStr, '$-5.00');
+
+    model.janActual = '-6543.21';
+
+    assert.equal(model.janActualStr, '$-6,543.21');
   });
 
-  test('should have correct dec_diff_str when dec_actual_cents=1000 and dec_budget_cents=500', function(assert) {
+  test('it has the correct janAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 1000);
-    set(model, 'dec_budget_cents', 500);
-    assert.equal(get(model, 'dec_diff_str'), '$-5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      janActual: 1,
+      janBudget: 1,
+    });
+
+    assert.notOk(model.janAlert);
+
+    model.janActual = 2;
+
+    assert.ok(model.janAlert);
+
+    model.janBudget = 3;
+
+    assert.notOk(model.janAlert);
   });
 
-  test('should have correct dec_diff_str when dec_actual_cents=11560 and dec_budget_cents=33534', function(assert) {
+  test('it has the correct janBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'dec_actual_cents', 11560);
-    set(model, 'dec_budget_cents', 33534);
-    assert.equal(get(model, 'dec_diff_str'), '$219.74');
+    const model = store.createRecord('subcategory-annual-report', {
+      janActual: 1,
+      janBudget: 1,
+    });
+
+    assert.equal(model.janBalanceStr, '-');
+
+    model.janActual = '5.00';
+    model.janBudget = '10.00';
+
+    assert.equal(model.janBalanceStr, '$5.00');
+
+    model.janActual = '4941.79';
+    model.janBudget = '9192.49';
+
+    assert.equal(model.janBalanceStr, '$4,250.70');
+
+    model.janActual = '10.00';
+    model.janBudget = '5.00';
+
+    assert.equal(model.janBalanceStr, '$-5.00');
+
+    model.janActual = '4826.18';
+    model.janBudget = '2449.83';
+
+    assert.equal(model.janBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct feb_actual_str when feb_actual_cents=0', function(assert) {
+  test('it has the correct janBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 0);
-    assert.equal(get(model, 'feb_actual_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      janBudget: 0,
+    });
+
+    assert.equal(model.janBudgetStr, '-');
+
+    model.janBudget = '5.00';
+
+    assert.equal(model.janBudgetStr, '$5.00');
+
+    model.janBudget = '1234.56';
+
+    assert.equal(model.janBudgetStr, '$1,234.56');
+
+    model.janBudget = '-5.00';
+
+    assert.equal(model.janBudgetStr, '$-5.00');
+
+    model.janBudget = '-6543.21';
+
+    assert.equal(model.janBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct feb_actual_str when feb_actual_cents=500', function(assert) {
+  test('it has the correct julActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 500);
-    assert.equal(get(model, 'feb_actual_str'), '$5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      julActual: 0,
+    });
+
+    assert.equal(model.julActualStr, '-');
+
+    model.julActual = '5.00';
+
+    assert.equal(model.julActualStr, '$5.00');
+
+    model.julActual = '1234.56';
+
+    assert.equal(model.julActualStr, '$1,234.56');
+
+    model.julActual = '-5.00';
+
+    assert.equal(model.julActualStr, '$-5.00');
+
+    model.julActual = '-6543.21';
+
+    assert.equal(model.julActualStr, '$-6,543.21');
   });
 
-  test('should have correct feb_actual_str when feb_actual_cents=12345', function(assert) {
+  test('it has the correct julAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 12345);
-    assert.equal(get(model, 'feb_actual_str'), '$123.45');
+    const model = store.createRecord('subcategory-annual-report', {
+      julActual: 1,
+      julBudget: 1,
+    });
+
+    assert.notOk(model.julAlert);
+
+    model.julActual = 2;
+
+    assert.ok(model.julAlert);
+
+    model.julBudget = 3;
+
+    assert.notOk(model.julAlert);
   });
 
-  test('should have feb_alert=false when feb_actual_cents < feb_budget_cents', function(assert) {
+  test('it has the correct julBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 1);
-    set(model, 'feb_budget_cents', 2);
-    assert.equal(get(model, 'feb_alert'), false);
+    const model = store.createRecord('subcategory-annual-report', {
+      julActual: 1,
+      julBudget: 1,
+    });
+
+    assert.equal(model.julBalanceStr, '-');
+
+    model.julActual = '5.00';
+    model.julBudget = '10.00';
+
+    assert.equal(model.julBalanceStr, '$5.00');
+
+    model.julActual = '4941.79';
+    model.julBudget = '9192.49';
+
+    assert.equal(model.julBalanceStr, '$4,250.70');
+
+    model.julActual = '10.00';
+    model.julBudget = '5.00';
+
+    assert.equal(model.julBalanceStr, '$-5.00');
+
+    model.julActual = '4826.18';
+    model.julBudget = '2449.83';
+
+    assert.equal(model.julBalanceStr, '$-2,376.35');
   });
 
-  test('should have feb_alert=false when feb_actual_cents == feb_budget_cents', function(assert) {
+  test('it has the correct julBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 1);
-    set(model, 'feb_budget_cents', 1);
-    assert.equal(get(model, 'feb_alert'), false);
+    const model = store.createRecord('subcategory-annual-report', {
+      julBudget: 0,
+    });
+
+    assert.equal(model.julBudgetStr, '-');
+
+    model.julBudget = '5.00';
+
+    assert.equal(model.julBudgetStr, '$5.00');
+
+    model.julBudget = '1234.56';
+
+    assert.equal(model.julBudgetStr, '$1,234.56');
+
+    model.julBudget = '-5.00';
+
+    assert.equal(model.julBudgetStr, '$-5.00');
+
+    model.julBudget = '-6543.21';
+
+    assert.equal(model.julBudgetStr, '$-6,543.21');
   });
 
-  test('should have feb_alert=true when feb_actual_cents > feb_budget_cents', function(assert) {
+  test('it has the correct junActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 2);
-    set(model, 'feb_budget_cents', 1);
-    assert.equal(get(model, 'feb_alert'), true);
+    const model = store.createRecord('subcategory-annual-report', {
+      junActual: 0,
+    });
+
+    assert.equal(model.junActualStr, '-');
+
+    model.junActual = '5.00';
+
+    assert.equal(model.junActualStr, '$5.00');
+
+    model.junActual = '1234.56';
+
+    assert.equal(model.junActualStr, '$1,234.56');
+
+    model.junActual = '-5.00';
+
+    assert.equal(model.junActualStr, '$-5.00');
+
+    model.junActual = '-6543.21';
+
+    assert.equal(model.junActualStr, '$-6,543.21');
   });
 
-  test('should have correct feb_budget_str when feb_budget_cents=0', function(assert) {
+  test('it has the correct junAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_budget_cents', 0);
-    assert.equal(get(model, 'feb_budget_str'), '-');
+    const model = store.createRecord('subcategory-annual-report', {
+      junActual: 1,
+      junBudget: 1,
+    });
+
+    assert.notOk(model.junAlert);
+
+    model.junActual = 2;
+
+    assert.ok(model.junAlert);
+
+    model.junBudget = 3;
+
+    assert.notOk(model.junAlert);
   });
 
-  test('should have correct feb_budget_str when feb_budget_cents=500', function(assert) {
+  test('it has the correct junBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_budget_cents', 500);
-    assert.equal(get(model, 'feb_budget_str'), '$5.00');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      junActual: 1,
+      junBudget: 1,
+    });
+
+    assert.equal(model.junBalanceStr, '-');
+
+    model.junActual = '5.00';
+    model.junBudget = '10.00';
+
+    assert.equal(model.junBalanceStr, '$5.00');
+
+    model.junActual = '4941.79';
+    model.junBudget = '9192.49';
+
+    assert.equal(model.junBalanceStr, '$4,250.70');
+
+    model.junActual = '10.00';
+    model.junBudget = '5.00';
+
+    assert.equal(model.junBalanceStr, '$-5.00');
+
+    model.junActual = '4826.18';
+    model.junBudget = '2449.83';
 
-  test('should have correct feb_budget_str when feb_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_budget_cents', 12345);
-    assert.equal(get(model, 'feb_budget_str'), '$123.45');
+    assert.equal(model.junBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct feb_diff_str when feb_actual_cents=0 and feb_budget_cents=0', function(assert) {
+  test('it has the correct junBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    assert.equal(get(model, 'feb_diff_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      junBudget: 0,
+    });
 
-  test('should have correct feb_diff_str when feb_actual_cents=500 and feb_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 500);
-    set(model, 'feb_budget_cents', 1000);
-    assert.equal(get(model, 'feb_diff_str'), '$5.00');
-  });
+    assert.equal(model.junBudgetStr, '-');
 
-  test('should have correct feb_diff_str when feb_actual_cents=1000 and feb_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 1000);
-    set(model, 'feb_budget_cents', 500);
-    assert.equal(get(model, 'feb_diff_str'), '$-5.00');
-  });
+    model.junBudget = '5.00';
 
-  test('should have correct feb_diff_str when feb_actual_cents=11560 and feb_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'feb_actual_cents', 11560);
-    set(model, 'feb_budget_cents', 33534);
-    assert.equal(get(model, 'feb_diff_str'), '$219.74');
-  });
+    assert.equal(model.junBudgetStr, '$5.00');
 
-  test('should have correct mar_actual_str when mar_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 0);
-    assert.equal(get(model, 'mar_actual_str'), '-');
-  });
+    model.junBudget = '1234.56';
 
-  test('should have correct mar_actual_str when mar_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 500);
-    assert.equal(get(model, 'mar_actual_str'), '$5.00');
-  });
+    assert.equal(model.junBudgetStr, '$1,234.56');
 
-  test('should have correct mar_actual_str when mar_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 12345);
-    assert.equal(get(model, 'mar_actual_str'), '$123.45');
-  });
+    model.junBudget = '-5.00';
 
-  test('should have mar_alert=false when mar_actual_cents < mar_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 1);
-    set(model, 'mar_budget_cents', 2);
-    assert.equal(get(model, 'mar_alert'), false);
-  });
+    assert.equal(model.junBudgetStr, '$-5.00');
 
-  test('should have mar_alert=false when mar_actual_cents == mar_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 1);
-    set(model, 'mar_budget_cents', 1);
-    assert.equal(get(model, 'mar_alert'), false);
-  });
+    model.junBudget = '-6543.21';
 
-  test('should have mar_alert=true when mar_actual_cents > mar_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 2);
-    set(model, 'mar_budget_cents', 1);
-    assert.equal(get(model, 'mar_alert'), true);
+    assert.equal(model.junBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct mar_budget_str when mar_budget_cents=0', function(assert) {
+  test('it has the correct novActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_budget_cents', 0);
-    assert.equal(get(model, 'mar_budget_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      novActual: 0,
+    });
 
-  test('should have correct mar_budget_str when mar_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_budget_cents', 500);
-    assert.equal(get(model, 'mar_budget_str'), '$5.00');
-  });
+    assert.equal(model.novActualStr, '-');
 
-  test('should have correct mar_budget_str when mar_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_budget_cents', 12345);
-    assert.equal(get(model, 'mar_budget_str'), '$123.45');
-  });
+    model.novActual = '5.00';
 
-  test('should have correct mar_diff_str when mar_actual_cents=0 and mar_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    assert.equal(get(model, 'mar_diff_str'), '-');
-  });
+    assert.equal(model.novActualStr, '$5.00');
 
-  test('should have correct mar_diff_str when mar_actual_cents=500 and mar_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 500);
-    set(model, 'mar_budget_cents', 1000);
-    assert.equal(get(model, 'mar_diff_str'), '$5.00');
-  });
+    model.novActual = '1234.56';
 
-  test('should have correct mar_diff_str when mar_actual_cents=1000 and mar_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 1000);
-    set(model, 'mar_budget_cents', 500);
-    assert.equal(get(model, 'mar_diff_str'), '$-5.00');
-  });
+    assert.equal(model.novActualStr, '$1,234.56');
 
-  test('should have correct mar_diff_str when mar_actual_cents=11560 and mar_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'mar_actual_cents', 11560);
-    set(model, 'mar_budget_cents', 33534);
-    assert.equal(get(model, 'mar_diff_str'), '$219.74');
-  });
+    model.novActual = '-5.00';
 
-  test('should have correct may_actual_str when may_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 0);
-    assert.equal(get(model, 'may_actual_str'), '-');
-  });
+    assert.equal(model.novActualStr, '$-5.00');
 
-  test('should have correct may_actual_str when may_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 500);
-    assert.equal(get(model, 'may_actual_str'), '$5.00');
-  });
+    model.novActual = '-6543.21';
 
-  test('should have correct may_actual_str when may_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 12345);
-    assert.equal(get(model, 'may_actual_str'), '$123.45');
+    assert.equal(model.novActualStr, '$-6,543.21');
   });
 
-  test('should have may_alert=false when may_actual_cents < may_budget_cents', function(assert) {
+  test('it has the correct novAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 1);
-    set(model, 'may_budget_cents', 2);
-    assert.equal(get(model, 'may_alert'), false);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      novActual: 1,
+      novBudget: 1,
+    });
 
-  test('should have may_alert=false when may_actual_cents == may_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 1);
-    set(model, 'may_budget_cents', 1);
-    assert.equal(get(model, 'may_alert'), false);
-  });
+    assert.notOk(model.novAlert);
 
-  test('should have may_alert=true when may_actual_cents > may_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 2);
-    set(model, 'may_budget_cents', 1);
-    assert.equal(get(model, 'may_alert'), true);
-  });
+    model.novActual = 2;
 
-  test('should have correct may_budget_str when may_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_budget_cents', 0);
-    assert.equal(get(model, 'may_budget_str'), '-');
-  });
+    assert.ok(model.novAlert);
 
-  test('should have correct may_budget_str when may_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_budget_cents', 500);
-    assert.equal(get(model, 'may_budget_str'), '$5.00');
-  });
+    model.novBudget = 3;
 
-  test('should have correct may_budget_str when may_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_budget_cents', 12345);
-    assert.equal(get(model, 'may_budget_str'), '$123.45');
+    assert.notOk(model.novAlert);
   });
 
-  test('should have correct may_diff_str when may_actual_cents=0 and may_budget_cents=0', function(assert) {
+  test('it has the correct novBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    assert.equal(get(model, 'may_diff_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      novActual: 1,
+      novBudget: 1,
+    });
 
-  test('should have correct may_diff_str when may_actual_cents=500 and may_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 500);
-    set(model, 'may_budget_cents', 1000);
-    assert.equal(get(model, 'may_diff_str'), '$5.00');
-  });
+    assert.equal(model.novBalanceStr, '-');
 
-  test('should have correct may_diff_str when may_actual_cents=1000 and may_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 1000);
-    set(model, 'may_budget_cents', 500);
-    assert.equal(get(model, 'may_diff_str'), '$-5.00');
-  });
+    model.novActual = '5.00';
+    model.novBudget = '10.00';
 
-  test('should have correct may_diff_str when may_actual_cents=11560 and may_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'may_actual_cents', 11560);
-    set(model, 'may_budget_cents', 33534);
-    assert.equal(get(model, 'may_diff_str'), '$219.74');
-  });
+    assert.equal(model.novBalanceStr, '$5.00');
 
-  test('should have correct jan_actual_str when jan_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 0);
-    assert.equal(get(model, 'jan_actual_str'), '-');
-  });
+    model.novActual = '4941.79';
+    model.novBudget = '9192.49';
 
-  test('should have correct jan_actual_str when jan_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 500);
-    assert.equal(get(model, 'jan_actual_str'), '$5.00');
-  });
+    assert.equal(model.novBalanceStr, '$4,250.70');
 
-  test('should have correct jan_actual_str when jan_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 12345);
-    assert.equal(get(model, 'jan_actual_str'), '$123.45');
-  });
+    model.novActual = '10.00';
+    model.novBudget = '5.00';
 
-  test('should have jan_alert=false when jan_actual_cents < jan_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 1);
-    set(model, 'jan_budget_cents', 2);
-    assert.equal(get(model, 'jan_alert'), false);
-  });
+    assert.equal(model.novBalanceStr, '$-5.00');
 
-  test('should have jan_alert=false when jan_actual_cents == jan_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 1);
-    set(model, 'jan_budget_cents', 1);
-    assert.equal(get(model, 'jan_alert'), false);
-  });
+    model.novActual = '4826.18';
+    model.novBudget = '2449.83';
 
-  test('should have jan_alert=true when jan_actual_cents > jan_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 2);
-    set(model, 'jan_budget_cents', 1);
-    assert.equal(get(model, 'jan_alert'), true);
+    assert.equal(model.novBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct jan_budget_str when jan_budget_cents=0', function(assert) {
+  test('it has the correct novBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_budget_cents', 0);
-    assert.equal(get(model, 'jan_budget_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      novBudget: 0,
+    });
 
-  test('should have correct jan_budget_str when jan_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_budget_cents', 500);
-    assert.equal(get(model, 'jan_budget_str'), '$5.00');
-  });
+    assert.equal(model.novBudgetStr, '-');
 
-  test('should have correct jan_budget_str when jan_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_budget_cents', 12345);
-    assert.equal(get(model, 'jan_budget_str'), '$123.45');
-  });
+    model.novBudget = '5.00';
 
-  test('should have correct jan_diff_str when jan_actual_cents=0 and jan_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    assert.equal(get(model, 'jan_diff_str'), '-');
-  });
+    assert.equal(model.novBudgetStr, '$5.00');
 
-  test('should have correct jan_diff_str when jan_actual_cents=500 and jan_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 500);
-    set(model, 'jan_budget_cents', 1000);
-    assert.equal(get(model, 'jan_diff_str'), '$5.00');
-  });
+    model.novBudget = '1234.56';
 
-  test('should have correct jan_diff_str when jan_actual_cents=1000 and jan_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 1000);
-    set(model, 'jan_budget_cents', 500);
-    assert.equal(get(model, 'jan_diff_str'), '$-5.00');
-  });
+    assert.equal(model.novBudgetStr, '$1,234.56');
 
-  test('should have correct jan_diff_str when jan_actual_cents=11560 and jan_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jan_actual_cents', 11560);
-    set(model, 'jan_budget_cents', 33534);
-    assert.equal(get(model, 'jan_diff_str'), '$219.74');
-  });
+    model.novBudget = '-5.00';
 
-  test('should have correct jul_actual_str when jul_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 0);
-    assert.equal(get(model, 'jul_actual_str'), '-');
-  });
+    assert.equal(model.novBudgetStr, '$-5.00');
 
-  test('should have correct jul_actual_str when jul_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 500);
-    assert.equal(get(model, 'jul_actual_str'), '$5.00');
-  });
+    model.novBudget = '-6543.21';
 
-  test('should have correct jul_actual_str when jul_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 12345);
-    assert.equal(get(model, 'jul_actual_str'), '$123.45');
+    assert.equal(model.novBudgetStr, '$-6,543.21');
   });
 
-  test('should have jul_alert=false when jul_actual_cents < jul_budget_cents', function(assert) {
+  test('it has the correct octActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 1);
-    set(model, 'jul_budget_cents', 2);
-    assert.equal(get(model, 'jul_alert'), false);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      octActual: 0,
+    });
 
-  test('should have jul_alert=false when jul_actual_cents == jul_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 1);
-    set(model, 'jul_budget_cents', 1);
-    assert.equal(get(model, 'jul_alert'), false);
-  });
+    assert.equal(model.octActualStr, '-');
 
-  test('should have jul_alert=true when jul_actual_cents > jul_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 2);
-    set(model, 'jul_budget_cents', 1);
-    assert.equal(get(model, 'jul_alert'), true);
-  });
+    model.octActual = '5.00';
 
-  test('should have correct jul_budget_str when jul_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_budget_cents', 0);
-    assert.equal(get(model, 'jul_budget_str'), '-');
-  });
+    assert.equal(model.octActualStr, '$5.00');
 
-  test('should have correct jul_budget_str when jul_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_budget_cents', 500);
-    assert.equal(get(model, 'jul_budget_str'), '$5.00');
-  });
+    model.octActual = '1234.56';
 
-  test('should have correct jul_budget_str when jul_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_budget_cents', 12345);
-    assert.equal(get(model, 'jul_budget_str'), '$123.45');
-  });
+    assert.equal(model.octActualStr, '$1,234.56');
 
-  test('should have correct jul_diff_str when jul_actual_cents=0 and jul_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    assert.equal(get(model, 'jul_diff_str'), '-');
-  });
+    model.octActual = '-5.00';
 
-  test('should have correct jul_diff_str when jul_actual_cents=500 and jul_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 500);
-    set(model, 'jul_budget_cents', 1000);
-    assert.equal(get(model, 'jul_diff_str'), '$5.00');
-  });
+    assert.equal(model.octActualStr, '$-5.00');
 
-  test('should have correct jul_diff_str when jul_actual_cents=1000 and jul_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 1000);
-    set(model, 'jul_budget_cents', 500);
-    assert.equal(get(model, 'jul_diff_str'), '$-5.00');
-  });
+    model.octActual = '-6543.21';
 
-  test('should have correct jul_diff_str when jul_actual_cents=11560 and jul_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jul_actual_cents', 11560);
-    set(model, 'jul_budget_cents', 33534);
-    assert.equal(get(model, 'jul_diff_str'), '$219.74');
+    assert.equal(model.octActualStr, '$-6,543.21');
   });
 
-  test('should have correct jun_actual_str when jun_actual_cents=0', function(assert) {
+  test('it has the correct octAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 0);
-    assert.equal(get(model, 'jun_actual_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      octActual: 1,
+      octBudget: 1,
+    });
 
-  test('should have correct jun_actual_str when jun_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 500);
-    assert.equal(get(model, 'jun_actual_str'), '$5.00');
-  });
+    assert.notOk(model.octAlert);
 
-  test('should have correct jun_actual_str when jun_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 12345);
-    assert.equal(get(model, 'jun_actual_str'), '$123.45');
-  });
+    model.octActual = 2;
 
-  test('should have jun_alert=false when jun_actual_cents < jun_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 1);
-    set(model, 'jun_budget_cents', 2);
-    assert.equal(get(model, 'jun_alert'), false);
-  });
+    assert.ok(model.octAlert);
 
-  test('should have jun_alert=false when jun_actual_cents == jun_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 1);
-    set(model, 'jun_budget_cents', 1);
-    assert.equal(get(model, 'jun_alert'), false);
-  });
+    model.octBudget = 3;
 
-  test('should have jun_alert=true when jun_actual_cents > jun_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 2);
-    set(model, 'jun_budget_cents', 1);
-    assert.equal(get(model, 'jun_alert'), true);
+    assert.notOk(model.octAlert);
   });
 
-  test('should have correct jun_budget_str when jun_budget_cents=0', function(assert) {
+  test('it has the correct octBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_budget_cents', 0);
-    assert.equal(get(model, 'jun_budget_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      octActual: 1,
+      octBudget: 1,
+    });
 
-  test('should have correct jun_budget_str when jun_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_budget_cents', 500);
-    assert.equal(get(model, 'jun_budget_str'), '$5.00');
-  });
+    assert.equal(model.octBalanceStr, '-');
 
-  test('should have correct jun_budget_str when jun_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_budget_cents', 12345);
-    assert.equal(get(model, 'jun_budget_str'), '$123.45');
-  });
+    model.octActual = '5.00';
+    model.octBudget = '10.00';
 
-  test('should have correct jun_diff_str when jun_actual_cents=0 and jun_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    assert.equal(get(model, 'jun_diff_str'), '-');
-  });
+    assert.equal(model.octBalanceStr, '$5.00');
 
-  test('should have correct jun_diff_str when jun_actual_cents=500 and jun_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 500);
-    set(model, 'jun_budget_cents', 1000);
-    assert.equal(get(model, 'jun_diff_str'), '$5.00');
-  });
+    model.octActual = '4941.79';
+    model.octBudget = '9192.49';
 
-  test('should have correct jun_diff_str when jun_actual_cents=1000 and jun_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 1000);
-    set(model, 'jun_budget_cents', 500);
-    assert.equal(get(model, 'jun_diff_str'), '$-5.00');
-  });
+    assert.equal(model.octBalanceStr, '$4,250.70');
 
-  test('should have correct jun_diff_str when jun_actual_cents=11560 and jun_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'jun_actual_cents', 11560);
-    set(model, 'jun_budget_cents', 33534);
-    assert.equal(get(model, 'jun_diff_str'), '$219.74');
-  });
+    model.octActual = '10.00';
+    model.octBudget = '5.00';
 
-  test('should have correct nov_actual_str when nov_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 0);
-    assert.equal(get(model, 'nov_actual_str'), '-');
-  });
+    assert.equal(model.octBalanceStr, '$-5.00');
 
-  test('should have correct nov_actual_str when nov_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 500);
-    assert.equal(get(model, 'nov_actual_str'), '$5.00');
-  });
+    model.octActual = '4826.18';
+    model.octBudget = '2449.83';
 
-  test('should have correct nov_actual_str when nov_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 12345);
-    assert.equal(get(model, 'nov_actual_str'), '$123.45');
+    assert.equal(model.octBalanceStr, '$-2,376.35');
   });
 
-  test('should have nov_alert=false when nov_actual_cents < nov_budget_cents', function(assert) {
+  test('it has the correct octBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 1);
-    set(model, 'nov_budget_cents', 2);
-    assert.equal(get(model, 'nov_alert'), false);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      octBudget: 0,
+    });
 
-  test('should have nov_alert=false when nov_actual_cents == nov_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 1);
-    set(model, 'nov_budget_cents', 1);
-    assert.equal(get(model, 'nov_alert'), false);
-  });
+    assert.equal(model.octBudgetStr, '-');
 
-  test('should have nov_alert=true when nov_actual_cents > nov_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 2);
-    set(model, 'nov_budget_cents', 1);
-    assert.equal(get(model, 'nov_alert'), true);
-  });
+    model.octBudget = '5.00';
 
-  test('should have correct nov_budget_str when nov_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_budget_cents', 0);
-    assert.equal(get(model, 'nov_budget_str'), '-');
-  });
+    assert.equal(model.octBudgetStr, '$5.00');
 
-  test('should have correct nov_budget_str when nov_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_budget_cents', 500);
-    assert.equal(get(model, 'nov_budget_str'), '$5.00');
-  });
+    model.octBudget = '1234.56';
 
-  test('should have correct nov_budget_str when nov_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_budget_cents', 12345);
-    assert.equal(get(model, 'nov_budget_str'), '$123.45');
-  });
+    assert.equal(model.octBudgetStr, '$1,234.56');
 
-  test('should have correct nov_diff_str when nov_actual_cents=0 and nov_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    assert.equal(get(model, 'nov_diff_str'), '-');
-  });
+    model.octBudget = '-5.00';
 
-  test('should have correct nov_diff_str when nov_actual_cents=500 and nov_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 500);
-    set(model, 'nov_budget_cents', 1000);
-    assert.equal(get(model, 'nov_diff_str'), '$5.00');
-  });
+    assert.equal(model.octBudgetStr, '$-5.00');
 
-  test('should have correct nov_diff_str when nov_actual_cents=1000 and nov_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 1000);
-    set(model, 'nov_budget_cents', 500);
-    assert.equal(get(model, 'nov_diff_str'), '$-5.00');
-  });
+    model.octBudget = '-6543.21';
 
-  test('should have correct nov_diff_str when nov_actual_cents=11560 and nov_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'nov_actual_cents', 11560);
-    set(model, 'nov_budget_cents', 33534);
-    assert.equal(get(model, 'nov_diff_str'), '$219.74');
+    assert.equal(model.octBudgetStr, '$-6,543.21');
   });
 
-  test('should have correct oct_actual_str when oct_actual_cents=0', function(assert) {
+  test('it has the correct sepActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 0);
-    assert.equal(get(model, 'oct_actual_str'), '-');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      sepActual: 0,
+    });
 
-  test('should have correct oct_actual_str when oct_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 500);
-    assert.equal(get(model, 'oct_actual_str'), '$5.00');
-  });
+    assert.equal(model.sepActualStr, '-');
 
-  test('should have correct oct_actual_str when oct_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 12345);
-    assert.equal(get(model, 'oct_actual_str'), '$123.45');
-  });
+    model.sepActual = '5.00';
 
-  test('should have oct_alert=false when oct_actual_cents < oct_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 1);
-    set(model, 'oct_budget_cents', 2);
-    assert.equal(get(model, 'oct_alert'), false);
-  });
+    assert.equal(model.sepActualStr, '$5.00');
 
-  test('should have oct_alert=false when oct_actual_cents == oct_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 1);
-    set(model, 'oct_budget_cents', 1);
-    assert.equal(get(model, 'oct_alert'), false);
-  });
+    model.sepActual = '1234.56';
 
-  test('should have oct_alert=true when oct_actual_cents > oct_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 2);
-    set(model, 'oct_budget_cents', 1);
-    assert.equal(get(model, 'oct_alert'), true);
-  });
+    assert.equal(model.sepActualStr, '$1,234.56');
 
-  test('should have correct oct_budget_str when oct_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_budget_cents', 0);
-    assert.equal(get(model, 'oct_budget_str'), '-');
-  });
+    model.sepActual = '-5.00';
 
-  test('should have correct oct_budget_str when oct_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_budget_cents', 500);
-    assert.equal(get(model, 'oct_budget_str'), '$5.00');
-  });
+    assert.equal(model.sepActualStr, '$-5.00');
 
-  test('should have correct oct_budget_str when oct_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_budget_cents', 12345);
-    assert.equal(get(model, 'oct_budget_str'), '$123.45');
-  });
+    model.sepActual = '-6543.21';
 
-  test('should have correct oct_diff_str when oct_actual_cents=0 and oct_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    assert.equal(get(model, 'oct_diff_str'), '-');
+    assert.equal(model.sepActualStr, '$-6,543.21');
   });
 
-  test('should have correct oct_diff_str when oct_actual_cents=500 and oct_budget_cents=1000', function(assert) {
+  test('it has the correct sepAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 500);
-    set(model, 'oct_budget_cents', 1000);
-    assert.equal(get(model, 'oct_diff_str'), '$5.00');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      sepActual: 1,
+      sepBudget: 1,
+    });
 
-  test('should have correct oct_diff_str when oct_actual_cents=1000 and oct_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 1000);
-    set(model, 'oct_budget_cents', 500);
-    assert.equal(get(model, 'oct_diff_str'), '$-5.00');
-  });
+    assert.notOk(model.sepAlert);
 
-  test('should have correct oct_diff_str when oct_actual_cents=11560 and oct_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'oct_actual_cents', 11560);
-    set(model, 'oct_budget_cents', 33534);
-    assert.equal(get(model, 'oct_diff_str'), '$219.74');
-  });
+    model.sepActual = 2;
 
-  test('should have correct sep_actual_str when sep_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'sep_actual_str'), '-');
-  });
+    assert.ok(model.sepAlert);
 
-  test('should have correct sep_actual_str when sep_actual_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 500);
-    assert.equal(get(model, 'sep_actual_str'), '$5.00');
-  });
+    model.sepBudget = 3;
 
-  test('should have correct sep_actual_str when sep_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 12345);
-    assert.equal(get(model, 'sep_actual_str'), '$123.45');
+    assert.notOk(model.sepAlert);
   });
 
-  test('should have sep_alert=false when sep_actual_cents < sep_budget_cents', function(assert) {
+  test('it has the correct sepBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 1);
-    set(model, 'sep_budget_cents', 2);
-    assert.equal(get(model, 'sep_alert'), false);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      sepActual: 1,
+      sepBudget: 1,
+    });
 
-  test('should have sep_alert=false when sep_actual_cents == sep_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 1);
-    set(model, 'sep_budget_cents', 1);
-    assert.equal(get(model, 'sep_alert'), false);
-  });
+    assert.equal(model.sepBalanceStr, '-');
 
-  test('should have sep_alert=true when sep_actual_cents > sep_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 2);
-    set(model, 'sep_budget_cents', 1);
-    assert.equal(get(model, 'sep_alert'), true);
-  });
+    model.sepActual = '5.00';
+    model.sepBudget = '10.00';
 
-  test('should have correct sep_budget_str when sep_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'sep_budget_str'), '-');
-  });
+    assert.equal(model.sepBalanceStr, '$5.00');
 
-  test('should have correct sep_budget_str when sep_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_budget_cents', 500);
-    assert.equal(get(model, 'sep_budget_str'), '$5.00');
-  });
+    model.sepActual = '4941.79';
+    model.sepBudget = '9192.49';
 
-  test('should have correct sep_budget_str when sep_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_budget_cents', 12345);
-    assert.equal(get(model, 'sep_budget_str'), '$123.45');
-  });
+    assert.equal(model.sepBalanceStr, '$4,250.70');
 
-  test('should have correct sep_diff_str when sep_actual_cents=0 and sep_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'sep_diff_str'), '-');
-  });
+    model.sepActual = '10.00';
+    model.sepBudget = '5.00';
 
-  test('should have correct sep_diff_str when sep_actual_cents=500 and sep_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 500);
-    set(model, 'sep_budget_cents', 1000);
-    assert.equal(get(model, 'sep_diff_str'), '$5.00');
-  });
+    assert.equal(model.sepBalanceStr, '$-5.00');
 
-  test('should have correct sep_diff_str when sep_actual_cents=1000 and sep_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 1000);
-    set(model, 'sep_budget_cents', 500);
-    assert.equal(get(model, 'sep_diff_str'), '$-5.00');
-  });
+    model.sepActual = '4826.18';
+    model.sepBudget = '2449.83';
 
-  test('should have correct sep_diff_str when sep_actual_cents=11560 and sep_budget_cents=33534', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'sep_actual_cents', 11560);
-    set(model, 'sep_budget_cents', 33534);
-    assert.equal(get(model, 'sep_diff_str'), '$219.74');
+    assert.equal(model.sepBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct tot_actual_cents when all actual cents are 0', function(assert) {
+  test('it has the correct sepBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 0);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      sepBudget: 0,
+    });
 
-  test('should add apr_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 500);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    assert.equal(model.sepBudgetStr, '-');
 
-  test('should add aug_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 500);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    model.sepBudget = '5.00';
 
-  test('should add dec_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 500);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    assert.equal(model.sepBudgetStr, '$5.00');
 
-  test('should add feb_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 500);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    model.sepBudget = '1234.56';
 
-  test('should add mar_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 500);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    assert.equal(model.sepBudgetStr, '$1,234.56');
 
-  test('should add may_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 500);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    model.sepBudget = '-5.00';
 
-  test('should add jan_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 500);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    assert.equal(model.sepBudgetStr, '$-5.00');
 
-  test('should add jul_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 500);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    model.sepBudget = '-6543.21';
 
-  test('should add jun_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 500);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
+    assert.equal(model.sepBudgetStr, '$-6,543.21');
   });
 
-  test('should add nov_actual_cents to tot_actual_cents', function(assert) {
+  test('it has the correct totActual', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 500);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 0,
+      augActual: 0,
+      decActual: 0,
+      febActual: 0,
+      marActual: 0,
+      mayActual: 0,
+      janActual: 0,
+      julActual: 0,
+      junActual: 0,
+      novActual: 0,
+      octActual: 0,
+      sepActual: 0,
+    });
 
-  test('should add oct_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 500);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    assert.equal(model.totActual, 0);
 
-  test('should add sep_actual_cents to tot_actual_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 500);
-    assert.equal(get(model, 'tot_actual_cents'), 500);
-  });
+    model.aprActual = '91.95';
+    model.augActual = '10.53';
+    model.decActual = '41.25';
+    model.febActual = '43.15';
+    model.marActual = '26.05';
+    model.mayActual = '10.29';
+    model.janActual = '74.70';
+    model.julActual = '1.15';
+    model.junActual = '86.41';
+    model.novActual = '76.27';
+    model.octActual = '90.64';
+    model.sepActual = '59.51';
 
-  test('should have correct tot_actual_str when tot_actual_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_str'), '-');
+    assert.equal(model.totActual, 611.9);
   });
 
-  test('should have correct tot_actual_str when tot_actual_cents=500', function(assert) {
+  test('it has the correct totActualStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 500);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_str'), '$5.00');
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 0,
+      augActual: 0,
+      decActual: 0,
+      febActual: 0,
+      marActual: 0,
+      mayActual: 0,
+      janActual: 0,
+      julActual: 0,
+      junActual: 0,
+      novActual: 0,
+      octActual: 0,
+      sepActual: 0,
+    });
 
-  test('should have correct tot_actual_str when tot_actual_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 12345);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    assert.equal(get(model, 'tot_actual_str'), '$123.45');
-  });
+    assert.equal(model.totActualStr, '-');
 
-  test('should have correct tot_budget_cents when all budget cents are 0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 0);
-  });
+    model.aprActual = '2164.11';
 
-  test('should add apr_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 500);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
+    assert.equal(model.totActualStr, '$2,164.11');
   });
 
-  test('should add aug_budget_cents to tot_budget_cents', function(assert) {
+  test('it has the correct totAlert', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 500);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 1,
+      aprBudget: 1,
+    });
 
-  test('should add dec_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 500);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    assert.notOk(model.totAlert);
 
-  test('should add feb_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 500);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    model.aprActual = 2;
 
-  test('should add mar_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 500);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    assert.ok(model.totAlert);
 
-  test('should add may_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 500);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    model.aprBudget = 3;
 
-  test('should add jan_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 500);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
+    assert.notOk(model.totAlert);
   });
 
-  test('should add jul_budget_cents to tot_budget_cents', function(assert) {
+  test('it has the correct totBalanceStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 500);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    const model = store.createRecord('subcategory-annual-report', {
+      aprActual: 1,
+      aprBudget: 1,
+    });
 
-  test('should add jun_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 500);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    assert.equal(model.totBalanceStr, '-');
 
-  test('should add nov_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 500);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    model.aprActual = '5.00';
+    model.aprBudget = '10.00';
 
-  test('should add oct_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 500);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    assert.equal(model.totBalanceStr, '$5.00');
 
-  test('should add sep_budget_cents to tot_budget_cents', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 500);
-    assert.equal(get(model, 'tot_budget_cents'), 500);
-  });
+    model.aprActual = '4941.79';
+    model.aprBudget = '9192.49';
 
-  test('should have correct tot_budget_str when tot_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_str'), '-');
-  });
+    assert.equal(model.totBalanceStr, '$4,250.70');
 
-  test('should have correct tot_budget_str when tot_budget_cents=500', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 500);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_str'), '$5.00');
-  });
+    model.aprActual = '10.00';
+    model.aprBudget = '5.00';
 
-  test('should have correct tot_budget_str when tot_budget_cents=12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_budget_cents', 12345);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_budget_str'), '$123.45');
-  });
+    assert.equal(model.totBalanceStr, '$-5.00');
 
-  test('should have correct tot_diff_str when tot_actual_cents=0 and tot_budget_cents=0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 0);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    set(model, 'apr_budget_cents', 0);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_diff_str'), '-');
-  });
+    model.aprActual = '4826.18';
+    model.aprBudget = '2449.83';
 
-  test('should have correct tot_diff_str when tot_actual_cents=500 and tot_budget_cents=1000', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 500);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    set(model, 'apr_budget_cents', 1000);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_diff_str'), '$5.00');
+    assert.equal(model.totBalanceStr, '$-2,376.35');
   });
 
-  test('should have correct tot_diff_str when tot_actual_cents=1000 and tot_budget_cents=500', function(assert) {
+  test('it has the correct totBudget', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 1000);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    set(model, 'apr_budget_cents', 500);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_diff_str'), '$-5.00');
+    const model = store.createRecord('subcategory-annual-report', {
+      aprBudget: 0,
+      augBudget: 0,
+      decBudget: 0,
+      febBudget: 0,
+      marBudget: 0,
+      mayBudget: 0,
+      janBudget: 0,
+      julBudget: 0,
+      junBudget: 0,
+      novBudget: 0,
+      octBudget: 0,
+      sepBudget: 0,
+    });
+
+    assert.equal(model.totBudget, 0);
+
+    model.aprBudget = '91.95';
+    model.augBudget = '10.53';
+    model.decBudget = '41.25';
+    model.febBudget = '43.15';
+    model.marBudget = '26.05';
+    model.mayBudget = '10.29';
+    model.janBudget = '74.70';
+    model.julBudget = '1.15';
+    model.junBudget = '86.41';
+    model.novBudget = '76.27';
+    model.octBudget = '90.64';
+    model.sepBudget = '59.51';
+
+    assert.equal(model.totBudget, 611.9);
   });
 
-  test('should have correct tot_diff_str when tot_actual_cents=11560 and tot_budget_cents=33534', function(assert) {
+  test('it has the correct totBudgetStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('subcategory-annual-report', {});
-    set(model, 'apr_actual_cents', 11560);
-    set(model, 'aug_actual_cents', 0);
-    set(model, 'dec_actual_cents', 0);
-    set(model, 'feb_actual_cents', 0);
-    set(model, 'mar_actual_cents', 0);
-    set(model, 'may_actual_cents', 0);
-    set(model, 'jan_actual_cents', 0);
-    set(model, 'jul_actual_cents', 0);
-    set(model, 'jun_actual_cents', 0);
-    set(model, 'nov_actual_cents', 0);
-    set(model, 'oct_actual_cents', 0);
-    set(model, 'sep_actual_cents', 0);
-    set(model, 'apr_budget_cents', 33534);
-    set(model, 'aug_budget_cents', 0);
-    set(model, 'dec_budget_cents', 0);
-    set(model, 'feb_budget_cents', 0);
-    set(model, 'mar_budget_cents', 0);
-    set(model, 'may_budget_cents', 0);
-    set(model, 'jan_budget_cents', 0);
-    set(model, 'jul_budget_cents', 0);
-    set(model, 'jun_budget_cents', 0);
-    set(model, 'nov_budget_cents', 0);
-    set(model, 'oct_budget_cents', 0);
-    set(model, 'sep_budget_cents', 0);
-    assert.equal(get(model, 'tot_diff_str'), '$219.74');
+    const model = store.createRecord('subcategory-annual-report', {
+      aprBudget: 0,
+      augBudget: 0,
+      decBudget: 0,
+      febBudget: 0,
+      marBudget: 0,
+      mayBudget: 0,
+      janBudget: 0,
+      julBudget: 0,
+      junBudget: 0,
+      novBudget: 0,
+      octBudget: 0,
+      sepBudget: 0,
+    });
+
+    assert.equal(model.totBudgetStr, '-');
+
+    model.aprBudget = '2164.11';
+
+    assert.equal(model.totBudgetStr, '$2,164.11');
   });
 });

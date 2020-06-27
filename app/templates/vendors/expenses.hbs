@@ -1,24 +1,16 @@
-{{title vendor.name}}
-<div class="grid-container">
-  <div class="grid-x">
-    <div class="cell">
-      <h1>{{vendor.name}}</h1>
-    </div>
-  </div>
-  <div class="grid-x">
-    <div class="cell">
-      <ul class="menu">
-        <li>
-          {{#link-to "vendors.show" vendor.id}}
-            {{fa-icon "list"}} Details
-          {{/link-to}}
-        </li>
-        <li class="is-active">
-          {{#link-to "vendors.expenses" vendor.id}}
-            {{fa-icon "credit-card"}} Expenses
-          {{/link-to}}
-        </li>
-      </ul>
-    </div>
-  </div>
+<div class="container-lg">
+  <h1>Vendor - {{this.vendor.name}}</h1>
+  <Menus::VendorItem @vendorId={{this.vendor.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.expenses}}
+    @page={{this.page}}
+    @numPages={{this.expenses.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>
+<div class="add-button">
+  <LinkTo @route="expenses.new" @query={{hash vendorId=this.vendor.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
 </div>

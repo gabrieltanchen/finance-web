@@ -1,20 +1,13 @@
-{{title "Edit Expense"}}
-<div class="grid-container">
-  <div class="grid-x">
-    <div class="cell small-8">
-      <h1>Edit Expense</h1>
-    </div>
-    <div class="cell small-4">
-      <div class="button-group float-right">
-        {{#link-to "expenses.show" expense.id class="secondary button"}}
-          Back
-        {{/link-to}}
-      </div>
-    </div>
-  </div>
-  <div class="grid-x">
-    <div class="cell">
-      {{forms/expense/edit-expense expense=(changeset expense ExpenseValidations) householdMembers=householdMembers expenseSaved=(action "expenseSaved") vendorSearch=vendorName householdMemberName=householdMemberName vendorSelected=(action "vendorSelected") householdMemberSelected=(action "householdMemberSelected")}}
-    </div>
-  </div>
+<div class="container-lg">
+  <h1>Edit Expense</h1>
+  <Menus::ExpenseItem @expenseId={{this.expense.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Expense
+    @expense={{this.expense}}
+    @householdMembers={{this.householdMembers}}
+    @saveSuccessful={{fn this.transitionToExpenseDetails}}
+    @subcategories={{this.subcategories}}
+    @vendors={{this.vendors}}
+  />
 </div>

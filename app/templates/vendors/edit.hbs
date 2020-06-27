@@ -1,20 +1,7 @@
-{{title vendor.name}}
-<div class="grid-container">
-  <div class="grid-x">
-    <div class="cell small-8">
-      <h1>Edit {{vendor.name}}</h1>
-    </div>
-    <div class="cell small-4">
-      <div class="button-group float-right">
-        {{#link-to "vendors.show" vendor.id class="secondary button"}}
-          Back
-        {{/link-to}}
-      </div>
-    </div>
-  </div>
-  <div class="grid-x">
-    <div class="cell">
-      {{forms/vendor/edit-vendor vendor=(changeset vendor VendorValidations) vendorSaved=(action "vendorSaved")}}
-    </div>
-  </div>
+<div class="container-lg">
+  <h1>Edit Vendor - {{this.vendor.name}}</h1>
+  <Menus::VendorItem @vendorId={{this.vendor.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Vendor @vendor={{this.vendor}} @saveSuccessful={{fn this.transitionToVendorDetails}} />
 </div>

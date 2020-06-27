@@ -1,20 +1,7 @@
-{{title category.name}}
-<div class="grid-container">
-  <div class="grid-x">
-    <div class="cell small-8">
-      <h1>Edit {{category.name}}</h1>
-    </div>
-    <div class="cell small-4">
-      <div class="button-group float-right">
-        {{#link-to "categories.show" category.id class="secondary button"}}
-          Back
-        {{/link-to}}
-      </div>
-    </div>
-  </div>
-  <div class="grid-x">
-    <div class="cell">
-      {{forms/category/edit-category category=(changeset category CategoryValidations) categorySaved=(action "categorySaved")}}
-    </div>
-  </div>
+<div class="container-lg">
+  <h1>Edit Category - {{this.category.name}}</h1>
+  <Menus::CategoryItem @categoryId={{this.category.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Category @category={{this.category}} @saveSuccessful={{fn this.transitionToCategoryDetails}} />
 </div>

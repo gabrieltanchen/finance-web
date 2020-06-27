@@ -1,0 +1,61 @@
+<nav class="pagination" aria-label="Pagination Navigation">
+  <ul>
+    <li class="pagination-previous">
+      {{#if this.disablePrevious}}
+        <span>Previous</span>
+      {{else}}
+        <button {{on "click" this.previousPage}} aria-label="Go to previous page">
+          Previous
+        </button>
+      {{/if}}
+    </li>
+    {{#each this.pageNumbers as |pageNumber|}}
+      <li class="pagination-page">
+        {{#if pageNumber.current}}
+          <span>{{pageNumber.page}}</span>
+        {{else}}
+          <button {{on "click" (fn this.setPage pageNumber.page)}} aria-label="Go to page {{pageNumber.page}}">
+            {{pageNumber.page}}
+          </button>
+        {{/if}}
+      </li>
+    {{/each}}
+    <li class="pagination-next">
+      {{#if this.disableNext}}
+        <span>Next</span>
+      {{else}}
+        <button {{on "click" this.nextPage}} aria-label="Go to next page">
+          Next
+        </button>
+      {{/if}}
+    </li>
+  </ul>
+</nav>
+<table>
+  <thead>
+    <tr>
+      {{#each @columns as |column|}}
+        <th>
+          {{column.name}}
+        </th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each @rows as |row|}}
+      <tr>
+        {{#each @columns as |column|}}
+          <td>
+            {{#if column.linkTo}}
+              <LinkTo @route={{column.linkTo}} @model={{row.id}} class="row-button">
+                {{column.linkText}}
+              </LinkTo>
+            {{else}}
+              {{get row column.propertyName}}
+            {{/if}}
+          </td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

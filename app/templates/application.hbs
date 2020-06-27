@@ -1,5 +1,4 @@
-{{head-layout}}
-{{title "Finance"}}
-
-{{nav-menu logout=(action "logout")}}
-{{outlet}}
+<NavBar @logoutSuccessful={{fn this.transitionToIndex}} />
+<main>
+  {{outlet}}
+</main>

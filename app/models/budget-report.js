@@ -1,38 +1,53 @@
-import DS from 'ember-data';
-import { computed, get } from '@ember/object';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  actual: DS.attr('number'),
-  actual_cents: DS.attr('number'),
-  budget: DS.attr('number'),
-  budget_cents: DS.attr('number'),
+export default class BudgetReportModel extends Model {
+  @attr('dollars') actual;
+  @attr('dollars') budget;
 
-  category: DS.belongsTo('category'),
-  subcategory: DS.belongsTo('subcategory'),
+  @belongsTo('category') category
+  @belongsTo('subcategory') subcategory;
 
-  alertState: computed('actual_cents', 'budget_cents', function() {
-    return get(this, 'actual_cents') > get(this, 'budget_cents');
-  }),
-  actual_str: computed('actual', function() {
-    if (get(this, 'actual') === 0) {
+  get actualStr() {
+    const actual = parseFloat(this.actual) || 0;
+    if (actual === 0) {
       return '-';
     }
-    return `$${get(this, 'actual').toFixed(2)}`;
-  }),
-  budget_str: computed('budget', function() {
-    if (get(this, 'budget') === 0) {
+    const actualStr = actual.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${actualStr}`;
+  }
+
+  get alert() {
+    const actual = parseFloat(this.actual) || 0;
+    const budget = parseFloat(this.budget) || 0;
+    return actual > budget;
+  }
+
+  get balanceStr() {
+    const actual = parseFloat(this.actual) || 0;
+    const budget = parseFloat(this.budget) || 0;
+    const balance = budget - actual;
+    if (balance === 0) {
       return '-';
     }
-    return `$${get(this, 'budget').toFixed(2)}`;
-  }),
-  difference: computed('actual', 'budget', function() {
-    return (get(this, 'budget') - get(this, 'actual')).toFixed(2);
-  }),
-  difference_str: computed('difference', function() {
-    const difference = parseFloat(get(this, 'difference'));
-    if (difference === 0) {
+    const balanceStr = balance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${balanceStr}`;
+  }
+
+  get budgetStr() {
+    const budget = parseFloat(this.budget) || 0;
+    if (budget === 0) {
       return '-';
     }
-    return `$${difference.toFixed(2)}`;
-  }),
-});
+    const budgetStr = budget.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${budgetStr}`;
+  }
+}

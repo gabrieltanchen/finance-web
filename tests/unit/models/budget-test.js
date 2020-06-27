@@ -1,6 +1,5 @@
-import { setupTest } from 'ember-qunit';
-import { get, set } from '@ember/object';
 import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Model | budget', function(hooks) {
   setupTest(hooks);
@@ -11,24 +10,81 @@ module('Unit | Model | budget', function(hooks) {
     assert.ok(model);
   });
 
-  test('should have correct budget_str when budget=0', function(assert) {
+  test('it has the correct amountStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('budget', {});
-    set(model, 'budget', 0);
-    assert.equal(get(model, 'budget_str'), '-');
+    const budget = store.createRecord('budget', {
+      amount: 0,
+    });
+
+    assert.equal(budget.amountStr, '-');
+
+    budget.amount = '5.00';
+
+    assert.equal(budget.amountStr, '$5.00');
+
+    budget.amount = '1234.56';
+
+    assert.equal(budget.amountStr, '$1,234.56');
+
+    budget.amount = '-5.00';
+
+    assert.equal(budget.amountStr, '$-5.00');
+
+    budget.amount = '-6543.21';
+
+    assert.equal(budget.amountStr, '$-6,543.21');
   });
 
-  test('should have correct budget_str when budget=5', function(assert) {
+  test('it has the correct monthStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('budget', {});
-    set(model, 'budget', 5);
-    assert.equal(get(model, 'budget_str'), '$5.00');
-  });
+    const budget = store.createRecord('budget', {
+      month: 0,
+    });
 
-  test('should have correct budget_str when budget=123.45', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('budget', {});
-    set(model, 'budget', 123.45);
-    assert.equal(get(model, 'budget_str'), '$123.45');
+    assert.equal(budget.monthStr, 'January');
+
+    budget.month = 1;
+
+    assert.equal(budget.monthStr, 'February');
+
+    budget.month = 2;
+
+    assert.equal(budget.monthStr, 'March');
+
+    budget.month = 3;
+
+    assert.equal(budget.monthStr, 'April');
+
+    budget.month = 4;
+
+    assert.equal(budget.monthStr, 'May');
+
+    budget.month = 5;
+
+    assert.equal(budget.monthStr, 'June');
+
+    budget.month = 6;
+
+    assert.equal(budget.monthStr, 'July');
+
+    budget.month = 7;
+
+    assert.equal(budget.monthStr, 'August');
+
+    budget.month = 8;
+
+    assert.equal(budget.monthStr, 'September');
+
+    budget.month = 9;
+
+    assert.equal(budget.monthStr, 'October');
+
+    budget.month = 10;
+
+    assert.equal(budget.monthStr, 'November');
+
+    budget.month = 11;
+
+    assert.equal(budget.monthStr, 'December');
   });
 });

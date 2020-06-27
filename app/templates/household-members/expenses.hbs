@@ -1,24 +1,16 @@
-{{title householdMember.name}}
-<div class="grid-container">
-  <div class="grid-x">
-    <div class="cell">
-      <h1>{{householdMember.name}}</h1>
-    </div>
-  </div>
-  <div class="grid-x">
-    <div class="cell">
-      <ul class="menu">
-        <li>
-          {{#link-to "household-members.show" householdMember.id}}
-            {{fa-icon "list"}} Details
-          {{/link-to}}
-        </li>
-        <li class="is-active">
-          {{#link-to "household-members.expenses" householdMember.id}}
-            {{fa-icon "credit-card"}} Expenses
-          {{/link-to}}
-        </li>
-      </ul>
-    </div>
-  </div>
+<div class="container-lg">
+  <h1>Household Member - {{this.householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{this.householdMember.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.expenses}}
+    @page={{this.page}}
+    @numPages={{this.expenses.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>
+<div class="add-button">
+  <LinkTo @route="expenses.new" @query={{hash householdMemberId=this.householdMember.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
 </div>

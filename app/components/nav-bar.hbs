@@ -1,0 +1,30 @@
+<nav class="nav-bar">
+  <div class="container-lg nav-bar-container">
+    <LinkTo @route="index" class="nav-title">
+      Finance
+    </LinkTo>
+    <div class="nav-links">
+      {{#if this.session.authToken}}
+        <LinkTo @route="categories.index" id="nav-categories">
+          Categories
+        </LinkTo>
+        <LinkTo @route="income.index" id="nav-income">
+          Income
+        </LinkTo>
+        <LinkTo @route="vendors.index" id="nav-vendors">
+          Vendors
+        </LinkTo>
+        <LinkTo @route="household-members.index" id="nav-members">
+          Members
+        </LinkTo>
+        <button {{on "click" this.logout}} id="logout-button">
+          Logout
+        </button>
+      {{else}}
+        <LinkTo @route="login" id="login-link">
+          Login
+        </LinkTo>
+      {{/if}}
+    </div>
+  </div>
+</nav>

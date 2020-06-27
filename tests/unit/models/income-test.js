@@ -1,6 +1,5 @@
-import { setupTest } from 'ember-qunit';
-import { get, set } from '@ember/object';
 import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Model | income', function(hooks) {
   setupTest(hooks);
@@ -11,52 +10,28 @@ module('Unit | Model | income', function(hooks) {
     assert.ok(model);
   });
 
-  test('should have correct amount_str when amount=0', function(assert) {
+  test('it has the correct amountStr', function(assert) {
     const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount', 0);
-    assert.equal(get(model, 'amount_str'), '-');
-  });
+    const income = store.createRecord('income', {
+      amount: '0',
+    });
 
-  test('should have correct amount_str when amount=5', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount', 5);
-    assert.equal(get(model, 'amount_str'), '$5.00');
-  });
+    assert.equal(income.amountStr, '-');
 
-  test('should have correct amount_str when amount=123.45', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount', 123.45);
-    assert.equal(get(model, 'amount_str'), '$123.45');
-  });
+    income.amount = '5.00';
 
-  test('should update amount_cents after amount was changed to 0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount', 0);
-    assert.equal(get(model, 'amount_cents'), 0);
-  });
+    assert.equal(income.amountStr, '$5.00');
 
-  test('should update amount_cents after amount was changed to 123.45', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount', 123.45);
-    assert.equal(get(model, 'amount_cents'), 12345);
-  });
+    income.amount = '1234.56';
 
-  test('should update amount after amount_cents was changed to 0', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount_cents', 0);
-    assert.equal(get(model, 'amount'), 0);
-  });
+    assert.equal(income.amountStr, '$1,234.56');
 
-  test('should update amount after amount_cents was changed to 12345', function(assert) {
-    const store = this.owner.lookup('service:store');
-    const model = store.createRecord('income', {});
-    set(model, 'amount_cents', 12345);
-    assert.equal(get(model, 'amount'), 123.45);
+    income.amount = '-5.00';
+
+    assert.equal(income.amountStr, '$-5.00');
+
+    income.amount = '-6543.21';
+
+    assert.equal(income.amountStr, '$-6,543.21');
   });
 });

@@ -1,31 +1,32 @@
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { set } from '@ember/object';
-import HouseholdMemberValidations from '../../validations/household-member';
+import { action } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  queryParams: ['create', 'limit', 'page'],
-  meta: null,
-  tableColumns: [{
-    isLink: true,
-    linkParam: 'id',
-    linkTo: 'household-members.show',
+export default class HouseholdMembersIndexController extends Controller {
+  queryParams = ['page'];
+
+  @alias('model') householdMembers;
+  @tracked page = null;
+
+  tableColumns = [{
     name: 'Name',
     propertyName: 'name',
   }, {
     name: 'Created At',
-    propertyName: 'created_at',
-  }],
-  householdMembers: alias('model.householdMembers'),
-  HouseholdMemberValidations,
-  newHouseholdMember: alias('model.newHouseholdMember'),
+    propertyName: 'createdAt',
+  }, {
+    linkText: 'View',
+    linkTo: 'household-members.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'household-members.edit',
+    name: '',
+  }];
 
-  actions: {
-    closeCreateForm() {
-      set(this, 'create', null);
-    },
-    showCreateForm() {
-      set(this, 'create', true);
-    },
-  },
-});
+  @action
+  setPage(page) {
+    this.page = page;
+  }
+}

@@ -1,14 +1,9 @@
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import LoginValidations from '../validations/login';
+import { action } from '@ember/object';
 
-export default Controller.extend({
-  LoginValidations,
-  user: alias('model'),
-
-  actions: {
-    loggedIn() {
-      this.transitionToRoute('dashboard');
-    },
-  },
-});
+export default class LoginController extends Controller {
+  @action
+  transitionToDashboard() {
+    this.transitionToRoute('dashboard');
+  }
+}

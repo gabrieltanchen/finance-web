@@ -1,0 +1,43 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{#if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="categories.show" @model={{@categoryId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSubcategoriesRoute}}
+        <span>
+          <FaIcon @icon="project-diagram" @size="sm" />
+          Subcategories
+        </span>
+      {{else}}
+        <LinkTo @route="categories.subcategories" @model={{@categoryId}}>
+          <FaIcon @icon="project-diagram" @size="sm" />
+          Subcategories
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="categories.settings" @model={{@categoryId}}>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

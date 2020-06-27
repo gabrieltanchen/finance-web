@@ -1,11 +1,8 @@
 import { module, test } from 'qunit';
-import {
-  currentURL,
-  visit,
-} from '@ember/test-helpers';
-import { get } from '@ember/object';
+import { currentURL, visit } from '@ember/test-helpers';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | logged in redirects', function(hooks) {
   setupApplicationTest(hooks);
@@ -14,141 +11,260 @@ module('Acceptance | logged in redirects', function(hooks) {
   hooks.beforeEach(function() {
     const session = this.owner.lookup('service:session');
     session.logout();
-    get(session, 'cookie').setCookie('token', 'token');
+    session.authToken = 'token';
   });
 
   test('should redirect away from /', async function(assert) {
     await visit('/');
+
     assert.equal(currentURL(), '/dashboard');
-  });
-
-  test('can visit /budgets/:uuid', async function(assert) {
-    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4');
-    assert.equal(currentURL(), '/budgets/af805297-150c-4c66-adc1-a457d62160a4');
-  });
-
-  test('can visit /budgets/:uuid/edit', async function(assert) {
-    await visit('/budgets/af805297-150c-4c66-adc1-a457d62160a4/edit');
-    assert.equal(currentURL(), '/budgets/af805297-150c-4c66-adc1-a457d62160a4/edit');
   });
 
   test('can visit /categories', async function(assert) {
     await visit('/categories');
+
     assert.equal(currentURL(), '/categories');
   });
 
-  test('can visit /categories/:uuid', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee');
+  test('can visit /categories/new', async function(assert) {
+    await visit('/categories/new');
+
+    assert.equal(currentURL(), '/categories/new');
   });
 
-  test('can visit /categories/:uuid/edit', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/edit');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/edit');
+  test('can visit /categories/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}`);
+
+    assert.equal(currentURL(), `/categories/${id}`);
   });
 
-  test('can visit /categories/:uuid/subcategories', async function(assert) {
-    await visit('/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
-    assert.equal(currentURL(), '/categories/14aa3ef4-193f-45c4-8e33-ad7b79a3e6ee/subcategories');
+  test('can visit /categories/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/edit`);
+
+    assert.equal(currentURL(), `/categories/${id}/edit`);
+  });
+
+  test('can visit /categories/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/settings`);
+
+    assert.equal(currentURL(), `/categories/${id}/settings`);
+  });
+
+  test('can visit /categories/:id/subcategories', async function(assert) {
+    const id = uuidv4();
+    await visit(`/categories/${id}/subcategories`);
+
+    assert.equal(currentURL(), `/categories/${id}/subcategories`);
   });
 
   test('can visit /dashboard', async function(assert) {
     await visit('/dashboard');
+
     assert.equal(currentURL(), '/dashboard');
   });
 
-  test('can visit /expenses/:uuid', async function(assert) {
-    await visit('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d');
-    assert.equal(currentURL(), '/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d');
+  test('can visit /expenses/new', async function(assert) {
+    await visit('/expenses/new');
+
+    assert.equal(currentURL(), '/expenses/new');
   });
 
-  test('can visit /expenses/:uuid/edit', async function(assert) {
-    await visit('/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d/edit');
-    assert.equal(currentURL(), '/expenses/ba03c363-0670-43cf-bef7-07cd6bb6694d/edit');
+  test('can visit /expenses/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}`);
+
+    assert.equal(currentURL(), `/expenses/${id}`);
+  });
+
+  test('can visit /expenses/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/edit`);
+
+    assert.equal(currentURL(), `/expenses/${id}/edit`);
+  });
+
+  test('can visit /expenses/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/settings`);
+
+    assert.equal(currentURL(), `/expenses/${id}/settings`);
   });
 
   test('can visit /household-members', async function(assert) {
     await visit('/household-members');
+
     assert.equal(currentURL(), '/household-members');
   });
 
-  test('can visit /household-members/:uuid', async function(assert) {
-    await visit('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7');
-    assert.equal(currentURL(), '/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7');
+  test('can visit /household-members/new', async function(assert) {
+    await visit('/household-members/new');
+
+    assert.equal(currentURL(), '/household-members/new');
   });
 
-  test('can visit /household-members/:uuid/edit', async function(assert) {
-    await visit('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/edit');
-    assert.equal(currentURL(), '/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/edit');
+  test('can visit /household-members/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}`);
+
+    assert.equal(currentURL(), `/household-members/${id}`);
   });
 
-  test('can visit /household-members/:uuid/expenses', async function(assert) {
-    await visit('/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/expenses');
-    assert.equal(currentURL(), '/household-members/6c8e8279-1d98-47ad-aa9a-bf41d57e1db7/expenses');
+  test('can visit /household-members/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/edit`);
+
+    assert.equal(currentURL(), `/household-members/${id}/edit`);
+  });
+
+  test('can visit /household-members/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/expenses`);
+
+    assert.equal(currentURL(), `/household-members/${id}/expenses`);
+  });
+
+  test('can visit /household-members/:id/income', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/income`);
+
+    assert.equal(currentURL(), `/household-members/${id}/income`);
+  });
+
+  test('can visit /household-members/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/household-members/${id}/settings`);
+
+    assert.equal(currentURL(), `/household-members/${id}/settings`);
   });
 
   test('can visit /income', async function(assert) {
     await visit('/income');
+
     assert.equal(currentURL(), '/income');
   });
 
-  test('can visit /income/:uuid', async function(assert) {
-    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53');
-    assert.equal(currentURL(), '/income/f347b74e-5980-4324-b629-98490f74ed53');
+  test('can visit /income/new', async function(assert) {
+    await visit('/income/new');
+
+    assert.equal(currentURL(), '/income/new');
   });
 
-  test('can visit /income/:uuid/edit', async function(assert) {
-    await visit('/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
-    assert.equal(currentURL(), '/income/f347b74e-5980-4324-b629-98490f74ed53/edit');
+  test('can visit /income/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}`);
+
+    assert.equal(currentURL(), `/income/${id}`);
+  });
+
+  test('can visit /income/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}/edit`);
+
+    assert.equal(currentURL(), `/income/${id}/edit`);
+  });
+
+  test('can visit /income/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/income/${id}/settings`);
+
+    assert.equal(currentURL(), `/income/${id}/settings`);
   });
 
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
+
     assert.equal(currentURL(), '/dashboard');
   });
 
-  test('should redirect away from /sign-up', async function(assert) {
-    await visit('/sign-up');
-    assert.equal(currentURL(), '/dashboard');
+  test('can visit /subcategories/new', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/new?categoryId=${id}`);
+
+    assert.equal(currentURL(), `/subcategories/new?categoryId=${id}`);
   });
 
-  test('can visit /subcategories/:uuid', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
-    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e');
+  test('can visit /subcategories/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}`);
+
+    assert.equal(currentURL(), `/subcategories/${id}`);
   });
 
-  test('can visit /subcategories/:uuid/budgets', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/budgets');
-    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/budgets');
+  test('can visit /subcategories/:id/annual-report', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/annual-report`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/annual-report`);
   });
 
-  test('can visit /subcategories/:uuid/edit', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/edit');
-    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/edit');
+  test('can visit /subcategories/:id/budgets', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/budgets`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/budgets`);
   });
 
-  test('can visit /subcategories/:uuid/expenses', async function(assert) {
-    await visit('/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
-    assert.equal(currentURL(), '/subcategories/6948ad4c-f78b-4ce5-b7d5-0b552234fc4e/expenses');
+  test('can visit /subcategories/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/edit`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/edit`);
+  });
+
+  test('can visit /subcategories/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/expenses`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/expenses`);
+  });
+
+  test('can visit /subcategories/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/subcategories/${id}/settings`);
+
+    assert.equal(currentURL(), `/subcategories/${id}/settings`);
   });
 
   test('can visit /vendors', async function(assert) {
     await visit('/vendors');
+
     assert.equal(currentURL(), '/vendors');
   });
 
-  test('can visit /vendors/:uuid', async function(assert) {
-    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
-    assert.equal(currentURL(), '/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57');
+  test('can visit /vendors/new', async function(assert) {
+    await visit('/vendors/new');
+
+    assert.equal(currentURL(), '/vendors/new');
   });
 
-  test('can visit /vendors/:uuid/edit', async function(assert) {
-    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/edit');
-    assert.equal(currentURL(), '/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/edit');
+  test('can visit /vendors/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}`);
+
+    assert.equal(currentURL(), `/vendors/${id}`);
   });
 
-  test('can visit /vendors/:uuid/expenses', async function(assert) {
-    await visit('/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/expenses');
-    assert.equal(currentURL(), '/vendors/b6f0441e-bdee-4172-a646-4d8c9191db57/expenses');
+  test('can visit /vendors/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}/edit`);
+
+    assert.equal(currentURL(), `/vendors/${id}/edit`);
+  });
+
+  test('can visit /vendors/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}/expenses`);
+
+    assert.equal(currentURL(), `/vendors/${id}/expenses`);
+  });
+
+  test('can visit /vendors/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/vendors/${id}/settings`);
+
+    assert.equal(currentURL(), `/vendors/${id}/settings`);
   });
 });

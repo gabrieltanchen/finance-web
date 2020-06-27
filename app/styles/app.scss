@@ -1,27 +1,50 @@
 @import 'variables';
-@import 'global';
-@import 'form';
-@import 'nav-menu';
-@import 'report';
+@import 'ember-power-select';
+@import 'nav';
+@import 'buttons';
+@import 'forms';
+@import 'callout';
+@import 'tables';
+@import 'modal';
+@import 'page';
+@import 'dashboard';
 
-.overlay {
-  background-color: $background-overlay;
-  height: 100%;
-  left: 0;
-  // overflow: auto;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
+body {
+  font-family: 'proxima-nova', sans-serif;
+  margin: 0;
+
+  main {
+    margin-bottom: 3em;
+  }
 }
 
-.modal {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
+h1 {
+  font-size: 2em;
+  font-weight: 500;
 }
 
-.modal-cell {
-  background-color: $white;
+button {
+  font-family: 'proxima-nova', sans-serif;
+  outline: none;
 }
+
+[class*='container-'] {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+.container-lg {
+  max-width: 67.5rem;
+}
+
+.container-md {
+  max-width: 55rem;
+}
+
+.container-sm {
+  max-width: 40rem;
+}
+
+@import "ember-power-select";

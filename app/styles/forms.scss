@@ -1,0 +1,52 @@
+form {
+  font-size: 1rem;
+  margin-top: 2em;
+
+  &.expense-form,
+  &.income-form {
+    column-gap: 1em;
+    display: grid;
+    grid-column-gap: 1em;
+    grid-template-columns: 1fr 1fr;
+
+    .expense-subcategory,
+    .expense-submit,
+    .income-submit {
+      grid-column: span 2;
+    }
+  }
+
+  label {
+    font-size: 0.8em;
+  }
+
+  .ember-power-select-trigger {
+    border: 1px solid $black-alpha-25;
+    border-radius: 0;
+    line-height: 1;
+    min-height: auto;
+    padding: 0.8em;
+
+    .ember-power-select-selected-item {
+      margin-left: 0;
+    }
+  }
+
+  input {
+    border: 1px solid $black-alpha-25;
+    box-sizing: border-box;
+    display: block;
+    font-size: 1em;
+    margin-bottom: 1em;
+    padding: 0.8em;
+    width: 100%;
+
+    &[type='submit'] {
+      background-color: $primary-colour;
+      cursor: pointer;
+      font-size: 0.8em;
+      font-weight: 600;
+      margin-top: 2em;
+    }
+  }
+}

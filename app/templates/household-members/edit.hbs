@@ -1,20 +1,7 @@
-{{title householdMember.name}}
-<div class="grid-container">
-  <div class="grid-x">
-    <div class="cell small-8">
-      <h1>Edit {{householdMember.name}}</h1>
-    </div>
-    <div class="cell small-4">
-      <div class="button-group float-right">
-        {{#link-to "household-members.show" householdMember.id class="secondary button"}}
-          Back
-        {{/link-to}}
-      </div>
-    </div>
-  </div>
-  <div class="grid-x">
-    <div class="cell">
-      {{forms/household/edit-member householdMember=(changeset householdMember HouseholdMemberValidations) householdMemberSaved=(action "householdMemberSaved")}}
-    </div>
-  </div>
+<div class="container-lg">
+  <h1>Edit Household Member - {{this.householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{this.householdMember.id}} />
+</div>
+<div class="container-sm">
+  <Forms::HouseholdMember @householdMember={{this.householdMember}} @saveSuccessful={{fn this.transitionToHouseholdMemberDetails}} />
 </div>

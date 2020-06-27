@@ -1,20 +1,22 @@
-import { get } from '@ember/object';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import RSVP from 'rsvp';
 
-export default Route.extend({
-  session: service(),
+export default class VendorsEditRoute extends Route {
+  @service session;
 
   async beforeModel() {
-    if (!(await get(this, 'session').isLoggedIn())) {
+    if (!(await this.session.isLoggedIn())) {
       this.transitionTo('login');
     }
-  },
+  }
 
   model(params) {
-    return RSVP.hash({
-      vendor: get(this, 'store').findRecord('vendor', params.vendor_uuid),
-    });
-  },
-});
+    return this.store.findRecord('vendor', params.vendor_id);
+  }
+
+  resetController(controller) {
+    if (controller.vendor && controller.vendor.hasDirtyAttributes) {
+      controller.vendor.rollbackAttributes();
+    }
+  }
+}

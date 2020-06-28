@@ -45,6 +45,21 @@ export default function() {
       },
     });
   });
+  this.get('/budgets/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': 1000,
+          'month': 0,
+          'year': 2020,
+        },
+        'id': request.params.id,
+        'type': 'budgets',
+      },
+    });
+  });
 
   this.get('/categories', (db, request) => {
     let data;

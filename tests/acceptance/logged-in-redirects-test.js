@@ -20,6 +20,13 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('can visit /budgets/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/${id}`);
+
+    assert.equal(currentURL(), `/budgets/${id}`);
+  });
+
   test('can visit /categories', async function(assert) {
     await visit('/categories');
 

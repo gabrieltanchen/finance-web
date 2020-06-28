@@ -1,0 +1,32 @@
+<div class="container-lg">
+  <h1>View Budget</h1>
+  <Menus::BudgetItem @budgetId={{this.budget.id}} />
+</div>
+<div class="container-sm">
+  <a href="#" class="button">
+    Edit
+  </a>
+  <button class="button alert" {{on "click" this.openDeleteModal}}>
+    Delete
+  </button>
+</div>
+{{#if showDeleteModal}}
+  <div class="overlay">
+    <div class="container-sm modal">
+      {{#if this.deleteErrors}}
+        <div class="callout alert">
+          {{#each this.deleteErrors as |error|}}
+            <p>{{error}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
+      <p>Are you sure you want to delete this budget?</p>
+      <button class="button alert" {{on "click" this.deleteBudget}}>
+        Delete
+      </button>
+      <button class="button cancel" {{on "click" this.closeDeleteModal}}>
+        Cancel
+      </button>
+    </div>
+  </div>
+{{/if}}

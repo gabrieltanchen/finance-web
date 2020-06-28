@@ -45,6 +45,22 @@ export default function() {
       },
     });
   });
+  this.delete('/budgets/:id', (db, request) => {
+    if (request.params.id === '65b3bef7-6e22-47bf-865a-3939ab53d6b1') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test budget delete error 1.',
+        }, {
+          detail: 'Test budget delete error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
   this.get('/budgets/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
@@ -56,6 +72,14 @@ export default function() {
           'year': 2020,
         },
         'id': request.params.id,
+        'relationships': {
+          'subcategory': {
+            'data': {
+              'id': 'd133a7d5-58c6-458d-8b4c-e9e7dee28334',
+              'type': 'subcategories',
+            },
+          },
+        },
         'type': 'budgets',
       },
     });

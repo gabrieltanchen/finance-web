@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import {
   click,
   currentURL,
+  fillIn,
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -35,6 +36,53 @@ module('Acceptance | budgets', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Month');
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Amount');
     assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Created At');
+  });
+
+  test('visiting /budgets/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/${id}/edit`);
+
+    assert.equal(currentURL(), `/budgets/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Budget');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#budget-amount-input').exists();
+    assert.dom('#budget-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing budget', async function(assert) {
+    await visit('/budgets/a6da3f05-a6af-485d-808f-679db25932db/edit');
+
+    assert.equal(currentURL(), '/budgets/a6da3f05-a6af-485d-808f-679db25932db/edit');
+
+    await fillIn('#budget-amount-input', '45.67');
+    await click('#budget-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test budget patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test budget patch error 2.');
+
+    // Test that the expense gets reset after navigating away from edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/budgets/a6da3f05-a6af-485d-808f-679db25932db');
+    assert.dom('table tr:nth-of-type(5) td:nth-of-type(2)').containsText('$10.00');
+  });
+
+  test('should transition to budget details after editing budget', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/${id}/edit`);
+
+    assert.equal(currentURL(), `/budgets/${id}/edit`);
+
+    await fillIn('#budget-amount-input', '45.67');
+    await click('#budget-submit');
+
+    assert.equal(currentURL(), `/budgets/${id}`);
   });
 
   test('visiting /budgets/:id/settings', async function(assert) {
@@ -73,9 +121,9 @@ module('Acceptance | budgets', function(hooks) {
 
     assert.dom('.overlay').doesNotExist();
 
-    // await click('.container-sm a');
-    //
-    // assert.equal(currentURL(), `/budgets/${id}/edit`);
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/budgets/${id}/edit`);
   });
 
   test('renders callout when deleting budget returns errors', async function(assert) {

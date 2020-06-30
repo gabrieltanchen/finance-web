@@ -20,7 +20,7 @@ export default class BudgetsShowController extends Controller {
     propertyName: 'monthStr',
   }, {
     name: 'Amount',
-    propertyName: 'amount',
+    propertyName: 'amountStr',
   }, {
     name: 'Created At',
     propertyName: 'createdAt',

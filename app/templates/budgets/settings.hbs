@@ -3,9 +3,9 @@
   <Menus::BudgetItem @budgetId={{this.budget.id}} />
 </div>
 <div class="container-sm">
-  <a href="#" class="button">
+  <LinkTo @route="budgets.edit" @model={{this.budget.id}} class="button">
     Edit
-  </a>
+  </LinkTo>
   <button class="button alert" {{on "click" this.openDeleteModal}}>
     Delete
   </button>

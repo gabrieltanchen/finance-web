@@ -9,3 +9,8 @@
     @setPage={{this.setPage}}
   />
 </div>
+<div class="add-button">
+  <LinkTo @route="budgets.new" @query={{hash subcategoryId=this.subcategory.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
+</div>

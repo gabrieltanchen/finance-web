@@ -1,0 +1,55 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form class="budget-form" {{on "submit" this.save}}>
+  <div class="budget-subcategory">
+    <label for="budget-subcategory-select">Subcategory</label>
+    <PowerSelect
+      @search={{action this.updateSubcategorySearch}}
+      @searchEnabled={{true}}
+      @options={{@subcategories}}
+      @searchField="name"
+      @selected={{@budget.subcategory}}
+      @onChange={{action this.selectSubcategory}}
+      @triggerId="budget-subcategory-select"
+      as |subcategory|
+    >
+      {{subcategory.category.name}} - {{subcategory.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="budget-year-select">Year</label>
+    <PowerSelect
+      @options={{this.yearOptions}}
+      @selected={{@budget.year}}
+      @onChange={{action this.setYear}}
+      @triggerId="budget-year-select"
+      as |yearOption|
+    >
+      {{yearOption}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="budget-month-select">Month</label>
+    <PowerSelect
+      @options={{this.monthOptions}}
+      @selected={{this.selectedMonth}}
+      @onChange={{action this.setMonth}}
+      @triggerId="budget-month-select"
+      as |monthOption|
+    >
+      {{monthOption}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="budget-amount-input">Amount</label>
+    <Input @value={{@budget.amount}} @type="text" id="budget-amount-input" />
+  </div>
+  <div class="budget-submit">
+    <Input @value="Save" @type="submit" id="budget-submit" />
+  </div>
+</form>

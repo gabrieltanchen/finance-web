@@ -1,0 +1,30 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{#if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="budgets.show" @model={{@budgetId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="budgets.settings" @model={{@budgetId}}>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

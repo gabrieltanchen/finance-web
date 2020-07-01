@@ -20,6 +20,33 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('can visit /budgets/new', async function(assert) {
+    await visit('/budgets/new');
+
+    assert.equal(currentURL(), '/budgets/new');
+  });
+
+  test('can visit /budgets/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/${id}`);
+
+    assert.equal(currentURL(), `/budgets/${id}`);
+  });
+
+  test('can visit /budgets/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/${id}/edit`);
+
+    assert.equal(currentURL(), `/budgets/${id}/edit`);
+  });
+
+  test('can visit /budgets/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/${id}/settings`);
+
+    assert.equal(currentURL(), `/budgets/${id}/settings`);
+  });
+
   test('can visit /categories', async function(assert) {
     await visit('/categories');
 

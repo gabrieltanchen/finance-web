@@ -68,7 +68,7 @@ module('Acceptance | logged out redirects', function(hooks) {
   });
 
   test('should redirect away from /categories/:id/settings', async function(assert) {
-    await visit(`/categories/${uuidv4}/settings`);
+    await visit(`/categories/${uuidv4()}/settings`);
 
     assert.equal(currentURL(), '/login');
   });

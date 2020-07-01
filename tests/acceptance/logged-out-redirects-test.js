@@ -19,6 +19,30 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/');
   });
 
+  test('should redirect away from /budgets/new', async function(assert) {
+    await visit('/budgets/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /budgets/:id', async function(assert) {
+    await visit(`/budgets/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /budgets/:id/edit', async function(assert) {
+    await visit(`/budgets/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /budgets/:id/settings', async function(assert) {
+    await visit(`/budgets/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /categories', async function(assert) {
     await visit('/categories');
 

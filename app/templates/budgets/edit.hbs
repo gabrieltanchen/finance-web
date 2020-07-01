@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Edit Budget</h1>
+  <Menus::BudgetItem @budgetId={{this.budget.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Budget
+    @budget={{this.budget}}
+    @subcategories={{this.subcategories}}
+    @saveSuccessful={{fn this.transitionToBudgetDetails}}
+  />
+</div>

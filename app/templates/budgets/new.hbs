@@ -1,0 +1,8 @@
+<div class="container-sm">
+  <h1>New Budget</h1>
+  <Forms::Budget
+    @budget={{this.budget}}
+    @subcategories={{this.subcategories}}
+    @saveSuccessful={{fn this.transitionToBudgetDetails}}
+  />
+</div>

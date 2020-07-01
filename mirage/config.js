@@ -45,6 +45,36 @@ export default function() {
       },
     });
   });
+  this.post('/budgets', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.amount
+        && params.data.attributes.amount === 400) {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test budget post error 1.',
+        }, {
+          detail: 'Test budget post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'month': params.data.attributes.month,
+          'year': params.data.attributes.year,
+        },
+        'id': '139cab77-e185-44c2-bf46-6b8555aaaa30',
+        'type': 'budgets',
+      },
+    });
+  });
   this.delete('/budgets/:id', (db, request) => {
     if (request.params.id === '65b3bef7-6e22-47bf-865a-3939ab53d6b1') {
       return new Mirage.Response(403, {

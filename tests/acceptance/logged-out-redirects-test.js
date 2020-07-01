@@ -19,6 +19,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/');
   });
 
+  test('should redirect away from /budgets/new', async function(assert) {
+    await visit('/budgets/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /budgets/:id', async function(assert) {
     await visit(`/budgets/${uuidv4()}`);
 

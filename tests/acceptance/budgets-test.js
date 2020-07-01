@@ -6,6 +6,7 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,6 +18,51 @@ module('Acceptance | budgets', function(hooks) {
     const session = this.owner.lookup('service:session');
     session.logout();
     session.authToken = 'token';
+  });
+
+  test('visiting /budgets/new', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/new?subcategoryId=${id}`);
+
+    assert.equal(currentURL(), `/budgets/new?subcategoryId=${id}`);
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Budget');
+    assert.dom('form').exists();
+    assert.dom('#budget-amount-input').exists();
+    assert.dom('#budget-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating budget', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/new?subcategoryId=${id}`);
+
+    assert.equal(currentURL(), `/budgets/new?subcategoryId=${id}`);
+
+    await selectChoose('#budget-year-select', '.ember-power-select-option', 3);
+    await selectChoose('#budget-month-select', '.ember-power-select-option', 4);
+    await fillIn('#budget-amount-input', '4.00');
+    await click('#budget-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test budget post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test budget post error 2.');
+  });
+
+  test('should transition to budget details after creating budget', async function(assert) {
+    const id = uuidv4();
+    await visit(`/budgets/new?subcategoryId=${id}`);
+
+    assert.equal(currentURL(), `/budgets/new?subcategoryId=${id}`);
+
+    await selectChoose('#budget-year-select', '.ember-power-select-option', 3);
+    await selectChoose('#budget-month-select', '.ember-power-select-option', 4);
+    await fillIn('#budget-amount-input', '123.45');
+    await click('#budget-submit');
+
+    assert.equal(currentURL(), '/budgets/139cab77-e185-44c2-bf46-6b8555aaaa30');
   });
 
   test('visiting /budgets/:id', async function(assert) {

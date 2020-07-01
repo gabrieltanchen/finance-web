@@ -23,6 +23,10 @@ export default class SubcategoriesBudgetsController extends Controller {
     linkText: 'View',
     linkTo: 'budgets.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'budgets.edit',
+    name: '',
   }];
 
   @action

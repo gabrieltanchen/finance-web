@@ -1,6 +1,6 @@
 <div class="container-lg">
-  <h1>Household Member - {{householdMember.name}}</h1>
-  <Menus::HouseholdMemberItem @memberId={{householdMember.id}} />
+  <h1>Household Member - {{this.householdMember.name}}</h1>
+  <Menus::HouseholdMemberItem @memberId={{this.householdMember.id}} />
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.incomes}}

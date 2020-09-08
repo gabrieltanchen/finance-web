@@ -40,9 +40,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{monthlyReport.budgetStr}}</td>
-          <td>{{monthlyReport.actualStr}}</td>
-          <td class="{{if monthlyReport.budgetActualBalanceAlert "alert" "success"}}">{{monthlyReport.budgetActualBalanceStr}}</td>
+          <td>{{this.monthlyReport.budgetStr}}</td>
+          <td>{{this.monthlyReport.actualStr}}</td>
+          <td class="{{if this.monthlyReport.budgetActualBalanceAlert "alert" "success"}}">{{this.monthlyReport.budgetActualBalanceStr}}</td>
         </tr>
       </tbody>
     </table>
@@ -58,9 +58,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{monthlyReport.incomeStr}}</td>
-          <td class="{{if monthlyReport.incomeBudgetBalanceAlert "alert" "success"}}">{{monthlyReport.incomeBudgetBalanceStr}}</td>
-          <td class="{{if monthlyReport.incomeActualBalanceAlert "alert" "success"}}">{{monthlyReport.incomeActualBalanceStr}}</td>
+          <td>{{this.monthlyReport.incomeStr}}</td>
+          <td class="{{if this.monthlyReport.incomeBudgetBalanceAlert "alert" "success"}}">{{this.monthlyReport.incomeBudgetBalanceStr}}</td>
+          <td class="{{if this.monthlyReport.incomeActualBalanceAlert "alert" "success"}}">{{this.monthlyReport.incomeActualBalanceStr}}</td>
         </tr>
       </tbody>
     </table>
@@ -76,7 +76,7 @@
         </tr>
       </thead>
       <tbody>
-        {{#each budgetReports as |budgetReport|}}
+        {{#each this.budgetReports as |budgetReport|}}
           <tr>
             <td>
               <LinkTo @route="subcategories.show" @model={{budgetReport.subcategory.id}}>

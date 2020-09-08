@@ -7,19 +7,19 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
-      legacyDecorators: true
-    }
+      legacyDecorators: true,
+    },
   },
   plugins: [
-    'ember'
+    'ember',
   ],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
-    'airbnb'
+    'airbnb',
   ],
   env: {
-    browser: true
+    browser: true,
   },
   rules: {
     'array-callback-return': ['off'],
@@ -30,6 +30,7 @@ module.exports = {
     'ember/no-observers': ['off'],
     'ember/no-test-module-for': ['off'],
     'func-names': ['off'],
+    'global-require': ['off'],
     'indent': ['error', 2],
     'import/extensions': ['off'],
     'import/no-extraneous-dependencies': ['off'],
@@ -45,12 +46,13 @@ module.exports = {
     'no-useless-escape': ['off'],
     'prefer-arrow-callback': ['off'],
     'prefer-destructuring': ['off'],
+    'prefer-object-spread': ['off'],
     'prefer-promise-reject-errors': ['off'],
     'quote-props': ['off'],
     'require-jsdoc': ['off'],
     'space-before-function-paren': ['error', 'never'],
     'strict': ['off'],
-    'valid-jsdoc': ['off']
+    'valid-jsdoc': ['off'],
   },
   overrides: [
     // node files
@@ -63,14 +65,14 @@ module.exports = {
         'blueprints/*/index.js',
         'config/**/*.js',
         'lib/*/index.js',
-        'server/**/*.js'
+        'server/**/*.js',
       ],
       parserOptions: {
-        sourceType: 'script'
+        sourceType: 'script',
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
@@ -78,8 +80,8 @@ module.exports = {
 
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off'
-      })
-    }
-  ]
+        'node/no-unpublished-require': 'off',
+      }),
+    },
+  ],
 };

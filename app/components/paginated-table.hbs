@@ -4,7 +4,7 @@
       {{#if this.disablePrevious}}
         <span>Previous</span>
       {{else}}
-        <button {{on "click" this.previousPage}} aria-label="Go to previous page">
+        <button type="button" {{on "click" this.previousPage}} aria-label="Go to previous page">
           Previous
         </button>
       {{/if}}
@@ -14,7 +14,7 @@
         {{#if pageNumber.current}}
           <span>{{pageNumber.page}}</span>
         {{else}}
-          <button {{on "click" (fn this.setPage pageNumber.page)}} aria-label="Go to page {{pageNumber.page}}">
+          <button type="button" {{on "click" (fn this.setPage pageNumber.page)}} aria-label="Go to page {{pageNumber.page}}">
             {{pageNumber.page}}
           </button>
         {{/if}}
@@ -24,7 +24,7 @@
       {{#if this.disableNext}}
         <span>Next</span>
       {{else}}
-        <button {{on "click" this.nextPage}} aria-label="Go to next page">
+        <button type="button" {{on "click" this.nextPage}} aria-label="Go to next page">
           Next
         </button>
       {{/if}}

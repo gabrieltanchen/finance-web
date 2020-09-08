@@ -6,11 +6,11 @@
   <LinkTo @route="vendors.edit" @model={{this.vendor.id}} class="button">
     Edit
   </LinkTo>
-  <button class="button alert" {{on "click" this.openDeleteModal}}>
+  <button type="button" class="button alert" {{on "click" this.openDeleteModal}}>
     Delete
   </button>
 </div>
-{{#if showDeleteModal}}
+{{#if this.showDeleteModal}}
   <div class="overlay">
     <div class="container-sm modal">
       {{#if this.deleteErrors}}
@@ -21,10 +21,10 @@
         </div>
       {{/if}}
       <p>Are you sure you want to delete vendor <span>{{this.vendor.name}}</span>?</p>
-      <button class="button alert" {{on "click" this.deleteVendor}}>
+      <button type="button" class="button alert" {{on "click" this.deleteVendor}}>
         Delete
       </button>
-      <button class="button cancel" {{on "click" this.closeDeleteModal}}>
+      <button type="button" class="button cancel" {{on "click" this.closeDeleteModal}}>
         Cancel
       </button>
     </div>

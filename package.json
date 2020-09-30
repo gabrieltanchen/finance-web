@@ -54,7 +54,7 @@
     "ember-power-select": "^4.0.4",
     "ember-qunit": "4.6.0",
     "ember-resolver": "8.0.0",
-    "ember-source": "3.20.1",
+    "ember-source": "3.21.1",
     "ember-template-lint": "2.9.1",
     "eslint": "7.8.1",
     "eslint-config-airbnb": "18.2.0",

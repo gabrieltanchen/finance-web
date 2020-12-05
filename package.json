@@ -18,8 +18,8 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
-    "test:ember": "ember test",
-    "test:travis": "COVERAGE=true ember test"
+    "test:ci": "COVERAGE=true ember test",
+    "test:ember": "ember test"
   },
   "devDependencies": {
     "@ember/optional-features": "2.0.0",

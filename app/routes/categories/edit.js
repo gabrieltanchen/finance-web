@@ -6,7 +6,7 @@ export default class CategoriesEditRoute extends Route {
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {
-      this.transitionTo('login');
+      this.transitionTo('login')
     }
   }
 

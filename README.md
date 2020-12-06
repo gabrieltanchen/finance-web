@@ -1,6 +1,6 @@
 # finance-web
 
-[![Build Status](https://www.travis-ci.com/gabrieltanchen/finance-web.svg?branch=master)](https://www.travis-ci.com/gabrieltanchen/finance-web)
+[![Node.js CI](https://github.com/gabrieltanchen/finance-web/workflows/Node.js%20CI/badge.svg)](https://github.com/gabrieltanchen/finance-web/actions?query=workflow%3A%22Node.js+CI%22)
 [![Coverage Status](https://coveralls.io/repos/github/gabrieltanchen/finance-web/badge.svg?branch=master)](https://coveralls.io/github/gabrieltanchen/finance-web?branch=master)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=gabrieltanchen/finance-web)](https://dependabot.com)
 

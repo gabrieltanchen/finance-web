@@ -17,6 +17,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "lint:sass": "sass-lint -c .sass-lint.yml 'app/styles/**/*.scss' -v -q --max-warnings 0",
+    "prepublishOnly": "publish-please guard",
+    "publish-please": "publish-please",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
     "test:ci": "COVERAGE=true ember test",

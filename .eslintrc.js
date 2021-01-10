@@ -26,6 +26,7 @@ module.exports = {
     'arrow-body-style': ['error', 'always'],
     'class-methods-use-this': ['off'],
     'ember/avoid-leaking-state-in-ember-objects': ['off'],
+    'ember/no-computed-properties-in-native-classes': ['off'],
     'ember/no-jquery': 'error',
     'ember/no-observers': ['off'],
     'ember/no-test-module-for': ['off'],

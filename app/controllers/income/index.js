@@ -8,32 +8,56 @@ export default class IncomeIndexController extends Controller {
 
   @alias('model') incomes;
   @tracked page = null;
+  @tracked sort = null;
+  @tracked sortDirection = null;
 
-  tableColumns = [{
-    name: 'Date',
-    propertyName: 'date',
-    sort: true,
-  }, {
-    name: 'Member',
-    propertyName: 'householdMember.name',
-    sort: true,
-  }, {
-    name: 'Description',
-    propertyName: 'description',
-    sort: true,
-  }, {
-    name: 'Amount',
-    propertyName: 'amountStr',
-    sort: true,
-  }, {
-    linkText: 'View',
-    linkTo: 'income.show',
-    name: '',
-  }, {
-    linkText: 'Edit',
-    linkTo: 'income.edit',
-    name: '',
-  }];
+  get currentSort() {
+    return this.sort || 'date';
+  }
+
+  get currentSortDirection() {
+    return this.sortDirection || 'desc';
+  }
+
+  get tableColumns() {
+    const tableColumns = [{
+      name: 'Date',
+      propertyName: 'date',
+      sortable: true,
+      sortName: 'date',
+    }, {
+      name: 'Member',
+      propertyName: 'householdMember.name',
+      sortable: true,
+      sortName: 'member',
+    }, {
+      name: 'Description',
+      propertyName: 'description',
+      sortable: true,
+      sortName: 'description',
+    }, {
+      name: 'Amount',
+      propertyName: 'amountStr',
+      sortable: true,
+      sortName: 'amount',
+    }, {
+      linkText: 'View',
+      linkTo: 'income.show',
+      name: '',
+    }, {
+      linkText: 'Edit',
+      linkTo: 'income.edit',
+      name: '',
+    }];
+
+    return tableColumns.map((column) => {
+      return {
+        ...column,
+        isSortedAsc: column.sortName === this.currentSort && this.currentSortDirection === 'asc',
+        isSortedDesc: column.sortName === this.currentSort && this.currentSortDirection === 'desc',
+      };
+    });
+  }
 
   @action
   setPage(page) {
@@ -41,8 +65,12 @@ export default class IncomeIndexController extends Controller {
   }
 
   @action
-  setSort(column, direction) {
-    this.sort = column;
-    this.sortDirection = direction;
+  setSort(sortName) {
+    if (this.currentSort === sortName && this.currentSortDirection === 'asc') {
+      this.sortDirection = 'desc';
+    } else {
+      this.sortDirection = 'asc';
+    }
+    this.sort = sortName;
   }
 }

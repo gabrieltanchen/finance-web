@@ -36,7 +36,18 @@
     <tr>
       {{#each @columns as |column|}}
         <th>
-          {{column.name}}
+          {{#if column.sortable}}
+            <button {{on "click" (fn this.setSort column.sortName)}}>
+              <span>{{column.name}}</span>
+              {{#if column.isSortedAsc}}
+                <FaIcon @icon="chevron-up" @size="sm" />
+              {{else if column.isSortedDesc}}
+                <FaIcon @icon="chevron-down" @size="sm" />
+              {{/if}}
+            </button>
+          {{else}}
+            {{column.name}}
+          {{/if}}
         </th>
       {{/each}}
     </tr>

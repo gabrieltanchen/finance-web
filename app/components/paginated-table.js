@@ -65,6 +65,12 @@ export default class PaginatedTableComponent extends Component {
   }
 
   @action
+  setSort(sortName) {
+    console.log('setSort:' + sortName);
+    this.args.setSort(sortName);
+  }
+
+  @action
   previousPage() {
     let page = this.currentPage;
     page -= 1;

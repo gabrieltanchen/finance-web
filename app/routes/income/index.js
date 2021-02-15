@@ -23,7 +23,6 @@ export default class IncomeIndexRoute extends Route {
   }
 
   model(params) {
-    console.log('querying');
     return this.store.query('income', params);
   }
 }

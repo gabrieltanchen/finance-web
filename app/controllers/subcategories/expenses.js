@@ -4,30 +4,52 @@ import { alias } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
 export default class SubcategoriesExpensesController extends Controller {
-  queryParams = ['page'];
+  queryParams = ['page', 'sort', 'sortDirection'];
 
   @alias('model.expenses') expenses;
   @alias('model.subcategory') subcategory;
   @tracked page = null;
+  @tracked sort = null;
+  @tracked sortDirection = null;
+
+  get currentSort() {
+    return this.sort || 'date';
+  }
+
+  get currentSortDirection() {
+    return this.sortDirection || 'desc';
+  }
 
   tableColumns = [{
     name: 'Date',
     propertyName: 'date',
+    sortable: true,
+    sortName: 'date',
   }, {
     name: 'Vendor',
     propertyName: 'vendor.name',
+    sortable: true,
+    sortName: 'vendor',
   }, {
     name: 'Member',
     propertyName: 'householdMember.name',
+    sortable: true,
+    sortName: 'member',
   }, {
     name: 'Description',
     propertyName: 'description',
+    sortable: true,
+    sortName: 'description',
   }, {
     name: 'Amount',
     propertyName: 'amountStr',
+    sortable: true,
+    sortName: 'amount',
   }, {
     name: 'Reimbursed Amount',
     propertyName: 'reimbursedAmountStr',
+    sortable: true,
+    sortName: 'reimbursed_amount',
   }, {
     linkText: 'View',
     linkTo: 'expenses.show',
@@ -41,5 +63,15 @@ export default class SubcategoriesExpensesController extends Controller {
   @action
   setPage(page) {
     this.page = page;
+  }
+
+  @action
+  setSort(sortName) {
+    if (this.currentSort === sortName && this.currentSortDirection === 'asc') {
+      this.sortDirection = 'desc';
+    } else {
+      this.sortDirection = 'asc';
+    }
+    this.sort = sortName;
   }
 }

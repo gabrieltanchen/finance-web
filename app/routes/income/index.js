@@ -8,6 +8,12 @@ export default class IncomeIndexRoute extends Route {
     page: {
       refreshModel: true,
     },
+    sort: {
+      refreshModel: true,
+    },
+    sortDirection: {
+      refreshModel: true,
+    },
   }
 
   async beforeModel() {

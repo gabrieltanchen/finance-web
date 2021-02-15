@@ -10,6 +10,27 @@ export default class PaginatedTableComponent extends Component {
     return currentPage;
   }
 
+  get currentSort() {
+    return this.args.sort || this.args.defaultSort;
+  }
+
+  get currentSortDirection() {
+    return this.args.sortDirection || this.args.defaultSortDirection;
+  }
+
+  get currentColumns() {
+    if (this.args.columns) {
+      return this.args.columns.map((column) => {
+        return {
+          ...column,
+          isSortedAsc: column.sortName === this.currentSort && this.currentSortDirection === 'asc',
+          isSortedDesc: column.sortName === this.currentSort && this.currentSortDirection === 'desc',
+        };
+      });
+    }
+    return [];
+  }
+
   get disableNext() {
     return this.currentPage >= this.numPages;
   }
@@ -62,6 +83,17 @@ export default class PaginatedTableComponent extends Component {
   @action
   setPage(page) {
     this.args.setPage(page);
+  }
+
+  @action
+  setSort(sortName) {
+    let sortDirection;
+    if (this.currentSort === sortName && this.currentSortDirection === 'asc') {
+      sortDirection = 'desc';
+    } else {
+      sortDirection = 'asc';
+    }
+    this.args.setSort(sortName, sortDirection);
   }
 
   @action

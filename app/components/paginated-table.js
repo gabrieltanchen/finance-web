@@ -19,13 +19,16 @@ export default class PaginatedTableComponent extends Component {
   }
 
   get currentColumns() {
-    return this.args.columns.map((column) => {
-      return {
-        ...column,
-        isSortedAsc: column.sortName === this.currentSort && this.currentSortDirection === 'asc',
-        isSortedDesc: column.sortName === this.currentSort && this.currentSortDirection === 'desc',
-      };
-    });
+    if (this.args.columns) {
+      return this.args.columns.map((column) => {
+        return {
+          ...column,
+          isSortedAsc: column.sortName === this.currentSort && this.currentSortDirection === 'asc',
+          isSortedDesc: column.sortName === this.currentSort && this.currentSortDirection === 'desc',
+        };
+      });
+    }
+    return [];
   }
 
   get disableNext() {

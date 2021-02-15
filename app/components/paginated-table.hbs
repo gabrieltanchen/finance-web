@@ -37,7 +37,7 @@
       {{#each this.currentColumns as |column|}}
         <th>
           {{#if column.sortable}}
-            <button {{on "click" (fn this.setSort column.sortName)}}>
+            <button type="button" {{on "click" (fn this.setSort column.sortName)}}>
               <span>{{column.name}}</span>
               {{#if column.isSortedAsc}}
                 <FaIcon @icon="chevron-up" @size="sm" />

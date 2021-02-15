@@ -9,6 +9,12 @@ export default class HouseholdMembersIncomeRoute extends Route {
     page: {
       refreshModel: true,
     },
+    sort: {
+      refreshModel: true,
+    },
+    sortDirection: {
+      refreshModel: true,
+    },
   }
 
   async beforeModel() {
@@ -22,6 +28,8 @@ export default class HouseholdMembersIncomeRoute extends Route {
       incomes: this.store.query('income', {
         household_member_id: params.member_id,
         page: params.page,
+        sort: params.sort,
+        sortDirection: params.sortDirection,
       }),
       householdMember: this.store.findRecord('household-member', params.member_id),
     });

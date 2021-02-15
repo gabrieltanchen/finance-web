@@ -34,7 +34,7 @@
 <table>
   <thead>
     <tr>
-      {{#each @columns as |column|}}
+      {{#each this.currentColumns as |column|}}
         <th>
           {{#if column.sortable}}
             <button {{on "click" (fn this.setSort column.sortName)}}>
@@ -55,7 +55,7 @@
   <tbody>
     {{#each @rows as |row|}}
       <tr>
-        {{#each @columns as |column|}}
+        {{#each this.currentColumns as |column|}}
           <td>
             {{#if column.linkTo}}
               <LinkTo @route={{column.linkTo}} @model={{row.id}} class="row-button">

@@ -9,6 +9,12 @@ export default class VendorsExpensesRoute extends Route {
     page: {
       refreshModel: true,
     },
+    sort: {
+      refreshModel: true,
+    },
+    sortDirection: {
+      refreshModel: true,
+    },
   }
 
   async beforeModel() {
@@ -22,6 +28,8 @@ export default class VendorsExpensesRoute extends Route {
       expenses: this.store.query('expense', {
         page: params.page,
         vendor_id: params.vendor_id,
+        sort: params.sort,
+        sortDirection: params.sortDirection,
       }),
       vendor: this.store.findRecord('vendor', params.vendor_id),
     });

@@ -20,45 +20,55 @@ export default class SubcategoriesExpensesController extends Controller {
     return this.sortDirection || 'desc';
   }
 
-  tableColumns = [{
-    name: 'Date',
-    propertyName: 'date',
-    sortable: true,
-    sortName: 'date',
-  }, {
-    name: 'Vendor',
-    propertyName: 'vendor.name',
-    sortable: true,
-    sortName: 'vendor',
-  }, {
-    name: 'Member',
-    propertyName: 'householdMember.name',
-    sortable: true,
-    sortName: 'member',
-  }, {
-    name: 'Description',
-    propertyName: 'description',
-    sortable: true,
-    sortName: 'description',
-  }, {
-    name: 'Amount',
-    propertyName: 'amountStr',
-    sortable: true,
-    sortName: 'amount',
-  }, {
-    name: 'Reimbursed Amount',
-    propertyName: 'reimbursedAmountStr',
-    sortable: true,
-    sortName: 'reimbursed_amount',
-  }, {
-    linkText: 'View',
-    linkTo: 'expenses.show',
-    name: '',
-  }, {
-    linkText: 'Edit',
-    linkTo: 'expenses.edit',
-    name: '',
-  }];
+  get tableColumns() {
+    const tableColumns = [{
+      name: 'Date',
+      propertyName: 'date',
+      sortable: true,
+      sortName: 'date',
+    }, {
+      name: 'Vendor',
+      propertyName: 'vendor.name',
+      sortable: true,
+      sortName: 'vendor',
+    }, {
+      name: 'Member',
+      propertyName: 'householdMember.name',
+      sortable: true,
+      sortName: 'member',
+    }, {
+      name: 'Description',
+      propertyName: 'description',
+      sortable: true,
+      sortName: 'description',
+    }, {
+      name: 'Amount',
+      propertyName: 'amountStr',
+      sortable: true,
+      sortName: 'amount',
+    }, {
+      name: 'Reimbursed Amount',
+      propertyName: 'reimbursedAmountStr',
+      sortable: true,
+      sortName: 'reimbursed_amount',
+    }, {
+      linkText: 'View',
+      linkTo: 'expenses.show',
+      name: '',
+    }, {
+      linkText: 'Edit',
+      linkTo: 'expenses.edit',
+      name: '',
+    }];
+
+    return tableColumns.map((column) => {
+      return {
+        ...column,
+        isSortedAsc: column.sortName === this.currentSort && this.currentSortDirection === 'asc',
+        isSortedDesc: column.sortName === this.currentSort && this.currentSortDirection === 'desc',
+      };
+    });
+  }
 
   @action
   setPage(page) {

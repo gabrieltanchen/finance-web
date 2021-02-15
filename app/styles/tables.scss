@@ -50,6 +50,28 @@ table {
         font-weight: 500;
         padding: 0.5em 1em;
         text-align: left;
+
+        button {
+          align-items: center;
+          background-color: transparent;
+          border: 0;
+          color: $black;
+          cursor: pointer;
+          display: flex;
+          font-size: 1em;
+          font-weight: 500;
+          justify-content: flex-start;
+          padding: 0;
+          transition: color 0.1s linear;
+
+          &:hover {
+            color: $primary-colour;
+          }
+
+          svg {
+            margin-left: 0.5em;
+          }
+        }
       }
     }
   }

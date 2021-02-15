@@ -20,7 +20,7 @@
     "prepublishOnly": "publish-please guard",
     "publish-please": "publish-please",
     "start": "ember serve",
-    "test": "npm-run-all lint:* test:*",
+    "test": "npm-run-all lint:* test:ember",
     "test:ci": "COVERAGE=true ember test",
     "test:ember": "ember test"
   },

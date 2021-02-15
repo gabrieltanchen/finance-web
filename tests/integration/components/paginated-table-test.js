@@ -196,4 +196,131 @@ module('Integration | Component | paginated-table', function(hooks) {
     assert.dom('nav ul li.pagination-page:nth-of-type(8) button').containsText('8');
     assert.dom('nav ul li.pagination-page:nth-of-type(8) button').hasAttribute('aria-label', 'Go to page 8');
   });
+
+  test('it should render the default sort direction', async function(assert) {
+    this.set('columns', [{
+      name: 'Column 1',
+      propertyName: 'col1',
+      sortable: true,
+      sortName: 'col1',
+    }, {
+      name: 'Column 2',
+      propertyName: 'col2',
+      sortable: true,
+      sortName: 'col2',
+    }]);
+    this.set('rows', [{
+      col1: 'Row 1 Column 1',
+      col2: 'Row 1 Column 2',
+    }, {
+      col1: 'Row 2 Column 1',
+      col2: 'Row 2 Column 2',
+    }, {
+      col1: 'Row 3 Column 1',
+      col2: 'Row 3 Column 2',
+    }]);
+    this.set('defaultSort', 'col1');
+    this.set('defaultSortDirection', 'asc');
+
+    await render(hbs`<PaginatedTable @columns={{this.columns}} @rows={{this.rows}} @defaultSort={{this.defaultSort}} @defaultSortDirection={{this.defaultSortDirection}} />`);
+
+    assert.dom('table').exists();
+    assert.dom('table thead tr').exists({ count: 1 });
+    assert.dom('table thead tr th').exists({ count: 2 });
+    assert.dom('table thead tr th:nth-of-type(1) button').exists();
+    assert.dom('table thead tr th:nth-of-type(1) button span').exists();
+    assert.dom('table thead tr th:nth-of-type(1) button span').containsText('Column 1');
+    assert.dom('table thead tr th:nth-of-type(1) button .fa-chevron-up').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button span').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button span').containsText('Column 2');
+    assert.dom('table thead tr th:nth-of-type(2) button .fa-chevron-up').doesNotExist();
+    assert.dom('table thead tr th:nth-of-type(2) button .fa-chevron-down').doesNotExist();
+  });
+
+  test('it should render the selected sort ascending', async function(assert) {
+    this.set('columns', [{
+      name: 'Column 1',
+      propertyName: 'col1',
+      sortable: true,
+      sortName: 'col1',
+    }, {
+      name: 'Column 2',
+      propertyName: 'col2',
+      sortable: true,
+      sortName: 'col2',
+    }]);
+    this.set('rows', [{
+      col1: 'Row 1 Column 1',
+      col2: 'Row 1 Column 2',
+    }, {
+      col1: 'Row 2 Column 1',
+      col2: 'Row 2 Column 2',
+    }, {
+      col1: 'Row 3 Column 1',
+      col2: 'Row 3 Column 2',
+    }]);
+    this.set('sort', 'col2');
+    this.set('sortDirection', 'asc');
+    this.set('defaultSort', 'col1');
+    this.set('defaultSortDirection', 'asc');
+
+    await render(hbs`<PaginatedTable @columns={{this.columns}} @rows={{this.rows}} @sort={{this.sort}} @sortDirection={{this.sortDirection}} @defaultSort={{this.defaultSort}} @defaultSortDirection={{this.defaultSortDirection}} />`);
+
+    assert.dom('table').exists();
+    assert.dom('table thead tr').exists({ count: 1 });
+    assert.dom('table thead tr th').exists({ count: 2 });
+    assert.dom('table thead tr th:nth-of-type(1) button').exists();
+    assert.dom('table thead tr th:nth-of-type(1) button span').exists();
+    assert.dom('table thead tr th:nth-of-type(1) button span').containsText('Column 1');
+    assert.dom('table thead tr th:nth-of-type(1) button .fa-chevron-up').doesNotExist();
+    assert.dom('table thead tr th:nth-of-type(1) button .fa-chevron-down').doesNotExist();
+    assert.dom('table thead tr th:nth-of-type(2) button').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button span').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button span').containsText('Column 2');
+    assert.dom('table thead tr th:nth-of-type(2) button .fa-chevron-up').exists();
+  });
+
+  test('it should render the selected sort descending', async function(assert) {
+    this.set('columns', [{
+      name: 'Column 1',
+      propertyName: 'col1',
+      sortable: true,
+      sortName: 'col1',
+    }, {
+      name: 'Column 2',
+      propertyName: 'col2',
+      sortable: true,
+      sortName: 'col2',
+    }]);
+    this.set('rows', [{
+      col1: 'Row 1 Column 1',
+      col2: 'Row 1 Column 2',
+    }, {
+      col1: 'Row 2 Column 1',
+      col2: 'Row 2 Column 2',
+    }, {
+      col1: 'Row 3 Column 1',
+      col2: 'Row 3 Column 2',
+    }]);
+    this.set('sort', 'col2');
+    this.set('sortDirection', 'desc');
+    this.set('defaultSort', 'col1');
+    this.set('defaultSortDirection', 'asc');
+
+    await render(hbs`<PaginatedTable @columns={{this.columns}} @rows={{this.rows}} @sort={{this.sort}} @sortDirection={{this.sortDirection}} @defaultSort={{this.defaultSort}} @defaultSortDirection={{this.defaultSortDirection}} />`);
+
+    assert.dom('table').exists();
+    assert.dom('table thead tr').exists({ count: 1 });
+    assert.dom('table thead tr th').exists({ count: 2 });
+    assert.dom('table thead tr th:nth-of-type(1) button').exists();
+    assert.dom('table thead tr th:nth-of-type(1) button span').exists();
+    assert.dom('table thead tr th:nth-of-type(1) button span').containsText('Column 1');
+    assert.dom('table thead tr th:nth-of-type(1) button .fa-chevron-up').doesNotExist();
+    assert.dom('table thead tr th:nth-of-type(1) button .fa-chevron-down').doesNotExist();
+    assert.dom('table thead tr th:nth-of-type(2) button').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button span').exists();
+    assert.dom('table thead tr th:nth-of-type(2) button span').containsText('Column 2');
+    assert.dom('table thead tr th:nth-of-type(2) button .fa-chevron-down').exists();
+  });
 });

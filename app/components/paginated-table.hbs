@@ -34,9 +34,20 @@
 <table>
   <thead>
     <tr>
-      {{#each @columns as |column|}}
+      {{#each this.currentColumns as |column|}}
         <th>
-          {{column.name}}
+          {{#if column.sortable}}
+            <button type="button" {{on "click" (fn this.setSort column.sortName)}}>
+              <span>{{column.name}}</span>
+              {{#if column.isSortedAsc}}
+                <FaIcon @icon="chevron-up" @size="sm" />
+              {{else if column.isSortedDesc}}
+                <FaIcon @icon="chevron-down" @size="sm" />
+              {{/if}}
+            </button>
+          {{else}}
+            {{column.name}}
+          {{/if}}
         </th>
       {{/each}}
     </tr>
@@ -44,7 +55,7 @@
   <tbody>
     {{#each @rows as |row|}}
       <tr>
-        {{#each @columns as |column|}}
+        {{#each this.currentColumns as |column|}}
           <td>
             {{#if column.linkTo}}
               <LinkTo @route={{column.linkTo}} @model={{row.id}} class="row-button">

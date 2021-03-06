@@ -28,6 +28,6 @@ module('Unit | Transform | dollar', function(hooks) {
     assert.equal(transform.deserialize('123456'), '1234.56');
     assert.equal(transform.deserialize('-500'), '-5.00');
     assert.equal(transform.deserialize('-654321'), '-6543.21');
-    assert.equal(transform.deserialize('1699', '16.99'));
+    assert.equal(transform.deserialize('1699'), '16.99');
   });
 });

@@ -6,6 +6,6 @@ export default class DollarTransform extends Transform {
   }
 
   serialize(deserialized) {
-    return parseInt(deserialized * 100, 10);
+    return Math.round(deserialized * 100);
   }
 }

@@ -17,6 +17,7 @@ module('Unit | Transform | dollar', function(hooks) {
     assert.equal(transform.serialize('1234.56'), 123456);
     assert.equal(transform.serialize('-5.00'), -500);
     assert.equal(transform.serialize('-6543.21'), -654321);
+    assert.equal(transform.serialize('16.99'), 1699);
   });
 
   test('it correctly deserializes data', function(assert) {
@@ -27,5 +28,6 @@ module('Unit | Transform | dollar', function(hooks) {
     assert.equal(transform.deserialize('123456'), '1234.56');
     assert.equal(transform.deserialize('-500'), '-5.00');
     assert.equal(transform.deserialize('-654321'), '-6543.21');
+    assert.equal(transform.deserialize('1699'), '16.99');
   });
 });

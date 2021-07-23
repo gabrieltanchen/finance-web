@@ -405,6 +405,38 @@ export default function() {
     });
   });
 
+  this.get('/funds', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'name': 'Fund 26',
+        },
+        'id': uuidv4(),
+        'type': 'funds',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'name': `Fund ${ind}`,
+          },
+          'id': uuidv4(),
+          'type': 'funds',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.get('/household-members', (db, request) => {
     let data;
     if (request.queryParams.page === '2') {

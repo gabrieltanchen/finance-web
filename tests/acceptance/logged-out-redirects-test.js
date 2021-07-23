@@ -109,6 +109,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away fund /funds', async function(assert) {
+    await visit('/funds');
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /household-members', async function(assert) {
     await visit('/household-members');
 

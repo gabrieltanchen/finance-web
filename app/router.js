@@ -58,4 +58,5 @@ Router.map(function() {
     this.route('settings', { path: '/:vendor_id/settings' });
     this.route('show', { path: '/:vendor_id' });
   });
+  this.route('funds', function() {});
 });

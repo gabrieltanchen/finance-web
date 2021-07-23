@@ -120,6 +120,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/expenses/${id}/settings`);
   });
 
+  test('can visit /funds', async function(assert) {
+    await visit('/funds');
+
+    assert.equal(currentURL(), '/funds');
+  });
+
   test('can visit /household-members', async function(assert) {
     await visit('/household-members');
 

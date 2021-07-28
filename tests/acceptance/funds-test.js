@@ -2,12 +2,12 @@ import { module, test } from 'qunit';
 import {
   click,
   currentURL,
-  // fillIn,
+  fillIn,
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | funds', function(hooks) {
   setupApplicationTest(hooks);
@@ -43,5 +43,59 @@ module('Acceptance | funds', function(hooks) {
 
     assert.equal(currentURL(), '/funds?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /funds/new', async function(assert) {
+    await visit('/funds/new');
+
+    assert.equal(currentURL(), '/funds/new');
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New Fund');
+    assert.dom('form').exists();
+    assert.dom('#fund-name-input').exists();
+    assert.dom('#fund-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating fund', async function(assert) {
+    await visit('/funds/new');
+
+    assert.equal(currentURL(), '/funds/new');
+
+    await fillIn('#fund-name-input', 'Error Fund');
+    await click('#fund-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test fund post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test fund post error 2.');
+  });
+
+  test('should transition to fund details after creating fund', async function(assert) {
+    await visit('/funds/new');
+
+    assert.equal(currentURL(), '/funds/new');
+
+    await fillIn('#fund-name-input', 'New Fund');
+    await click('#fund-submit');
+
+    assert.equal(currentURL(), '/funds/86f6b9b3-b244-464c-a7e9-273b08d76230');
+  });
+
+  test('visiting /funds/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}`);
+
+    assert.equal(currentURL(), `/funds/${id}`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Fund - Test Fund');
+    // assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 3 });
+    assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
+    assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
+    assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
   });
 });

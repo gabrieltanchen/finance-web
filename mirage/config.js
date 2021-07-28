@@ -436,6 +436,47 @@ export default function() {
       },
     });
   });
+  this.post('/funds', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Fund') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test fund post error 1.',
+        }, {
+          detail: 'Test fund post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': '86f6b9b3-b244-464c-a7e9-273b08d76230',
+        'type': 'funds',
+      },
+    });
+  });
+  this.get('/funds/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': 'Test Fund',
+        },
+        'id': request.params.id,
+        'type': 'funds',
+      },
+    });
+  });
 
   this.get('/household-members', (db, request) => {
     let data;

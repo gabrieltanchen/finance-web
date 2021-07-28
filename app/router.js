@@ -27,6 +27,10 @@ Router.map(function() {
     this.route('settings', { path: '/:expense_id/settings' });
     this.route('show', { path: '/:expense_id' });
   });
+  this.route('funds', function() {
+    this.route('new');
+    this.route('show', { path: '/:fund_id' });
+  });
   this.route('household-members', function() {
     this.route('edit', { path: '/:member_id/edit' });
     this.route('expenses', { path: '/:member_id/expenses' });
@@ -58,5 +62,4 @@ Router.map(function() {
     this.route('settings', { path: '/:vendor_id/settings' });
     this.route('show', { path: '/:vendor_id' });
   });
-  this.route('funds', function() {});
 });

@@ -15,6 +15,14 @@ export default class FundsIndexController extends Controller {
   }, {
     name: 'Created At',
     propertyName: 'createdAt',
+  }, {
+    linkText: 'View',
+    linkTo: 'funds.show',
+    name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'funds.edit',
+    name: '',
   }];
 
   @action

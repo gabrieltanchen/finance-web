@@ -28,6 +28,7 @@ Router.map(function() {
     this.route('show', { path: '/:expense_id' });
   });
   this.route('funds', function() {
+    this.route('edit', { path: '/:fund_id/edit' });
     this.route('new');
     this.route('show', { path: '/:fund_id' });
   });

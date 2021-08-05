@@ -464,6 +464,22 @@ export default function() {
       },
     });
   });
+  this.delete('/funds/:id', (db, request) => {
+    if (request.params.id === 'd8967568-edcf-48c0-a48b-777dacf73061') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test fund delete error 1.',
+        }, {
+          detail: 'Test fund delete error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
   this.get('/funds/:id', (db, request) => {
     return new Mirage.Response(200, {
       'Content-Type': 'application/vnd.api+json',
@@ -471,6 +487,31 @@ export default function() {
       'data': {
         'attributes': {
           'name': 'Test Fund',
+        },
+        'id': request.params.id,
+        'type': 'funds',
+      },
+    });
+  });
+  this.patch('/funds/:id', (db, request) => {
+    if (request.params.id === '2883963b-63bc-493d-b90c-fbe18aca9be2') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test fund patch error 1.',
+        }, {
+          detail: 'Test fund patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
         },
         'id': request.params.id,
         'type': 'funds',

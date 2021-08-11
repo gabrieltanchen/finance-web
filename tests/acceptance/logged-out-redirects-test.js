@@ -127,6 +127,18 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /funds/:id/edit', async function(assert) {
+    await visit(`/funds/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/:id/settings', async function(assert) {
+    await visit(`/funds/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /household-members', async function(assert) {
     await visit('/household-members');
 

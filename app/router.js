@@ -30,6 +30,7 @@ Router.map(function() {
   this.route('funds', function() {
     this.route('edit', { path: '/:fund_id/edit' });
     this.route('new');
+    this.route('settings', { path: '/:fund_id/settings' });
     this.route('show', { path: '/:fund_id' });
   });
   this.route('household-members', function() {

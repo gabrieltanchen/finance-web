@@ -133,4 +133,103 @@ module('Acceptance | funds', function(hooks) {
     assert.equal(currentURL(), '/funds/2883963b-63bc-493d-b90c-fbe18aca9be2');
     assert.dom('h1').containsText('Fund - Test Fund');
   });
+
+  test('should transition to fund details after editing fund', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/edit`);
+
+    assert.equal(currentURL(), `/funds/${id}/edit`);
+
+    await fillIn('#fund-name-input', 'Updated Fund');
+    await click('#fund-submit');
+
+    assert.equal(currentURL(), `/funds/${id}`);
+  });
+
+  test('visiting /funds/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/settings`);
+
+    assert.equal(currentURL(), `/funds/${id}/settings`);
+    assert.dom('.container-lg').exists();
+    assert.dom('.container-lg h1').exists();
+    assert.dom('.container-lg h1').containsText('Fund - Test Fund');
+    assert.dom('.container-lg nav.secondary').exists();
+    assert.dom('.container-sm').exists();
+    assert.dom('.container-sm a').exists();
+    assert.dom('.container-sm a').hasClass('button');
+    assert.dom('.container-sm a').containsText('Edit');
+    assert.dom('.container-sm button').exists();
+    assert.dom('.container-sm button').hasClass('button');
+    assert.dom('.container-sm button').hasClass('alert');
+    assert.dom('.container-sm button').containsText('Delete');
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+    assert.dom('.overlay .modal > p').exists();
+    assert.dom('.overlay .modal > p').containsText('Are you sure you want to delete fund Test Fund?');
+    assert.dom('.overlay .modal button.button.alert').exists();
+    assert.dom('.overlay .modal button.button.alert').containsText('Delete');
+    assert.dom('.overlay .modal button.button.cancel').exists();
+    assert.dom('.overlay .modal button.button.cancel').containsText('Cancel');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/funds/${id}/edit`);
+  });
+
+  test('renders callout when deleting fund returns errors', async function(assert) {
+    await visit('/funds/d8967568-edcf-48c0-a48b-777dacf73061/settings');
+
+    assert.equal(currentURL(), '/funds/d8967568-edcf-48c0-a48b-777dacf73061/settings');
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/funds/d8967568-edcf-48c0-a48b-777dacf73061/settings');
+
+    assert.dom('.overlay .modal .callout').exists();
+    assert.dom('.overlay .modal .callout').hasClass('alert');
+    assert.dom('.overlay .modal .callout p').exists({ count: 2 });
+    assert.dom('.overlay .modal .callout p:nth-of-type(1)').containsText('Test fund delete error 1.');
+    assert.dom('.overlay .modal .callout p:nth-of-type(2)').containsText('Test fund delete error 2.');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    // Verify the error callout is cleared when opening the modal again.
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+  });
+
+  test('transitions to /funds on successful fund deletion', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/settings`);
+
+    assert.equal(currentURL(), `/funds/${id}/settings`);
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/funds');
+  });
 });

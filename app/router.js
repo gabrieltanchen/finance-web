@@ -29,6 +29,7 @@ Router.map(function() {
   });
   this.route('funds', function() {
     this.route('edit', { path: '/:fund_id/edit' });
+    this.route('expenses', { path: '/:fund_id/expenses' });
     this.route('new');
     this.route('settings', { path: '/:fund_id/settings' });
     this.route('show', { path: '/:fund_id' });

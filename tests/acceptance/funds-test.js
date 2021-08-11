@@ -146,6 +146,29 @@ module('Acceptance | funds', function(hooks) {
     assert.equal(currentURL(), `/funds/${id}`);
   });
 
+  test('visiting funds/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/expenses`);
+
+    assert.equal(currentURL(), `/funds/${id}/expenses`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Fund - Test Fund');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/funds/${id}/expenses?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/funds/${id}/expenses?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
   test('visiting /funds/:id/settings', async function(assert) {
     const id = uuidv4();
     await visit(`/funds/${id}/settings`);

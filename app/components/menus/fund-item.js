@@ -8,6 +8,10 @@ export default class MenusFundItemComponent extends Component {
     return this.router.currentRouteName === 'funds.show';
   }
 
+  get isExpensesRoute() {
+    return this.router.currentRouteName === 'funds.expenses';
+  }
+
   get isSettingsRoute() {
     return this.router.currentRouteName === 'funds.settings';
   }

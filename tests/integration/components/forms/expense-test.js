@@ -11,6 +11,16 @@ module('Integration | Component | forms/expense', function(hooks) {
 
   hooks.beforeEach(function() {
     this.setProperties({
+      funds: [{
+        id: uuidv4(),
+        name: 'Fund 1',
+      }, {
+        id: uuidv4(),
+        name: 'Fund 2',
+      }, {
+        id: uuidv4(),
+        name: 'Fund 3',
+      }],
       householdMembers: [{
         id: uuidv4(),
         name: 'Household Member 1',
@@ -58,32 +68,34 @@ module('Integration | Component | forms/expense', function(hooks) {
     await render(hbs`<Forms::Expense @expense={{this.expense}} @householdMembers={{this.householdMembers}} @subcategories={{this.subcategories}} @vendors={{this.vendors}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 7 });
+    assert.dom('form label').exists({ count: 8 });
     assert.dom('form input').exists({ count: 5 });
 
     assert.dom('form div:nth-of-type(1) label').containsText('Subcategory');
 
-    assert.dom('form div:nth-of-type(2) label').containsText('Vendor');
+    assert.dom('form div:nth-of-type(2) label').containsText('Fund');
 
-    assert.dom('form div:nth-of-type(3) label').containsText('Member');
+    assert.dom('form div:nth-of-type(3) label').containsText('Vendor');
 
-    assert.dom('form div:nth-of-type(4) label').containsText('Date');
-    assert.dom('form div:nth-of-type(4) input').hasNoValue();
-    assert.dom('form div:nth-of-type(4) input').hasAttribute('type', 'text');
-    assert.dom('form div:nth-of-type(4) input').hasAttribute('id', 'expense-date-input');
+    assert.dom('form div:nth-of-type(4) label').containsText('Member');
 
-    assert.dom('form div:nth-of-type(5) label').containsText('Description');
+    assert.dom('form div:nth-of-type(5) label').containsText('Date');
     assert.dom('form div:nth-of-type(5) input').hasNoValue();
+    assert.dom('form div:nth-of-type(5) input').hasAttribute('type', 'text');
+    assert.dom('form div:nth-of-type(5) input').hasAttribute('id', 'expense-date-input');
 
-    assert.dom('form div:nth-of-type(6) label').containsText('Amount');
+    assert.dom('form div:nth-of-type(6) label').containsText('Description');
     assert.dom('form div:nth-of-type(6) input').hasNoValue();
 
-    assert.dom('form div:nth-of-type(7) label').containsText('Reimbursed Amount');
+    assert.dom('form div:nth-of-type(7) label').containsText('Amount');
     assert.dom('form div:nth-of-type(7) input').hasNoValue();
 
-    assert.dom('form div:nth-of-type(8) input').hasValue('Save');
-    assert.dom('form div:nth-of-type(8) input').hasAttribute('type', 'submit');
-    assert.dom('form div:nth-of-type(8) input').hasAttribute('id', 'expense-submit');
+    assert.dom('form div:nth-of-type(8) label').containsText('Reimbursed Amount');
+    assert.dom('form div:nth-of-type(8) input').hasNoValue();
+
+    assert.dom('form div:nth-of-type(9) input').hasValue('Save');
+    assert.dom('form div:nth-of-type(9) input').hasAttribute('type', 'submit');
+    assert.dom('form div:nth-of-type(9) input').hasAttribute('id', 'expense-submit');
 
     assert.dom('.callout').doesNotExist();
   });
@@ -93,31 +105,34 @@ module('Integration | Component | forms/expense', function(hooks) {
       amount: 12.34,
       date: '2020-01-01',
       description: 'Test Expense',
+      fund: this.funds[1],
       householdMember: this.householdMembers[1],
       reimbursedAmount: 1.23,
       subcategory: this.subcategories[1],
       vendor: this.vendors[1],
     });
 
-    await render(hbs`<Forms::Expense @expense={{this.expense}} @householdMembers={{this.householdMembers}} @subcategories={{this.subcategories}} @vendors={{this.vendors}} />`);
+    await render(hbs`<Forms::Expense @expense={{this.expense}} @funds={{this.funds}} @householdMembers={{this.householdMembers}} @subcategories={{this.subcategories}} @vendors={{this.vendors}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 7 });
+    assert.dom('form label').exists({ count: 8 });
     assert.dom('form input').exists({ count: 5 });
     assert.dom('form div:nth-of-type(1) label').containsText('Subcategory');
     assert.dom('form div:nth-of-type(1) .ember-power-select-selected-item').containsText('Subcategory 2');
-    assert.dom('form div:nth-of-type(2) label').containsText('Vendor');
-    assert.dom('form div:nth-of-type(2) .ember-power-select-selected-item').containsText('Vendor 2');
-    assert.dom('form div:nth-of-type(3) label').containsText('Member');
-    assert.dom('form div:nth-of-type(3) .ember-power-select-selected-item').containsText('Household Member 2');
-    assert.dom('form div:nth-of-type(4) label').containsText('Date');
-    assert.dom('form div:nth-of-type(4) input').hasValue('2020-01-01');
-    assert.dom('form div:nth-of-type(5) label').containsText('Description');
-    assert.dom('form div:nth-of-type(5) input').hasValue('Test Expense');
-    assert.dom('form div:nth-of-type(6) label').containsText('Amount');
-    assert.dom('form div:nth-of-type(6) input').hasValue('12.34');
-    assert.dom('form div:nth-of-type(7) label').containsText('Reimbursed Amount');
-    assert.dom('form div:nth-of-type(7) input').hasValue('1.23');
+    assert.dom('form div:nth-of-type(2) label').containsText('Fund');
+    assert.dom('form div:nth-of-type(2) .ember-power-select-selected-item').containsText('Fund 2');
+    assert.dom('form div:nth-of-type(3) label').containsText('Vendor');
+    assert.dom('form div:nth-of-type(3) .ember-power-select-selected-item').containsText('Vendor 2');
+    assert.dom('form div:nth-of-type(4) label').containsText('Member');
+    assert.dom('form div:nth-of-type(4) .ember-power-select-selected-item').containsText('Household Member 2');
+    assert.dom('form div:nth-of-type(5) label').containsText('Date');
+    assert.dom('form div:nth-of-type(5) input').hasValue('2020-01-01');
+    assert.dom('form div:nth-of-type(6) label').containsText('Description');
+    assert.dom('form div:nth-of-type(6) input').hasValue('Test Expense');
+    assert.dom('form div:nth-of-type(7) label').containsText('Amount');
+    assert.dom('form div:nth-of-type(7) input').hasValue('12.34');
+    assert.dom('form div:nth-of-type(8) label').containsText('Reimbursed Amount');
+    assert.dom('form div:nth-of-type(8) input').hasValue('1.23');
   });
 
   test('it should render alert callout', async function(assert) {

@@ -6,7 +6,7 @@
   </div>
 {{/if}}
 <form class="expense-form" {{on "submit" this.save}}>
-  <div class="expense-subcategory">
+  <div>
     <label for="expense-subcategory-select">Subcategory</label>
     <PowerSelect
       @search={{action this.updateSubcategorySearch}}
@@ -19,6 +19,21 @@
       as |subcategory|
     >
       {{subcategory.category.name}} - {{subcategory.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="expense-fund-select">Fund</label>
+    <PowerSelect
+      @search={{action this.updateFundSearch}}
+      @searchEnabled={{true}}
+      @options={{@funds}}
+      @searchField="name"
+      @selected={{@expense.fund}}
+      @onChange={{action this.selectFund}}
+      @triggerId="expense-fund-select"
+      as |fund|
+    >
+      {{fund.name}}
     </PowerSelect>
   </div>
   <div>

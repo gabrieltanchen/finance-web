@@ -14,6 +14,19 @@
       {{/if}}
     </li>
     <li>
+      {{#if this.isDepositsRoute}}
+        <span>
+          <FaIcon @icon="money-bill-wave" @size="sm" />
+          Deposits
+        </span>
+      {{else}}
+        <LinkTo @route="funds.deposits" @model={{@fundId}}>
+          <FaIcon @icon="money-bill-wave" @size="sm" />
+          Deposits
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
       {{#if this.isExpensesRoute}}
         <span>
           <FaIcon @icon="credit-card" @size="sm" />

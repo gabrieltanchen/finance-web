@@ -4,6 +4,10 @@ import Component from '@glimmer/component';
 export default class MenusFundItemComponent extends Component {
   @service router;
 
+  get isDepositsRoute() {
+    return this.router.currentRouteName === 'funds.deposits';
+  }
+
   get isDetailsRoute() {
     return this.router.currentRouteName === 'funds.show';
   }

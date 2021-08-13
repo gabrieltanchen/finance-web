@@ -1,0 +1,20 @@
+<div class="container-lg">
+  <h1>Fund - {{this.fund.name}}</h1>
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.deposits}}
+    @page={{this.page}}
+    @numPages={{this.deposits.meta.pages}}
+    @sort={{this.sort}}
+    @sortDirection={{this.sortDirection}}
+    @defaultSort={{this.defaultSort}}
+    @defaultSortDirection={{this.defaultSortDirection}}
+    @setPage={{this.setPage}}
+    @setSort={{this.setSort}}
+  />
+</div>
+<div class="add-button">
+  <a href="#">
+    <FaIcon @icon="plus" @size="lg" />
+  </a>
+</div>

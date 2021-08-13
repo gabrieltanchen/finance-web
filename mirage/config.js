@@ -256,6 +256,125 @@ export default function() {
     });
   });
 
+  this.get('/deposits', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'amount': 1,
+          'date': '2021-01-01',
+        },
+        'id': uuidv4(),
+        'type': 'deposits',
+      }];
+    } else {
+      data = [...Array(25).keys()].map(() => {
+        return {
+          'attributes': {
+            'amount': 1,
+            'date': '2021-01-01',
+          },
+          'id': uuidv4(),
+          'type': 'deposits',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+  this.post('/deposits', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.date
+        && params.data.attributes.date === '2021-06-17') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test deposit post error 1.',
+        }, {
+          detail: 'Test deposit post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+        },
+        'id': 'ecb685d8-9e96-4d8d-acfa-f73ac732d22c',
+        'type': 'deposits',
+      },
+    });
+  });
+  this.delete('/deposits/:id', (db, request) => {
+    if (request.params.id === '90753de1-66c8-472c-b5e7-fb5fc63fe8f5') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test deposit delete error 1.',
+        }, {
+          detail: 'Test deposit delete error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
+  this.get('/deposits/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': 1000,
+          'date': '2021-01-01',
+        },
+        'id': request.params.id,
+        'type': 'deposits',
+      },
+    });
+  });
+  this.patch('/deposits/:id', (db, request) => {
+    if (request.params.id === 'f75cfdf1-99b5-4bf0-afcc-630d14133ffa') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test deposit patch error 1.',
+        }, {
+          detail: 'Test deposit patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'amount': params.data.attributes.amount,
+          'date': params.data.attributes.date,
+        },
+        'id': request.params.id,
+        'type': 'deposits',
+      },
+    });
+  });
+
   this.get('/expenses', (db, request) => {
     let data;
     if (request.queryParams.page === '2') {

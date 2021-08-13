@@ -93,10 +93,33 @@ module('Acceptance | funds', function(hooks) {
     assert.dom('h1').containsText('Fund - Test Fund');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 3 });
+    assert.dom('table tbody tr').exists({ count: 4 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
+  });
+
+  test('visiting /funds/:id/deposits', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/deposits`);
+
+    assert.equal(currentURL(), `/funds/${id}/deposits`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Fund - Test Fund');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/funds/${id}/deposits?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/funds/${id}/deposits?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
   });
 
   test('visiting /funds/:id/edit', async function(assert) {

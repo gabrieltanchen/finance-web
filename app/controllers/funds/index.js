@@ -13,6 +13,9 @@ export default class FundsIndexController extends Controller {
     name: 'Name',
     propertyName: 'name',
   }, {
+    name: 'Balance',
+    propertyName: 'balanceStr',
+  }, {
     name: 'Created At',
     propertyName: 'createdAt',
   }, {

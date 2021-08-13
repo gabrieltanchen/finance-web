@@ -30,6 +30,11 @@ export default class VendorsExpensesController extends Controller {
     sortable: true,
     sortName: 'member',
   }, {
+    name: 'Fund',
+    propertyName: 'fund.name',
+    sortable: true,
+    sortName: 'fund',
+  }, {
     name: 'Description',
     propertyName: 'description',
     sortable: true,

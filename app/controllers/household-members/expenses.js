@@ -30,6 +30,11 @@ export default class HouseholdMembersExpensesController extends Controller {
     sortable: true,
     sortName: 'vendor',
   }, {
+    name: 'Fund',
+    propertyName: 'fund.name',
+    sortable: true,
+    sortName: 'fund',
+  }, {
     name: 'Description',
     propertyName: 'description',
     sortable: true,

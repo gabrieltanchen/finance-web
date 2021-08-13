@@ -96,7 +96,8 @@ module('Acceptance | funds', function(hooks) {
     assert.dom('table tbody tr').exists({ count: 4 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
-    assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
+    assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Balance');
+    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Created At');
   });
 
   test('visiting /funds/:id/deposits', async function(assert) {

@@ -28,7 +28,7 @@ module('Integration | Component | menus/fund-item', function(hooks) {
     assert.dom('nav ul li:nth-of-type(2) a').exists();
     assert.dom('nav ul li:nth-of-type(2) a').containsText('Deposits');
     assert.dom('nav ul li:nth-of-type(2) a svg').exists();
-    assert.dom('nav ul li:nth-of-type(2) a svg').hasClass('fa-money-wave');
+    assert.dom('nav ul li:nth-of-type(2) a svg').hasClass('fa-money-bill-wave');
     assert.dom('nav ul li:nth-of-type(3) a').exists();
     assert.dom('nav ul li:nth-of-type(3) a').containsText('Expenses');
     assert.dom('nav ul li:nth-of-type(3) a svg').exists();

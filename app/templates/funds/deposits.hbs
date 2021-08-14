@@ -1,5 +1,6 @@
 <div class="container-lg">
   <h1>Fund - {{this.fund.name}}</h1>
+  <Menus::FundItem @fundId={{this.fund.id}} />
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.deposits}}

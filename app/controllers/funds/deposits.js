@@ -28,6 +28,10 @@ export default class FundsDepositsController extends Controller {
     linkText: 'View',
     linkTo: 'deposits.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'deposits.edit',
+    name: '',
   }];
 
   @action

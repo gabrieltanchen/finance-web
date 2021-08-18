@@ -83,4 +83,52 @@ module('Acceptance | deposits', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Fund');
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Created At');
   });
+
+  test('visiting /deposits/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/edit`);
+
+    assert.equal(currentURL(), `/deposits/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Deposit');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#deposit-date-input').exists();
+    assert.dom('#deposit-amount-input').exists();
+    assert.dom('#deposit-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing deposit', async function(assert) {
+    await visit('/deposits/f75cfdf1-99b5-4bf0-afcc-630d14133ffa/edit');
+
+    assert.equal(currentURL(), '/deposits/f75cfdf1-99b5-4bf0-afcc-630d14133ffa/edit');
+
+    await fillIn('#deposit-amount-input', '45.67');
+    await click('#deposit-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test deposit patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test deposit patch error 2.');
+
+    // Test that the expense gets reset after navigating away from edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/deposits/f75cfdf1-99b5-4bf0-afcc-630d14133ffa');
+    assert.dom('table tr:nth-of-type(3) td:nth-of-type(2)').containsText('$10.00');
+  });
+
+  test('should transition to deposit details after editing deposit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/edit`);
+
+    assert.equal(currentURL(), `/deposits/${id}/edit`);
+
+    await fillIn('#deposit-amount-input', '45.67');
+    await click('#deposit-submit');
+
+    assert.equal(currentURL(), `/deposits/${id}`);
+  });
 });

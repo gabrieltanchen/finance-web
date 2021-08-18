@@ -22,6 +22,7 @@ Router.map(function() {
   });
   this.route('dashboard');
   this.route('deposits', function() {
+    this.route('edit', { path: '/:deposit_id/edit' });
     this.route('new');
     this.route('show', { path: '/:deposit_id' });
   });

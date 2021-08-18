@@ -21,6 +21,9 @@ Router.map(function() {
     this.route('subcategories', { path: '/:category_id/subcategories' });
   });
   this.route('dashboard');
+  this.route('deposits', function() {
+    this.route('show', { path: '/:deposit_id' });
+  });
   this.route('expenses', function() {
     this.route('edit', { path: '/:expense_id/edit' });
     this.route('new');

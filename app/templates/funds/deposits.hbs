@@ -15,7 +15,7 @@
   />
 </div>
 <div class="add-button">
-  <a href="#">
+  <LinkTo @route="deposits.new" @query={{hash fundId=this.fund.id}}>
     <FaIcon @icon="plus" @size="lg" />
-  </a>
+  </LinkTo>
 </div>

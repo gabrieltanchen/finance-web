@@ -24,6 +24,10 @@ export default class FundsDepositsController extends Controller {
     propertyName: 'amountStr',
     sortable: true,
     sortName: 'amount',
+  }, {
+    linkText: 'View',
+    linkTo: 'deposits.show',
+    name: '',
   }];
 
   @action

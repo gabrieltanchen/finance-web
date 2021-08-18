@@ -293,8 +293,8 @@ export default function() {
     const params = JSON.parse(request.requestBody);
     if (params.data
         && params.data.attributes
-        && params.data.attributes.date
-        && params.data.attributes.date === '2021-06-17') {
+        && params.data.attributes.amount
+        && params.data.attributes.amount === 9876) {
       return new Mirage.Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {

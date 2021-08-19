@@ -344,6 +344,14 @@ export default function() {
           'date': '2021-01-01',
         },
         'id': request.params.id,
+        'relationships': {
+          'fund': {
+            'data': {
+              'id': 'fd16392e-8a8e-4f04-8feb-0286513b2608',
+              'type': 'funds',
+            },
+          },
+        },
         'type': 'deposits',
       },
     });

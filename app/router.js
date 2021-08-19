@@ -24,6 +24,7 @@ Router.map(function() {
   this.route('deposits', function() {
     this.route('edit', { path: '/:deposit_id/edit' });
     this.route('new');
+    this.route('settings', { path: '/:deposit_id/settings' });
     this.route('show', { path: '/:deposit_id' });
   });
   this.route('expenses', function() {

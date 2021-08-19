@@ -131,4 +131,92 @@ module('Acceptance | deposits', function(hooks) {
 
     assert.equal(currentURL(), `/deposits/${id}`);
   });
+
+  test('visiting /deposits/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/settings`);
+
+    assert.equal(currentURL(), `/deposits/${id}/settings`);
+    assert.dom('.container-lg').exists();
+    assert.dom('.container-lg h1').exists();
+    assert.dom('.container-lg h1').containsText('View Deposit');
+    assert.dom('.container-lg nav.secondary').exists();
+    assert.dom('.container-sm').exists();
+    assert.dom('.container-sm a').exists();
+    assert.dom('.container-sm a').hasClass('button');
+    assert.dom('.container-sm a').containsText('Edit');
+    assert.dom('.container-sm button').exists();
+    assert.dom('.container-sm button').hasClass('button');
+    assert.dom('.container-sm button').hasClass('alert');
+    assert.dom('.container-sm button').containsText('Delete');
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+    assert.dom('.overlay .modal > p').exists();
+    assert.dom('.overlay .modal > p').containsText('Are you sure you want to delete this deposit?');
+    assert.dom('.overlay .modal button.button.alert').exists();
+    assert.dom('.overlay .modal button.button.alert').containsText('Delete');
+    assert.dom('.overlay .modal button.button.cancel').exists();
+    assert.dom('.overlay .modal button.button.cancel').containsText('Cancel');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/deposits/${id}/edit`);
+  });
+
+  test('renders callout when deleting deposit returns errors', async function(assert) {
+    await visit('/deposits/90753de1-66c8-472c-b5e7-fb5fc63fe8f5/settings');
+
+    assert.equal(currentURL(), '/deposits/90753de1-66c8-472c-b5e7-fb5fc63fe8f5/settings');
+
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/deposits/90753de1-66c8-472c-b5e7-fb5fc63fe8f5/settings');
+
+    assert.dom('.overlay .modal .callout').exists();
+    assert.dom('.overlay .modal .callout').hasClass('alert');
+    assert.dom('.overlay .modal .callout p').exists({ count: 2 });
+    assert.dom('.overlay .modal .callout p:nth-of-type(1)').containsText('Test deposit delete error 1.');
+    assert.dom('.overlay .modal .callout p:nth-of-type(2)').containsText('Test deposit delete error 2.');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    // Verify the error callout is cleared when opening the modal again.
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+  });
+
+  test('transitions to fund deposits page on successful deposit deletion', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/settings`);
+
+    assert.equal(currentURL(), `/deposits/${id}/settings`);
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/funds/fd16392e-8a8e-4f04-8feb-0286513b2608/deposits');
+  });
 });

@@ -113,6 +113,13 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/deposits/${id}/edit`);
   });
 
+  test('can visit /deposits/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/settings`);
+
+    assert.equal(currentURL(), `/deposits/${id}/settings`);
+  });
+
   test('can visit /expenses/new', async function(assert) {
     await visit('/expenses/new');
 

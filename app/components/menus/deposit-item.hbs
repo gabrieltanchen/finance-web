@@ -13,5 +13,18 @@
         </LinkTo>
       {{/if}}
     </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="deposits.settings" @model={{@depositId}}>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
   </ul>
 </nav>

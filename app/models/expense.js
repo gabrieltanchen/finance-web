@@ -7,6 +7,7 @@ export default class ExpenseModel extends Model {
   @attr('string') description;
   @attr('dollars') reimbursedAmount;
 
+  @belongsTo('fund') fund;
   @belongsTo('household-member') householdMember;
   @belongsTo('subcategory') subcategory;
   @belongsTo('vendor') vendor;

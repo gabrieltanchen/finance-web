@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>Fund - {{this.fund.name}}</h1>
+  <Menus::FundItem @fundId={{this.fund.id}} />
+  <DetailTable @model={{this.fund}} @properties={{this.properties}} />
+</div>

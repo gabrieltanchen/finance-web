@@ -93,6 +93,33 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('can visit /deposits/new', async function(assert) {
+    await visit('/deposits/new');
+
+    assert.equal(currentURL(), '/deposits/new');
+  });
+
+  test('can visit /deposits/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}`);
+
+    assert.equal(currentURL(), `/deposits/${id}`);
+  });
+
+  test('can visit /deposits/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/edit`);
+
+    assert.equal(currentURL(), `/deposits/${id}/edit`);
+  });
+
+  test('can visit /deposits/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/${id}/settings`);
+
+    assert.equal(currentURL(), `/deposits/${id}/settings`);
+  });
+
   test('can visit /expenses/new', async function(assert) {
     await visit('/expenses/new');
 
@@ -118,6 +145,53 @@ module('Acceptance | logged in redirects', function(hooks) {
     await visit(`/expenses/${id}/settings`);
 
     assert.equal(currentURL(), `/expenses/${id}/settings`);
+  });
+
+  test('can visit /funds', async function(assert) {
+    await visit('/funds');
+
+    assert.equal(currentURL(), '/funds');
+  });
+
+  test('can visit /funds/new', async function(assert) {
+    await visit('/funds/new');
+
+    assert.equal(currentURL(), '/funds/new');
+  });
+
+  test('can visit /funds/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}`);
+
+    assert.equal(currentURL(), `/funds/${id}`);
+  });
+
+  test('can visit /funds/:id/deposits', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/deposits`);
+
+    assert.equal(currentURL(), `/funds/${id}/deposits`);
+  });
+
+  test('can visit /funds/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/edit`);
+
+    assert.equal(currentURL(), `/funds/${id}/edit`);
+  });
+
+  test('can visit /funds/:id/expenses', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/expenses`);
+
+    assert.equal(currentURL(), `/funds/${id}/expenses`);
+  });
+
+  test('can visit /funds/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/funds/${id}/settings`);
+
+    assert.equal(currentURL(), `/funds/${id}/settings`);
   });
 
   test('can visit /household-members', async function(assert) {

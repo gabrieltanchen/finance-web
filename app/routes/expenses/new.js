@@ -5,6 +5,9 @@ import RSVP from 'rsvp';
 export default class ExpensesNewRoute extends Route {
   @service session;
   queryParams = {
+    fundId: {
+      refreshModel: true,
+    },
     householdMemberId: {
       refreshModel: true,
     },
@@ -24,6 +27,10 @@ export default class ExpensesNewRoute extends Route {
 
   async model(params) {
     const expense = this.store.createRecord('expense');
+    if (params.fundId) {
+      const fund = await this.store.findRecord('fund', params.fundId);
+      expense.fund = fund;
+    }
     if (params.subcategoryId) {
       const subcategory = await this.store.findRecord('subcategory', params.subcategoryId);
       expense.subcategory = subcategory;
@@ -38,6 +45,7 @@ export default class ExpensesNewRoute extends Route {
     }
     return RSVP.hash({
       expense,
+      funds: this.store.findAll('fund'),
       householdMembers: this.store.findAll('household-member'),
       subcategories: this.store.findAll('subcategory'),
       vendors: this.store.findAll('vendor'),

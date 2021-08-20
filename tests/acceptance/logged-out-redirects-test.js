@@ -85,6 +85,30 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /deposits/new', async function(assert) {
+    await visit('/deposits/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /deposits/:id', async function(assert) {
+    await visit(`/deposits/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /deposits/:id/edit', async function(assert) {
+    await visit(`/deposits/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /deposits/:id/settings', async function(assert) {
+    await visit(`/deposits/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /expenses/new', async function(assert) {
     await visit('/expenses/new');
 
@@ -105,6 +129,48 @@ module('Acceptance | logged out redirects', function(hooks) {
 
   test('should redirect away from /expenses/:id/settings', async function(assert) {
     await visit(`/expenses/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away fund /funds', async function(assert) {
+    await visit('/funds');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/new', async function(assert) {
+    await visit('/funds/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/:id', async function(assert) {
+    await visit(`/funds/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/:id/deposits', async function(assert) {
+    await visit(`/funds/${uuidv4()}/deposits`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/:id/edit', async function(assert) {
+    await visit(`/funds/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/:id/expenses', async function(assert) {
+    await visit(`/funds/${uuidv4()}/expenses`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /funds/:id/settings', async function(assert) {
+    await visit(`/funds/${uuidv4()}/settings`);
 
     assert.equal(currentURL(), '/login');
   });

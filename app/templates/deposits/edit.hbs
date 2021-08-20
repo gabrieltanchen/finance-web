@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Edit Deposit</h1>
+  <Menus::DepositItem @depositId={{this.deposit.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Deposit
+    @deposit={{this.deposit}}
+    @funds={{this.funds}}
+    @saveSuccessful={{this.transitionToDepositDetails}}
+  />
+</div>

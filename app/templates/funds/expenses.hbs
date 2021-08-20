@@ -1,0 +1,21 @@
+<div class="container-lg">
+  <h1>Fund - {{this.fund.name}}</h1>
+  <Menus::FundItem @fundId={{this.fund.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.expenses}}
+    @page={{this.page}}
+    @numPages={{this.expenses.meta.pages}}
+    @sort={{this.sort}}
+    @sortDirection={{this.sortDirection}}
+    @defaultSort={{this.defaultSort}}
+    @defaultSortDirection={{this.defaultSortDirection}}
+    @setPage={{this.setPage}}
+    @setSort={{this.setSort}}
+  />
+</div>
+<div class="add-button">
+  <LinkTo @route="expenses.new" @query={{hash fundId=this.fund.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
+</div>

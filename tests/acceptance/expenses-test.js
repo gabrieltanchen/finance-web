@@ -87,7 +87,7 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('h1').containsText('View Expense');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 9 });
+    assert.dom('table tbody tr').exists({ count: 10 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Date');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Description');
@@ -96,7 +96,8 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Subcategory');
     assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Household Member');
     assert.dom('table tbody tr:nth-of-type(8) td:nth-of-type(1)').containsText('Vendor');
-    assert.dom('table tbody tr:nth-of-type(9) td:nth-of-type(1)').containsText('Created At');
+    assert.dom('table tbody tr:nth-of-type(9) td:nth-of-type(1)').containsText('Fund');
+    assert.dom('table tbody tr:nth-of-type(10) td:nth-of-type(1)').containsText('Created At');
   });
 
   test('visiting /expenses/:id/edit', async function(assert) {

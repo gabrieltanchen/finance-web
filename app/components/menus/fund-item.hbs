@@ -1,0 +1,56 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{# if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="funds.show" @model={{@fundId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isDepositsRoute}}
+        <span>
+          <FaIcon @icon="money-bill-wave" @size="sm" />
+          Deposits
+        </span>
+      {{else}}
+        <LinkTo @route="funds.deposits" @model={{@fundId}}>
+          <FaIcon @icon="money-bill-wave" @size="sm" />
+          Deposits
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isExpensesRoute}}
+        <span>
+          <FaIcon @icon="credit-card" @size="sm" />
+          Expenses
+        </span>
+      {{else}}
+        <LinkTo @route="funds.expenses" @model={{@fundId}}>
+          <FaIcon @icon="credit-card" @size="sm" />
+          Expenses
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="funds.settings" @model={{@fundId}}>
+          <FaIcon @icon="cog" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

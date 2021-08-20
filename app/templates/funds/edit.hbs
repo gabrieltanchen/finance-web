@@ -1,0 +1,7 @@
+<div class="container-lg">
+  <h1>Edit Fund - {{this.fund.name}}</h1>
+  <Menus::FundItem @fundId={{this.fund.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Fund @fund={{this.fund}} @saveSuccessful={{this.transitionToFundDetails}} />
+</div>

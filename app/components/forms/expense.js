@@ -8,6 +8,11 @@ export default class FormsExpenseComponent extends Component {
   @tracked errors = [];
 
   @action
+  selectFund(fund) {
+    set(this, 'args.expense.fund', fund);
+  }
+
+  @action
   selectHouseholdMember(householdMember) {
     set(this, 'args.expense.householdMember', householdMember);
   }
@@ -20,6 +25,13 @@ export default class FormsExpenseComponent extends Component {
   @action
   selectVendor(vendor) {
     set(this, 'args.expense.vendor', vendor);
+  }
+
+  @action
+  updateFundSearch(searchTerm) {
+    return this.store.query('fund', {
+      search: searchTerm,
+    });
   }
 
   @action

@@ -1,0 +1,40 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form class="deposit-form" {{on "submit" this.save}}>
+  <div class="deposit-fund-select">
+    <label for="deposit-fund-select">Fund</label>
+    <PowerSelect
+      @search={{action this.updateFundSearch}}
+      @searchEnabled={{true}}
+      @options={{@funds}}
+      @searchField="name"
+      @selected={{@deposit.fund}}
+      @onChange={{action this.selectFund}}
+      @triggerId="deposit-fund-select"
+      as |fund|
+    >
+      {{fund.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="deposit-date-input">Date</label>
+    <PikadayInput
+      @value={{@deposit.date}} id="deposit-date-input"
+      @onSelection={{action "dateSelected"}}
+      @format={{"YYYY-MM-DD"}}
+      @useUTC={{true}}
+    />
+  </div>
+  <div>
+    <label for="deposit-amount-input">Amount</label>
+    <Input @value={{@deposit.amount}} @type="text" id="deposit-amount-input" />
+  </div>
+  <div class="deposit-submit">
+    <Input @value="Save" @type="submit" id="deposit-submit" />
+  </div>
+</form>

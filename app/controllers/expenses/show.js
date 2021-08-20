@@ -35,6 +35,11 @@ export default class ExpensesShowController extends Controller {
     name: 'Vendor',
     propertyName: 'vendor.name',
   }, {
+    linkParam: 'fund.id',
+    linkTo: 'funds.show',
+    name: 'Fund',
+    propertyName: 'fund.name',
+  }, {
     name: 'Created At',
     propertyName: 'createdAt',
   }];

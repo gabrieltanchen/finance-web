@@ -21,11 +21,25 @@ Router.map(function() {
     this.route('subcategories', { path: '/:category_id/subcategories' });
   });
   this.route('dashboard');
+  this.route('deposits', function() {
+    this.route('edit', { path: '/:deposit_id/edit' });
+    this.route('new');
+    this.route('settings', { path: '/:deposit_id/settings' });
+    this.route('show', { path: '/:deposit_id' });
+  });
   this.route('expenses', function() {
     this.route('edit', { path: '/:expense_id/edit' });
     this.route('new');
     this.route('settings', { path: '/:expense_id/settings' });
     this.route('show', { path: '/:expense_id' });
+  });
+  this.route('funds', function() {
+    this.route('deposits', { path: '/:fund_id/deposits' });
+    this.route('edit', { path: '/:fund_id/edit' });
+    this.route('expenses', { path: '/:fund_id/expenses' });
+    this.route('new');
+    this.route('settings', { path: '/:fund_id/settings' });
+    this.route('show', { path: '/:fund_id' });
   });
   this.route('household-members', function() {
     this.route('edit', { path: '/:member_id/edit' });

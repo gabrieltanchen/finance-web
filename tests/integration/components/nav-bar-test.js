@@ -48,11 +48,12 @@ module('Integration | Component | nav-bar', function(hooks) {
     await render(hbs`<NavBar />`);
 
     assert.dom('.nav-links').exists();
-    assert.dom('.nav-links a').exists({ count: 4 });
+    assert.dom('.nav-links a').exists({ count: 5 });
     assert.dom('.nav-links a:nth-of-type(1)').containsText('Categories');
     assert.dom('.nav-links a:nth-of-type(2)').containsText('Income');
-    assert.dom('.nav-links a:nth-of-type(3)').containsText('Vendors');
-    assert.dom('.nav-links a:nth-of-type(4)').containsText('Members');
+    assert.dom('.nav-links a:nth-of-type(3)').containsText('Funds');
+    assert.dom('.nav-links a:nth-of-type(4)').containsText('Vendors');
+    assert.dom('.nav-links a:nth-of-type(5)').containsText('Members');
     assert.dom('.nav-links button').exists({ count: 1 });
     assert.dom('.nav-links button').containsText('Logout');
   });

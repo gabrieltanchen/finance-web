@@ -10,7 +10,8 @@ nav {
       justify-content: space-between;
 
       a,
-      button {
+      button,
+      .nav-dropdown-button {
         background-color: transparent;
         border: 0;
         color: $white;
@@ -35,6 +36,42 @@ nav {
           font-weight: 400;
           margin: 0;
           padding: 0.4em 0;
+        }
+      }
+
+      .nav-dropdown {
+        display: inline-block;
+        position: relative;
+
+        &:hover {
+          .nav-dropdown-content {
+            display: block;
+          }
+        }
+
+        .nav-dropdown-content {
+          background-color: $white;
+          border-bottom: 1px solid $black;
+          border-left: 1px solid $black;
+          border-right: 1px solid $black;
+          box-shadow: 0 2px 4px $black-alpha-50;
+          display: none;
+          position: absolute;
+          right: 0;
+          z-index: 1;
+
+          a,
+          button {
+            color: $black;
+            display: block;
+            margin-right: 0;
+            min-width: 100px;
+            text-align: center;
+
+            &:hover {
+              color: $primary-colour;
+            }
+          }
         }
       }
     }

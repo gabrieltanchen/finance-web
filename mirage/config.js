@@ -1109,6 +1109,51 @@ export default function() {
       },
     });
   });
+  this.post('/users', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.email
+        && params.data.attributes.email === 'error@example.com') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test category post error 1.',
+        }, {
+          detail: 'Test category post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'email': params.data.attributes.email,
+          'first-name': params.data.attributes['first-name'],
+          'last-name': params.data.attributes['last-name'],
+        },
+        'id': 'bf24a57c-b5d4-49a6-9cfd-6fd97a8b5366',
+        'type': 'users',
+      },
+    });
+  });
+  this.get('/users/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'email': 'test@example.com',
+          'first-name': 'Test',
+          'last-name': 'User',
+        },
+        'id': request.params.id,
+        'type': 'users',
+      },
+    });
+  });
 
   this.get('/vendors', (db, request) => {
     let data;

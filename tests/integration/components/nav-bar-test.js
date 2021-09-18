@@ -57,7 +57,8 @@ module('Integration | Component | nav-bar', function(hooks) {
     assert.dom('.nav-links > .nav-dropdown').exists();
     assert.dom('.nav-links > .nav-dropdown > button').exists({ count: 1 });
     assert.dom('.nav-links > .nav-dropdown > button').hasClass('nav-dropdown-button');
-    assert.dom('.nav-links > .nav-dropdown > button').containsText('User');
+    assert.dom('.nav-links > .nav-dropdown > button > svg').exists();
+    assert.dom('.nav-links > .nav-dropdown > button > svg').hasClass('fa-user-circle');
     assert.dom('.nav-links > .nav-dropdown > .nav-dropdown-content').exists();
     assert.dom('.nav-links > .nav-dropdown > .nav-dropdown-content > button').exists({ count: 1 });
     assert.dom('.nav-links > .nav-dropdown > .nav-dropdown-content > button:nth-of-type(1)').containsText('Logout');

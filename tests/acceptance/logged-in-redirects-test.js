@@ -329,6 +329,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/subcategories/${id}/settings`);
   });
 
+  test('can visit /users', async function(assert) {
+    await visit('/users');
+
+    assert.equal(currentURL(), '/users');
+  });
+
   test('can visit /vendors', async function(assert) {
     await visit('/vendors');
 

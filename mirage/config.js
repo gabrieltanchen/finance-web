@@ -1074,6 +1074,42 @@ export default function() {
     });
   });
 
+  this.get('/users', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'email': 'user26@example.com',
+          'first-name': 'User 26',
+          'last-name': 'Tan-Chen',
+        },
+        'id': uuidv4(),
+        'type': 'users',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'email': `user${ind}@example.com`,
+            'first-name': `User ${ind}`,
+            'last-name': 'Tan-Chen',
+          },
+          'id': uuidv4(),
+          'type': 'users',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+
   this.get('/vendors', (db, request) => {
     let data;
     if (request.queryParams.page === '2') {

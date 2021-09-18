@@ -25,6 +25,9 @@
             <FaIcon @icon="user-circle" @size="lg" />
           </button>
           <div class="nav-dropdown-content">
+            <LinkTo @route="users.index" id="nav-users">
+              Users
+            </LinkTo>
             <button type="button" {{on "click" this.logout}} id="logout-button">
               Logout
             </button>

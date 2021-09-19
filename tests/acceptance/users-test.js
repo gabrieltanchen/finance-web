@@ -7,7 +7,7 @@ import {
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 module('Acceptance | users', function(hooks) {
   setupApplicationTest(hooks);
@@ -41,5 +41,23 @@ module('Acceptance | users', function(hooks) {
 
     assert.equal(currentURL(), '/users?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /users/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}`);
+
+    assert.equal(currentURL(), `/users/${id}`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('User - Test User');
+    // assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 5 });
+    assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
+    assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('First Name');
+    assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Last Name');
+    assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Email');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Created At');
   });
 });

@@ -18,6 +18,10 @@ export default class UsersIndexController extends Controller {
   }, {
     name: 'Email',
     propertyName: 'email',
+  }, {
+    linkText: 'View',
+    linkTo: 'users.show',
+    name: '',
   }];
 
   @action

@@ -1119,9 +1119,9 @@ export default function() {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
-          detail: 'Test category post error 1.',
+          detail: 'Test user post error 1.',
         }, {
-          detail: 'Test category post error 2.',
+          detail: 'Test user post error 2.',
         }],
       });
     }

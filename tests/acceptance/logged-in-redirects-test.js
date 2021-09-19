@@ -335,6 +335,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/users');
   });
 
+  test('can visit /users/new', async function(assert) {
+    await visit('/users/new');
+
+    assert.equal(currentURL(), '/users/new');
+  });
+
   test('can visit /users/:id', async function(assert) {
     const id = uuidv4();
     await visit(`/users/${id}`);

@@ -67,6 +67,7 @@ Router.map(function() {
   });
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
+    this.route('new');
   });
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });

@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import {
   click,
   currentURL,
-  // fillIn,
+  fillIn,
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -41,6 +41,53 @@ module('Acceptance | users', function(hooks) {
 
     assert.equal(currentURL(), '/users?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /users/new', async function(assert) {
+    await visit('/users/new');
+
+    assert.equal(currentURL(), '/users/new');
+    assert.dom('.container-sm').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('New User');
+    assert.dom('form').exists();
+    assert.dom('#user-email-input').exists();
+    assert.dom('#user-first-name-input').exists();
+    assert.dom('#user-last-name-input').exists();
+    assert.dom('#user-password-input').exists();
+    assert.dom('#user-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating user', async function(assert) {
+    await visit('/users/new');
+
+    assert.equal(currentURL(), '/users/new');
+
+    await fillIn('#user-email-input', 'error@example.com');
+    await fillIn('#user-first-name-input', 'Test');
+    await fillIn('#user-last-name-input', 'User');
+    await fillIn('#user-password-input', 'password123');
+    await click('#user-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test user post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test user post error 2.');
+  });
+
+  test('should transition to user details after creating user', async function(assert) {
+    await visit('/users/new');
+
+    assert.equal(currentURL(), '/users/new');
+
+    await fillIn('#user-email-input', 'test@example.com');
+    await fillIn('#user-first-name-input', 'Test');
+    await fillIn('#user-last-name-input', 'User');
+    await fillIn('#user-password-input', 'password123');
+    await click('#user-submit');
+
+    assert.equal(currentURL(), '/users/bf24a57c-b5d4-49a6-9cfd-6fd97a8b5366');
   });
 
   test('visiting /users/:id', async function(assert) {

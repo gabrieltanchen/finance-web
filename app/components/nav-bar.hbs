@@ -20,9 +20,19 @@
         <LinkTo @route="household-members.index" id="nav-members">
           Members
         </LinkTo>
-        <button type="button" {{on "click" this.logout}} id="logout-button">
-          Logout
-        </button>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-button">
+            <FaIcon @icon="user-circle" @size="lg" />
+          </button>
+          <div class="nav-dropdown-content">
+            <LinkTo @route="users.index" id="nav-users">
+              Users
+            </LinkTo>
+            <button type="button" {{on "click" this.logout}} id="logout-button">
+              Logout
+            </button>
+          </div>
+        </div>
       {{else}}
         <LinkTo @route="login" id="login-link">
           Login

@@ -1074,6 +1074,114 @@ export default function() {
     });
   });
 
+  this.get('/users', (db, request) => {
+    let data;
+    if (request.queryParams.page === '2') {
+      data = [{
+        'attributes': {
+          'email': 'user26@example.com',
+          'first-name': 'User 26',
+          'last-name': 'Tan-Chen',
+        },
+        'id': uuidv4(),
+        'type': 'users',
+      }];
+    } else {
+      data = [...Array(25).keys()].map((ind) => {
+        return {
+          'attributes': {
+            'email': `user${ind}@example.com`,
+            'first-name': `User ${ind}`,
+            'last-name': 'Tan-Chen',
+          },
+          'id': uuidv4(),
+          'type': 'users',
+        };
+      });
+    }
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': data,
+      'meta': {
+        'pages': 2,
+        'total': 26,
+      },
+    });
+  });
+  this.post('/users', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.email
+        && params.data.attributes.email === 'error@example.com') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test user post error 1.',
+        }, {
+          detail: 'Test user post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'email': params.data.attributes.email,
+          'first-name': params.data.attributes['first-name'],
+          'last-name': params.data.attributes['last-name'],
+        },
+        'id': 'bf24a57c-b5d4-49a6-9cfd-6fd97a8b5366',
+        'type': 'users',
+      },
+    });
+  });
+  this.get('/users/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'email': 'test@example.com',
+          'first-name': 'Test',
+          'last-name': 'User',
+        },
+        'id': request.params.id,
+        'type': 'users',
+      },
+    });
+  });
+  this.patch('/users/:id', (db, request) => {
+    if (request.params.id === '9bead3e6-b0d5-4bce-a855-c277084da274') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test user patch error 1.',
+        }, {
+          detail: 'Test user patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'email': params.data.attributes.email,
+          'first-name': params.data.attributes['first-name'],
+          'last-name': params.data.attributes['last-name'],
+        },
+        'id': request.params.id,
+        'type': 'users',
+      },
+    });
+  });
+
   this.get('/vendors', (db, request) => {
     let data;
     if (request.queryParams.page === '2') {

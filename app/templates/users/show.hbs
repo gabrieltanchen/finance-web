@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>User - {{this.user.firstName}} {{this.user.lastName}}</h1>
+  <Menus::UserItem @userId={{this.user.id}} />
+  <DetailTable @model={{this.user}} @properties={{this.properties}} />
+</div>

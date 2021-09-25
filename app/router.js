@@ -65,6 +65,12 @@ Router.map(function() {
     this.route('settings', { path: '/:subcategory_id/settings' });
     this.route('show', { path: '/:subcategory_id' });
   });
+  this.route('users', function() {
+    this.route('edit', { path: '/:user_id/edit' });
+    this.route('new');
+    this.route('settings', { path: '/:user_id/settings' });
+    this.route('show', { path: '/:user_id' });
+  });
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });
     this.route('expenses', { path: '/:vendor_id/expenses' });

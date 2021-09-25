@@ -329,6 +329,39 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/subcategories/${id}/settings`);
   });
 
+  test('can visit /users', async function(assert) {
+    await visit('/users');
+
+    assert.equal(currentURL(), '/users');
+  });
+
+  test('can visit /users/new', async function(assert) {
+    await visit('/users/new');
+
+    assert.equal(currentURL(), '/users/new');
+  });
+
+  test('can visit /users/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}`);
+
+    assert.equal(currentURL(), `/users/${id}`);
+  });
+
+  test('can visit /users/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}/edit`);
+
+    assert.equal(currentURL(), `/users/${id}/edit`);
+  });
+
+  test('can visit /users/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}/settings`);
+
+    assert.equal(currentURL(), `/users/${id}/settings`);
+  });
+
   test('can visit /vendors', async function(assert) {
     await visit('/vendors');
 

@@ -1,0 +1,17 @@
+<div class="container-lg">
+  <div class="title-with-buttons">
+    <h1>Users</h1>
+    <div class="buttons">
+      <LinkTo @route="users.new" class="button">
+        New
+      </LinkTo>
+    </div>
+  </div>
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.users}}
+    @page={{this.page}}
+    @numPages={{this.users.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>

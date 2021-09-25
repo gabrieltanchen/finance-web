@@ -1,5 +1,6 @@
 <div class="container-lg">
   <h1>Edit User - {{this.user.firstName}} {{this.user.lastName}}</h1>
+  <Menus::UserItem @userId={{this.user.id}} />
 </div>
 <div class="container-sm">
   <Forms::UserEdit @user={{this.user}} @saveSuccessful={{this.transitionToUserDetails}} />

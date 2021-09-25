@@ -348,11 +348,18 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/users/${id}`);
   });
 
-  test('can visit /users/:edit', async function(assert) {
+  test('can visit /users/:id/edit', async function(assert) {
     const id = uuidv4();
     await visit(`/users/${id}/edit`);
 
     assert.equal(currentURL(), `/users/${id}/edit`);
+  });
+
+  test('can visit /users/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}/settings`);
+
+    assert.equal(currentURL(), `/users/${id}/settings`);
   });
 
   test('can visit /vendors', async function(assert) {

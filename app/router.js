@@ -68,6 +68,7 @@ Router.map(function() {
   this.route('users', function() {
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
+    this.route('settings', { path: '/:user_id/settings' });
     this.route('show', { path: '/:user_id' });
   });
   this.route('vendors', function() {

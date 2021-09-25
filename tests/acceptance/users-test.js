@@ -98,7 +98,7 @@ module('Acceptance | users', function(hooks) {
     assert.dom('.container-lg').exists();
     assert.dom('h1').exists();
     assert.dom('h1').containsText('User - Test User');
-    // assert.dom('nav.secondary').exists();
+    assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 5 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
@@ -116,7 +116,7 @@ module('Acceptance | users', function(hooks) {
     assert.dom('.container-lg').exists();
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Edit User - Test User');
-    // assert.dom('nav.secondary').exists();
+    assert.dom('nav.secondary').exists();
     assert.dom('form').exists();
     assert.dom('#user-email-input').exists();
     assert.dom('#user-first-name-input').exists();
@@ -140,7 +140,10 @@ module('Acceptance | users', function(hooks) {
 
     // Test that the user first name gets reset after navigating away from edit
     // page.
-    // @todo
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/users/9bead3e6-b0d5-4bce-a855-c277084da274');
+    assert.dom('h1').containsText('User - Test User');
   });
 
   test('should transition to user details after editing user', async function(assert) {
@@ -153,5 +156,24 @@ module('Acceptance | users', function(hooks) {
     await click('#user-submit');
 
     assert.equal(currentURL(), `/users/${id}`);
+  });
+
+  test('visiting /users/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}/settings`);
+
+    assert.equal(currentURL(), `/users/${id}/settings`);
+    assert.dom('.container-lg').exists();
+    assert.dom('.container-lg h1').exists();
+    assert.dom('.container-lg h1').containsText('User - Test User');
+    assert.dom('.container-lg nav.secondary').exists();
+    assert.dom('.container-sm').exists();
+    assert.dom('.container-sm a').exists();
+    assert.dom('.container-sm a').hasClass('button');
+    assert.dom('.container-sm a').containsText('Edit');
+
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/users/${id}/edit`);
   });
 });

@@ -22,6 +22,10 @@ export default class UsersIndexController extends Controller {
     linkText: 'View',
     linkTo: 'users.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'users.edit',
+    name: '',
   }];
 
   @action

@@ -1,0 +1,6 @@
+<div class="container-lg">
+  <h1>Edit User - {{this.user.firstName}} {{this.user.lastName}}</h1>
+</div>
+<div class="container-sm">
+  <Forms::UserEdit @user={{this.user}} @saveSuccessful={{this.transitionToUserDetails}} />
+</div>

@@ -107,4 +107,51 @@ module('Acceptance | users', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Email');
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Created At');
   });
+
+  test('visiting /users/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}/edit`);
+
+    assert.equal(currentURL(), `/users/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit User - Test User');
+    // assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#user-email-input').exists();
+    assert.dom('#user-first-name-input').exists();
+    assert.dom('#user-last-name-input').exists();
+    assert.dom('#user-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing user', async function(assert) {
+    await visit('/users/9bead3e6-b0d5-4bce-a855-c277084da274/edit');
+
+    assert.equal(currentURL(), '/users/9bead3e6-b0d5-4bce-a855-c277084da274/edit');
+
+    await fillIn('#user-first-name-input', 'Updated First Name');
+    await click('#user-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test user patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test user patch error 2.');
+
+    // Test that the user first name gets reset after navigating away from edit
+    // page.
+    // @todo
+  });
+
+  test('should transition to user details after editing user', async function(assert) {
+    const id = uuidv4();
+    await visit(`/users/${id}/edit`);
+
+    assert.equal(currentURL(), `/users/${id}/edit`);
+
+    await fillIn('#user-first-name-input', 'Updated First Name');
+    await click('#user-submit');
+
+    assert.equal(currentURL(), `/users/${id}`);
+  });
 });

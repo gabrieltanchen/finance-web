@@ -1154,6 +1154,33 @@ export default function() {
       },
     });
   });
+  this.patch('/users/:id', (db, request) => {
+    if (request.params.id === '9bead3e6-b0d5-4bce-a855-c277084da274') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test user patch error 1.',
+        }, {
+          detail: 'Test user patch error 2.',
+        }],
+      });
+    }
+    const params = JSON.parse(request.requestBody);
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'email': params.data.attributes.email,
+          'first-name': params.data.attributes['first-name'],
+          'last-name': params.data.attributes['last-name'],
+        },
+        'id': request.params.id,
+        'type': 'users',
+      },
+    });
+  });
 
   this.get('/vendors', (db, request) => {
     let data;

@@ -66,8 +66,9 @@ Router.map(function() {
     this.route('show', { path: '/:subcategory_id' });
   });
   this.route('users', function() {
-    this.route('show', { path: '/:user_id' });
+    this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
+    this.route('show', { path: '/:user_id' });
   });
   this.route('vendors', function() {
     this.route('edit', { path: '/:vendor_id/edit' });

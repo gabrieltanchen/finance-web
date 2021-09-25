@@ -3,22 +3,21 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | forms/user', function(hooks) {
+module('Integration | Component | forms/user-edit', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders an empty user form', async function(assert) {
+  test('it renders an empty user edit form', async function(assert) {
     this.set('user', {
       email: '',
       firstName: '',
       lastName: '',
-      password: '',
     });
 
-    await render(hbs`<Forms::User @user={{this.user}} />`);
+    await render(hbs`<Forms::UserEdit @user={{this.user}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 4 });
-    assert.dom('form input').exists({ count: 5 });
+    assert.dom('form label').exists({ count: 3 });
+    assert.dom('form input').exists({ count: 4 });
 
     assert.dom('form label:nth-of-type(1)').containsText('Email');
     assert.dom('form input:nth-of-type(1)').hasNoValue();
@@ -38,32 +37,25 @@ module('Integration | Component | forms/user', function(hooks) {
     assert.dom('form input:nth-of-type(3)').hasAttribute('id', 'user-last-name-input');
     assert.dom('form input:nth-of-type(3)').hasAria('required', 'true');
 
-    assert.dom('form label:nth-of-type(4)').containsText('Password');
-    assert.dom('form input:nth-of-type(4)').hasNoValue();
-    assert.dom('form input:nth-of-type(4)').hasAttribute('type', 'password');
-    assert.dom('form input:nth-of-type(4)').hasAttribute('id', 'user-password-input');
-    assert.dom('form input:nth-of-type(4)').hasAria('required', 'true');
-
-    assert.dom('form input:nth-of-type(5)').hasValue('Save');
-    assert.dom('form input:nth-of-type(5)').hasAttribute('type', 'submit');
-    assert.dom('form input:nth-of-type(5)').hasAttribute('id', 'user-submit');
+    assert.dom('form input:nth-of-type(4)').hasValue('Save');
+    assert.dom('form input:nth-of-type(4)').hasAttribute('type', 'submit');
+    assert.dom('form input:nth-of-type(4)').hasAttribute('id', 'user-submit');
 
     assert.dom('.callout').doesNotExist();
   });
 
-  test('it renders a filled out user form', async function(assert) {
+  test('it renders a filled out user edit form', async function(assert) {
     this.set('user', {
       email: 'test@example.com',
       firstName: 'Test',
       lastName: 'User',
-      password: 'password123',
     });
 
-    await render(hbs`<Forms::User @user={{this.user}} />`);
+    await render(hbs`<Forms::UserEdit @user={{this.user}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 4 });
-    assert.dom('form input').exists({ count: 5 });
+    assert.dom('form label').exists({ count: 3 });
+    assert.dom('form input').exists({ count: 4 });
 
     assert.dom('form label:nth-of-type(1)').containsText('Email');
     assert.dom('form input:nth-of-type(1)').hasValue('test@example.com');
@@ -82,12 +74,6 @@ module('Integration | Component | forms/user', function(hooks) {
     assert.dom('form input:nth-of-type(3)').hasAttribute('type', 'text');
     assert.dom('form input:nth-of-type(3)').hasAttribute('id', 'user-last-name-input');
     assert.dom('form input:nth-of-type(3)').hasAria('required', 'true');
-
-    assert.dom('form label:nth-of-type(4)').containsText('Password');
-    assert.dom('form input:nth-of-type(4)').hasValue('password123');
-    assert.dom('form input:nth-of-type(4)').hasAttribute('type', 'password');
-    assert.dom('form input:nth-of-type(4)').hasAttribute('id', 'user-password-input');
-    assert.dom('form input:nth-of-type(4)').hasAria('required', 'true');
   });
 
   test('it should render alert callout', async function(assert) {
@@ -107,12 +93,11 @@ module('Integration | Component | forms/user', function(hooks) {
       },
     });
 
-    await render(hbs`<Forms::User @user={{this.user}} />`);
+    await render(hbs`<Forms::UserEdit @user={{this.user}} />`);
 
     await fillIn('#user-email-input', 'test@example.com');
     await fillIn('#user-first-name-input', 'Test');
     await fillIn('#user-last-name-input', 'User');
-    await fillIn('#user-password-input', 'password123');
 
     await click('#user-submit');
 

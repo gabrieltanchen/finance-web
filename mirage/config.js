@@ -1133,6 +1133,7 @@ export default function() {
           'email': params.data.attributes.email,
           'first-name': params.data.attributes['first-name'],
           'last-name': params.data.attributes['last-name'],
+          'token': 'token',
         },
         'id': 'bf24a57c-b5d4-49a6-9cfd-6fd97a8b5366',
         'type': 'users',

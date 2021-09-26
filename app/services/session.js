@@ -36,8 +36,7 @@ export default class SessionService extends Service {
         password,
       });
       await loginUser.save();
-      this.authToken = loginUser.token;
-      document.cookie = `authToken=${loginUser.token}; expires=${new Date((new Date()).getTime() + 60 * 60 * 1000).toUTCString()}`;
+      this.loginWithToken(loginUser.token);
       result.success = true;
     } catch (err) {
       if (err && err.errors) {
@@ -50,6 +49,11 @@ export default class SessionService extends Service {
     }
 
     return result;
+  }
+
+  async loginWithToken(token) {
+    document.cookie = `authToken=${token}; expires=${new Date((new Date()).getTime() + 60 * 60 * 1000).toUTCString()}`;
+    this.authToken = token;
   }
 
   logout() {

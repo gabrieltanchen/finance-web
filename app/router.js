@@ -56,6 +56,7 @@ Router.map(function() {
     this.route('show', { path: '/:income_id' });
   });
   this.route('login');
+  this.route('sign-up');
   this.route('subcategories', function() {
     this.route('annual-report', { path: '/:subcategory_id/annual-report' });
     this.route('budgets', { path: '/:subcategory_id/budgets' });

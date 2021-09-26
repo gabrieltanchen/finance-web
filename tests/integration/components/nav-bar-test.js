@@ -36,8 +36,9 @@ module('Integration | Component | nav-bar', function(hooks) {
     await render(hbs`<NavBar />`);
 
     assert.dom('.nav-links').exists();
-    assert.dom('.nav-links a').exists({ count: 1 });
-    assert.dom('.nav-links a').containsText('Login');
+    assert.dom('.nav-links a').exists({ count: 2 });
+    assert.dom('.nav-links a:nth-of-type(1)').containsText('Sign Up');
+    assert.dom('.nav-links a:nth-of-type(2)').containsText('Login');
     assert.dom('.nav-links button').doesNotExist();
   });
 

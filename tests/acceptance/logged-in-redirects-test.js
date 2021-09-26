@@ -280,6 +280,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/dashboard');
   });
 
+  test('should redirect away from /sign-up', async function(assert) {
+    await visit('/sign-up');
+
+    assert.equal(currentURL(), '/dashboard');
+  });
+
   test('can visit /subcategories/new', async function(assert) {
     const id = uuidv4();
     await visit(`/subcategories/new?categoryId=${id}`);

@@ -4,6 +4,11 @@ import RSVP from 'rsvp';
 
 export default class SubcategoriesAnnualReportRoute extends Route {
   @service session;
+  queryParams = {
+    year: {
+      refreshModel: true,
+    },
+  };
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {
@@ -13,9 +18,7 @@ export default class SubcategoriesAnnualReportRoute extends Route {
 
   model(params) {
     return RSVP.hash({
-      annualReports: this.store.query('subcategory-annual-report', {
-        subcategory_id: params.subcategory_id,
-      }),
+      annualReport: this.store.findRecord('subcategory-annual-report', `${params.subcategory_id}-${params.year}`),
       subcategory: this.store.findRecord('subcategory', params.subcategory_id),
     });
   }

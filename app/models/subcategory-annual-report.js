@@ -9,6 +9,8 @@ export default class SubcategoryAnnualReportModel extends Model {
   @attr('dollars') decBudget;
   @attr('dollars') febActual;
   @attr('dollars') febBudget;
+  @attr('boolean') hasNextYear;
+  @attr('boolean') hasPreviousYear;
   @attr('dollars') marActual;
   @attr('dollars') marBudget;
   @attr('dollars') mayActual;

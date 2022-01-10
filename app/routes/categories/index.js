@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default class CategoriesIndexRoute extends Route {
   @service session;
+  @service store;
 
   queryParams = {
     page: {

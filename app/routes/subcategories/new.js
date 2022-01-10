@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default class SubcategoriesNewRoute extends Route {
   @service session;
+  @service store;
   queryParams = {
     categoryId: {
       refreshModel: true,

@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default class ExpensesNewRoute extends Route {
   @service session;
+  @service store;
   queryParams = {
     fundId: {
       refreshModel: true,

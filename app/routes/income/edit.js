@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default class IncomeEditRoute extends Route {
   @service session;
+  @service store;
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {

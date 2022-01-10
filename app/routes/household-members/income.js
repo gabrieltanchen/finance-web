@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default class HouseholdMembersIncomeRoute extends Route {
   @service session;
+  @service store;
 
   queryParams = {
     page: {

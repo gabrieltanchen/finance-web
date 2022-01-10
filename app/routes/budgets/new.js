@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default class BudgetsNewRoute extends Route {
   @service session;
+  @service store;
   queryParams = {
     subcategoryId: {
       refreshModel: true,

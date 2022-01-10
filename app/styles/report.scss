@@ -1,0 +1,39 @@
+nav {
+  &.report-pagination {
+    padding-top: 1em;
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        button,
+        span {
+          background-color: $black-alpha-10;
+          border: 1px solid $black-alpha-50;
+          display: block;
+          font-size: 0.8em;
+          margin: 0;
+          padding: 0.2em 0.5em;
+        }
+
+        button {
+          color: $black;
+          cursor: pointer;
+          transition: background-color 0.1s linear;
+
+          &:hover {
+            background-color: $black-alpha-25;
+          }
+        }
+
+        span {
+          color: $grey;
+        }
+      }
+    }
+  }
+}

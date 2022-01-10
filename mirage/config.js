@@ -1041,6 +1041,19 @@ export default function() {
       },
     });
   });
+  this.get('/subcategory-annual-reports/:id', (db, request) => {
+    return new Mirage.Response(200, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'year': 2021,
+        },
+        'id': request.params.id,
+        'type': 'subcategory-annual-reports',
+      },
+    });
+  });
 
   this.post('/users/login', (db, request) => {
     const params = JSON.parse(request.requestBody);

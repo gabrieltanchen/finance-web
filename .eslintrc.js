@@ -51,6 +51,7 @@ module.exports = {
     'prefer-object-spread': ['off'],
     'prefer-promise-reject-errors': ['off'],
     'quote-props': ['off'],
+    'react/no-unused-class-component-methods': ['off'],
     'require-jsdoc': ['off'],
     'space-before-function-paren': ['error', 'never'],
     'strict': ['off'],

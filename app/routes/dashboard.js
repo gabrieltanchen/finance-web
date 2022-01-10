@@ -4,6 +4,8 @@ import RSVP from 'rsvp';
 
 export default class DashboardRoute extends Route {
   @service session;
+  @service store;
+
   queryParams = {
     month: {
       refreshModel: true,

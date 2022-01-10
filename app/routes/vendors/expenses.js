@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default class VendorsExpensesRoute extends Route {
   @service session;
+  @service store;
 
   queryParams = {
     page: {

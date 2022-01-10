@@ -33,8 +33,8 @@ module('Acceptance | dashboard', function(hooks) {
     assert.dom('.income-table table thead tr').exists({ count: 1 });
     assert.dom('.income-table table thead tr th').exists({ count: 3 });
     assert.dom('.income-table table thead tr th:nth-of-type(1)').containsText('Income');
-    assert.dom('.income-table table thead tr th:nth-of-type(2)').containsText('Budget + / -');
-    assert.dom('.income-table table thead tr th:nth-of-type(3)').containsText('Actual + / -');
+    assert.dom('.income-table table thead tr th:nth-of-type(2)').containsText('Budget +/-');
+    assert.dom('.income-table table thead tr th:nth-of-type(3)').containsText('Actual +/-');
     assert.dom('.income-table table tbody tr').exists({ count: 1 });
     assert.dom('.income-table table tbody tr td').exists({ count: 3 });
     assert.dom('.budget-report-table').exists();

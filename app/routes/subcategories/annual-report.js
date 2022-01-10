@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default class SubcategoriesAnnualReportRoute extends Route {
   @service session;
+  @service store;
   queryParams = {
     year: {
       refreshModel: true,

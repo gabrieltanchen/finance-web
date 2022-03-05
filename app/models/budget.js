@@ -4,6 +4,7 @@ export default class BudgetModel extends Model {
   @attr('dollars') amount;
   @attr('date') createdAt;
   @attr('number') month;
+  @attr('string') notes;
   @attr('number') year;
 
   @belongsTo('subcategory') subcategory;
@@ -35,5 +36,9 @@ export default class BudgetModel extends Model {
       'December',
     ];
     return months[this.month];
+  }
+
+  get notesHtml() {
+    return this.notes ? this.notes.replace(/\n/g, '<br />') : '';
   }
 }

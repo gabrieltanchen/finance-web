@@ -33,8 +33,9 @@ module('Integration | Component | forms/budget', function(hooks) {
     await render(hbs`<Forms::Budget @budget={{this.budget}} @subcategories={{this.subcategories}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 4 });
+    assert.dom('form label').exists({ count: 5 });
     assert.dom('form input').exists({ count: 2 });
+    assert.dom('form textarea').exists({ count: 1 });
 
     assert.dom('form div:nth-of-type(1) label').containsText('Subcategory');
 
@@ -47,9 +48,13 @@ module('Integration | Component | forms/budget', function(hooks) {
     assert.dom('form div:nth-of-type(4) input').hasAttribute('type', 'text');
     assert.dom('form div:nth-of-type(4) input').hasAttribute('id', 'budget-amount-input');
 
-    assert.dom('form div:nth-of-type(5) input').hasValue('Save');
-    assert.dom('form div:nth-of-type(5) input').hasAttribute('type', 'submit');
-    assert.dom('form div:nth-of-type(5) input').hasAttribute('id', 'budget-submit');
+    assert.dom('form div:nth-of-type(5) label').containsText('Notes');
+    assert.dom('form div:nth-of-type(5) textarea').hasNoValue();
+    assert.dom('form div:nth-of-type(5) textarea').hasAttribute('id', 'budget-notes-textarea');
+
+    assert.dom('form div:nth-of-type(6) input').hasValue('Save');
+    assert.dom('form div:nth-of-type(6) input').hasAttribute('type', 'submit');
+    assert.dom('form div:nth-of-type(6) input').hasAttribute('id', 'budget-submit');
 
     assert.dom('.callout').doesNotExist();
   });
@@ -58,14 +63,16 @@ module('Integration | Component | forms/budget', function(hooks) {
     this.set('budget', {
       amount: 12.34,
       month: 5,
+      notes: 'hello world',
       subcategory: this.subcategories[1],
       year: 2019,
     });
     await render(hbs`<Forms::Budget @budget={{this.budget}} @subcategories={{this.subcategories}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 4 });
+    assert.dom('form label').exists({ count: 5 });
     assert.dom('form input').exists({ count: 2 });
+    assert.dom('form textarea').exists({ count: 1 });
     assert.dom('form div:nth-of-type(1) label').containsText('Subcategory');
     assert.dom('form div:nth-of-type(1) .ember-power-select-selected-item').containsText('Subcategory 2');
     assert.dom('form div:nth-of-type(2) label').containsText('Year');
@@ -74,6 +81,8 @@ module('Integration | Component | forms/budget', function(hooks) {
     assert.dom('form div:nth-of-type(3) .ember-power-select-selected-item').containsText('June');
     assert.dom('form div:nth-of-type(4) label').containsText('Amount');
     assert.dom('form div:nth-of-type(4) input').hasValue('12.34');
+    assert.dom('form div:nth-of-type(5) label').containsText('Notes');
+    assert.dom('form div:nth-of-type(5) textarea').hasValue('hello world');
   });
 
   test('it should render alert callout', async function(assert) {
@@ -98,6 +107,7 @@ module('Integration | Component | forms/budget', function(hooks) {
     await selectChoose('#budget-year-select', '.ember-power-select-option', 3);
     await selectChoose('#budget-month-select', '.ember-power-select-option', 4);
     await fillIn('#budget-amount-input', '23.45');
+    await fillIn('#budget-notes-textarea', 'hello world');
     await click('#budget-submit');
 
     assert.dom('.callout').exists();

@@ -75,13 +75,14 @@ module('Acceptance | budgets', function(hooks) {
     assert.dom('h1').containsText('View Budget');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 6 });
+    assert.dom('table tbody tr').exists({ count: 7 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Subcategory');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Year');
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Month');
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Amount');
-    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Created At');
+    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Notes');
+    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Created At');
   });
 
   test('visiting /budgets/:id/edit', async function(assert) {

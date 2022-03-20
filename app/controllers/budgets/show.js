@@ -22,6 +22,9 @@ export default class BudgetsShowController extends Controller {
     name: 'Amount',
     propertyName: 'amountStr',
   }, {
+    name: 'Notes',
+    propertyName: 'notesHtml',
+  }, {
     name: 'Created At',
     propertyName: 'createdAt',
   }];

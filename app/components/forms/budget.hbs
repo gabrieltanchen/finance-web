@@ -49,6 +49,14 @@
     <label for="budget-amount-input">Amount</label>
     <Input @value={{@budget.amount}} @type="text" id="budget-amount-input" />
   </div>
+  <div>
+    <label for="budget-notes-textarea">Notes</label>
+    <Textarea
+      id="budget-notes-textarea"
+      @value={{@budget.notes}}
+      rows="6"
+    />
+  </div>
   <div class="budget-submit">
     <Input @value="Save" @type="submit" id="budget-submit" />
   </div>

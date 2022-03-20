@@ -87,4 +87,21 @@ module('Unit | Model | budget', function(hooks) {
 
     assert.equal(budget.monthStr, 'December');
   });
+
+  test('it has the correct notesHtml', function(assert) {
+    const store = this.owner.lookup('service:store');
+    const budget = store.createRecord('budget', {
+      notes: 'hello world',
+    });
+
+    assert.equal(budget.notesHtml, 'hello world');
+
+    budget.notes = 'hello\nworld';
+
+    assert.equal(budget.notesHtml, 'hello<br />world');
+
+    budget.notes = 'hello\nworld\n';
+
+    assert.equal(budget.notesHtml, 'hello<br />world<br />');
+  });
 });

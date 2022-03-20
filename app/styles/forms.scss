@@ -50,4 +50,15 @@ form {
       margin-top: 2em;
     }
   }
+
+  textarea {
+    border: 1px solid $black-alpha-25;
+    box-sizing: border-box;
+    display: block;
+    font-family: 'proxima-nova', sans-serif;
+    font-size: 1em;
+    margin-bottom: 1em;
+    padding: 0.8em;
+    width: 100%;
+  }
 }

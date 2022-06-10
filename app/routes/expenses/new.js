@@ -44,6 +44,8 @@ export default class ExpensesNewRoute extends Route {
       const vendor = await this.store.findRecord('vendor', params.vendorId);
       expense.vendor = vendor;
     }
+    const attachment = this.store.createRecord('attachment');
+    expense.get('attachments').pushObject(attachment);
     return RSVP.hash({
       expense,
       funds: this.store.findAll('fund'),

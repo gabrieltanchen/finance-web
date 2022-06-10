@@ -1,4 +1,4 @@
-import Model, { attr, belongsTo } from '@ember-data/model';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class ExpenseModel extends Model {
   @attr('dollars') amount;
@@ -6,11 +6,13 @@ export default class ExpenseModel extends Model {
   @attr('string') date;
   @attr('string') description;
   @attr('dollars') reimbursedAmount;
+  @attr() file;
 
   @belongsTo('fund') fund;
   @belongsTo('household-member') householdMember;
   @belongsTo('subcategory') subcategory;
   @belongsTo('vendor') vendor;
+  @hasMany('attachment') attachments;
 
   get amountStr() {
     if (parseFloat(this.amount) === 0) {

@@ -2,8 +2,10 @@ import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import ENV from 'finance-web/config/environment';
 
 export default class FormsExpenseComponent extends Component {
+  @service session;
   @service store;
   @tracked errors = [];
 
@@ -65,6 +67,11 @@ export default class FormsExpenseComponent extends Component {
     e.preventDefault();
     try {
       await this.args.expense.save();
+      const newAttachment = this.store.createRecord('attachment', {
+        expense: this.args.expense,
+      });
+      newAttachment.name = 'hello';
+      await newAttachment.save();
       this.args.saveSuccessful();
     } catch (err) {
       let errors = ['An error occurred. Please try again later.'];
@@ -74,6 +81,22 @@ export default class FormsExpenseComponent extends Component {
         });
       }
       this.errors = errors;
+    }
+  }
+
+  @action
+  async uploadPhoto(file) {
+    try {
+      const response = await file.upload({
+        headers: {
+          'Authorization': `Bearer ${this.session.authToken}`,
+        },
+        url: `${ENV.apiURL}/attachments/upload`,
+      });
+      console.log(response);
+    } catch (err) {
+      file.state = 'aborted';
+      console.log(err);
     }
   }
 }

@@ -41,6 +41,7 @@ module.exports = {
     'jsx-a11y/image-has-alt': ['off'],
     'lines-between-class-members': ['off'],
     'no-param-reassign': ['off'],
+    'no-restricted-exports': ['off'],
     'no-restricted-globals': ['off'],
     'no-restricted-syntax': ['off'],
     'no-underscore-dangle': ['off'],

@@ -16,12 +16,12 @@
     <li>
       {{#if this.isSettingsRoute}}
         <span>
-          <FaIcon @icon="cog" @size="sm" />
+          <FaIcon @icon="gear" @size="sm" />
           Settings
         </span>
       {{else}}
         <LinkTo @route="users.settings" @model={{@userId}}>
-          <FaIcon @icon="cog" @size="sm" />
+          <FaIcon @icon="gear" @size="sm" />
           Settings
         </LinkTo>
       {{/if}}

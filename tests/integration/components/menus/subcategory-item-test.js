@@ -32,7 +32,7 @@ module('Integration | Component | menus/subcategory-item', function(hooks) {
     assert.dom('nav ul li:nth-of-type(3) a').exists();
     assert.dom('nav ul li:nth-of-type(3) a').containsText('Budgets');
     assert.dom('nav ul li:nth-of-type(3) a svg').exists();
-    assert.dom('nav ul li:nth-of-type(3) a svg').hasClass('fa-search-dollar');
+    assert.dom('nav ul li:nth-of-type(3) a svg').hasClass('fa-magnifying-glass-dollar');
     assert.dom('nav ul li:nth-of-type(4) a').exists();
     assert.dom('nav ul li:nth-of-type(4) a').containsText('Annual Report');
     assert.dom('nav ul li:nth-of-type(4) a svg').exists();
@@ -40,7 +40,7 @@ module('Integration | Component | menus/subcategory-item', function(hooks) {
     assert.dom('nav ul li:nth-of-type(5) a').exists();
     assert.dom('nav ul li:nth-of-type(5) a').containsText('Settings');
     assert.dom('nav ul li:nth-of-type(5) a svg').exists();
-    assert.dom('nav ul li:nth-of-type(5) a svg').hasClass('fa-cog');
+    assert.dom('nav ul li:nth-of-type(5) a svg').hasClass('fa-gear');
   });
 
   test('it renders subcategory details button', async function(assert) {

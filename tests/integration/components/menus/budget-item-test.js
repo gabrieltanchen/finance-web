@@ -28,7 +28,7 @@ module('Integration | Component | menus/budget-item', function(hooks) {
     assert.dom('nav ul li:nth-of-type(2) a').exists();
     assert.dom('nav ul li:nth-of-type(2) a').containsText('Settings');
     assert.dom('nav ul li:nth-of-type(2) a svg').exists();
-    assert.dom('nav ul li:nth-of-type(2) a svg').hasClass('fa-cog');
+    assert.dom('nav ul li:nth-of-type(2) a svg').hasClass('fa-gear');
   });
 
   test('it renders budget details button', async function(assert) {

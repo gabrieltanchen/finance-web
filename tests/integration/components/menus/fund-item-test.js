@@ -36,7 +36,7 @@ module('Integration | Component | menus/fund-item', function(hooks) {
     assert.dom('nav ul li:nth-of-type(4) a').exists();
     assert.dom('nav ul li:nth-of-type(4) a').containsText('Settings');
     assert.dom('nav ul li:nth-of-type(4) a svg').exists();
-    assert.dom('nav ul li:nth-of-type(4) a svg').hasClass('fa-cog');
+    assert.dom('nav ul li:nth-of-type(4) a svg').hasClass('fa-gear');
   });
 
   test('it renders fund details button', async function(assert) {

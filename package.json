@@ -60,7 +60,7 @@
     "ember-qunit": "5.1.5",
     "ember-resolver": "8.0.3",
     "ember-source": "3.28.1",
-    "ember-template-lint": "4.0.0",
+    "ember-template-lint": "4.10.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-plugin-ember": "10.5.8",

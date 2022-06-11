@@ -16,12 +16,12 @@
     <li>
       {{#if this.isSubcategoriesRoute}}
         <span>
-          <FaIcon @icon="project-diagram" @size="sm" />
+          <FaIcon @icon="diagram-project" @size="sm" />
           Subcategories
         </span>
       {{else}}
         <LinkTo @route="categories.subcategories" @model={{@categoryId}}>
-          <FaIcon @icon="project-diagram" @size="sm" />
+          <FaIcon @icon="diagram-project" @size="sm" />
           Subcategories
         </LinkTo>
       {{/if}}
@@ -29,12 +29,12 @@
     <li>
       {{#if this.isSettingsRoute}}
         <span>
-          <FaIcon @icon="cog" @size="sm" />
+          <FaIcon @icon="gear" @size="sm" />
           Settings
         </span>
       {{else}}
         <LinkTo @route="categories.settings" @model={{@categoryId}}>
-          <FaIcon @icon="cog" @size="sm" />
+          <FaIcon @icon="gear" @size="sm" />
           Settings
         </LinkTo>
       {{/if}}

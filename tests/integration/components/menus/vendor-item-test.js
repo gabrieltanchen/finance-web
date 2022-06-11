@@ -32,7 +32,7 @@ module('Integration | Component | vendor-item-menu', function(hooks) {
     assert.dom('nav ul li:nth-of-type(3) a').exists();
     assert.dom('nav ul li:nth-of-type(3) a').containsText('Settings');
     assert.dom('nav ul li:nth-of-type(3) a svg').exists();
-    assert.dom('nav ul li:nth-of-type(3) a svg').hasClass('fa-cog');
+    assert.dom('nav ul li:nth-of-type(3) a svg').hasClass('fa-gear');
   });
 
   test('it renders vendors details button', async function(assert) {

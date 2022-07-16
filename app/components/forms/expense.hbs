@@ -87,6 +87,21 @@
     <label for="expense-reimbursed-input">Reimbursed Amount</label>
     <Input @value={{@expense.reimbursedAmount}} @type="text" id="expense-reimbursed-input" />
   </div>
+  <div>
+    <h4>Attachments</h4>
+    {{#if this.attachments}}
+      {{#each this.attachments as |attachment|}}
+        <Forms::Helpers::Attachment
+          @attachment={{attachment}}
+        />
+      {{/each}}
+    {{/if}}
+    <div class="add-button">
+      <button type="button" {{on "click" this.addAttachment}}>
+        <FaIcon @icon="plus" @size="lg" />
+      </button>
+    </div>
+  </div>
   <div class="expense-submit">
     <Input @value="Save" @type="submit" id="expense-submit" />
   </div>

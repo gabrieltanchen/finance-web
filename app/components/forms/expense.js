@@ -1,3 +1,4 @@
+import { A } from '@ember/array';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -6,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 export default class FormsExpenseComponent extends Component {
   @service store;
   @tracked errors = [];
+  attachments = A([]);
 
   @action
   selectFund(fund) {
@@ -61,10 +63,21 @@ export default class FormsExpenseComponent extends Component {
   }
 
   @action
+  addAttachment() {
+    const newAttachment = this.store.createRecord('attachment', {
+      expense: this.args.expense,
+    });
+    this.attachments.pushObject(newAttachment);
+  }
+
+  @action
   async save(e) {
     e.preventDefault();
     try {
       await this.args.expense.save();
+      for (const attachment of this.attachments) {
+        await attachment.save();
+      }
       this.args.saveSuccessful();
     } catch (err) {
       let errors = ['An error occurred. Please try again later.'];

@@ -89,13 +89,13 @@
   </div>
   <div>
     <h4>Attachments</h4>
-    {{#if this.attachments}}
-      {{#each this.attachments as |attachment|}}
-        <Forms::Helpers::Attachment
-          @attachment={{attachment}}
-        />
-      {{/each}}
-    {{/if}}
+    {{#each this.attachments as |attachment index|}}
+      <Forms::Helpers::Attachment
+        @attachment={{attachment.attachment}}
+        @index={{index}}
+        @attachmentSelected={{this.attachmentSelected}}
+      />
+    {{/each}}
     <div class="add-button">
       <button type="button" {{on "click" this.addAttachment}}>
         <FaIcon @icon="plus" @size="lg" />

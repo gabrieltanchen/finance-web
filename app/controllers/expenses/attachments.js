@@ -19,6 +19,14 @@ export default class ExpensesAttachmentsController extends Controller {
     propertyName: 'name',
     sortable: true,
     sortName: 'name',
+  }, {
+    name: 'Created At',
+    propertyName: 'createdAt',
+  }, {
+    attributeLinkTo: 'downloadUrl',
+    linkIcon: 'download',
+    linkText: '',
+    name: 'Download',
   }];
 
   @action

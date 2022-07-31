@@ -1,0 +1,16 @@
+<div class="container-lg">
+  <h1>Expense Attachments</h1>
+  <Menus::ExpenseItem @expenseId={{this.expense.id}} />
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.attachments}}
+    @page={{this.page}}
+    @numPages={{this.attachments.meta.pages}}
+    @sort={{this.sort}}
+    @sortDirection={{this.sortDirection}}
+    @defaultSort={{this.defaultSort}}
+    @defaultSortDirection={{this.defaultSortDirection}}
+    @setPage={{this.setPage}}
+    @setSort={{this.setSort}}
+  />
+</div>

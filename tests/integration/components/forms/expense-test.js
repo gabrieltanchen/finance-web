@@ -93,11 +93,9 @@ module('Integration | Component | forms/expense', function(hooks) {
     assert.dom('form div:nth-of-type(8) label').containsText('Reimbursed Amount');
     assert.dom('form div:nth-of-type(8) input').hasNoValue();
 
-    assert.dom('form div:nth-of-type(9) h4').containsText('Attachments');
-
-    assert.dom('form div:nth-of-type(10) input').hasValue('Save');
-    assert.dom('form div:nth-of-type(10) input').hasAttribute('type', 'submit');
-    assert.dom('form div:nth-of-type(10) input').hasAttribute('id', 'expense-submit');
+    assert.dom('form div:nth-of-type(9) input').hasValue('Save');
+    assert.dom('form div:nth-of-type(9) input').hasAttribute('type', 'submit');
+    assert.dom('form div:nth-of-type(9) input').hasAttribute('id', 'expense-submit');
 
     assert.dom('.callout').doesNotExist();
   });

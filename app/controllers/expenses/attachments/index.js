@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
-export default class ExpensesAttachmentsController extends Controller {
+export default class ExpensesAttachmentsIndexController extends Controller {
   queryParams = ['page', 'sort', 'sortDirection'];
 
   @alias('model.attachments') attachments;

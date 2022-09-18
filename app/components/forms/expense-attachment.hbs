@@ -1,0 +1,16 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form {{on "submit" this.save}}>
+  <label for="attachment-name-input">Name</label>
+  <Input @value={{@attachment.name}} @type="text" id="attachment-name-input" aria-required="true" />
+
+  <label for="attachment-file-input">File</label>
+  <Input @type="file" {{on "change" this.fileSelected}} />
+
+  <Input @value="Save" @type="submit" id="attachment-submit" />
+</form>

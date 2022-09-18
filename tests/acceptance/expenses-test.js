@@ -100,6 +100,29 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(10) td:nth-of-type(1)').containsText('Created At');
   });
 
+  test('visiting /expenses/:id/attachments', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/attachments`);
+
+    assert.equal(currentURL(), `/expenses/${id}/attachments`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Expense Attachments');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/expenses/${id}/attachments?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/expenses/${id}/attachments?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
   test('visiting /expenses/:id/edit', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/${id}/edit`);

@@ -10,7 +10,7 @@
   <Input @value={{@attachment.name}} @type="text" id="attachment-name-input" aria-required="true" />
 
   <label for="attachment-file-input">File</label>
-  <Input @type="file" {{on "change" this.fileSelected}} />
+  <Input @type="file" id="attachment-file-input" {{on "change" this.fileSelected}} />
 
   <Input @value="Save" @type="submit" id="attachment-submit" />
 </form>

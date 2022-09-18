@@ -61,6 +61,13 @@
               <LinkTo @route={{column.linkTo}} @model={{row.id}} class="row-button">
                 {{column.linkText}}
               </LinkTo>
+            {{else if column.attributeLinkTo}}
+              <a href={{get row column.attributeLinkTo}}>
+                {{#if column.linkIcon}}
+                  <FaIcon @icon={{column.linkIcon}} @size="sm" />
+                {{/if}}
+                {{column.linkText}}
+              </a>
             {{else}}
               {{get row column.propertyName}}
             {{/if}}

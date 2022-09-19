@@ -1,9 +1,10 @@
 import Mirage from 'ember-cli-mirage';
+import { Response } from 'miragejs';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function() {
   this.get('/budget-reports', () => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': [],
@@ -35,7 +36,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -51,7 +52,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.amount
         && params.data.attributes.amount === 400) {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -61,7 +62,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -77,7 +78,7 @@ export default function() {
   });
   this.delete('/budgets/:id', (db, request) => {
     if (request.params.id === '65b3bef7-6e22-47bf-865a-3939ab53d6b1') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -87,12 +88,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/budgets/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -116,7 +117,7 @@ export default function() {
   });
   this.patch('/budgets/:id', (db, request) => {
     if (request.params.id === 'a6da3f05-a6af-485d-808f-679db25932db') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -127,7 +128,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -163,7 +164,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -179,7 +180,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.name
         && params.data.attributes.name === 'Error Category') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -189,7 +190,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -203,7 +204,7 @@ export default function() {
   });
   this.delete('/categories/:id', (db, request) => {
     if (request.params.id === 'fa418da1-c598-41f5-a5e7-192d023e74ed') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -213,12 +214,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/categories/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -232,7 +233,7 @@ export default function() {
   });
   this.patch('/categories/:id', (db, request) => {
     if (request.params.id === 'e99f2eba-b6f5-4563-99b9-8e30224b4d5a') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -243,7 +244,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -279,7 +280,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -295,7 +296,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.amount
         && params.data.attributes.amount === 9876) {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -305,7 +306,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -320,7 +321,7 @@ export default function() {
   });
   this.delete('/deposits/:id', (db, request) => {
     if (request.params.id === '90753de1-66c8-472c-b5e7-fb5fc63fe8f5') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -330,12 +331,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/deposits/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -358,7 +359,7 @@ export default function() {
   });
   this.patch('/deposits/:id', (db, request) => {
     if (request.params.id === 'f75cfdf1-99b5-4bf0-afcc-630d14133ffa') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -369,7 +370,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -410,7 +411,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -426,7 +427,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.description
         && params.data.attributes.description === 'Error Expense') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -436,7 +437,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -453,7 +454,7 @@ export default function() {
   });
   this.delete('/expenses/:id', (db, request) => {
     if (request.params.id === '0033fbc2-3211-4e93-805d-b85b363bee39') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -463,12 +464,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/expenses/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -505,7 +506,7 @@ export default function() {
   });
   this.patch('/expenses/:id', (db, request) => {
     if (request.params.id === '20808e7b-c243-47f8-b936-ed7d7577d4d1') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -516,7 +517,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -553,7 +554,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -569,7 +570,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.name
         && params.data.attributes.name === 'Error Fund') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -579,7 +580,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -593,7 +594,7 @@ export default function() {
   });
   this.delete('/funds/:id', (db, request) => {
     if (request.params.id === 'd8967568-edcf-48c0-a48b-777dacf73061') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -603,12 +604,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/funds/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -622,7 +623,7 @@ export default function() {
   });
   this.patch('/funds/:id', (db, request) => {
     if (request.params.id === '2883963b-63bc-493d-b90c-fbe18aca9be2') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -633,7 +634,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -667,7 +668,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -683,7 +684,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.name
         && params.data.attributes.name === 'Error Household Member') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -693,7 +694,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -707,7 +708,7 @@ export default function() {
   });
   this.delete('/household-members/:id', (db, request) => {
     if (request.params.id === 'e05557f8-1010-4978-86fb-0cdbe71ef811') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -717,12 +718,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/household-members/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -736,7 +737,7 @@ export default function() {
   });
   this.patch('/household-members/:id', (db, request) => {
     if (request.params.id === 'e05557f8-1010-4978-86fb-0cdbe71ef811') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -747,7 +748,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -785,7 +786,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -801,7 +802,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.description
         && params.data.attributes.description === 'Error Income') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -811,7 +812,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -827,7 +828,7 @@ export default function() {
   });
   this.delete('/incomes/:id', (db, request) => {
     if (request.params.id === 'b2a60746-3bb4-47b6-978a-4af4cdb68d2e') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -837,12 +838,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/incomes/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -858,7 +859,7 @@ export default function() {
   });
   this.patch('/incomes/:id', (db, request) => {
     if (request.params.id === '09571b16-7f41-404a-8387-a18b97cbad8e') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -869,7 +870,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -885,7 +886,7 @@ export default function() {
   });
 
   this.get('/monthly-reports/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -921,7 +922,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -937,7 +938,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.name
         && params.data.attributes.name === 'Error Subcategory') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -947,7 +948,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -961,7 +962,7 @@ export default function() {
   });
   this.delete('/subcategories/:id', (db, request) => {
     if (request.params.id === '1187060b-8321-4cfb-b3bf-f2d7a8b501b3') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -971,12 +972,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/subcategories/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -998,7 +999,7 @@ export default function() {
   });
   this.patch('/subcategories/:id', (db, request) => {
     if (request.params.id === '1e89e24d-82bc-4f8b-a4e9-d0d2550bd0dd') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1009,7 +1010,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1023,7 +1024,7 @@ export default function() {
   });
 
   this.get('/subcategory-annual-reports', () => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': [...Array(5).keys()].map((ind) => {
@@ -1042,7 +1043,7 @@ export default function() {
     });
   });
   this.get('/subcategory-annual-reports/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1061,7 +1062,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.email
         && params.data.attributes.email === 'hello@error.com') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1071,7 +1072,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1112,7 +1113,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -1128,7 +1129,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.email
         && params.data.attributes.email === 'error@example.com') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1138,7 +1139,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1154,7 +1155,7 @@ export default function() {
     });
   });
   this.get('/users/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1170,7 +1171,7 @@ export default function() {
   });
   this.patch('/users/:id', (db, request) => {
     if (request.params.id === '9bead3e6-b0d5-4bce-a855-c277084da274') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1181,7 +1182,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1217,7 +1218,7 @@ export default function() {
         };
       });
     }
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': data,
@@ -1233,7 +1234,7 @@ export default function() {
         && params.data.attributes
         && params.data.attributes.name
         && params.data.attributes.name === 'Error Vendor') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1243,7 +1244,7 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(201, {
+    return new Response(201, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1257,7 +1258,7 @@ export default function() {
   });
   this.delete('/vendors/:id', (db, request) => {
     if (request.params.id === 'b6f0441e-bdee-4172-a646-4d8c9191db57') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1267,12 +1268,12 @@ export default function() {
         }],
       });
     }
-    return new Mirage.Response(204, {
+    return new Response(204, {
       'Content-Type': 'application/vnd.api+json',
     });
   });
   this.get('/vendors/:id', (db, request) => {
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {
@@ -1286,7 +1287,7 @@ export default function() {
   });
   this.patch('/vendors/:id', (db, request) => {
     if (request.params.id === 'b6f0441e-bdee-4172-a646-4d8c9191db57') {
-      return new Mirage.Response(403, {
+      return new Response(403, {
         'Content-Type': 'application/vnd.api+json',
       }, {
         errors: [{
@@ -1297,7 +1298,7 @@ export default function() {
       });
     }
     const params = JSON.parse(request.requestBody);
-    return new Mirage.Response(200, {
+    return new Response(200, {
       'Content-Type': 'application/vnd.api+json',
     }, {
       'data': {

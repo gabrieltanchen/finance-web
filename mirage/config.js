@@ -33,6 +33,39 @@ export default function() {
       },
     });
   });
+  this.post('/attachments', (db, request) => {
+    const params = JSON.parse(request.requestBody);
+    if (params.data
+        && params.data.attributes
+        && params.data.attributes.name
+        && params.data.attributes.name === 'Error Attachment') {
+      return new Mirage.Response(403, {
+        'Content-Type': 'application/vnd.api+json',
+      }, {
+        errors: [{
+          detail: 'Test attachment post error 1.',
+        }, {
+          detail: 'Test attachment post error 2.',
+        }],
+      });
+    }
+    return new Mirage.Response(201, {
+      'Content-Type': 'application/vnd.api+json',
+    }, {
+      'data': {
+        'attributes': {
+          'name': params.data.attributes.name,
+        },
+        'id': uuidv4(),
+        'type': 'attachments',
+      },
+    });
+  });
+  this.post('/attachments/:id/upload', () => {
+    return new Mirage.Response(204, {
+      'Content-Type': 'application/vnd.api+json',
+    });
+  });
 
   this.get('/budget-reports', () => {
     return new Mirage.Response(200, {

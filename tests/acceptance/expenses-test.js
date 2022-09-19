@@ -21,7 +21,7 @@ module('Acceptance | expenses', function(hooks) {
     session.authToken = 'token';
   });
 
-  test('visiting /expenses/new', async function(assert) {
+  test('visiting /expenses/new with subcategoryId', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/new?subcategoryId=${id}`);
 
@@ -36,6 +36,24 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('#expense-reimbursed-input').exists();
     assert.dom('#expense-submit').exists();
     assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('visiting /expenses/new with fundId', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/new?fundId=${id}`);
+    assert.equal(currentURL(), `/expenses/new?fundId=${id}`);
+  });
+
+  test('visiting /expenses/new with householdMemberId', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/new?householdMemberId=${id}`);
+    assert.equal(currentURL(), `/expenses/new?householdMemberId=${id}`);
+  });
+
+  test('visiting /expenses/new with vendorId', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/new?vendorId=${id}`);
+    assert.equal(currentURL(), `/expenses/new?vendorId=${id}`);
   });
 
   test('should render errors from api when creating expense', async function(assert) {
@@ -121,6 +139,44 @@ module('Acceptance | expenses', function(hooks) {
 
     assert.equal(currentURL(), `/expenses/${id}/attachments?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
+  test('visiting /expenses/:id/attachments/new', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/attachments/new`);
+
+    assert.dom('.container-sm').exists();
+    assert.dom('h2').exists();
+    assert.dom('h2').containsText('New Attachment');
+    assert.dom('form').exists();
+    assert.dom('#attachment-name-input').exists();
+    assert.dom('#attachment-file-input').exists();
+    assert.dom('#attachment-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when creating attachment', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/attachments/new`);
+
+    await fillIn('#attachment-name-input', 'Error Attachment');
+    await click('#attachment-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test attachment post error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test attachment post error 2.');
+  });
+
+  test('should transition to expense attachments after creating attachment', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/attachments/new`);
+
+    await fillIn('#attachment-name-input', 'New Attachment');
+    await click('#attachment-submit');
+
+    assert.dom('.callout.alert').doesNotExist();
+    assert.equal(currentURL(), `/expenses/${id}/attachments/new`); // @todo
   });
 
   test('visiting /expenses/:id/edit', async function(assert) {

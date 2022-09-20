@@ -1,4 +1,3 @@
-import Mirage from 'ember-cli-mirage';
 import { Response } from 'miragejs';
 import { v4 as uuidv4 } from 'uuid';
 

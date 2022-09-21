@@ -1,9 +1,11 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 export default class BudgetsSettingsController extends Controller {
+  @service router;
   @alias('model') budget;
   @tracked showDeleteModal = false;
   @tracked deleteErrors = [];
@@ -20,7 +22,7 @@ export default class BudgetsSettingsController extends Controller {
     try {
       await this.budget.destroyRecord();
       this.showDeleteModal = false;
-      this.transitionToRoute('subcategories.budgets', subcategoryId);
+      this.router.transitionTo('subcategories.budgets', subcategoryId);
     } catch (err) {
       this.budget.rollbackAttributes();
       let errors = ['An error occurred. Please try again later.'];

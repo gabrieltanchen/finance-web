@@ -4,12 +4,13 @@ import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default class SignUpController extends Controller {
+  @service router;
   @service session;
   @alias('model') user;
 
   @action
   transitionToDashboard() {
     this.session.loginWithToken(this.user.token);
-    this.transitionToRoute('dashboard');
+    this.router.transitionTo('dashboard');
   }
 }

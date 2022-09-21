@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default class VendorsIndexRoute extends Route {
+  @service router;
   @service session;
   @service store;
 
@@ -13,7 +14,7 @@ export default class VendorsIndexRoute extends Route {
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {
-      this.transitionTo('login');
+      this.router.transitionTo('login');
     }
   }
 

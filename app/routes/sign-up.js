@@ -2,12 +2,13 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default class SignUpRoute extends Route {
+  @service router;
   @service session;
   @service store;
 
   async beforeModel() {
     if (await this.session.isLoggedIn()) {
-      this.transitionTo('dashboard');
+      this.router.transitionTo('dashboard');
     }
   }
 

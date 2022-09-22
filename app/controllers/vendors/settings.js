@@ -1,9 +1,11 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 export default class VendorsSettingsController extends Controller {
+  @service router;
   @alias('model') vendor;
   @tracked showDeleteModal = false;
   @tracked deleteErrors = [];
@@ -19,7 +21,7 @@ export default class VendorsSettingsController extends Controller {
     try {
       await this.vendor.destroyRecord();
       this.showDeleteModal = false;
-      this.transitionToRoute('vendors.index');
+      this.router.transitionTo('vendors.index');
     } catch (err) {
       this.vendor.rollbackAttributes();
       let errors = ['An error occurred. Please try again later.'];

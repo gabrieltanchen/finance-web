@@ -175,8 +175,9 @@ module('Acceptance | expenses', function(hooks) {
     await fillIn('#attachment-name-input', 'New Attachment');
     await click('#attachment-submit');
 
+    await new Promise((r) => { setTimeout(r, 50); });
     assert.dom('.callout.alert').doesNotExist();
-    assert.equal(currentURL(), `/expenses/${id}/attachments/new`); // @todo
+    assert.equal(currentURL(), `/expenses/${id}/attachments`); // @todo
   });
 
   test('visiting /expenses/:id/edit', async function(assert) {

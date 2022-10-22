@@ -66,6 +66,20 @@ export default function(config) {
           },
         });
       });
+      this.get('/attachments/:id', (db, request) => {
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'download-url': 'http://www.example.com',
+              'name': 'Test Attachment',
+            },
+            'id': request.params.id,
+            'type': 'attachments',
+          },
+        });
+      });
       this.post('/attachments/:id/upload', () => {
         return new Response(204, {
           'Content-Type': 'application/vnd.api+json',

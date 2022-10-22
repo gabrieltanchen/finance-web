@@ -155,6 +155,22 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('.callout.alert').doesNotExist();
   });
 
+  test('visiting /expenses/:id/attachments/:id', async function(assert) {
+    const expenseId = uuidv4();
+    const attachmentId = uuidv4();
+    await visit(`/expenses/${expenseId}/attachments/${attachmentId}`);
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}`);
+    assert.dom('.container-lg.attachment-show').exists();
+    assert.dom('.attachment-show h1').exists();
+    assert.dom('.attachment-show h1').containsText('View Attachment');
+    assert.dom('.attachment-show table').exists();
+    assert.dom('.attachment-show table tbody tr').exists({ count: 3 });
+    assert.dom('.attachment-show table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
+    assert.dom('.attachment-show table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
+    assert.dom('.attachment-show table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
+  });
+
   test('should render errors from api when creating attachment', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/${id}/attachments/new`);

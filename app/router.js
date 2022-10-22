@@ -30,6 +30,7 @@ Router.map(function() {
   this.route('expenses', function() {
     this.route('attachments', { path: '/:expense_id/attachments' }, function() {
       this.route('new');
+      this.route('show', { path: '/:attachment_id' });
     });
     this.route('edit', { path: '/:expense_id/edit' });
     this.route('new');

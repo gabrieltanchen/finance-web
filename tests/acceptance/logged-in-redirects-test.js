@@ -147,6 +147,14 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/expenses/${id}/attachments/new`);
   });
 
+  test('can visit /expenses/:id/attachments/:id', async function(assert) {
+    const expenseId = uuidv4();
+    const attachmentId = uuidv4();
+    await visit(`/expenses/${expenseId}/attachments/${attachmentId}`);
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}`);
+  });
+
   test('can visit /expenses/:id/edit', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/${id}/edit`);

@@ -24,6 +24,10 @@ export default class ExpensesAttachmentsIndexController extends Controller {
     linkIcon: 'download',
     linkText: '',
     name: 'Download',
+  }, {
+    linkText: 'View',
+    linkTo: 'expenses.attachments.show',
+    name: '',
   }];
 
   @action

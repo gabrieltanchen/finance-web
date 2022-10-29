@@ -162,8 +162,8 @@ module('Acceptance | expenses', function(hooks) {
 
     assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}`);
     assert.dom('.container-lg.attachment-show').exists();
-    assert.dom('.attachment-show h1').exists();
-    assert.dom('.attachment-show h1').containsText('View Attachment');
+    assert.dom('.attachment-show h2').exists();
+    assert.dom('.attachment-show h2').containsText('View Attachment');
     assert.dom('.attachment-show table').exists();
     assert.dom('.attachment-show table tbody tr').exists({ count: 3 });
     assert.dom('.attachment-show table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
@@ -194,6 +194,36 @@ module('Acceptance | expenses', function(hooks) {
     await new Promise((r) => { setTimeout(r, 50); });
     assert.dom('.callout.alert').doesNotExist();
     assert.equal(currentURL(), `/expenses/${id}/attachments`); // @todo
+  });
+
+  test('visiting /expenses/:id/attachments/:id/edit', async function(assert) {
+    const expenseId = uuidv4();
+    const attachmentId = uuidv4();
+    await visit(`/expenses/${expenseId}/attachments/${attachmentId}/edit`);
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}/edit`);
+    assert.dom('.container-sm.attachment-edit').exists();
+    assert.dom('.attachment-edit h2').exists();
+    assert.dom('.attachment-edit h2').containsText('Edit Attachment');
+    assert.dom('.attachment-edit form').exists();
+    assert.dom('#attachment-name-input').exists();
+    assert.dom('#attachment-file-input').doesNotExist();
+    assert.dom('#attachment-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing attachment', async function(assert) {
+    await visit('/expenses/20808e7b-c243-47f8-b936-ed7d7577d4d1/attachments/425bd1a2-add4-4bb2-a6ca-3b38bfb427b2/edit');
+
+    assert.equal(currentURL(), '/expenses/20808e7b-c243-47f8-b936-ed7d7577d4d1/attachments/425bd1a2-add4-4bb2-a6ca-3b38bfb427b2/edit');
+
+    await fillIn('#attachment-name-input', 'Updated Attachment');
+    await click('#attachment-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test attachment patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test attachment patch error 2.');
   });
 
   test('visiting /expenses/:id/edit', async function(assert) {

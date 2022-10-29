@@ -28,6 +28,10 @@ export default class ExpensesAttachmentsIndexController extends Controller {
     linkText: 'View',
     linkTo: 'expenses.attachments.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'expenses.attachments.edit',
+    name: '',
   }];
 
   @action

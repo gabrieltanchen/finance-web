@@ -80,6 +80,31 @@ export default function(config) {
           },
         });
       });
+      this.patch('/attachments/:id', (db, request) => {
+        if (request.params.id === '425bd1a2-add4-4bb2-a6ca-3b38bfb427b2') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test attachment patch error 1.',
+            }, {
+              detail: 'Test attachment patch error 2.',
+            }],
+          });
+        }
+        const params = JSON.parse(request.requestBody);
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': request.params.id,
+            'type': 'attachments',
+          },
+        });
+      });
       this.post('/attachments/:id/upload', () => {
         return new Response(204, {
           'Content-Type': 'application/vnd.api+json',

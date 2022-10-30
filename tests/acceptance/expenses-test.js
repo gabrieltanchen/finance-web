@@ -169,6 +169,77 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('.attachment-show table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('.attachment-show table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
     assert.dom('.attachment-show table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
+    assert.dom('.container-sm.attachment-delete').exists();
+    assert.dom('.attachment-delete button').exists();
+    assert.dom('.attachment-delete button').hasClass('button');
+    assert.dom('.attachment-delete button').hasClass('alert');
+    assert.dom('.attachment-delete button').containsText('Delete');
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.attachment-delete button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+    assert.dom('.overlay .modal > p').exists();
+    assert.dom('.overlay .modal > p').containsText('Are you sure you want to delete this attachment?');
+    assert.dom('.overlay .modal button.button.alert').exists();
+    assert.dom('.overlay .modal button.button.alert').containsText('Delete');
+    assert.dom('.overlay .modal button.button.cancel').exists();
+    assert.dom('.overlay .modal button.button.cancel').containsText('Cancel');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+  });
+
+  test('renders callout when deleting attachment returns errors', async function(assert) {
+    await visit('/expenses/0033fbc2-3211-4e93-805d-b85b363bee39/attachments/2268c428-be40-4080-82e8-ffbbb7df246a');
+
+    assert.equal(currentURL(), '/expenses/0033fbc2-3211-4e93-805d-b85b363bee39/attachments/2268c428-be40-4080-82e8-ffbbb7df246a');
+
+    assert.dom('.attachment-delete button.button.alert').exists();
+
+    await click('.attachment-delete button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/expenses/0033fbc2-3211-4e93-805d-b85b363bee39/attachments/2268c428-be40-4080-82e8-ffbbb7df246a');
+
+    assert.dom('.overlay .modal .callout').exists();
+    assert.dom('.overlay .modal .callout').hasClass('alert');
+    assert.dom('.overlay .modal .callout p').exists({ count: 2 });
+    assert.dom('.overlay .modal .callout p:nth-of-type(1)').containsText('Test attachment delete error 1.');
+    assert.dom('.overlay .modal .callout p:nth-of-type(2)').containsText('Test attachment delete error 2.');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    // Verify the error callout is cleared when opening the modal again.
+    await click('.attachment-delete button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+  });
+
+  test('transition to expense attachment index on successful attachment deletion', async function(assert) {
+    const expenseId = uuidv4();
+    const attachmentId = uuidv4();
+    await visit(`/expenses/${expenseId}/attachments/${attachmentId}`);
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}`);
+    assert.dom('.attachment-delete button.button.alert');
+
+    await click('.attachment-delete button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments`);
   });
 
   test('should render errors from api when creating attachment', async function(assert) {

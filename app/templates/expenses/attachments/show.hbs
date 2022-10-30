@@ -1,4 +1,29 @@
 <div class="container-lg attachment-show">
   <h2>View Attachment</h2>
   <DetailTable @model={{this.attachment}} @properties={{this.properties}} />
+  <div class="container-sm attachment-delete">
+    <button type="button" class="button alert" {{on "click" this.openDeleteModal}}>
+      Delete
+    </button>
+  </div>
 </div>
+{{#if this.showDeleteModal}}
+  <div class="overlay">
+    <div class="container-sm modal">
+      {{#if this.deleteErrors}}
+        <div class="callout alert">
+          {{#each this.deleteErrors as |error|}}
+            <p>{{error}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
+      <p>Are you sure you want to delete this attachment?</p>
+      <button type="button" class="button alert" {{on "click" this.deleteAttachment}}>
+        Delete
+      </button>
+      <button type="button" class="button cancel" {{on "click" this.closeDeleteModal}}>
+        Cancel
+      </button>
+    </div>
+  </div>
+{{/if}}

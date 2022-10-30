@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default class ExpensesAttachmentsShowRoute extends Route {
   @service router;
@@ -13,6 +14,10 @@ export default class ExpensesAttachmentsShowRoute extends Route {
   }
 
   model(params) {
-    return this.store.findRecord('attachment', params.attachment_id);
+    const attachmentParams = this.paramsFor('expenses.attachments');
+    return RSVP.hash({
+      attachment: this.store.findRecord('attachment', params.attachment_id),
+      expense: this.store.findRecord('expense', attachmentParams.expense_id),
+    });
   }
 }

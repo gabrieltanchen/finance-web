@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 
 export default class ExpensesNewRoute extends Route {
+  @service router;
   @service session;
   @service store;
   queryParams = {
@@ -22,7 +23,7 @@ export default class ExpensesNewRoute extends Route {
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {
-      this.transitionTo('login');
+      this.router.transitionTo('login');
     }
   }
 

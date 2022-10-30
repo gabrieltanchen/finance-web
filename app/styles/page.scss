@@ -22,7 +22,8 @@
   justify-content: center;
   margin-top: 1em;
 
-  a {
+  a,
+  button {
     background-color: $white;
     border: 1px solid $border-dark-grey;
     border-radius: 50%;

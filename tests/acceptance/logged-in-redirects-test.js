@@ -133,6 +133,36 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/expenses/${id}`);
   });
 
+  test('can visit /expenses/:id/attachments', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/attachments`);
+
+    assert.equal(currentURL(), `/expenses/${id}/attachments`);
+  });
+
+  test('can visit /expenses/:id/attachments/new', async function(assert) {
+    const id = uuidv4();
+    await visit(`/expenses/${id}/attachments/new`);
+
+    assert.equal(currentURL(), `/expenses/${id}/attachments/new`);
+  });
+
+  test('can visit /expenses/:id/attachments/:id', async function(assert) {
+    const expenseId = uuidv4();
+    const attachmentId = uuidv4();
+    await visit(`/expenses/${expenseId}/attachments/${attachmentId}`);
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}`);
+  });
+
+  test('can visit /expenses/:id/attachments/:id/edit', async function(assert) {
+    const expenseId = uuidv4();
+    const attachmentId = uuidv4();
+    await visit(`/expenses/${expenseId}/attachments/${attachmentId}/edit`);
+
+    assert.equal(currentURL(), `/expenses/${expenseId}/attachments/${attachmentId}/edit`);
+  });
+
   test('can visit /expenses/:id/edit', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/${id}/edit`);

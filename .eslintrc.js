@@ -40,6 +40,7 @@ module.exports = {
     'jsx-a11y/href-no-hash': ['off'],
     'jsx-a11y/image-has-alt': ['off'],
     'lines-between-class-members': ['off'],
+    'no-await-in-loop': ['off'],
     'no-param-reassign': ['off'],
     'no-restricted-exports': ['off'],
     'no-restricted-globals': ['off'],

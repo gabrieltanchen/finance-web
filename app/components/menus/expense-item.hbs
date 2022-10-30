@@ -14,6 +14,19 @@
       {{/if}}
     </li>
     <li>
+      {{#if this.isAttachmentsRoute}}
+        <span>
+          <FaIcon @icon="paperclip" @size="sm" />
+          Attachments
+        </span>
+      {{else}}
+        <LinkTo @route="expenses.attachments.index" @model={{@expenseId}}>
+          <FaIcon @icon="paperclip" @size="sm" />
+          Attachments
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
       {{#if this.isSettingsRoute}}
         <span>
           <FaIcon @icon="gear" @size="sm" />

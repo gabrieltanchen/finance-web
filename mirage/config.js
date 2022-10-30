@@ -7,6 +7,126 @@ export default function(config) {
     ...config,
     models: { ...discoverEmberDataModels(), ...config.models },
     routes() {
+      this.get('/attachments', (db, request) => {
+        let data;
+        if (request.queryParams.page === '2') {
+          data = [{
+            'attributes': {
+              'name': 'Attachment 26',
+            },
+            'id': uuidv4(),
+            'type': 'attachments',
+          }];
+        } else {
+          data = [...Array(25).keys()].map((ind) => {
+            return {
+              'attributes': {
+                'name': `Attachment ${ind}`,
+              },
+              'id': uuidv4(),
+              'type': 'attachments',
+            };
+          });
+        }
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': data,
+          'meta': {
+            'pages': 2,
+            'total': 26,
+          },
+        });
+      });
+      this.post('/attachments', (db, request) => {
+        const params = JSON.parse(request.requestBody);
+        if (params.data
+            && params.data.attributes
+            && params.data.attributes.name
+            && params.data.attributes.name === 'Error Attachment') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test attachment post error 1.',
+            }, {
+              detail: 'Test attachment post error 2.',
+            }],
+          });
+        }
+        return new Response(201, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': uuidv4(),
+            'type': 'attachments',
+          },
+        });
+      });
+      this.delete('/attachments/:id', (db, request) => {
+        if (request.params.id === '2268c428-be40-4080-82e8-ffbbb7df246a') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test attachment delete error 1.',
+            }, {
+              detail: 'Test attachment delete error 2.',
+            }],
+          });
+        }
+        return new Response(204, {
+          'Content-Type': 'application/vnd.api+json',
+        });
+      });
+      this.get('/attachments/:id', (db, request) => {
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'download-url': 'http://www.example.com',
+              'name': 'Test Attachment',
+            },
+            'id': request.params.id,
+            'type': 'attachments',
+          },
+        });
+      });
+      this.patch('/attachments/:id', (db, request) => {
+        if (request.params.id === '425bd1a2-add4-4bb2-a6ca-3b38bfb427b2') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test attachment patch error 1.',
+            }, {
+              detail: 'Test attachment patch error 2.',
+            }],
+          });
+        }
+        const params = JSON.parse(request.requestBody);
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': request.params.id,
+            'type': 'attachments',
+          },
+        });
+      });
+      this.post('/attachments/:id/upload', () => {
+        return new Response(204, {
+          'Content-Type': 'application/vnd.api+json',
+        });
+      });
+
       this.get('/budget-reports', () => {
         return new Response(200, {
           'Content-Type': 'application/vnd.api+json',

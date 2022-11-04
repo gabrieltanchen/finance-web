@@ -50,7 +50,7 @@
     "ember-cli-sass": "11.0.1",
     "ember-cli-sri": "2.1.1",
     "ember-cli-uglify": "3.0.0",
-    "ember-data": "4.1.0",
+    "ember-data": "4.7.3",
     "ember-export-application-global": "2.0.1",
     "ember-fetch": "8.1.1",
     "ember-file-upload": "5.0.0",

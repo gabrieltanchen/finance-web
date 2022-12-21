@@ -25,7 +25,7 @@ export default class DashboardController extends Controller {
     'November',
     'December',
   ];
-  yearOptions = [2017, 2018, 2019, 2020, 2021, 2022];
+  yearOptions = [2017, 2018, 2019, 2020, 2021, 2022, 2023];
 
   @action setMonth(month) {
     this.month = month;

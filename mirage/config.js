@@ -1009,6 +1009,42 @@ export default function(config) {
         });
       });
 
+      this.get('/loans', (db, request) => {
+        let data;
+        if (request.queryParams.page === '2') {
+          data = [{
+            attributes: {
+              'amount': 1,
+              'balance': 0,
+              'name': 'Loan 26',
+            },
+            'id': uuidv4(),
+            'type': 'loans',
+          }];
+        } else {
+          data = [...Array(25).keys()].map((ind) => {
+            return {
+              'attributes': {
+                'amount': 1,
+                'balance': 0,
+                'name': `Loan ${ind}`,
+              },
+              'id': uuidv4(),
+              'type': 'loans',
+            };
+          });
+        }
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': data,
+          'meta': {
+            'pages': 2,
+            'total': 26,
+          },
+        });
+      });
+
       this.get('/monthly-reports/:id', (db, request) => {
         return new Response(200, {
           'Content-Type': 'application/vnd.api+json',

@@ -1,0 +1,12 @@
+<div class="container-lg">
+  <div class="title-with-buttons">
+    <h1>Loans</h1>
+  </div>
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.loans}}
+    @page={{this.page}}
+    @numPages={{this.loans.meta.pages}}
+    @setPage={{this.setPage}}
+  />
+</div>

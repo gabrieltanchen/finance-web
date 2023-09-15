@@ -304,6 +304,12 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/income/${id}/settings`);
   });
 
+  test('can visit /loans', async function(assert) {
+    await visit('/loans');
+
+    assert.equal(currentURL(), '/loans');
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
 

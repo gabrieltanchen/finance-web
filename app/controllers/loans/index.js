@@ -18,6 +18,10 @@ export default class LoansIndexController extends Controller {
   }, {
     name: 'Balance',
     propertyName: 'balanceStr',
+  }, {
+    linkText: 'View',
+    linkTo: 'loans.show',
+    name: '',
   }];
 
   @action

@@ -27,7 +27,9 @@ module('Acceptance | loans', function(hooks) {
     assert.dom('.title-with-buttons').exists();
     assert.dom('.title-with-buttons h1').exists();
     assert.dom('.title-with-buttons h1').containsText('Loans');
-    // @todo add new button test
+    assert.dom('.title-with-buttons .buttons').exists();
+    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
+    assert.dom('.title-with-buttons .buttons a').containsText('New');
     assert.dom('nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });

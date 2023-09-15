@@ -1,6 +1,11 @@
 <div class="container-lg">
   <div class="title-with-buttons">
     <h1>Loans</h1>
+    <div class="buttons">
+      <LinkTo @route="loans.new" class="button">
+        New
+      </LinkTo>
+    </div>
   </div>
   <PaginatedTable
     @columns={{this.tableColumns}}

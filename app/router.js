@@ -60,7 +60,10 @@ Router.map(function() {
     this.route('settings', { path: '/:income_id/settings' });
     this.route('show', { path: '/:income_id' });
   });
-  this.route('loans', function() {});
+  this.route('loans', function() {
+    this.route('new');
+    this.route('show', { path: '/:loan_id' });
+  });
   this.route('login');
   this.route('sign-up');
   this.route('subcategories', function() {

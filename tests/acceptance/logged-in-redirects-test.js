@@ -310,6 +310,19 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), '/loans');
   });
 
+  test('can visit /loans/new', async function(assert) {
+    await visit('/loans/new');
+
+    assert.equal(currentURL(), '/loans/new');
+  });
+
+  test('can visit /loans/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}`);
+
+    assert.equal(currentURL(), `/loans/${id}`);
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
 

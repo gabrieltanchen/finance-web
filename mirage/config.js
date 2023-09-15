@@ -1044,6 +1044,50 @@ export default function(config) {
           },
         });
       });
+      this.post('/loans', (db, request) => {
+        const params = JSON.parse(request.requestBody);
+        if (params.data
+            && params.data.attributes
+            && params.data.attributes.name
+            && params.data.attributes.name === 'Error Loan') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test loan post error 1.',
+            }, {
+              detail: 'Test loan post error 2.',
+            }],
+          });
+        }
+        return new Response(201, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'amount': params.data.attributes.amount,
+              'name': params.data.attributes.name,
+            },
+            'id': '615aeb6e-8579-4b6e-87a7-eeece395bd99',
+            'type': 'loans',
+          },
+        });
+      });
+      this.get('/loans/:id', (db, request) => {
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'amount': 1000,
+              'balance': 1000,
+              'name': 'Test Loan',
+            },
+            'id': request.params.id,
+            'type': 'loans',
+          },
+        });
+      });
 
       this.get('/monthly-reports/:id', (db, request) => {
         return new Response(200, {

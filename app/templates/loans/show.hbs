@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>Loan - {{this.loan.name}}</h1>
+  <Menus::LoanItem @loanId={{this.loan.id}} />
+  <DetailTable @model={{this.loan}} @properties={{this.properties}} />
+</div>

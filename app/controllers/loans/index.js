@@ -22,6 +22,10 @@ export default class LoansIndexController extends Controller {
     linkText: 'View',
     linkTo: 'loans.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'loans.edit',
+    name: '',
   }];
 
   @action

@@ -61,6 +61,7 @@ Router.map(function() {
     this.route('show', { path: '/:income_id' });
   });
   this.route('loans', function() {
+    this.route('edit', { path: '/:loan_id/edit' });
     this.route('new');
     this.route('show', { path: '/:loan_id' });
   });

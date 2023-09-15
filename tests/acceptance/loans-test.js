@@ -102,4 +102,52 @@ module('Acceptance | loans', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Balance');
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Created At');
   });
+
+  test('visiting /loans/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}/edit`);
+
+    assert.equal(currentURL(), `/loans/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Loan - Test Loan');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#loan-name-input').exists();
+    assert.dom('#loan-amount-input').exists();
+    assert.dom('#loan-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing loan', async function(assert) {
+    await visit('/loans/2d731e4e-7eeb-4535-a524-9d955229baea/edit');
+
+    assert.equal(currentURL(), '/loans/2d731e4e-7eeb-4535-a524-9d955229baea/edit');
+
+    await fillIn('#loan-name-input', 'Updated Loan');
+    await click('#loan-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test loan patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test loan patch error 2.');
+
+    // Test that the loan name gets reset after navigating away from edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/loans/2d731e4e-7eeb-4535-a524-9d955229baea');
+    assert.dom('h1').containsText('Loan - Test Loan');
+  });
+
+  test('should transition to loan details after editing loan', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}/edit`);
+
+    assert.equal(currentURL(), `/loans/${id}/edit`);
+
+    await fillIn('#loan-name-input', 'Updated Loan');
+    await click('#loan-submit');
+
+    assert.equal(currentURL(), `/loans/${id}`);
+  });
 });

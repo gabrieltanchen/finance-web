@@ -289,6 +289,12 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /loans/:id/edit', async function(assert) {
+    await visit(`/loans/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('can visit /login', async function(assert) {
     await visit('/login');
 

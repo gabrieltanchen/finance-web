@@ -1073,6 +1073,22 @@ export default function(config) {
           },
         });
       });
+      this.delete('/loans/:id', (db, request) => {
+        if (request.params.id === 'a4b04ac0-e310-4cde-a58f-c16455d490cc') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test loan delete error 1.',
+            }, {
+              detail: 'Test loan delete error 2.',
+            }],
+          });
+        }
+        return new Response(204, {
+          'Content-Type': 'application/vnd.api+json',
+        });
+      });
       this.get('/loans/:id', (db, request) => {
         return new Response(200, {
           'Content-Type': 'application/vnd.api+json',
@@ -1082,6 +1098,32 @@ export default function(config) {
               'amount': 1000,
               'balance': 1000,
               'name': 'Test Loan',
+            },
+            'id': request.params.id,
+            'type': 'loans',
+          },
+        });
+      });
+      this.patch('/loans/:id', (db, request) => {
+        if (request.params.id === '2d731e4e-7eeb-4535-a524-9d955229baea') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test loan patch error 1.',
+            }, {
+              detail: 'Test loan patch error 2.',
+            }],
+          });
+        }
+        const params = JSON.parse(request.requestBody);
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'amount': params.data.attributes.amount,
+              'name': params.data.attributes.name,
             },
             'id': request.params.id,
             'type': 'loans',

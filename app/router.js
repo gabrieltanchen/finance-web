@@ -63,6 +63,7 @@ Router.map(function() {
   this.route('loans', function() {
     this.route('edit', { path: '/:loan_id/edit' });
     this.route('new');
+    this.route('settings', { path: '/:loan_id/settings' });
     this.route('show', { path: '/:loan_id' });
   });
   this.route('login');

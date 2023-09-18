@@ -14,6 +14,19 @@
       {{/if}}
     </li>
     <li>
+      {{#if this.isLoanPaymentsRoute}}
+        <span>
+          <FaIcon @icon="money-bill-wave" @size="sm" />
+          Loan Payments
+        </span>
+      {{else}}
+        <LinkTo @route="loans.loan-payments" @model="{{@loanId}}">
+          <FaIcon @icon="money-bill-wave" @size="sm" />
+          Loan Payments
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
       {{#if this.isSettingsRoute}}
         <span>
           <FaIcon @icon="gear" @size="sm" />

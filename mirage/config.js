@@ -1131,6 +1131,42 @@ export default function(config) {
         });
       });
 
+      this.get('/loan-payments', (db, request) => {
+        let data;
+        if (request.queryParams.page === '2') {
+          data = [{
+            'attributes': {
+              'date': '2023-01-01',
+              'interest-amount': 1,
+              'principal-amount': 1,
+            },
+            'id': uuidv4(),
+            'type': 'loan-payments',
+          }];
+        } else {
+          data = [...Array(25).keys()].map(() => {
+            return {
+              'attributes': {
+                'date': '2023-01-01',
+                'interest-amount': 1,
+                'principal-amount': 1,
+              },
+              'id': uuidv4(),
+              'type': 'loan-payments',
+            };
+          });
+        }
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': data,
+          'meta': {
+            'pages': 2,
+            'total': 26,
+          },
+        });
+      });
+
       this.get('/monthly-reports/:id', (db, request) => {
         return new Response(200, {
           'Content-Type': 'application/vnd.api+json',

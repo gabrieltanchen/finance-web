@@ -151,6 +151,29 @@ module('Acceptance | loans', function(hooks) {
     assert.equal(currentURL(), `/loans/${id}`);
   });
 
+  test('visiting /loans/:id/loan-payments', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}/loan-payments`);
+
+    assert.equal(currentURL(), `/loans/${id}/loan-payments`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Loan - Test Loan');
+    assert.dom('nav.secondary').exists();
+    assert.dom('table').exists();
+    assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-next button');
+
+    assert.equal(currentURL(), `/loans/${id}/loan-payments?page=2`);
+    assert.dom('table tbody tr').exists({ count: 1 });
+
+    await click('.pagination-previous button');
+
+    assert.equal(currentURL(), `/loans/${id}/loan-payments?page=1`);
+    assert.dom('table tbody tr').exists({ count: 25 });
+  });
+
   test('visiting /loans/:id/settings', async function(assert) {
     const id = uuidv4();
     await visit(`/loans/${id}/settings`);

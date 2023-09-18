@@ -62,6 +62,7 @@ Router.map(function() {
   });
   this.route('loans', function() {
     this.route('edit', { path: '/:loan_id/edit' });
+    this.route('loan-payments', { path: '/:loan_id/loan-payments' });
     this.route('new');
     this.route('settings', { path: '/:loan_id/settings' });
     this.route('show', { path: '/:loan_id' });

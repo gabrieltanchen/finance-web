@@ -8,6 +8,10 @@ export default class MenusLoanItemComponent extends Component {
     return this.router.currentRouteName === 'loans.show';
   }
 
+  get isLoanPaymentsRoute() {
+    return this.router.currentRouteName === 'loans.loan-payments';
+  }
+
   get isSettingsRoute() {
     return this.router.currentRouteName === 'loans.settings';
   }

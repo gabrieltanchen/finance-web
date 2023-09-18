@@ -87,4 +87,53 @@ module('Acceptance | loan payments', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Loan');
     assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Created At');
   });
+
+  test('visiting /loan-payments/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}/edit`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Loan Payment');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#loan-payment-date-input').exists();
+    assert.dom('#loan-payment-principal-amount-input').exists();
+    assert.dom('#loan-payment-interest-amount-input').exists();
+    assert.dom('#loan-payment-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing loan payment', async function(assert) {
+    await visit('/loan-payments/64620167-ddc4-4257-a914-d670e0a9ccd0/edit');
+
+    assert.equal(currentURL(), '/loan-payments/64620167-ddc4-4257-a914-d670e0a9ccd0/edit');
+
+    await fillIn('#loan-payment-principal-amount-input', '45.67');
+    await click('#loan-payment-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test loan payment patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test loan payment patch error 2.');
+
+    // Test that the loan payment gets reset after navigating away from the edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/loan-payments/64620167-ddc4-4257-a914-d670e0a9ccd0');
+    assert.dom('table tr:nth-of-type(3) td:nth-of-type(2)').containsText('$10.00');
+  });
+
+  test('should transition to loan payment details after editing loan payment', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}/edit`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}/edit`);
+
+    await fillIn('#loan-payment-principal-amount-input', '45.67');
+    await click('#loan-payment-submit');
+
+    assert.equal(currentURL(), `/loan-payments/${id}`);
+  });
 });

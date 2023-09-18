@@ -1074,6 +1074,22 @@ export default function(config) {
           },
         });
       });
+      this.delete('/loan-payment/:id', (db, request) => {
+        if (request.params.id === 'd637c4e5-2980-4338-b95e-9f2681bac666') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test loan payment delete error 1.',
+            }, {
+              detail: 'Test loan payment delete error 2.',
+            }],
+          });
+        }
+        return new Response(204, {
+          'Content-Type': 'application/vnd.api+json',
+        });
+      });
       this.get('/loan-payments/:id', (db, request) => {
         return new Response(200, {
           'Content-Type': 'application/vnd.api+json',
@@ -1093,6 +1109,33 @@ export default function(config) {
                 },
               },
             },
+            'type': 'loan-payments',
+          },
+        });
+      });
+      this.patch('/loan-payments/:id', (db, request) => {
+        if (request.params.id === '64620167-ddc4-4257-a914-d670e0a9ccd0') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test loan payment patch error 1.',
+            }, {
+              detail: 'Test loan payment patch error 2.',
+            }],
+          });
+        }
+        const params = JSON.parse(request.requestBody);
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'date': params.data.attributes.date,
+              'interest-amount': params.data.attributes['interest-amount'],
+              'principal-amount': params.data.attributes['principal-amount'],
+            },
+            'id': request.params.id,
             'type': 'loan-payments',
           },
         });

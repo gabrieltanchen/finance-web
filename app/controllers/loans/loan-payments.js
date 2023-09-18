@@ -33,6 +33,10 @@ export default class LoansLoanPaymentsController extends Controller {
     linkText: 'View',
     linkTo: 'loan-payments.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'loan-payments.edit',
+    name: '',
   }];
 
   @action

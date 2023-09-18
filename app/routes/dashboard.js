@@ -43,6 +43,7 @@ export default class DashboardRoute extends Route {
         year: params.year,
       }),
       monthlyReport: this.store.findRecord('monthly-report', `${params.year}-${months.indexOf((params.month).toLowerCase())}`),
+      openLoans: this.store.query('loan', { open: true }),
     });
   }
 }

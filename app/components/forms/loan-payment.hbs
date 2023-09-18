@@ -1,0 +1,44 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form class="loan-payment-form" {{on "submit" this.save}}>
+  <div class="loan-payment-loan-select">
+    <label for="loan-payment-loan-select">Loan</label>
+    <PowerSelect
+      @search={{action this.updateLoanSearch}}
+      @searchEnabled={{true}}
+      @options={{@loans}}
+      @searchField="name"
+      @selected={{@loanPayment.loan}}
+      @onChange={{action this.selectLoan}}
+      @triggerId="loan-payment-loan-select"
+      as |loan|
+    >
+      {{loan.name}}
+    </PowerSelect>
+  </div>
+  <div>
+    <label for="loan-payment-date-input">Date</label>
+    <PikadayInput
+      @value={{@loanPayment.date}} id="loan-payment-date-input"
+      @onSelection={{action "dateSelected"}}
+      @format={{"YYYY-MM-DD"}}
+      @useUTC={{true}}
+    />
+  </div>
+  <div>
+    <label for="loan-payment-principal-amount-input">Principal Amount</label>
+    <Input @value={{@loanPayment.principalAmount}} @type="text" id="loan-payment-principal-amount-input" />
+  </div>
+  <div>
+    <label for="loan-payment-interest-amount-input">Interest Amount</label>
+    <Input @value={{@loanPayment.interestAmount}} @type="text" id="loan-payment-interest-amount-input" />
+  </div>
+  <div class="loan-payment-submit">
+    <Input @value="Save" @type="submit" id="loan-payment-submit" />
+  </div>
+</form>

@@ -60,6 +60,19 @@ Router.map(function() {
     this.route('settings', { path: '/:income_id/settings' });
     this.route('show', { path: '/:income_id' });
   });
+  this.route('loan-payments', function() {
+    this.route('edit', { path: '/:loan_payment_id/edit' });
+    this.route('new');
+    this.route('settings', { path: '/:loan_payment_id/settings' });
+    this.route('show', { path: '/:loan_payment_id' });
+  });
+  this.route('loans', function() {
+    this.route('edit', { path: '/:loan_id/edit' });
+    this.route('loan-payments', { path: '/:loan_id/loan-payments' });
+    this.route('new');
+    this.route('settings', { path: '/:loan_id/settings' });
+    this.route('show', { path: '/:loan_id' });
+  });
   this.route('login');
   this.route('sign-up');
   this.route('subcategories', function() {

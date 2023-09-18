@@ -1,0 +1,16 @@
+{{#if this.errors}}
+  <div class="callout alert">
+    {{#each this.errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+<form {{on "submit" this.save}}>
+  <label for="loan-name-input">Name</label>
+  <Input @value={{@loan.name}} @type="text" id="loan-name-input" aria-required="true" />
+
+  <label for="loan-amount-input">Amount</label>
+  <Input @value={{@loan.amount}} @type="text" id="loan-amount-input" />
+
+  <Input @value="Save" @type="submit" id="loan-submit" />
+</form>

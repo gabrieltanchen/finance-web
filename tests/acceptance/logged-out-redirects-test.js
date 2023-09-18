@@ -271,6 +271,18 @@ module('Acceptance | logged out redirects', function(hooks) {
     assert.equal(currentURL(), '/login');
   });
 
+  test('should redirect away from /loan-payments/new', async function(assert) {
+    await visit('/loan-payments/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loan-payments/:id', async function(assert) {
+    await visit(`/loan-payments/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
   test('should redirect away from /loans', async function(assert) {
     await visit('/loans');
 

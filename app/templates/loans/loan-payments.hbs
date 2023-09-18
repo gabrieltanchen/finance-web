@@ -1,6 +1,6 @@
 <div class="container-lg">
   <h1>Loan - {{this.loan.name}}</h1>
-  <Menus::LoanItem @loanId="{{this.loan.id}}" />
+  <Menus::LoanItem @loanId={{this.loan.id}} />
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.loanPayments}}
@@ -13,4 +13,9 @@
     @setPage={{this.setPage}}
     @setSort={{this.setSort}}
   />
+</div>
+<div class="add-button">
+  <LinkTo @route="loan-payments.new" @query={{hash loanId=this.loan.id}}>
+    <FaIcon @icon="plus" @size="lg" />
+  </LinkTo>
 </div>

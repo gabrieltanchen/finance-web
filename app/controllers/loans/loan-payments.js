@@ -29,6 +29,10 @@ export default class LoansLoanPaymentsController extends Controller {
     propertyName: 'interestAmount',
     sortable: true,
     sortName: 'interestAmount',
+  }, {
+    linkText: 'View',
+    linkTo: 'loan-payments.show',
+    name: '',
   }];
 
   @action

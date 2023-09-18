@@ -304,6 +304,19 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/income/${id}/settings`);
   });
 
+  test('can visit /loan-payments/new', async function(assert) {
+    await visit('/loan-payments/new');
+
+    assert.equal(currentURL(), '/loan-payments/new');
+  });
+
+  test('can visit /loan-payments/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}`);
+  });
+
   test('can visit /loans', async function(assert) {
     await visit('/loans');
 

@@ -1009,6 +1009,95 @@ export default function(config) {
         });
       });
 
+      this.get('/loan-payments', (db, request) => {
+        let data;
+        if (request.queryParams.page === '2') {
+          data = [{
+            'attributes': {
+              'date': '2023-01-01',
+              'interest-amount': 1,
+              'principal-amount': 1,
+            },
+            'id': uuidv4(),
+            'type': 'loan-payments',
+          }];
+        } else {
+          data = [...Array(25).keys()].map(() => {
+            return {
+              'attributes': {
+                'date': '2023-01-01',
+                'interest-amount': 1,
+                'principal-amount': 1,
+              },
+              'id': uuidv4(),
+              'type': 'loan-payments',
+            };
+          });
+        }
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': data,
+          'meta': {
+            'pages': 2,
+            'total': 26,
+          },
+        });
+      });
+      this.post('/loan-payments', (db, request) => {
+        const params = JSON.parse(request.requestBody);
+        if (params.data
+            && params.data.attributes
+            && params.data.attributes['principal-amount']
+            && params.data.attributes['principal-amount'] === 9876) {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test loan payment post error 1.',
+            }, {
+              detail: 'Test loan payment post error 2.',
+            }],
+          });
+        }
+        return new Response(201, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'date': params.data.attributes.date,
+              'interest-amount': params.data.attributes['interest-amount'],
+              'principal-amount': params.data.attributes['principal-amount'],
+            },
+            'id': '3e29618c-84ce-4e73-8e2d-8da784b44e31',
+            'type': 'loan-payments',
+          },
+        });
+      });
+      this.get('/loan-payments/:id', (db, request) => {
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'date': '2023-01-01',
+              'interest-amount': 500,
+              'principal-amount': 1000,
+            },
+            'id': request.params.id,
+            'relationships': {
+              'loan': {
+                'data': {
+                  'id': 'f2bd7c34-d5c8-42d1-8203-2ae6f451f92a',
+                  'type': 'loans',
+                },
+              },
+            },
+            'type': 'loan-payments',
+          },
+        });
+      });
+
       this.get('/loans', (db, request) => {
         let data;
         if (request.queryParams.page === '2') {
@@ -1127,42 +1216,6 @@ export default function(config) {
             },
             'id': request.params.id,
             'type': 'loans',
-          },
-        });
-      });
-
-      this.get('/loan-payments', (db, request) => {
-        let data;
-        if (request.queryParams.page === '2') {
-          data = [{
-            'attributes': {
-              'date': '2023-01-01',
-              'interest-amount': 1,
-              'principal-amount': 1,
-            },
-            'id': uuidv4(),
-            'type': 'loan-payments',
-          }];
-        } else {
-          data = [...Array(25).keys()].map(() => {
-            return {
-              'attributes': {
-                'date': '2023-01-01',
-                'interest-amount': 1,
-                'principal-amount': 1,
-              },
-              'id': uuidv4(),
-              'type': 'loan-payments',
-            };
-          });
-        }
-        return new Response(200, {
-          'Content-Type': 'application/vnd.api+json',
-        }, {
-          'data': data,
-          'meta': {
-            'pages': 2,
-            'total': 26,
           },
         });
       });

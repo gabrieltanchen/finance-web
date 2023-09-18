@@ -1074,7 +1074,7 @@ export default function(config) {
           },
         });
       });
-      this.delete('/loan-payment/:id', (db, request) => {
+      this.delete('/loan-payments/:id', (db, request) => {
         if (request.params.id === 'd637c4e5-2980-4338-b95e-9f2681bac666') {
           return new Response(403, {
             'Content-Type': 'application/vnd.api+json',

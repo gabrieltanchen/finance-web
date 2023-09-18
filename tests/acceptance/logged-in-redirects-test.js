@@ -317,6 +317,20 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/loan-payments/${id}`);
   });
 
+  test('can visit /loan-payments/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}/edit`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}/edit`);
+  });
+
+  test('can visit /loan-payments/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}/settings`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}/settings`);
+  });
+
   test('can visit /loans', async function(assert) {
     await visit('/loans');
 

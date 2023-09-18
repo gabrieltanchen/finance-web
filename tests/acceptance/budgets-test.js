@@ -113,7 +113,7 @@ module('Acceptance | budgets', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test budget patch error 1.');
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test budget patch error 2.');
 
-    // Test that the expense gets reset after navigating away from edit page.
+    // Test that the budget gets reset after navigating away from edit page.
     await click('nav.secondary ul li:nth-of-type(1) a');
 
     assert.equal(currentURL(), '/budgets/a6da3f05-a6af-485d-808f-679db25932db');

@@ -260,13 +260,73 @@ module('Acceptance | logged out redirects', function(hooks) {
   });
 
   test('should redirect away from /income/:id/edit', async function(assert) {
-    await visit(`/income/${uuidv4()}`);
+    await visit(`/income/${uuidv4()}/edit`);
 
     assert.equal(currentURL(), '/login');
   });
 
-  test('/should redirect away from /income/:id/settings', async function(assert) {
-    await visit(`/income/${uuidv4()}`);
+  test('should redirect away from /income/:id/settings', async function(assert) {
+    await visit(`/income/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loan-payments/new', async function(assert) {
+    await visit('/loan-payments/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loan-payments/:id', async function(assert) {
+    await visit(`/loan-payments/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loan-payments/:id/edit', async function(assert) {
+    await visit(`/loan-payments/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loan-payments/:id/settings', async function(assert) {
+    await visit(`/loan-payments/${uuidv4()}/settings`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loans', async function(assert) {
+    await visit('/loans');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loans/new', async function(assert) {
+    await visit('/loans/new');
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loans/:id', async function(assert) {
+    await visit(`/loans/${uuidv4()}`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loans/:id/edit', async function(assert) {
+    await visit(`/loans/${uuidv4()}/edit`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loans/:id/loan-payments', async function(assert) {
+    await visit(`/loans/${uuidv4()}/loan-payments`);
+
+    assert.equal(currentURL(), '/login');
+  });
+
+  test('should redirect away from /loans/:id/settings', async function(assert) {
+    await visit(`/loans/${uuidv4()}/settings`);
 
     assert.equal(currentURL(), '/login');
   });

@@ -8,6 +8,7 @@ export default class DashboardController extends Controller {
   queryParams = ['month', 'year'];
   @alias('model.budgetReports') budgetReports;
   @alias('model.monthlyReport') monthlyReport;
+  @alias('model.openLoans') openLoans;
   @tracked month = moment().format('MMMM');
   @tracked year = moment().year();
 

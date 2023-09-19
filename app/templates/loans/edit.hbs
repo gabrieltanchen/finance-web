@@ -1,0 +1,7 @@
+<div class="container-lg">
+  <h1>Edit Loan - {{this.loan.name}}</h1>
+  <Menus::LoanItem @loanId={{this.loan.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Loan @loan={{this.loan}} @saveSuccessful={{this.transitionToLoanDetails}} />
+</div>

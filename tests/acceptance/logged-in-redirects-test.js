@@ -304,6 +304,73 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/income/${id}/settings`);
   });
 
+  test('can visit /loan-payments/new', async function(assert) {
+    await visit('/loan-payments/new');
+
+    assert.equal(currentURL(), '/loan-payments/new');
+  });
+
+  test('can visit /loan-payments/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}`);
+  });
+
+  test('can visit /loan-payments/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}/edit`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}/edit`);
+  });
+
+  test('can visit /loan-payments/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/${id}/settings`);
+
+    assert.equal(currentURL(), `/loan-payments/${id}/settings`);
+  });
+
+  test('can visit /loans', async function(assert) {
+    await visit('/loans');
+
+    assert.equal(currentURL(), '/loans');
+  });
+
+  test('can visit /loans/new', async function(assert) {
+    await visit('/loans/new');
+
+    assert.equal(currentURL(), '/loans/new');
+  });
+
+  test('can visit /loans/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}`);
+
+    assert.equal(currentURL(), `/loans/${id}`);
+  });
+
+  test('can visit /loans/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}/edit`);
+
+    assert.equal(currentURL(), `/loans/${id}/edit`);
+  });
+
+  test('can visit /loans/:id/loan-payments', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}/loan-payments`);
+
+    assert.equal(currentURL(), `/loans/${id}/loan-payments`);
+  });
+
+  test('can visit /loans/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loans/${id}/settings`);
+
+    assert.equal(currentURL(), `/loans/${id}/settings`);
+  });
+
   test('should redirect away from /login', async function(assert) {
     await visit('/login');
 

@@ -3,7 +3,8 @@ form {
   margin-top: 2em;
 
   &.expense-form,
-  &.income-form {
+  &.income-form,
+  &.loan-payment-form {
     column-gap: 1em;
     display: grid;
     grid-column-gap: 1em;
@@ -12,7 +13,8 @@ form {
     .deposit-fund-select,
     .deposit-submit,
     .expense-submit,
-    .income-submit {
+    .income-submit,
+    .loan-payment-submit {
       grid-column: span 2;
     }
   }

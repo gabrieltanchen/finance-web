@@ -113,7 +113,7 @@ module('Acceptance | deposits', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test deposit patch error 1.');
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test deposit patch error 2.');
 
-    // Test that the expense gets reset after navigating away from edit page.
+    // Test that the deposit gets reset after navigating away from edit page.
     await click('nav.secondary ul li:nth-of-type(1) a');
 
     assert.equal(currentURL(), '/deposits/f75cfdf1-99b5-4bf0-afcc-630d14133ffa');

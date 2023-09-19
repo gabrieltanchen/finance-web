@@ -18,6 +18,16 @@ module('Acceptance | dashboard', function(hooks) {
 
     assert.equal(currentURL(), '/dashboard');
     assert.dom('.container-md').exists();
+    assert.dom('h2').exists({ count: 2 });
+    assert.dom('h2:nth-of-type(1)').containsText('Loans');
+    assert.dom('h2:nth-of-type(2)').containsText('Monthly Summary');
+    assert.dom('.dashboard-open-loans-table').exists();
+    assert.dom('.dashboard-open-loans-table table').exists();
+    assert.dom('.dashboard-open-loans-table thead tr').exists({ count: 1 });
+    assert.dom('.dashboard-open-loans-table thead tr th').exists({ count: 3 });
+    assert.dom('.dashboard-open-loans-table thead tr th:nth-of-type(1)').containsText('Name');
+    assert.dom('.dashboard-open-loans-table thead tr th:nth-of-type(2)').containsText('Amount');
+    assert.dom('.dashboard-open-loans-table thead tr th:nth-of-type(3)').containsText('Balance');
     assert.dom('.dashboard-month-selector').exists();
     assert.dom('.budget-table').exists();
     assert.dom('.budget-table table').exists();

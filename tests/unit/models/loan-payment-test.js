@@ -59,4 +59,34 @@ module('Unit | Model | loan payment', function(hooks) {
 
     assert.equal(loanPayment.principalAmountStr, '$-6,543.21');
   });
+
+  test('it has the correct totalAmountStr', function(assert) {
+    const store = this.owner.lookup('service:store');
+    const loanPayment = store.createRecord('loan-payment', {
+      interestAmount: 0,
+      principalAmount: 0,
+    });
+
+    assert.equal(loanPayment.totalAmountStr, '-');
+
+    loanPayment.principalAmount = '2.50';
+    loanPayment.interestAmount = '2.50';
+
+    assert.equal(loanPayment.totalAmountStr, '$5.00');
+
+    loanPayment.principalAmount = '617.28';
+    loanPayment.interestAmount = '617.28';
+
+    assert.equal(loanPayment.totalAmountStr, '$1,234.56');
+
+    loanPayment.principalAmount = '-2.50';
+    loanPayment.interestAmount = '-2.50';
+
+    assert.equal(loanPayment.totalAmountStr, '$-5.00');
+
+    loanPayment.principalAmount = '-3271.61';
+    loanPayment.interestAmount = '-3271.60';
+
+    assert.equal(loanPayment.totalAmountStr, '$-6,543.21');
+  });
 });

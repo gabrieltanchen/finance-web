@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Edit Loan Payment</h1>
+  <Menus::LoanPaymentItem @loanPaymentId={{this.loanPayment.id}} />
+</div>
+<div class="container-sm">
+  <Forms::LoanPayment
+    @loanPayment={{this.loanPayment}}
+    @loans={{this.loans}}
+    @saveSuccessful={{this.transitionToLoanPaymentDetails}}
+  />
+</div>

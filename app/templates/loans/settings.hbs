@@ -1,0 +1,32 @@
+<div class="container-lg">
+  <h1>Loan - {{this.loan.name}}</h1>
+  <Menus::LoanItem @loanId={{this.loan.id}} />
+</div>
+<div class="container-sm">
+  <LinkTo @route="loans.edit" @model={{this.loan.id}} class="button">
+    Edit
+  </LinkTo>
+  <button type="button" class="button alert" {{on "click" this.openDeleteModal}}>
+    Delete
+  </button>
+</div>
+{{#if this.showDeleteModal}}
+  <div class="overlay">
+    <div class="container-sm modal">
+      {{#if this.deleteErrors}}
+        <div class="callout alert">
+          {{#each this.deleteErrors as |error|}}
+            <p>{{error}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
+      <p>Are you sure you want to delete loan <span>{{this.loan.name}}</span>?</p>
+      <button type="button" class="button alert" {{on "click" this.deleteLoan}}>
+        Delete
+      </button>
+      <button type="button" class="button cancel" {{on "click" this.closeDeleteModal}}>
+        Cancel
+      </button>
+    </div>
+  </div>
+{{/if}}

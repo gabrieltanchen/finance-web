@@ -1,0 +1,8 @@
+<div class="container-sm">
+  <h1>New Loan Payment</h1>
+  <Forms::LoanPayment
+    @loanPayment={{this.loanPayment}}
+    @loans={{this.loans}}
+    @saveSuccessful={{this.transitionToLoanPaymentDetails}}
+  />
+</div>

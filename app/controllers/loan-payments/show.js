@@ -17,6 +17,9 @@ export default class LoanPaymentsShowController extends Controller {
     name: 'Interest Amount',
     propertyName: 'interestAmountStr',
   }, {
+    name: 'Total',
+    propertyName: 'totalAmountStr',
+  }, {
     linkParam: 'loan.id',
     linkTo: 'loans.show',
     name: 'Loan',

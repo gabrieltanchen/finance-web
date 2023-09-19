@@ -79,13 +79,14 @@ module('Acceptance | loan payments', function(hooks) {
     assert.dom('h1').containsText('View Loan Payment');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 6 });
+    assert.dom('table tbody tr').exists({ count: 7 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Date');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Principal Amount');
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Interest Amount');
-    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Loan');
-    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Created At');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Total');
+    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Loan');
+    assert.dom('table tbody tr:nth-of-type(7) td:nth-of-type(1)').containsText('Created At');
   });
 
   test('visiting /loan-payments/:id/edit', async function(assert) {

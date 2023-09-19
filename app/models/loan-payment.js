@@ -29,4 +29,16 @@ export default class LoanPaymentModel extends Model {
     });
     return `$${principalAmountStr}`;
   }
+
+  get totalAmountStr() {
+    const totalAmount = parseFloat(this.interestAmount) + parseFloat(this.principalAmount);
+    if (totalAmount === 0) {
+      return '-';
+    }
+    const totalAmountStr = totalAmount.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${totalAmountStr}`;
+  }
 }

@@ -21,14 +21,17 @@ export default class LoansLoanPaymentsController extends Controller {
     sortName: 'date',
   }, {
     name: 'Principal Amount',
-    propertyName: 'principalAmount',
+    propertyName: 'principalAmountStr',
     sortable: true,
     sortName: 'principalAmount',
   }, {
     name: 'Interest Amount',
-    propertyName: 'interestAmount',
+    propertyName: 'interestAmountStr',
     sortable: true,
     sortName: 'interestAmount',
+  }, {
+    name: 'Total',
+    propertyName: 'totalAmountStr',
   }, {
     linkText: 'View',
     linkTo: 'loan-payments.show',

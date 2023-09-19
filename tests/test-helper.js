@@ -13,6 +13,6 @@ setup(QUnit.assert);
 QUnit.done(async function() {
   forceModulesToBeLoaded();
   await sendCoverage();
-})
+});
 
 start();

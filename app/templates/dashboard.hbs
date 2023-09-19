@@ -1,4 +1,30 @@
 <div class="container-md">
+  <h2>Loans</h2>
+  <div class="dashboard-open-loans-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.openLoans as |loan|}}
+          <tr>
+            <td>
+              <LinkTo @route="loans.show" @model={{loan.id}}>
+                {{loan.name}}
+              </LinkTo>
+            </td>
+            <td>{{loan.amountStr}}</td>
+            <td>{{loan.balanceStr}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <h2>Monthly Summary</h2>
   <div class="dashboard-month-selector">
     <div>
       <label for="budget-report-year">

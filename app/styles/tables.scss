@@ -90,6 +90,13 @@ table {
         }
       }
 
+      &.total-row {
+        td {
+          border-bottom: 0;
+          font-weight: 500;
+        }
+      }
+
       td {
         border-bottom: 1px solid $border-light-grey;
         font-weight: 300;

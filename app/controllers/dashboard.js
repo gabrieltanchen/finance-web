@@ -28,6 +28,30 @@ export default class DashboardController extends Controller {
   ];
   yearOptions = [2017, 2018, 2019, 2020, 2021, 2022, 2023];
 
+  get openLoansTotalAmount() {
+    let totalAmount = 0;
+    this.openLoans.forEach((loan) => {
+      totalAmount += parseFloat(loan.amount);
+    });
+    const totalAmountStr = totalAmount.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${totalAmountStr}`;
+  }
+
+  get openLoansTotalBalance() {
+    let totalBalance = 0;
+    this.openLoans.forEach((loan) => {
+      totalBalance += parseFloat(loan.balance);
+    });
+    const totalBalanceStr = totalBalance.toLocaleString('en-CA', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+    return `$${totalBalanceStr}`;
+  }
+
   @action setMonth(month) {
     this.month = month;
   }

@@ -26,6 +26,7 @@
     <PowerSelect
       @search={{action this.updateFundSearch}}
       @searchEnabled={{true}}
+      @allowClear={{true}}
       @options={{@funds}}
       @searchField="name"
       @selected={{@expense.fund}}

@@ -35,7 +35,7 @@
     "@glimmer/tracking": "1.1.2",
     "babel-eslint": "10.1.0",
     "broccoli-asset-rev": "3.0.0",
-    "chart.js": "3.9.1",
+    "chart.js": "4.4.0",
     "coveralls": "3.1.1",
     "ember-auto-import": "2.6.3",
     "ember-cli": "4.11.0",

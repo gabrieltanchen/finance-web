@@ -26,7 +26,7 @@ export default class DashboardController extends Controller {
     'November',
     'December',
   ];
-  yearOptions = [2017, 2018, 2019, 2020, 2021, 2022, 2023];
+  yearOptions = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
   get openLoansTotalAmount() {
     let totalAmount = 0;

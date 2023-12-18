@@ -25,5 +25,5 @@ export default class VendorsShowController extends Controller {
   }, {
     name: 'Cumulative Expense Total',
     propertyName: 'sumTotalStr',
-  }]
+  }];
 }

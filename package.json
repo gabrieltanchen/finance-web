@@ -25,6 +25,9 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
+    "@babel/core": "7.23.3",
+    "@babel/eslint-parser": "7.22.15",
+    "@babel/plugin-proposal-decorators": "7.23.6",
     "@ember/optional-features": "2.0.0",
     "@ember/test-helpers": "2.9.3",
     "@fortawesome/ember-fontawesome": "0.4.1",
@@ -33,7 +36,7 @@
     "@fortawesome/free-solid-svg-icons": "6.2.1",
     "@glimmer/component": "1.1.2",
     "@glimmer/tracking": "1.1.2",
-    "babel-eslint": "10.1.0",
+
     "broccoli-asset-rev": "3.0.0",
     "chart.js": "4.4.0",
     "coveralls": "3.1.1",
@@ -62,7 +65,7 @@
     "ember-resolver": "11.0.1",
     "ember-source": "4.11.0",
     "ember-template-lint": "5.11.2",
-    "eslint": "7.32.0",
+    "eslint": "8.56.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-plugin-ember": "11.10.0",
     "eslint-plugin-import": "2.29.1",

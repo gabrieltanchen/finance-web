@@ -28,5 +28,5 @@ export default class HouseholdMembersShowController extends Controller {
   }, {
     name: 'Cumulative Expense Total',
     propertyName: 'sumTotalStr',
-  }]
+  }];
 }

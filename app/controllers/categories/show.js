@@ -4,7 +4,7 @@ import { alias } from '@ember/object/computed';
 export default class CategoriesShowController extends Controller {
   @alias('model') category;
 
-  properties=[{
+  properties = [{
     name: 'ID',
     propertyName: 'id',
   }, {

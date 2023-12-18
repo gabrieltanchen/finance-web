@@ -16,7 +16,7 @@ export default class ExpensesAttachmentsIndexRoute extends Route {
     sortDirection: {
       refreshModel: true,
     },
-  }
+  };
 
   model(params) {
     const attachmentParams = this.paramsFor('expenses.attachments');

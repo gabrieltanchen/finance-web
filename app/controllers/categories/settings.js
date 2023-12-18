@@ -7,7 +7,7 @@ import { tracked } from '@glimmer/tracking';
 export default class CategoriesSettingsController extends Controller {
   @service router;
   @alias('model') category;
-  @tracked showDeleteModal
+  @tracked showDeleteModal;
   @tracked deleteErrors = [];
 
   @action

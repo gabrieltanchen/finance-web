@@ -4,7 +4,7 @@ export default class BudgetReportModel extends Model {
   @attr('dollars') actual;
   @attr('dollars') budget;
 
-  @belongsTo('category') category
+  @belongsTo('category') category;
   @belongsTo('subcategory') subcategory;
 
   get actualStr() {

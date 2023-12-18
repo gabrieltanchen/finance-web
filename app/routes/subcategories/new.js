@@ -9,7 +9,7 @@ export default class SubcategoriesNewRoute extends Route {
     categoryId: {
       refreshModel: true,
     },
-  }
+  };
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {

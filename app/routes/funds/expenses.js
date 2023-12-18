@@ -17,7 +17,7 @@ export default class FundsExpensesRoute extends Route {
     sortDirection: {
       refreshModel: true,
     },
-  }
+  };
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {

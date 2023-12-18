@@ -11,7 +11,7 @@ export default class SubcategoriesBudgetsRoute extends Route {
     page: {
       refreshModel: true,
     },
-  }
+  };
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {

@@ -10,7 +10,7 @@ export default class VendorsIndexRoute extends Route {
     page: {
       refreshModel: true,
     },
-  }
+  };
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {

@@ -4,7 +4,7 @@ import { alias } from '@ember/object/computed';
 export default class UsersShowController extends Controller {
   @alias('model') user;
 
-  properties=[{
+  properties = [{
     name: 'ID',
     propertyName: 'id',
   }, {

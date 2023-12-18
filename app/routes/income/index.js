@@ -16,7 +16,7 @@ export default class IncomeIndexRoute extends Route {
     sortDirection: {
       refreshModel: true,
     },
-  }
+  };
 
   async beforeModel() {
     if (!(await this.session.isLoggedIn())) {

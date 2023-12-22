@@ -10,6 +10,6 @@ export default class IncomeNewController extends Controller {
 
   @action
   transitionToIncomeDetails() {
-    this.router.transitionTo('income.show', this.income.id);
+    this.router.transitionTo('income.index');
   }
 }

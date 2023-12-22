@@ -12,7 +12,8 @@ export default class ExpensesNewController extends Controller {
   @alias('model.vendors') vendors;
 
   @action
-  transitionToExpenseDetails() {
-    this.router.transitionTo('expenses.show', this.expense.id);
+  async transitionToExpenseDetails() {
+    const subcategory = await this.expense.subcategory;
+    this.router.transitionTo('subcategories.expenses', subcategory.id);
   }
 }

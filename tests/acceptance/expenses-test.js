@@ -77,7 +77,7 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test expense post error 2.');
   });
 
-  test('should transition to expense details after creating expense', async function(assert) {
+  test('should transition to subcategory expenses page after creating expense', async function(assert) {
     const id = uuidv4();
     await visit(`/expenses/new?subcategoryId=${id}`);
 
@@ -92,7 +92,7 @@ module('Acceptance | expenses', function(hooks) {
     await fillIn('#expense-reimbursed-input', '12.34');
     await click('#expense-submit');
 
-    assert.equal(currentURL(), '/expenses/40a4f2d5-fd93-46a3-bdcb-6828168dae28');
+    assert.equal(currentURL(), `/subcategories/${id}/expenses`);
   });
 
   test('visiting /expenses/:id', async function(assert) {

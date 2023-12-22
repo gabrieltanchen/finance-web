@@ -9,7 +9,8 @@ export default class BudgetsNewController extends Controller {
   @alias('model.subcategories') subcategories;
 
   @action
-  transitionToBudgetDetails() {
-    this.router.transitionTo('budgets.show', this.budget.id);
+  async transitionToBudgetDetails() {
+    const subcategory = await this.budget.subcategory;
+    this.router.transitionTo('subcategories.budgets', subcategory.id);
   }
 }

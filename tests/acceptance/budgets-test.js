@@ -51,7 +51,7 @@ module('Acceptance | budgets', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test budget post error 2.');
   });
 
-  test('should transition to budget details after creating budget', async function(assert) {
+  test('should transition to subcategory budgets page after creating budget', async function(assert) {
     const id = uuidv4();
     await visit(`/budgets/new?subcategoryId=${id}`);
 
@@ -62,7 +62,7 @@ module('Acceptance | budgets', function(hooks) {
     await fillIn('#budget-amount-input', '123.45');
     await click('#budget-submit');
 
-    assert.equal(currentURL(), '/budgets/139cab77-e185-44c2-bf46-6b8555aaaa30');
+    assert.equal(currentURL(), `/subcategories/${id}/budgets`);
   });
 
   test('visiting /budgets/:id', async function(assert) {

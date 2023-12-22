@@ -80,7 +80,7 @@ module('Acceptance | income', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test income post error 2.');
   });
 
-  test('should transition to income details after creating income', async function(assert) {
+  test('should transition to income index page after creating income', async function(assert) {
     await visit('/income/new');
 
     assert.equal(currentURL(), '/income/new');
@@ -92,7 +92,7 @@ module('Acceptance | income', function(hooks) {
     await fillIn('#income-amount-input', '23.45');
     await click('#income-submit');
 
-    assert.equal(currentURL(), '/income/1bb74fb6-30c1-480d-a0ed-4d7b36d93168');
+    assert.equal(currentURL(), '/income');
   });
 
   test('visiting /income/:id', async function(assert) {

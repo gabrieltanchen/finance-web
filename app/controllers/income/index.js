@@ -43,6 +43,11 @@ export default class IncomeIndexController extends Controller {
     name: '',
   }];
 
+  paginationButtons = [{
+    linkToRoute: 'income.new',
+    linkToText: 'New',
+  }];
+
   @action
   setPage(page) {
     this.page = page;

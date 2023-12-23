@@ -12,10 +12,6 @@
     @defaultSortDirection={{this.defaultSortDirection}}
     @setPage={{this.setPage}}
     @setSort={{this.setSort}}
+    @headerButtons={{this.paginationButtons}}
   />
-</div>
-<div class="add-button">
-  <LinkTo @route="expenses.new" @query={{hash householdMemberId=this.householdMember.id}}>
-    <FaIcon @icon="plus" @size="lg" />
-  </LinkTo>
 </div>

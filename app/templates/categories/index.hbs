@@ -1,17 +1,11 @@
 <div class="container-lg">
-  <div class="title-with-buttons">
-    <h1>Categories</h1>
-    <div class="buttons">
-      <LinkTo @route="categories.new" class="button">
-        New
-      </LinkTo>
-    </div>
-  </div>
+  <h1>Categories</h1>
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.categories}}
     @page={{this.page}}
     @numPages={{this.categories.meta.pages}}
     @setPage={{this.setPage}}
+    @headerButtons={{this.paginationButtons}}
   />
 </div>

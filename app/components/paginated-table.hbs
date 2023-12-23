@@ -1,36 +1,51 @@
-<nav class="pagination" aria-label="Pagination Navigation">
-  <ul>
-    <li class="pagination-previous">
-      {{#if this.disablePrevious}}
-        <span>Previous</span>
+<div class="pagination-header">
+  <div class="buttons">
+    {{#each @headerButtons as |headerButton|}}
+      {{#if headerButton.linkToModel}}
+        <LinkTo @route={{headerButton.linkToRoute}} @model={{headerButton.linkToModel}} class="button">
+          {{headerButton.linkToText}}
+        </LinkTo>
       {{else}}
-        <button type="button" {{on "click" this.previousPage}} aria-label="Go to previous page">
-          Previous
-        </button>
+        <LinkTo @route={{headerButton.linkToRoute}} @query={{if headerButton.linkToQuery headerButton.linkToQuery (hash)}} class="button">
+          {{headerButton.linkToText}}
+        </LinkTo>
       {{/if}}
-    </li>
-    {{#each this.pageNumbers as |pageNumber|}}
-      <li class="pagination-page">
-        {{#if pageNumber.current}}
-          <span>{{pageNumber.page}}</span>
+    {{/each}}
+  </div>
+  <nav class="pagination" aria-label="Pagination Navigation">
+    <ul>
+      <li class="pagination-previous">
+        {{#if this.disablePrevious}}
+          <span>Previous</span>
         {{else}}
-          <button type="button" {{on "click" (fn this.setPage pageNumber.page)}} aria-label="Go to page {{pageNumber.page}}">
-            {{pageNumber.page}}
+          <button type="button" {{on "click" this.previousPage}} aria-label="Go to previous page">
+            Previous
           </button>
         {{/if}}
       </li>
-    {{/each}}
-    <li class="pagination-next">
-      {{#if this.disableNext}}
-        <span>Next</span>
-      {{else}}
-        <button type="button" {{on "click" this.nextPage}} aria-label="Go to next page">
-          Next
-        </button>
-      {{/if}}
-    </li>
-  </ul>
-</nav>
+      {{#each this.pageNumbers as |pageNumber|}}
+        <li class="pagination-page">
+          {{#if pageNumber.current}}
+            <span>{{pageNumber.page}}</span>
+          {{else}}
+            <button type="button" {{on "click" (fn this.setPage pageNumber.page)}} aria-label="Go to page {{pageNumber.page}}">
+              {{pageNumber.page}}
+            </button>
+          {{/if}}
+        </li>
+      {{/each}}
+      <li class="pagination-next">
+        {{#if this.disableNext}}
+          <span>Next</span>
+        {{else}}
+          <button type="button" {{on "click" this.nextPage}} aria-label="Go to next page">
+            Next
+          </button>
+        {{/if}}
+      </li>
+    </ul>
+  </nav>
+</div>
 <table>
   <thead>
     <tr>

@@ -10,10 +10,6 @@
     @defaultSortDirection={{this.defaultSortDirection}}
     @setPage={{this.setPage}}
     @setSort={{this.setSort}}
+    @headerButtons={{this.paginationButtons}}
   />
-</div>
-<div class="add-button">
-  <LinkTo @route="expenses.attachments.new" @model={{this.expense}}>
-    <FaIcon @icon="plus" @size="lg" />
-  </LinkTo>
 </div>

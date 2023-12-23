@@ -34,6 +34,14 @@ export default class ExpensesAttachmentsIndexController extends Controller {
     name: '',
   }];
 
+  get paginationButtons() {
+    return [{
+      linkToModel: this.expense,
+      linkToRoute: 'expenses.attachments.new',
+      linkToText: 'New',
+    }];
+  }
+
   @action
   setPage(page) {
     this.page = page;

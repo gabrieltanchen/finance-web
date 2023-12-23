@@ -42,6 +42,14 @@ export default class LoansLoanPaymentsController extends Controller {
     name: '',
   }];
 
+  get paginationButtons() {
+    return [{
+      linkToQuery: { loanId: this.loan.id },
+      linkToRoute: 'loan-payments.new',
+      linkToText: 'New',
+    }];
+  }
+
   @action
   setPage(page) {
     this.page = page;

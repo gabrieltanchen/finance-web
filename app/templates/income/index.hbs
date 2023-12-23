@@ -1,12 +1,5 @@
 <div class="container-lg">
-  <div class="title-with-buttons">
-    <h1>Income</h1>
-    <div class="buttons">
-      <LinkTo @route="income.new" class="button">
-        New
-      </LinkTo>
-    </div>
-  </div>
+  <h1>Income</h1>
   <PaginatedTable
     @columns={{this.tableColumns}}
     @rows={{this.incomes}}
@@ -18,5 +11,6 @@
     @defaultSortDirection={{this.defaultSortDirection}}
     @setPage={{this.setPage}}
     @setSort={{this.setSort}}
+    @headerButtons={{this.paginationButtons}}
   />
 </div>

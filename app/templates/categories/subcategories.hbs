@@ -7,10 +7,6 @@
     @page={{this.page}}
     @numPages={{this.subcategories.meta.pages}}
     @setPage={{this.setPage}}
+    @headerButtons={{this.paginationButtons}}
   />
-  <div class="add-button">
-    <LinkTo @route="subcategories.new" @query={{hash categoryId=this.category.id}}>
-      <FaIcon @icon="plus" @size="lg" />
-    </LinkTo>
-  </div>
 </div>

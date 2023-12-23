@@ -103,6 +103,10 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Subcategory - Test Subcategory');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -115,6 +119,10 @@ module('Acceptance | subcategories', function(hooks) {
 
     assert.equal(currentURL(), `/subcategories/${id}/budgets?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/budgets/new?subcategoryId=${id}`);
   });
 
   test('visiting /subcategories/:id/edit', async function(assert) {
@@ -174,6 +182,10 @@ module('Acceptance | subcategories', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Subcategory - Test Subcategory');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -186,6 +198,10 @@ module('Acceptance | subcategories', function(hooks) {
 
     assert.equal(currentURL(), `/subcategories/${id}/expenses?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/expenses/new?subcategoryId=${id}`);
   });
 
   test('visiting /subcategories/:id/settings', async function(assert) {

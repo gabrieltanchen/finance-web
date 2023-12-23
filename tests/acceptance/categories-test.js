@@ -24,13 +24,13 @@ module('Acceptance | categories', function(hooks) {
 
     assert.equal(currentURL(), '/categories');
     assert.dom('.container-lg').exists();
-    assert.dom('.title-with-buttons').exists();
-    assert.dom('.title-with-buttons h1').exists();
-    assert.dom('.title-with-buttons h1').containsText('Categories');
-    assert.dom('.title-with-buttons .buttons').exists();
-    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
-    assert.dom('.title-with-buttons .buttons a').containsText('New');
-    assert.dom('nav.pagination').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Categories');
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
+    assert.dom('.pagination-header nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -43,6 +43,10 @@ module('Acceptance | categories', function(hooks) {
 
     assert.equal(currentURL(), '/categories?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), '/categories/new');
   });
 
   test('visiting /categories/new', async function(assert) {
@@ -248,12 +252,12 @@ module('Acceptance | categories', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Category - Test Category');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
-    assert.dom('.add-button').exists();
-    assert.dom('.add-button a').exists();
-    assert.dom('.add-button a svg').exists();
-    assert.dom('.add-button a svg').hasClass('fa-plus');
 
     await click('.pagination-next button');
 
@@ -265,7 +269,7 @@ module('Acceptance | categories', function(hooks) {
     assert.equal(currentURL(), `/categories/${id}/subcategories?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
 
-    await click('.add-button a');
+    await click('.pagination-header .buttons a');
 
     assert.equal(currentURL(), `/subcategories/new?categoryId=${id}`);
   });

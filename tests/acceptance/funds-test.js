@@ -24,13 +24,13 @@ module('Acceptance | funds', function(hooks) {
 
     assert.equal(currentURL(), '/funds');
     assert.dom('.container-lg').exists();
-    assert.dom('.title-with-buttons').exists();
-    assert.dom('.title-with-buttons h1').exists();
-    assert.dom('.title-with-buttons h1').containsText('Funds');
-    assert.dom('.title-with-buttons .buttons').exists();
-    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
-    assert.dom('.title-with-buttons .buttons a').containsText('New');
-    assert.dom('nav.pagination').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Funds');
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
+    assert.dom('.pagination-header nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -43,6 +43,10 @@ module('Acceptance | funds', function(hooks) {
 
     assert.equal(currentURL(), '/funds?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), '/funds/new');
   });
 
   test('visiting /funds/new', async function(assert) {
@@ -109,6 +113,10 @@ module('Acceptance | funds', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Fund - Test Fund');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -121,6 +129,10 @@ module('Acceptance | funds', function(hooks) {
 
     assert.equal(currentURL(), `/funds/${id}/deposits?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/deposits/new?fundId=${id}`);
   });
 
   test('visiting /funds/:id/edit', async function(assert) {
@@ -179,6 +191,10 @@ module('Acceptance | funds', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Fund - Test Fund');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -191,6 +207,10 @@ module('Acceptance | funds', function(hooks) {
 
     assert.equal(currentURL(), `/funds/${id}/expenses?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/expenses/new?fundId=${id}`);
   });
 
   test('visiting /funds/:id/settings', async function(assert) {

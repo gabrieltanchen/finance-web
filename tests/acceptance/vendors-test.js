@@ -24,13 +24,13 @@ module('Acceptance | vendors', function(hooks) {
 
     assert.equal(currentURL(), '/vendors');
     assert.dom('.container-lg').exists();
-    assert.dom('.title-with-buttons').exists();
-    assert.dom('.title-with-buttons h1').exists();
-    assert.dom('.title-with-buttons h1').containsText('Vendors');
-    assert.dom('.title-with-buttons .buttons').exists();
-    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
-    assert.dom('.title-with-buttons .buttons a').containsText('New');
-    assert.dom('nav.pagination').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Vendors');
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
+    assert.dom('.pagination-header nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -43,6 +43,10 @@ module('Acceptance | vendors', function(hooks) {
 
     assert.equal(currentURL(), '/vendors?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), '/vendors/new');
   });
 
   test('visiting /vendors/new', async function(assert) {
@@ -160,6 +164,10 @@ module('Acceptance | vendors', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Vendor - Test Vendor');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -172,6 +180,10 @@ module('Acceptance | vendors', function(hooks) {
 
     assert.equal(currentURL(), `/vendors/${id}/expenses?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/expenses/new?vendorId=${id}`);
   });
 
   test('visiting /vendors/:id/settings', async function(assert) {

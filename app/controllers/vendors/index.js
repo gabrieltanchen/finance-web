@@ -25,6 +25,11 @@ export default class VendorsIndexController extends Controller {
     name: '',
   }];
 
+  paginationButtons = [{
+    linkToRoute: 'vendors.new',
+    linkToText: 'New',
+  }];
+
   @action
   setPage(page) {
     this.page = page;

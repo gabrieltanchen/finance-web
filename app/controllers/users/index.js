@@ -28,6 +28,11 @@ export default class UsersIndexController extends Controller {
     name: '',
   }];
 
+  paginationButtons = [{
+    linkToRoute: 'users.new',
+    linkToText: 'New',
+  }];
+
   @action
   setPage(page) {
     this.page = page;

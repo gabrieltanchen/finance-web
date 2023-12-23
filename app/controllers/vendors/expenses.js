@@ -59,6 +59,14 @@ export default class VendorsExpensesController extends Controller {
     name: '',
   }];
 
+  get paginationButtons() {
+    return [{
+      linkToQuery: { vendorId: this.vendor.id },
+      linkToRoute: 'expenses.new',
+      linkToText: 'New',
+    }];
+  }
+
   @action
   setPage(page) {
     this.page = page;

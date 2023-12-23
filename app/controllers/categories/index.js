@@ -25,6 +25,11 @@ export default class CategoriesIndexController extends Controller {
     name: '',
   }];
 
+  paginationButtons = [{
+    linkToRoute: 'categories.new',
+    linkToText: 'New',
+  }];
+
   @action
   setPage(page) {
     this.page = page;

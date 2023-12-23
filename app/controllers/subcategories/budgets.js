@@ -29,6 +29,14 @@ export default class SubcategoriesBudgetsController extends Controller {
     name: '',
   }];
 
+  get paginationButtons() {
+    return [{
+      linkToQuery: { subcategoryId: this.subcategory.id },
+      linkToRoute: 'budgets.new',
+      linkToText: 'New',
+    }];
+  }
+
   @action
   setPage(page) {
     this.page = page;

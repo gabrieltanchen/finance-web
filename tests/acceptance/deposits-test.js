@@ -52,18 +52,18 @@ module('Acceptance | deposits', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test deposit post error 2.');
   });
 
-  test('should transition to deposit details after creating deposit', async function(assert) {
-    await visit('/deposits/new');
+  test('should transition to fund deposits page after creating deposit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/deposits/new?fundId=${id}`);
 
-    assert.equal(currentURL(), '/deposits/new');
+    assert.equal(currentURL(), `/deposits/new?fundId=${id}`);
 
-    await selectChoose('#deposit-fund-select', '.ember-power-select-option', 2);
     await click('#deposit-date-input');
     await Pikaday.selectDate(new Date(2021, 1, 1));
     await fillIn('#deposit-amount-input', '23.45');
     await click('#deposit-submit');
 
-    assert.equal(currentURL(), '/deposits/ecb685d8-9e96-4d8d-acfa-f73ac732d22c');
+    assert.equal(currentURL(), `/funds/${id}/deposits`);
   });
 
   test('visiting /deposits/:id', async function(assert) {

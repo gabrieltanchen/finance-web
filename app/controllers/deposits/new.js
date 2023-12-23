@@ -9,7 +9,8 @@ export default class DepositsNewController extends Controller {
   @alias('model.funds') funds;
 
   @action
-  transitionToDepositDetails() {
-    this.router.transitionTo('deposits.show', this.deposit.id);
+  async transitionToDepositDetails() {
+    const fund = await this.deposit.fund;
+    this.router.transitionTo('funds.deposits', fund.id);
   }
 }

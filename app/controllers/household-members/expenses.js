@@ -59,6 +59,14 @@ export default class HouseholdMembersExpensesController extends Controller {
     name: '',
   }];
 
+  get paginationButtons() {
+    return [{
+      linkToQuery: { householdMemberId: this.householdMember.id },
+      linkToRoute: 'expenses.new',
+      linkToText: 'New',
+    }];
+  }
+
   @action
   setPage(page) {
     this.page = page;

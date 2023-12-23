@@ -24,13 +24,13 @@ module('Acceptance | loans', function(hooks) {
 
     assert.strictEqual(currentURL(), '/loans');
     assert.dom('.container-lg').exists();
-    assert.dom('.title-with-buttons').exists();
-    assert.dom('.title-with-buttons h1').exists();
-    assert.dom('.title-with-buttons h1').containsText('Loans');
-    assert.dom('.title-with-buttons .buttons').exists();
-    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
-    assert.dom('.title-with-buttons .buttons a').containsText('New');
-    assert.dom('nav.pagination').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Loans');
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
+    assert.dom('.pagination-header nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -38,10 +38,15 @@ module('Acceptance | loans', function(hooks) {
 
     assert.equal(currentURL(), '/loans?page=2');
     assert.dom('table tbody tr').exists({ count: 1 });
+
     await click('.pagination-previous button');
 
     assert.equal(currentURL(), '/loans?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), '/loans/new');
   });
 
   test('visiting /loans/new', async function(assert) {
@@ -160,6 +165,10 @@ module('Acceptance | loans', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Loan - Test Loan');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -172,6 +181,10 @@ module('Acceptance | loans', function(hooks) {
 
     assert.equal(currentURL(), `/loans/${id}/loan-payments?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/loan-payments/new?loanId=${id}`);
   });
 
   test('visiting /loans/:id/settings', async function(assert) {

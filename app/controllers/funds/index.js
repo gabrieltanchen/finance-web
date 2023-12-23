@@ -28,6 +28,11 @@ export default class FundsIndexController extends Controller {
     name: '',
   }];
 
+  paginationButtons = [{
+    linkToRoute: 'funds.new',
+    linkToText: 'New',
+  }];
+
   @action
   setPage(page) {
     this.page = page;

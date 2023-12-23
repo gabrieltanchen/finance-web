@@ -1,37 +1,57 @@
-nav {
-  &.pagination {
+.pagination-header {
+  display: flex;
+  justify-content: space-between;
+
+  .buttons {
+    align-items: center;
     display: flex;
-    justify-content: flex-end;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 
-    ul {
+    .button {
+      display: inline;
+      margin: 0 0.5em 0 0;
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }
+
+  nav {
+    &.pagination {
+      align-items: flex-end;
       display: flex;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      justify-content: flex-end;
 
-      li {
-        button,
-        span {
-          background-color: transparent;
-          border: 0;
-          display: block;
-          font-size: 0.8em;
-          margin: 0;
-          padding: 1em;
-        }
+      ul {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
 
-        button {
-          color: $black;
-          cursor: pointer;
-          transition: color 0.1s linear;
-
-          &:hover {
-            color: $primary-colour;
+        li {
+          button,
+          span {
+            background-color: transparent;
+            border: 0;
+            display: block;
+            font-size: 0.8em;
+            margin: 0;
+            padding: 1em;
           }
-        }
 
-        span {
-          color: $grey;
+          button {
+            color: $black;
+            cursor: pointer;
+            transition: color 0.1s linear;
+
+            &:hover {
+              color: $primary-colour;
+            }
+          }
+
+          span {
+            color: $grey;
+          }
         }
       }
     }

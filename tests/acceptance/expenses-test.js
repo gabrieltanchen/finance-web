@@ -127,6 +127,10 @@ module('Acceptance | expenses', function(hooks) {
     assert.dom('h1').exists();
     assert.dom('h1').containsText('Expense Attachments');
     assert.dom('nav.secondary').exists();
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -139,6 +143,10 @@ module('Acceptance | expenses', function(hooks) {
 
     assert.equal(currentURL(), `/expenses/${id}/attachments?page=1`);
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), `/expenses/${id}/attachments/new`);
   });
 
   test('visiting /expenses/:id/attachments/new', async function(assert) {

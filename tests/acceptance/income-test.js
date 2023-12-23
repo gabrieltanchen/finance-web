@@ -26,13 +26,13 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income');
     assert.dom('.container-lg').exists();
-    assert.dom('.title-with-buttons').exists();
-    assert.dom('.title-with-buttons h1').exists();
-    assert.dom('.title-with-buttons h1').containsText('Income');
-    assert.dom('.title-with-buttons .buttons').exists();
-    assert.dom('.title-with-buttons .buttons a').exists({ count: 1 });
-    assert.dom('.title-with-buttons .buttons a').containsText('New');
-    assert.dom('nav.pagination').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Income');
+    assert.dom('.pagination-header').exists();
+    assert.dom('.pagination-header .buttons').exists();
+    assert.dom('.pagination-header .buttons a').exists({ count: 1 });
+    assert.dom('.pagination-header .buttons a').containsText('New');
+    assert.dom('.pagination-header nav.pagination').exists();
     assert.dom('table').exists();
     assert.dom('table tbody tr').exists({ count: 25 });
 
@@ -45,6 +45,10 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income?page=1');
     assert.dom('table tbody tr').exists({ count: 25 });
+
+    await click('.pagination-header .buttons a');
+
+    assert.equal(currentURL(), '/income/new');
   });
 
   test('visiting /income/new', async function(assert) {

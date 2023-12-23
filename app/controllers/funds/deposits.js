@@ -34,6 +34,14 @@ export default class FundsDepositsController extends Controller {
     name: '',
   }];
 
+  get paginationButtons() {
+    return [{
+      linkToQuery: { fundId: this.fund.id },
+      linkToRoute: 'deposits.new',
+      linkToText: 'New',
+    }];
+  }
+
   @action
   setPage(page) {
     this.page = page;

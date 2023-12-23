@@ -7,10 +7,6 @@
     @page={{this.page}}
     @numPages={{this.budgets.meta.pages}}
     @setPage={{this.setPage}}
+    @headerButtons={{this.paginationButtons}}
   />
-</div>
-<div class="add-button">
-  <LinkTo @route="budgets.new" @query={{hash subcategoryId=this.subcategory.id}}>
-    <FaIcon @icon="plus" @size="lg" />
-  </LinkTo>
 </div>

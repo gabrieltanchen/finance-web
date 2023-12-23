@@ -25,6 +25,11 @@ export default class HouseholdMembersIndexController extends Controller {
     name: '',
   }];
 
+  paginationButtons = [{
+    linkToRoute: 'household-members.new',
+    linkToText: 'New',
+  }];
+
   @action
   setPage(page) {
     this.page = page;

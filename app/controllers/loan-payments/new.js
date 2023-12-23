@@ -9,7 +9,8 @@ export default class LoanPaymentsNewController extends Controller {
   @alias('model.loans') loans;
 
   @action
-  transitionToLoanPaymentDetails() {
-    this.router.transitionTo('loan-payments.show', this.loanPayment.id);
+  async transitionToLoanPaymentDetails() {
+    const loan = await this.loanPayment.loan;
+    this.router.transitionTo('loans.loan-payments', loan.id);
   }
 }

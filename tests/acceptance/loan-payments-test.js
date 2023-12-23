@@ -54,19 +54,19 @@ module('Acceptance | loan payments', function(hooks) {
     assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test loan payment post error 2.');
   });
 
-  test('should transition to loan payment details after creating loan payment', async function(assert) {
-    await visit('/loan-payments/new');
+  test('should transition to the loan\'s loan payments page after creating loan payment', async function(assert) {
+    const id = uuidv4();
+    await visit(`/loan-payments/new?loanId=${id}`);
 
-    assert.equal(currentURL(), '/loan-payments/new');
+    assert.equal(currentURL(), `/loan-payments/new?loanId=${id}`);
 
-    await selectChoose('#loan-payment-loan-select', '.ember-power-select-option', 2);
     await click('#loan-payment-date-input');
     await Pikaday.selectDate(new Date(2023, 1, 1));
     await fillIn('#loan-payment-principal-amount-input', '56.78');
     await fillIn('#loan-payment-interest-amount-input', '12.34');
     await click('#loan-payment-submit');
 
-    assert.equal(currentURL(), '/loan-payments/3e29618c-84ce-4e73-8e2d-8da784b44e31');
+    assert.equal(currentURL(), `/loans/${id}/loan-payments`);
   });
 
   test('visiting /loan-payments/:id', async function(assert) {

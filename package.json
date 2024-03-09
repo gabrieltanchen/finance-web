@@ -29,7 +29,7 @@
     "@babel/eslint-parser": "7.23.3",
     "@babel/plugin-proposal-decorators": "7.23.6",
     "@ember/optional-features": "2.0.0",
-    "@ember/test-helpers": "2.9.3",
+    "@ember/test-helpers": "3.3.0",
     "@fortawesome/ember-fontawesome": "0.4.1",
     "@fortawesome/free-brands-svg-icons": "6.5.1",
     "@fortawesome/free-regular-svg-icons": "6.5.1",

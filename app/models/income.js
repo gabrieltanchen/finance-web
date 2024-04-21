@@ -1,4 +1,4 @@
-import Model, { attr, belongsTo } from '@ember-data/model';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class IncomeModel extends Model {
   @attr('dollars') amount;
@@ -6,6 +6,7 @@ export default class IncomeModel extends Model {
   @attr('string') date;
   @attr('string') description;
 
+  @hasMany('employer') employers;
   @belongsTo('household-member') householdMember;
 
   get amountStr() {

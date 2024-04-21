@@ -508,6 +508,38 @@ export default function(config) {
         });
       });
 
+      this.get('/employers', (db, request) => {
+        let data;
+        if (request.queryParams.page === '2') {
+          data = [{
+            'attributes': {
+              'name': 'Employer 26',
+            },
+            'id': uuidv4(),
+            'type': 'employers',
+          }];
+        } else {
+          data = [...Array(25).keys()].map((ind) => {
+            return {
+              'attributes': {
+                'name': `Employer ${ind}`,
+              },
+              'id': uuidv4(),
+              'type': 'employers',
+            };
+          });
+        }
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': data,
+          'meta': {
+            'pages': 2,
+            'total': 26,
+          },
+        });
+      });
+
       this.get('/expenses', (db, request) => {
         let data;
         if (request.queryParams.page === '2') {

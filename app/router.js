@@ -27,6 +27,7 @@ Router.map(function() {
     this.route('settings', { path: '/:deposit_id/settings' });
     this.route('show', { path: '/:deposit_id' });
   });
+  this.route('employers', function() {});
   this.route('expenses', function() {
     this.route('attachments', { path: '/:expense_id/attachments' }, function() {
       this.route('edit', { path: '/:attachment_id/edit' });

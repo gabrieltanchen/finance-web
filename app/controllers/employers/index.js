@@ -15,6 +15,15 @@ export default class EmployersIndexController extends Controller {
   }, {
     name: 'Created At',
     propertyName: 'createdAt',
+  }, {
+    linkText: 'View',
+    linkTo: 'employers.show',
+    name: '',
+  }];
+
+  paginationButtons = [{
+    linkToRoute: 'employers.new',
+    linkToText: 'New',
   }];
 
   @action

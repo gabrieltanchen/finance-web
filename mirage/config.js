@@ -539,6 +539,47 @@ export default function(config) {
           },
         });
       });
+      this.post('/employers', (db, request) => {
+        const params = JSON.parse(request.requestBody);
+        if (params.data
+            && params.data.attributes
+            && params.data.attributes.name
+            && params.data.attributes.name === 'Error Employer') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test employer post error 1.',
+            }, {
+              detail: 'Test employer post error 2.',
+            }],
+          });
+        }
+        return new Response(201, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': '1a0162e5-2316-4a86-9de0-57817ab5a62c',
+            'type': 'employers',
+          },
+        });
+      });
+      this.get('/employers/:id', (db, request) => {
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': 'Test Employer',
+            },
+            'id': request.params.id,
+            'type': 'employers',
+          },
+        });
+      });
 
       this.get('/expenses', (db, request) => {
         let data;

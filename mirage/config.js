@@ -580,6 +580,31 @@ export default function(config) {
           },
         });
       });
+      this.patch('/employers/:id', (db, request) => {
+        if (request.params.id === 'd865d244-222b-4d30-b92e-8973cc58fd51') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test employer patch error 1.',
+            }, {
+              detail: 'Test employer patch error 2.',
+            }],
+          });
+        }
+        const params = JSON.parse(request.requestBody);
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': request.params.id,
+            'type': 'employers',
+          },
+        });
+      });
 
       this.get('/expenses', (db, request) => {
         let data;

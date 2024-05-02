@@ -28,6 +28,7 @@ Router.map(function() {
     this.route('show', { path: '/:deposit_id' });
   });
   this.route('employers', function() {
+    this.route('edit', { path: '/:employer_id/edit' });
     this.route('new');
     this.route('show', { path: '/:employer_id' });
   });

@@ -102,4 +102,51 @@ module('Acceptance | employers', function(hooks) {
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Name');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Created At');
   });
+
+  test('visiting /employers/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}/edit`);
+
+    assert.equal(currentURL(), `/employers/${id}/edit`);
+    assert.dom('.container-lg').exists();
+    assert.dom('h1').exists();
+    assert.dom('h1').containsText('Edit Employer - Test Employer');
+    assert.dom('nav.secondary').exists();
+    assert.dom('form').exists();
+    assert.dom('#employer-name-input').exists();
+    assert.dom('#employer-submit').exists();
+    assert.dom('.callout.alert').doesNotExist();
+  });
+
+  test('should render errors from api when editing employer', async function(assert) {
+    await visit('/employers/d865d244-222b-4d30-b92e-8973cc58fd51/edit');
+
+    assert.equal(currentURL(), '/employers/d865d244-222b-4d30-b92e-8973cc58fd51/edit');
+
+    await fillIn('#employer-name-input', 'Updated Employer');
+    await click('#employer-submit');
+
+    assert.dom('.callout.alert').exists();
+    assert.dom('.callout.alert p').exists({ count: 2 });
+    assert.dom('.callout.alert p:nth-of-type(1)').containsText('Test employer patch error 1.');
+    assert.dom('.callout.alert p:nth-of-type(2)').containsText('Test employer patch error 2.');
+
+    // Test that the employer name gets reset after navigating away from edit page.
+    await click('nav.secondary ul li:nth-of-type(1) a');
+
+    assert.equal(currentURL(), '/employers/d865d244-222b-4d30-b92e-8973cc58fd51');
+    assert.dom('h1').containsText('Employer - Test Employer');
+  });
+
+  test('should transition to employer details after editing employer', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}/edit`);
+
+    assert.equal(currentURL(), `/employers/${id}/edit`);
+
+    await fillIn('#employer-name-input', 'Updated Employer');
+    await click('#employer-submit');
+
+    assert.equal(currentURL(), `/employers/${id}`);
+  });
 });

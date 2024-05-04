@@ -149,4 +149,91 @@ module('Acceptance | employers', function(hooks) {
 
     assert.equal(currentURL(), `/employers/${id}`);
   });
+
+  test('visiting /employers/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}/settings`);
+
+    assert.equal(currentURL(), `/employers/${id}/settings`);
+    assert.dom('.container-lg').exists();
+    assert.dom('.container-lg h1').exists();
+    assert.dom('.container-lg h1').containsText('Employer - Test Employer');
+    assert.dom('.container-lg nav.secondary').exists();
+    assert.dom('.container-sm').exists();
+    assert.dom('.container-sm a').exists();
+    assert.dom('.container-sm a').hasClass('button');
+    assert.dom('.container-sm a').containsText('Edit');
+    assert.dom('.container-sm button').exists();
+    assert.dom('.container-sm button').hasClass('button');
+    assert.dom('.container-sm button').hasClass('alert');
+    assert.dom('.container-sm button').containsText('Delete');
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+    assert.dom('.overlay .modal > p').exists();
+    assert.dom('.overlay .modal > p').containsText('Are you sure you want to delete employer Test Employer?');
+    assert.dom('.overlay .modal button.button.alert').exists();
+    assert.dom('.overlay .modal button.button.alert').containsText('Delete');
+    assert.dom('.overlay .modal button.button.cancel').exists();
+    assert.dom('.overlay .modal button.button.cancel').containsText('Cancel');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    await click('.container-sm a');
+
+    assert.equal(currentURL(), `/employers/${id}/edit`);
+  });
+
+  test('renders callout when deleting employer returns errors', async function(assert) {
+    await visit('/employers/03ed09a3-0ff2-4eb4-9e77-098b2fabe26f/settings');
+
+    assert.equal(currentURL(), '/employers/03ed09a3-0ff2-4eb4-9e77-098b2fabe26f/settings');
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/employers/03ed09a3-0ff2-4eb4-9e77-098b2fabe26f/settings');
+
+    assert.dom('.overlay .modal .callout').exists();
+    assert.dom('.overlay .modal .callout').hasClass('alert');
+    assert.dom('.overlay .modal .callout p').exists({ count: 2 });
+    assert.dom('.overlay .modal .callout p:nth-of-type(1)').containsText('Test employer delete error 1.');
+    assert.dom('.overlay .modal .callout p:nth-of-type(2)').containsText('Test employer delete error 2.');
+
+    await click('.overlay .modal button.button.cancel');
+
+    assert.dom('.overlay').doesNotExist();
+
+    // Verify the error callout is cleared when opening the modal again.
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay').exists();
+    assert.dom('.overlay .modal .callout').doesNotExist();
+  });
+
+  test('transitions to /employers on successful employer deletion', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}/settings`);
+
+    assert.equal(currentURL(), `/employers/${id}/settings`);
+    assert.dom('.container-sm button.button.alert').exists();
+
+    await click('.container-sm button.button.alert');
+
+    assert.dom('.overlay .modal button.button.alert').exists();
+
+    await click('.overlay .modal button.button.alert');
+
+    assert.equal(currentURL(), '/employers');
+  });
 });

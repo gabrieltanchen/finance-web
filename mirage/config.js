@@ -567,6 +567,22 @@ export default function(config) {
           },
         });
       });
+      this.delete('/employers/:id', (db, request) => {
+        if (request.params.id === '03ed09a3-0ff2-4eb4-9e77-098b2fabe26f') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test employer delete error 1.',
+            }, {
+              detail: 'Test employer delete error 2.',
+            }],
+          });
+        }
+        return new Response(204, {
+          'Content-Type': 'application/vnd.api+json',
+        });
+      });
       this.get('/employers/:id', (db, request) => {
         return new Response(200, {
           'Content-Type': 'application/vnd.api+json',

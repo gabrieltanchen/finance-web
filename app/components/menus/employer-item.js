@@ -7,4 +7,8 @@ export default class MenusEmployerItemComponent extends Component {
   get isDetailsRoute() {
     return this.router.currentRouteName === 'employers.show';
   }
+
+  get isSettingsRoute() {
+    return this.router.currentRouteName === 'employers.settings';
+  }
 }

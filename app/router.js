@@ -30,6 +30,7 @@ Router.map(function() {
   this.route('employers', function() {
     this.route('edit', { path: '/:employer_id/edit' });
     this.route('new');
+    this.route('settings', { path: '/:employer_id/settings' });
     this.route('show', { path: '/:employer_id' });
   });
   this.route('expenses', function() {

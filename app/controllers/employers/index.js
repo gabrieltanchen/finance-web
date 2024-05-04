@@ -19,6 +19,10 @@ export default class EmployersIndexController extends Controller {
     linkText: 'View',
     linkTo: 'employers.show',
     name: '',
+  }, {
+    linkText: 'Edit',
+    linkTo: 'employers.edit',
+    name: '',
   }];
 
   paginationButtons = [{

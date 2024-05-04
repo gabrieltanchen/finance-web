@@ -13,5 +13,18 @@
         </LinkTo>
       {{/if}}
     </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="gear" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="employers.settings" @model={{@employerId}}>
+          <FaIcon @icon="gear" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
   </ul>
 </nav>

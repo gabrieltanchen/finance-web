@@ -1,0 +1,11 @@
+<div class="container-lg">
+  <h1>Employers</h1>
+  <PaginatedTable
+    @columns={{this.tableColumns}}
+    @rows={{this.employers}}
+    @page={{this.page}}
+    @numPages={{this.employers.meta.pages}}
+    @setPage={{this.setPage}}
+    @headerButtons={{this.paginationButtons}}
+  />
+</div>

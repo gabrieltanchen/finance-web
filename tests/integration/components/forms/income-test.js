@@ -11,6 +11,16 @@ module('Integration | Component | forms/income', function(hooks) {
 
   hooks.beforeEach(function() {
     this.setProperties({
+      employers: [{
+        id: uuidv4(),
+        name: 'Employer 1',
+      }, {
+        id: uuidv4(),
+        name: 'Employer 2',
+      }, {
+        id: uuidv4(),
+        name: 'Employer 3',
+      }],
       householdMembers: [{
         id: uuidv4(),
         name: 'Household Member 1',
@@ -35,7 +45,7 @@ module('Integration | Component | forms/income', function(hooks) {
     await render(hbs`<Forms::Income @income={{this.income}} @householdMembers={{this.householdMembers}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 4 });
+    assert.dom('form label').exists({ count: 5 });
     assert.dom('form input').exists({ count: 4 });
 
     assert.dom('form div:nth-of-type(1) label').containsText('Date');
@@ -45,15 +55,17 @@ module('Integration | Component | forms/income', function(hooks) {
 
     assert.dom('form div:nth-of-type(2) label').containsText('Member');
 
-    assert.dom('form div:nth-of-type(3) label').containsText('Description');
-    assert.dom('form div:nth-of-type(3) input').hasNoValue();
+    assert.dom('form div:nth-of-type(3) label').containsText('Employer');
 
-    assert.dom('form div:nth-of-type(4) label').containsText('Amount');
+    assert.dom('form div:nth-of-type(4) label').containsText('Description');
     assert.dom('form div:nth-of-type(4) input').hasNoValue();
 
-    assert.dom('form div:nth-of-type(5) input').hasValue('Save');
-    assert.dom('form div:nth-of-type(5) input').hasAttribute('type', 'submit');
-    assert.dom('form div:nth-of-type(5) input').hasAttribute('id', 'income-submit');
+    assert.dom('form div:nth-of-type(5) label').containsText('Amount');
+    assert.dom('form div:nth-of-type(5) input').hasNoValue();
+
+    assert.dom('form div:nth-of-type(6) input').hasValue('Save');
+    assert.dom('form div:nth-of-type(6) input').hasAttribute('type', 'submit');
+    assert.dom('form div:nth-of-type(6) input').hasAttribute('id', 'income-submit');
 
     assert.dom('.callout').doesNotExist();
   });
@@ -65,22 +77,25 @@ module('Integration | Component | forms/income', function(hooks) {
       amount: 12.34,
       date: '2020-01-01',
       description: 'Test Income',
+      employer: this.employers[1],
       householdMember: this.householdMembers[1],
     });
 
     await render(hbs`<Forms::Income @income={{this.income}} @householdMembers={{this.householdMembers}} />`);
 
     assert.dom('form').exists();
-    assert.dom('form label').exists({ count: 4 });
+    assert.dom('form label').exists({ count: 5 });
     assert.dom('form input').exists({ count: 4 });
     assert.dom('form div:nth-of-type(1) label').containsText('Date');
     assert.dom('form div:nth-of-type(1) input').hasValue('2020-01-01');
     assert.dom('form div:nth-of-type(2) label').containsText('Member');
     assert.dom('form div:nth-of-type(2) .ember-power-select-selected-item').containsText('Household Member 2');
-    assert.dom('form div:nth-of-type(3) label').containsText('Description');
-    assert.dom('form div:nth-of-type(3) input').hasValue('Test Income');
-    assert.dom('form div:nth-of-type(4) label').containsText('Amount');
-    assert.dom('form div:nth-of-type(4) input').hasValue('12.34');
+    assert.dom('form div:nth-of-type(3) label').containsText('Employer');
+    assert.dom('form div:nth-of-type(3) .ember-power-select-selected-item').containsText('Employer 2');
+    assert.dom('form div:nth-of-type(4) label').containsText('Description');
+    assert.dom('form div:nth-of-type(4) input').hasValue('Test Income');
+    assert.dom('form div:nth-of-type(5) label').containsText('Amount');
+    assert.dom('form div:nth-of-type(5) input').hasValue('12.34');
   });
 
   test('it should render alert callout', async function(assert) {

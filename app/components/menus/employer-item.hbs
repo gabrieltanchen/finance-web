@@ -1,0 +1,30 @@
+<nav class="secondary">
+  <ul>
+    <li>
+      {{#if this.isDetailsRoute}}
+        <span>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </span>
+      {{else}}
+        <LinkTo @route="employers.show" @model={{@employerId}}>
+          <FaIcon @icon="list" @size="sm" />
+          Details
+        </LinkTo>
+      {{/if}}
+    </li>
+    <li>
+      {{#if this.isSettingsRoute}}
+        <span>
+          <FaIcon @icon="gear" @size="sm" />
+          Settings
+        </span>
+      {{else}}
+        <LinkTo @route="employers.settings" @model={{@employerId}}>
+          <FaIcon @icon="gear" @size="sm" />
+          Settings
+        </LinkTo>
+      {{/if}}
+    </li>
+  </ul>
+</nav>

@@ -508,6 +508,120 @@ export default function(config) {
         });
       });
 
+      this.get('/employers', (db, request) => {
+        let data;
+        if (request.queryParams.page === '2') {
+          data = [{
+            'attributes': {
+              'name': 'Employer 26',
+            },
+            'id': uuidv4(),
+            'type': 'employers',
+          }];
+        } else {
+          data = [...Array(25).keys()].map((ind) => {
+            return {
+              'attributes': {
+                'name': `Employer ${ind}`,
+              },
+              'id': uuidv4(),
+              'type': 'employers',
+            };
+          });
+        }
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': data,
+          'meta': {
+            'pages': 2,
+            'total': 26,
+          },
+        });
+      });
+      this.post('/employers', (db, request) => {
+        const params = JSON.parse(request.requestBody);
+        if (params.data
+            && params.data.attributes
+            && params.data.attributes.name
+            && params.data.attributes.name === 'Error Employer') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test employer post error 1.',
+            }, {
+              detail: 'Test employer post error 2.',
+            }],
+          });
+        }
+        return new Response(201, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': '1a0162e5-2316-4a86-9de0-57817ab5a62c',
+            'type': 'employers',
+          },
+        });
+      });
+      this.delete('/employers/:id', (db, request) => {
+        if (request.params.id === '03ed09a3-0ff2-4eb4-9e77-098b2fabe26f') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test employer delete error 1.',
+            }, {
+              detail: 'Test employer delete error 2.',
+            }],
+          });
+        }
+        return new Response(204, {
+          'Content-Type': 'application/vnd.api+json',
+        });
+      });
+      this.get('/employers/:id', (db, request) => {
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': 'Test Employer',
+            },
+            'id': request.params.id,
+            'type': 'employers',
+          },
+        });
+      });
+      this.patch('/employers/:id', (db, request) => {
+        if (request.params.id === 'd865d244-222b-4d30-b92e-8973cc58fd51') {
+          return new Response(403, {
+            'Content-Type': 'application/vnd.api+json',
+          }, {
+            errors: [{
+              detail: 'Test employer patch error 1.',
+            }, {
+              detail: 'Test employer patch error 2.',
+            }],
+          });
+        }
+        const params = JSON.parse(request.requestBody);
+        return new Response(200, {
+          'Content-Type': 'application/vnd.api+json',
+        }, {
+          'data': {
+            'attributes': {
+              'name': params.data.attributes.name,
+            },
+            'id': request.params.id,
+            'type': 'employers',
+          },
+        });
+      });
+
       this.get('/expenses', (db, request) => {
         let data;
         if (request.queryParams.page === '2') {

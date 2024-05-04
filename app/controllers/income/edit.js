@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default class IncomeEditController extends Controller {
   @service router;
+  @alias('model.employers') employers;
   @alias('model.householdMembers') householdMembers;
   @alias('model.income') income;
 

@@ -120,6 +120,39 @@ module('Acceptance | logged in redirects', function(hooks) {
     assert.equal(currentURL(), `/deposits/${id}/settings`);
   });
 
+  test('can visit /employers', async function(assert) {
+    await visit('/employers');
+
+    assert.equal(currentURL(), '/employers');
+  });
+
+  test('can visit /employers/new', async function(assert) {
+    await visit('/employers/new');
+
+    assert.equal(currentURL(), '/employers/new');
+  });
+
+  test('can visit /employers/:id', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}`);
+
+    assert.equal(currentURL(), `/employers/${id}`);
+  });
+
+  test('can visit /employers/:id/edit', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}/edit`);
+
+    assert.equal(currentURL(), `/employers/${id}/edit`);
+  });
+
+  test('can visit /employers/:id/settings', async function(assert) {
+    const id = uuidv4();
+    await visit(`/employers/${id}/settings`);
+
+    assert.equal(currentURL(), `/employers/${id}/settings`);
+  });
+
   test('can visit /expenses/new', async function(assert) {
     await visit('/expenses/new');
 

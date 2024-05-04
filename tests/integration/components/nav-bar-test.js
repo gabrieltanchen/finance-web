@@ -49,13 +49,14 @@ module('Integration | Component | nav-bar', function(hooks) {
     await render(hbs`<NavBar />`);
 
     assert.dom('.nav-links').exists();
-    assert.dom('.nav-links > a').exists({ count: 6 });
+    assert.dom('.nav-links > a').exists({ count: 7 });
     assert.dom('.nav-links > a:nth-of-type(1)').containsText('Categories');
     assert.dom('.nav-links > a:nth-of-type(2)').containsText('Income');
-    assert.dom('.nav-links > a:nth-of-type(3)').containsText('Funds');
-    assert.dom('.nav-links > a:nth-of-type(4)').containsText('Vendors');
-    assert.dom('.nav-links > a:nth-of-type(5)').containsText('Members');
-    assert.dom('.nav-links > a:nth-of-type(6)').containsText('Loans');
+    assert.dom('.nav-links > a:nth-of-type(3)').containsText('Employers');
+    assert.dom('.nav-links > a:nth-of-type(4)').containsText('Funds');
+    assert.dom('.nav-links > a:nth-of-type(5)').containsText('Vendors');
+    assert.dom('.nav-links > a:nth-of-type(6)').containsText('Members');
+    assert.dom('.nav-links > a:nth-of-type(7)').containsText('Loans');
     assert.dom('.nav-links > .nav-dropdown').exists();
     assert.dom('.nav-links > .nav-dropdown > button').exists({ count: 1 });
     assert.dom('.nav-links > .nav-dropdown > button').hasClass('nav-dropdown-button');

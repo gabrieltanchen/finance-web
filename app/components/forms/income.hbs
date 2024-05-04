@@ -31,6 +31,22 @@
     </PowerSelect>
   </div>
   <div>
+    <label for="income-employer-select">Employer</label>
+    <PowerSelect
+      @search={{action this.updateEmployerSearch}}
+      @searchEnabled={{true}}
+      @allowClear={{true}}
+      @options={{@employers}}
+      @searchField="name"
+      @selected={{@income.employer}}
+      @onChange={{action this.selectEmployer}}
+      @triggerId="income-employer-select"
+      as |employer|
+    >
+      {{employer.name}}
+    </PowerSelect>
+  </div>
+  <div>
     <label for="income-description-input">Description</label>
     <Input @value={{@income.description}} @type="text" id="income-description-input" />
   </div>

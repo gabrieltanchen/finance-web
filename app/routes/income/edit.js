@@ -15,6 +15,7 @@ export default class IncomeEditRoute extends Route {
 
   model(params) {
     return RSVP.hash({
+      employers: this.store.findAll('employer'),
       householdMembers: this.store.findAll('household-member'),
       income: this.store.findRecord('income', params.income_id),
     });

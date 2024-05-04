@@ -6,6 +6,7 @@ export default class IncomeModel extends Model {
   @attr('string') date;
   @attr('string') description;
 
+  @belongsTo('employer') employers;
   @belongsTo('household-member') householdMember;
 
   get amountStr() {

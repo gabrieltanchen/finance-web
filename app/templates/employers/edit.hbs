@@ -1,0 +1,7 @@
+<div class="container-lg">
+  <h1>Edit Employer - {{this.employer.name}}</h1>
+  <Menus::EmployerItem @employerId={{this.employer.id}} />
+</div>
+<div class="container-sm">
+  <Forms::Employer @employer={{this.employer}} @saveSuccessful={{this.transitionToEmployerDetails}} />
+</div>

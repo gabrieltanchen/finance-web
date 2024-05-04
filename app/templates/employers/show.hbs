@@ -1,0 +1,5 @@
+<div class="container-lg">
+  <h1>Employer - {{this.employer.name}}</h1>
+  <Menus::EmployerItem @employerId={{this.employer.id}} />
+  <DetailTable @model={{this.employer}} @properties={{this.properties}} />
+</div>

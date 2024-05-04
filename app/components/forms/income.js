@@ -8,8 +8,20 @@ export default class FormsIncomeComponent extends Component {
   @tracked errors = [];
 
   @action
+  selectEmployer(employer) {
+    set(this, 'args.income.employer', employer);
+  }
+
+  @action
   selectHouseholdMember(householdMember) {
     set(this, 'args.income.householdMember', householdMember);
+  }
+
+  @action
+  updateEmployerSearch(searchTerm) {
+    return this.store.query('employer', {
+      search: searchTerm,
+    });
   }
 
   @action

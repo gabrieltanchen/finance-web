@@ -109,12 +109,13 @@ module('Acceptance | income', function(hooks) {
     assert.dom('h1').containsText('View Income');
     assert.dom('nav.secondary').exists();
     assert.dom('table').exists();
-    assert.dom('table tbody tr').exists({ count: 5 });
+    assert.dom('table tbody tr').exists({ count: 6 });
     assert.dom('table tbody tr:nth-of-type(1) td:nth-of-type(1)').containsText('ID');
     assert.dom('table tbody tr:nth-of-type(2) td:nth-of-type(1)').containsText('Date');
     assert.dom('table tbody tr:nth-of-type(3) td:nth-of-type(1)').containsText('Amount');
     assert.dom('table tbody tr:nth-of-type(4) td:nth-of-type(1)').containsText('Member');
-    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Description');
+    assert.dom('table tbody tr:nth-of-type(5) td:nth-of-type(1)').containsText('Employer');
+    assert.dom('table tbody tr:nth-of-type(6) td:nth-of-type(1)').containsText('Description');
   });
 
   test('visiting /income/:id/edit', async function(assert) {
@@ -153,7 +154,7 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income/09571b16-7f41-404a-8387-a18b97cbad8e');
     assert.dom('table tr:nth-of-type(3) td:nth-of-type(2)').containsText('$10.00');
-    assert.dom('table tr:nth-of-type(5) td:nth-of-type(2)').containsText('Test Income');
+    assert.dom('table tr:nth-of-type(6) td:nth-of-type(2)').containsText('Test Income');
   });
 
   test('should transition to income details after editing income', async function(assert) {

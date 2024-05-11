@@ -24,6 +24,11 @@ export default class IncomeIndexController extends Controller {
     sortable: true,
     sortName: 'member',
   }, {
+    name: 'Employer',
+    propertyName: 'employer.name',
+    sortable: true,
+    sortName: 'employer',
+  }, {
     name: 'Description',
     propertyName: 'description',
     sortable: true,

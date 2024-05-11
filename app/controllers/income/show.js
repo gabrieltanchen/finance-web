@@ -19,6 +19,11 @@ export default class IncomeShowController extends Controller {
     name: 'Member',
     propertyName: 'householdMember.name',
   }, {
+    linkParam: 'employer.id',
+    linkTo: 'employers.show',
+    name: 'Employer',
+    propertyName: 'employer.name',
+  }, {
     name: 'Description',
     propertyName: 'description',
   }];

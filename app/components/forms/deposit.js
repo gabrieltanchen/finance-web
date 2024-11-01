@@ -20,11 +20,6 @@ export default class FormsDepositComponent extends Component {
   }
 
   @action
-  dateSelected(date) {
-    set(this, 'args.deposit.date', date.toISOString());
-  }
-
-  @action
   async save(e) {
     e.preventDefault();
     try {

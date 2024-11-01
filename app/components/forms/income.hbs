@@ -8,12 +8,7 @@
 <form class="income-form" {{on "submit" this.save}}>
   <div>
     <label for="income-date-input">Date</label>
-    <PikadayInput
-      @value={{@income.date}} id="income-date-input"
-      @onSelection={{action "dateSelected"}}
-      @format={{"YYYY-MM-DD"}}
-      @useUTC={{true}}
-    />
+    <Input @value={{@income.date}} @type="date" id="income-date-input" />
   </div>
   <div>
     <label for="income-household-member-select">Member</label>

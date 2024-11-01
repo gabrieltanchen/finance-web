@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -50,7 +49,7 @@ module('Integration | Component | forms/income', function(hooks) {
 
     assert.dom('form div:nth-of-type(1) label').containsText('Date');
     assert.dom('form div:nth-of-type(1) input').hasNoValue();
-    assert.dom('form div:nth-of-type(1) input').hasAttribute('type', 'text');
+    assert.dom('form div:nth-of-type(1) input').hasAttribute('type', 'date');
     assert.dom('form div:nth-of-type(1) input').hasAttribute('id', 'income-date-input');
 
     assert.dom('form div:nth-of-type(2) label').containsText('Member');
@@ -69,8 +68,6 @@ module('Integration | Component | forms/income', function(hooks) {
 
     assert.dom('.callout').doesNotExist();
   });
-
-  // ember-power-select-selected-item
 
   test('it renders a filled out income form', async function(assert) {
     this.set('income', {
@@ -117,8 +114,7 @@ module('Integration | Component | forms/income', function(hooks) {
 
     await render(hbs`<Forms::Income @income={{this.income}} @householdMembers={{this.householdMembers}} />`);
 
-    await click('#income-date-input');
-    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#income-date-input', '2020-01-01');
     await selectChoose('#income-household-member-select', '.ember-power-select-option', 2);
     await fillIn('#income-description-input', 'Test Income');
     await fillIn('#income-amount-input', '23.45');

@@ -6,7 +6,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -71,8 +70,7 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income/new');
 
-    await click('#income-date-input');
-    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#income-date-input', '2020-01-01');
     await selectChoose('#income-household-member-select', '.ember-power-select-option', 2);
     await fillIn('#income-description-input', 'Error Income');
     await fillIn('#income-amount-input', '23.45');
@@ -89,8 +87,7 @@ module('Acceptance | income', function(hooks) {
 
     assert.equal(currentURL(), '/income/new');
 
-    await click('#income-date-input');
-    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#income-date-input', '2020-01-01');
     await selectChoose('#income-household-member-select', '.ember-power-select-option', 2);
     await fillIn('#income-description-input', 'New Income');
     await fillIn('#income-amount-input', '23.45');

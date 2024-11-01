@@ -6,7 +6,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -64,8 +63,7 @@ module('Acceptance | expenses', function(hooks) {
 
     await selectChoose('#expense-vendor-select', '.ember-power-select-option', 2);
     await selectChoose('#expense-household-member-select', '.ember-power-select-option', 2);
-    await click('#expense-date-input');
-    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#expense-date-input', '2020-01-01');
     await fillIn('#expense-description-input', 'Error Expense');
     await fillIn('#expense-amount-input', '23.45');
     await fillIn('#expense-reimbursed-input', '12.34');
@@ -85,8 +83,7 @@ module('Acceptance | expenses', function(hooks) {
 
     await selectChoose('#expense-vendor-select', '.ember-power-select-option', 2);
     await selectChoose('#expense-household-member-select', '.ember-power-select-option', 2);
-    await click('#expense-date-input');
-    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#expense-date-input', '2020-01-01');
     await fillIn('#expense-description-input', 'New Expense');
     await fillIn('#expense-amount-input', '23.45');
     await fillIn('#expense-reimbursed-input', '12.34');

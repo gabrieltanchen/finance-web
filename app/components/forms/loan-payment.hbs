@@ -23,12 +23,7 @@
   </div>
   <div>
     <label for="loan-payment-date-input">Date</label>
-    <PikadayInput
-      @value={{@loanPayment.date}} id="loan-payment-date-input"
-      @onSelection={{action "dateSelected"}}
-      @format={{"YYYY-MM-DD"}}
-      @useUTC={{true}}
-    />
+    <Input @value={{@loanPayment.date}} @type="date" id="loan-payment-date-input" />
   </div>
   <div>
     <label for="loan-payment-principal-amount-input">Principal Amount</label>

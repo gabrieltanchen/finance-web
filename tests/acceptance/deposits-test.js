@@ -6,7 +6,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -41,8 +40,7 @@ module('Acceptance | deposits', function(hooks) {
     assert.equal(currentURL(), '/deposits/new');
 
     await selectChoose('#deposit-fund-select', '.ember-power-select-option', 2);
-    await click('#deposit-date-input');
-    await Pikaday.selectDate(new Date(2021, 1, 1));
+    await fillIn('#deposit-date-input', '2021-01-01');
     await fillIn('#deposit-amount-input', '98.76');
     await click('#deposit-submit');
 
@@ -58,8 +56,7 @@ module('Acceptance | deposits', function(hooks) {
 
     assert.equal(currentURL(), `/deposits/new?fundId=${id}`);
 
-    await click('#deposit-date-input');
-    await Pikaday.selectDate(new Date(2021, 1, 1));
+    await fillIn('#deposit-date-input', '2021-01-01');
     await fillIn('#deposit-amount-input', '23.45');
     await click('#deposit-submit');
 

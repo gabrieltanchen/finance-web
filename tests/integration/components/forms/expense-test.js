@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -81,7 +80,7 @@ module('Integration | Component | forms/expense', function(hooks) {
 
     assert.dom('form div:nth-of-type(5) label').containsText('Date');
     assert.dom('form div:nth-of-type(5) input').hasNoValue();
-    assert.dom('form div:nth-of-type(5) input').hasAttribute('type', 'text');
+    assert.dom('form div:nth-of-type(5) input').hasAttribute('type', 'date');
     assert.dom('form div:nth-of-type(5) input').hasAttribute('id', 'expense-date-input');
 
     assert.dom('form div:nth-of-type(6) label').containsText('Description');
@@ -160,8 +159,7 @@ module('Integration | Component | forms/expense', function(hooks) {
     await selectChoose('#expense-subcategory-select', '.ember-power-select-option', 2);
     await selectChoose('#expense-vendor-select', '.ember-power-select-option', 2);
     await selectChoose('#expense-household-member-select', '.ember-power-select-option', 2);
-    await click('#expense-date-input');
-    await Pikaday.selectDate(new Date(2020, 1, 1));
+    await fillIn('#expense-date-input', '2020-01-01');
     await fillIn('#expense-description-input', 'Test Expense');
     await fillIn('#expense-amount-input', '23.45');
     await fillIn('#expense-reimbursed-input', '0');

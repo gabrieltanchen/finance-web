@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -41,7 +40,7 @@ module('Integration | Component | forms/deposit', function(hooks) {
 
     assert.dom('form div:nth-of-type(2) label').containsText('Date');
     assert.dom('form div:nth-of-type(2) input').hasNoValue();
-    assert.dom('form div:nth-of-type(2) input').hasAttribute('type', 'text');
+    assert.dom('form div:nth-of-type(2) input').hasAttribute('type', 'date');
     assert.dom('form div:nth-of-type(2) input').hasAttribute('id', 'deposit-date-input');
 
     assert.dom('form div:nth-of-type(3) label').containsText('Amount');
@@ -93,8 +92,7 @@ module('Integration | Component | forms/deposit', function(hooks) {
     await render(hbs`<Forms::Deposit @deposit={{this.deposit}} @funds={{this.funds}} />`);
 
     await selectChoose('#deposit-fund-select', '.ember-power-select-option', 2);
-    await click('#deposit-date-input');
-    await Pikaday.selectDate(new Date(2021, 1, 1));
+    await fillIn('#deposit-date-input', '2021-01-01');
     await fillIn('#deposit-amount-input', '23.45');
     await click('#deposit-submit');
 

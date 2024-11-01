@@ -32,11 +32,6 @@ export default class FormsIncomeComponent extends Component {
   }
 
   @action
-  dateSelected(date) {
-    set(this, 'args.income.date', date.toISOString());
-  }
-
-  @action
   async save(e) {
     e.preventDefault();
     try {

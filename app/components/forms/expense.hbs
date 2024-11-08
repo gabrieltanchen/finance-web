@@ -69,12 +69,7 @@
   </div>
   <div>
     <label for="expense-date-input">Date</label>
-    <PikadayInput
-      @value={{@expense.date}} id="expense-date-input"
-      @onSelection={{action "dateSelected"}}
-      @format={{"YYYY-MM-DD"}}
-      @useUTC={{true}}
-    />
+    <Input @value={{@expense.date}} @type="date" id="expense-date-input" />
   </div>
   <div>
     <label for="expense-description-input">Description</label>

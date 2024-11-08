@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -42,7 +41,7 @@ module('Integration | Component | forms/loan-payment', function(hooks) {
 
     assert.dom('form div:nth-of-type(2) label').containsText('Date');
     assert.dom('form div:nth-of-type(2) input').hasNoValue();
-    assert.dom('form div:nth-of-type(2) input').hasAttribute('type', 'text');
+    assert.dom('form div:nth-of-type(2) input').hasAttribute('type', 'date');
     assert.dom('form div:nth-of-type(2) input').hasAttribute('id', 'loan-payment-date-input');
 
     assert.dom('form div:nth-of-type(3) label').containsText('Principal Amount');
@@ -106,8 +105,7 @@ module('Integration | Component | forms/loan-payment', function(hooks) {
     await render(hbs`<Forms::LoanPayment @loanPayment={{this.loanPayment}} @loans={{this.loans}} />`);
 
     await selectChoose('#loan-payment-loan-select', '.ember-power-select-option', 2);
-    await click('#loan-payment-date-input');
-    await Pikaday.selectDate(new Date(2023, 1, 1));
+    await fillIn('#loan-payment-date-input', '2023-01-01');
     await fillIn('#loan-payment-principal-amount-input', '56.78');
     await fillIn('#loan-payment-interest-amount-input', '12.34');
     await click('#loan-payment-submit');

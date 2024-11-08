@@ -23,12 +23,7 @@
   </div>
   <div>
     <label for="deposit-date-input">Date</label>
-    <PikadayInput
-      @value={{@deposit.date}} id="deposit-date-input"
-      @onSelection={{action "dateSelected"}}
-      @format={{"YYYY-MM-DD"}}
-      @useUTC={{true}}
-    />
+    <Input @value={{@deposit.date}} @type="date" id="deposit-date-input" />
   </div>
   <div>
     <label for="deposit-amount-input">Amount</label>

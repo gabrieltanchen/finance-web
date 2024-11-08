@@ -6,7 +6,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { Interactor as Pikaday } from 'ember-pikaday/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,8 +41,7 @@ module('Acceptance | loan payments', function(hooks) {
     assert.equal(currentURL(), '/loan-payments/new');
 
     await selectChoose('#loan-payment-loan-select', '.ember-power-select-option', 2);
-    await click('#loan-payment-date-input');
-    await Pikaday.selectDate(new Date(2023, 1, 1));
+    await fillIn('#loan-payment-date-input', '2023-01-01');
     await fillIn('#loan-payment-principal-amount-input', '98.76');
     await fillIn('#loan-payment-interest-amount-input', '12.34');
     await click('#loan-payment-submit');
@@ -60,8 +58,7 @@ module('Acceptance | loan payments', function(hooks) {
 
     assert.equal(currentURL(), `/loan-payments/new?loanId=${id}`);
 
-    await click('#loan-payment-date-input');
-    await Pikaday.selectDate(new Date(2023, 1, 1));
+    await fillIn('#loan-payment-date-input', '2023-01-01');
     await fillIn('#loan-payment-principal-amount-input', '56.78');
     await fillIn('#loan-payment-interest-amount-input', '12.34');
     await click('#loan-payment-submit');

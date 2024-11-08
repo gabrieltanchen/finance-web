@@ -20,11 +20,6 @@ export default class FormsLoanPaymentComponent extends Component {
   }
 
   @action
-  dateSelected(date) {
-    set(this, 'args.loanPayment.date', date.toISOString());
-  }
-
-  @action
   async save(e) {
     e.preventDefault();
     try {

@@ -58,7 +58,6 @@
     "ember-file-upload": "9.0.0",
     "ember-load-initializers": "2.1.2",
     "ember-maybe-import-regenerator": "1.0.0",
-    "ember-pikaday": "5.0.0",
     "ember-power-select": "7.2.0",
     "ember-qunit": "6.1.1",
     "ember-resolver": "11.0.1",

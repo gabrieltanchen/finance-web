@@ -56,11 +56,6 @@ export default class FormsExpenseComponent extends Component {
   }
 
   @action
-  dateSelected(date) {
-    set(this, 'args.expense.date', date.toISOString());
-  }
-
-  @action
   async save(e) {
     e.preventDefault();
     try {

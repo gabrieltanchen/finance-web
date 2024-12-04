@@ -7,11 +7,26 @@ export default class ExpenseModel extends Model {
   @attr('string') description;
   @attr('dollars') reimbursedAmount;
 
-  @belongsTo('fund') fund;
-  @belongsTo('household-member') householdMember;
-  @belongsTo('subcategory') subcategory;
-  @belongsTo('vendor') vendor;
-  @hasMany('attachment') attachments;
+  @belongsTo(
+    'fund',
+    { async: true, inverse: 'expenses' },
+  ) fund;
+  @belongsTo(
+    'household-member',
+    { async: true, inverse: 'expenses' },
+  ) householdMember;
+  @belongsTo(
+    'subcategory',
+    { async: true, inverse: 'expenses' },
+  ) subcategory;
+  @belongsTo(
+    'vendor',
+    { async: true, inverse: 'expenses' },
+  ) vendor;
+  @hasMany(
+    'attachment',
+    { async: true, inverse: 'expense' },
+  ) attachments;
 
   get amountStr() {
     if (parseFloat(this.amount) === 0) {

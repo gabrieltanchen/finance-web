@@ -18,7 +18,7 @@ export default class LoanPaymentsSettingsController extends Controller {
   @action
   async deleteLoanPayment(e) {
     e.preventDefault();
-    const loanId = this.loanPayment.loan.get('id');
+    const loanId = (await this.loanPayment.loan).id;
     try {
       await this.loanPayment.destroyRecord();
       this.showDeleteModal = false;

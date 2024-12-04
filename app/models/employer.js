@@ -4,5 +4,8 @@ export default class EmployerModel extends Model {
   @attr('date') createdAt;
   @attr('string') name;
 
-  @hasMany('income') incomes;
+  @hasMany(
+    'income',
+    { async: true, inverse: 'employer' },
+  ) incomes;
 }

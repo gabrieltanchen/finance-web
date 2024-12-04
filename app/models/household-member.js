@@ -8,8 +8,14 @@ export default class HouseholdMemberModel extends Model {
   @attr('dollars') sumIncome;
   @attr('dollars') sumReimbursed;
 
-  @hasMany('expense') expenses;
-  @hasMany('income') incomes;
+  @hasMany(
+    'expense',
+    { async: true, inverse: 'householdMember' },
+  ) expenses;
+  @hasMany(
+    'income',
+    { async: true, inverse: 'householdMember' },
+  ) incomes;
 
   get sumAmountStr() {
     if (parseFloat(this.sumAmount) === 0) {

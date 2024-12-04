@@ -5,7 +5,10 @@ export default class DepositModel extends Model {
   @attr('date') createdAt;
   @attr('string') date;
 
-  @belongsTo('fund') fund;
+  @belongsTo(
+    'fund',
+    { async: true, inverse: 'deposits' },
+  ) fund;
 
   get amountStr() {
     if (parseFloat(this.amount) === 0) {

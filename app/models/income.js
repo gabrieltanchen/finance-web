@@ -6,8 +6,14 @@ export default class IncomeModel extends Model {
   @attr('string') date;
   @attr('string') description;
 
-  @belongsTo('employer') employer;
-  @belongsTo('household-member') householdMember;
+  @belongsTo(
+    'employer',
+    { async: true, inverse: 'incomes' },
+  ) employer;
+  @belongsTo(
+    'household-member',
+    { async: true, inverse: 'incomes' },
+  ) householdMember;
 
   get amountStr() {
     if (parseFloat(this.amount) === 0) {

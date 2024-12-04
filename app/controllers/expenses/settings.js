@@ -18,7 +18,7 @@ export default class ExpensesSettingsController extends Controller {
   @action
   async deleteExpense(e) {
     e.preventDefault();
-    const subcategoryId = this.expense.subcategory.get('id');
+    const subcategoryId = (await this.expense.subcategory).id;
     try {
       await this.expense.destroyRecord();
       this.showDeleteModal = false;

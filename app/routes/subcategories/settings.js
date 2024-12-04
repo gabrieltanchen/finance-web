@@ -13,6 +13,8 @@ export default class SubcategoriesSettingsRoute extends Route {
   }
 
   model(params) {
-    return this.store.findRecord('subcategory', params.subcategory_id);
+    return this.store.findRecord('subcategory', params.subcategory_id, {
+      include: 'category',
+    });
   }
 }

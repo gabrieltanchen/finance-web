@@ -1,11 +1,10 @@
-import { discoverEmberDataModels } from 'ember-cli-mirage';
 import { createServer, Response } from 'miragejs';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function(config) {
   const finalConfig = {
     ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
+    models: { ...config.models },
     routes() {
       this.get('/attachments', (db, request) => {
         let data;
@@ -1477,6 +1476,13 @@ export default function(config) {
               'name': 'Test Subcategory',
             },
             'id': request.params.id,
+            'included': [{
+              'type': 'categories',
+              'id': 'd44a4e6e-90d7-4574-b5c8-eb5c0772e1a1',
+              'attributes': {
+                'name': 'Test Category',
+              },
+            }],
             'relationships': {
               'category': {
                 'data': {

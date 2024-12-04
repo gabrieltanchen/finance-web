@@ -7,7 +7,10 @@ export default class VendorModel extends Model {
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;
 
-  @hasMany('expense') expenses;
+  @hasMany(
+    'expense',
+    { async: true, inverse: 'vendor' },
+  ) expenses;
 
   get sumAmountStr() {
     if (parseFloat(this.sumAmount) === 0) {

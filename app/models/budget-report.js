@@ -4,8 +4,14 @@ export default class BudgetReportModel extends Model {
   @attr('dollars') actual;
   @attr('dollars') budget;
 
-  @belongsTo('category') category;
-  @belongsTo('subcategory') subcategory;
+  @belongsTo(
+    'category',
+    { async: true, inverse: null },
+  ) category;
+  @belongsTo(
+    'subcategory',
+    { async: true, inverse: null },
+  ) subcategory;
 
   get actualStr() {
     const actual = parseFloat(this.actual) || 0;

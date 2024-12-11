@@ -5,8 +5,14 @@ export default class FundModel extends Model {
   @attr('date') createdAt;
   @attr('string') name;
 
-  @hasMany('deposit') deposits;
-  @hasMany('expense') expenses;
+  @hasMany(
+    'deposit',
+    { async: true, inverse: 'fund' },
+  ) deposits;
+  @hasMany(
+    'expense',
+    { async: true, inverse: 'fund' },
+  ) expenses;
 
   get balanceStr() {
     if (parseFloat(this.balance) === 0) {

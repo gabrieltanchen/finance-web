@@ -6,7 +6,10 @@ export default class LoanPaymentModel extends Model {
   @attr('dollars') interestAmount;
   @attr('dollars') principalAmount;
 
-  @belongsTo('loan') loan;
+  @belongsTo(
+    'loan',
+    { async: true, inverse: 'loanPayments' },
+  ) loan;
 
   get interestAmountStr() {
     if (parseFloat(this.interestAmount) === 0) {

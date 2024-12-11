@@ -18,7 +18,7 @@ export default class SubcategoriesSettingsController extends Controller {
   @action
   async deleteSubcategory(e) {
     e.preventDefault();
-    const categoryId = this.subcategory.category.get('id');
+    const categoryId = (await this.subcategory.category).id;
     try {
       await this.subcategory.destroyRecord();
       this.showDeleteModal = false;

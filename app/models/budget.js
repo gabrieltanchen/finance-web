@@ -7,7 +7,10 @@ export default class BudgetModel extends Model {
   @attr('string') notes;
   @attr('number') year;
 
-  @belongsTo('subcategory') subcategory;
+  @belongsTo(
+    'subcategory',
+    { async: true, inverse: 'budgets' },
+  ) subcategory;
 
   get amountStr() {
     if (parseFloat(this.amount) === 0) {

@@ -18,7 +18,7 @@ export default class BudgetsSettingsController extends Controller {
   @action
   async deleteBudget(e) {
     e.preventDefault();
-    const subcategoryId = this.budget.subcategory.get('id');
+    const subcategoryId = (await this.budget.subcategory).id;
     try {
       await this.budget.destroyRecord();
       this.showDeleteModal = false;

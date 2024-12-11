@@ -8,7 +8,10 @@ export default class CategoryModel extends Model {
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;
 
-  @hasMany('subcategory') subcategories;
+  @hasMany(
+    'subcategory',
+    { async: true, inverse: 'category' },
+  ) subcategories;
 
   get sumAmountStr() {
     if (parseFloat(this.sumAmount) === 0) {

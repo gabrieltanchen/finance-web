@@ -18,7 +18,7 @@ export default class DepositsSettingsController extends Controller {
   @action
   async deleteDeposit(e) {
     e.preventDefault();
-    const fundId = this.deposit.fund.get('id');
+    const fundId = (await this.deposit.fund).id;
     try {
       await this.deposit.destroyRecord();
       this.showDeleteModal = false;

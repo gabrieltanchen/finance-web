@@ -7,9 +7,18 @@ export default class SubcategoryModel extends Model {
   @attr('dollars') sumAmount;
   @attr('dollars') sumReimbursed;
 
-  @belongsTo('category') category;
-  @hasMany('budget') budgets;
-  @hasMany('expense') expenses;
+  @belongsTo(
+    'category',
+    { async: true, inverse: 'subcategories' },
+  ) category;
+  @hasMany(
+    'budget',
+    { async: true, inverse: 'subcategory' },
+  ) budgets;
+  @hasMany(
+    'expense',
+    { async: true, inverse: 'subcategory' },
+  ) expenses;
 
   get sumAmountStr() {
     if (parseFloat(this.sumAmount) === 0) {

@@ -6,7 +6,10 @@ export default class LoanModel extends Model {
   @attr('date') createdAt;
   @attr('string') name;
 
-  @hasMany('loan-payment') loanPayments;
+  @hasMany(
+    'loan-payment',
+    { async: true, inverse: 'loan' },
+  ) loanPayments;
 
   get amountStr() {
     if (parseFloat(this.amount) === 0) {

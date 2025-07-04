@@ -36,7 +36,6 @@
     "@fortawesome/free-solid-svg-icons": "6.2.1",
     "@glimmer/component": "1.1.2",
     "@glimmer/tracking": "1.1.2",
-
     "broccoli-asset-rev": "3.0.0",
     "chart.js": "4.5.0",
     "coveralls": "3.1.1",
@@ -64,7 +63,6 @@
     "ember-source": "4.12.4",
     "ember-template-lint": "5.13.0",
     "eslint": "8.56.0",
-    "eslint-config-airbnb": "19.0.4",
     "eslint-plugin-ember": "12.5.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",

@@ -19,7 +19,7 @@ export default class LoginFormComponent extends Component {
       } else {
         this.errors = loginResult.errors;
       }
-    } catch (err) {
+    } catch {
       this.errors = [
         'An error occurred. Please try again later.',
       ];

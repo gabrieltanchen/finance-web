@@ -9,5 +9,7 @@ module.exports = {
     'no-invalid-interactive': false,
     'no-invalid-meta': false,
     'no-triple-curlies': false,
+    'no-builtin-form-components': false,
+    'no-at-ember-render-modifiers': false,
   },
 };

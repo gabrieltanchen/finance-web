@@ -21,7 +21,7 @@ export default class FormsBudgetComponent extends Component {
     'November',
     'December',
   ];
-  yearOptions = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+  yearOptions = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
 
   get selectedMonth() {
     return this.monthOptions[this.args.budget.month];

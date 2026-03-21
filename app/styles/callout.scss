@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .callout {
   border: 1px solid $black-alpha-25;
   font-size: 1rem;

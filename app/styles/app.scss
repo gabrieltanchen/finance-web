@@ -1,13 +1,13 @@
-@import 'variables';
-@import 'ember-power-select';
-@import 'nav';
-@import 'buttons';
-@import 'forms';
-@import 'callout';
-@import 'tables';
-@import 'modal';
-@import 'dashboard';
-@import 'report';
+@use 'variables' as *;
+@use 'ember-power-select';
+@use 'nav';
+@use 'buttons';
+@use 'forms';
+@use 'callout';
+@use 'tables';
+@use 'modal';
+@use 'dashboard';
+@use 'report';
 
 body {
   font-family: 'proxima-nova', sans-serif;

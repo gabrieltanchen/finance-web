@@ -9,12 +9,12 @@
   <div>
     <label for="expense-subcategory-select">Subcategory</label>
     <PowerSelect
-      @search={{action this.updateSubcategorySearch}}
+      @search={{this.updateSubcategorySearch}}
       @searchEnabled={{true}}
       @options={{@subcategories}}
       @searchField="name"
       @selected={{@expense.subcategory}}
-      @onChange={{action this.selectSubcategory}}
+      @onChange={{this.selectSubcategory}}
       @triggerId="expense-subcategory-select"
       as |subcategory|
     >
@@ -24,13 +24,13 @@
   <div>
     <label for="expense-fund-select">Fund</label>
     <PowerSelect
-      @search={{action this.updateFundSearch}}
+      @search={{this.updateFundSearch}}
       @searchEnabled={{true}}
       @allowClear={{true}}
       @options={{@funds}}
       @searchField="name"
       @selected={{@expense.fund}}
-      @onChange={{action this.selectFund}}
+      @onChange={{this.selectFund}}
       @triggerId="expense-fund-select"
       as |fund|
     >
@@ -40,12 +40,12 @@
   <div>
     <label for="expense-vendor-select">Vendor</label>
     <PowerSelect
-      @search={{action this.updateVendorSearch}}
+      @search={{this.updateVendorSearch}}
       @searchEnabled={{true}}
       @options={{@vendors}}
       @searchField="name"
       @selected={{@expense.vendor}}
-      @onChange={{action this.selectVendor}}
+      @onChange={{this.selectVendor}}
       @triggerId="expense-vendor-select"
       as |vendor|
     >
@@ -55,12 +55,12 @@
   <div>
     <label for="expense-household-member-select">Member</label>
     <PowerSelect
-      @search={{action this.updateHouseholdMemberSearch}}
+      @search={{this.updateHouseholdMemberSearch}}
       @searchEnabled={{true}}
       @options={{@householdMembers}}
       @searchField="name"
       @selected={{@expense.householdMember}}
-      @onChange={{action this.selectHouseholdMember}}
+      @onChange={{this.selectHouseholdMember}}
       @triggerId="expense-household-member-select"
       as |householdMember|
     >

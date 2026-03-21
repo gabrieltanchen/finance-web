@@ -9,12 +9,12 @@
   <div class="deposit-fund-select">
     <label for="deposit-fund-select">Fund</label>
     <PowerSelect
-      @search={{action this.updateFundSearch}}
+      @search={{this.updateFundSearch}}
       @searchEnabled={{true}}
       @options={{@funds}}
       @searchField="name"
       @selected={{@deposit.fund}}
-      @onChange={{action this.selectFund}}
+      @onChange={{this.selectFund}}
       @triggerId="deposit-fund-select"
       as |fund|
     >

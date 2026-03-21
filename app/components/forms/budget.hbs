@@ -9,12 +9,12 @@
   <div class="budget-subcategory">
     <label for="budget-subcategory-select">Subcategory</label>
     <PowerSelect
-      @search={{action this.updateSubcategorySearch}}
+      @search={{this.updateSubcategorySearch}}
       @searchEnabled={{true}}
       @options={{@subcategories}}
       @searchField="name"
       @selected={{@budget.subcategory}}
-      @onChange={{action this.selectSubcategory}}
+      @onChange={{this.selectSubcategory}}
       @triggerId="budget-subcategory-select"
       as |subcategory|
     >
@@ -26,7 +26,7 @@
     <PowerSelect
       @options={{this.yearOptions}}
       @selected={{@budget.year}}
-      @onChange={{action this.setYear}}
+      @onChange={{this.setYear}}
       @triggerId="budget-year-select"
       as |yearOption|
     >
@@ -38,7 +38,7 @@
     <PowerSelect
       @options={{this.monthOptions}}
       @selected={{this.selectedMonth}}
-      @onChange={{action this.setMonth}}
+      @onChange={{this.setMonth}}
       @triggerId="budget-month-select"
       as |monthOption|
     >

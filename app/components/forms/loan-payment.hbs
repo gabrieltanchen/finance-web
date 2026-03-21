@@ -9,12 +9,12 @@
   <div class="loan-payment-loan-select">
     <label for="loan-payment-loan-select">Loan</label>
     <PowerSelect
-      @search={{action this.updateLoanSearch}}
+      @search={{this.updateLoanSearch}}
       @searchEnabled={{true}}
       @options={{@loans}}
       @searchField="name"
       @selected={{@loanPayment.loan}}
-      @onChange={{action this.selectLoan}}
+      @onChange={{this.selectLoan}}
       @triggerId="loan-payment-loan-select"
       as |loan|
     >
